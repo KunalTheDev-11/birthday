@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mom's Birthday Challenge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Happy Birthday, Mom! 🎉</h1>
+            <p class="subtitle">Can you solve all the challenges to uncover your special reward?</p>
+        </header>
+
+        <main>
+            <div id="game-status">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p id="progress-text">Challenges completed: 0/5</p>
+            </div>
+
+            <section id="challenges">
+                <!-- Challenges will be dynamically inserted here -->
+            </section>
+
+            <div id="reward-section" class="hidden">
+                <h2>Congratulations, Mom! 🎂</h2>
+                <p>You've completed all the challenges! Here's your special birthday reward:</p>
+                <div id="reward-content">
+                    <!-- Reward will be revealed here -->
+                </div>
+                <button id="restart-btn">Play Again</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>Created with love by your child ❤️</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
