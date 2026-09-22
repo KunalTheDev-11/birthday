@@ -1,44 +1,432 @@
-<!DOCTYPE html>
-<html lang="en">
+=<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mom's Birthday Challenge</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Happy Birthday, Mom</title>
+    
+    <!-- Tailwind CSS for layout and typography -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Canvas Confetti for the surprise explosion -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <!-- Premium Google Fonts: Playfair Display (Serif), Inter (Sans), Caveat (Handwriting) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                        handwriting: ['"Caveat"', 'cursive']
+                    },
+                    colors: {
+                        brand: {
+                            sand: '#F7F5F0',     // Background base
+                            forest: '#2C3E2D',   // Uttarakhand section base
+                            earth: '#8B7355',    // Earthy text accents
+                            amber: '#F59E0B',    // Glowing lights
+                            dark: '#1A1A1A',     // Deep text
+                            cozy: '#18120F',     // Blanket fort background
+                        }
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow-pulse': 'glowPulse 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glowPulse: {
+                            '0%': { opacity: 0.7, boxShadow: '0 0 10px 2px rgba(245, 158, 11, 0.4)' },
+                            '100%': { opacity: 1, boxShadow: '0 0 20px 6px rgba(245, 158, 11, 0.8)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F7F5F0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Cinematic Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #1A1A1A;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.5s;
+        }
+        .loader-ring {
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid #D4AF37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* Parallax Hero */
+        .parallax-hero {
+            background-image: url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Intersection Observer Fade Ins */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .reveal-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .reveal-left.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Paper Letter Style */
+        .paper-letter {
+            background: #FFFAF0;
+            background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 100% 2rem;
+            box-shadow: 2px 4px 15px rgba(0,0,0,0.05), inset 0 0 40px rgba(0,0,0,0.02);
+            border-radius: 2px;
+            position: relative;
+        }
+        .paper-letter::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0; left: 2rem;
+            width: 2px;
+            background: rgba(200, 0, 0, 0.2);
+        }
+
+        /* Polaroid Image */
+        .polaroid {
+            background: white;
+            padding: 1rem 1rem 4rem 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 10;
+        }
+
+        /* CSS String Lights */
+        .string-light-wire {
+            position: absolute;
+            top: 0; left: -10%; width: 120%; height: 100px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .bulb {
+            position: absolute;
+            width: 12px; height: 16px;
+            border-radius: 50% 50% 30% 30%;
+            background: #F59E0B;
+            bottom: -8px;
+            box-shadow: 0 0 15px 5px rgba(245, 158, 11, 0.6);
+        }
+        .bulb::before {
+            content: ''; position: absolute;
+            top: -4px; left: 3px; width: 6px; height: 4px;
+            background: #333; border-radius: 2px;
+        }
+
+        /* Image Masking for Editorial Look */
+        .editorial-img {
+            clip-path: polygon(0 0, 100% 5%, 95% 100%, 5% 95%);
+            transition: clip-path 0.5s ease;
+        }
+        .editorial-img:hover {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Happy Birthday, Mom! 🎉</h1>
-            <p class="subtitle">Can you solve all the challenges to uncover your special reward?</p>
-        </header>
+<body class="text-brand-dark antialiased">
 
-        <main>
-            <div id="game-status">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill"></div>
-                </div>
-                <p id="progress-text">Challenges completed: 0/5</p>
-            </div>
-
-            <section id="challenges">
-                <!-- Challenges will be dynamically inserted here -->
-            </section>
-
-            <div id="reward-section" class="hidden">
-                <h2>Congratulations, Mom! 🎂</h2>
-                <p>You've completed all the challenges! Here's your special birthday reward:</p>
-                <div id="reward-content">
-                    <!-- Reward will be revealed here -->
-                </div>
-                <button id="restart-btn">Play Again</button>
-            </div>
-        </main>
-
-        <footer>
-            <p>Created with love by your child ❤️</p>
-        </footer>
+    <!-- Loader -->
+    <div id="loader">
+        <div class="loader-ring mb-8"></div>
+        <h2 class="font-serif text-2xl text-white tracking-[0.2em] uppercase font-light">Celebrating You</h2>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen w-full flex items-center justify-center parallax-hero overflow-hidden">
+        <!-- Dark overlay for readability -->
+        <div class="absolute inset-0 bg-black/30"></div>
+        
+        <!-- Glassmorphism Card -->
+        <div class="glass relative z-10 p-10 md:p-16 max-w-3xl mx-4 text-center rounded-2xl reveal-up">
+            <p class="font-sans text-xs md:text-sm tracking-[0.4em] text-white/80 uppercase mb-4 md:mb-6">A Journey of Love & Grace</p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-medium leading-tight mb-4 text-shadow-lg">
+                Happy Birthday, <br/> 
+                <span class="italic text-[#F7F5F0]">Mom</span>
+            </h1>
+            <div class="w-12 h-[2px] bg-white/50 mx-auto my-6"></div>
+            <p class="font-sans text-white/90 text-sm md:text-lg max-w-xl mx-auto font-light leading-relaxed">
+                To the woman who fills our world with warmth, beauty, and unwavering love. Today, we celebrate the masterpiece that is your life.
+            </p>
+        </div>
+
+        <a href="#letter" class="absolute bottom-10 z-10 text-white/70 hover:text-white transition-colors duration-300 animate-float cursor-pointer flex flex-col items-center">
+            <span class="font-sans text-[10px] tracking-widest uppercase mb-2">Scroll to explore</span>
+            <i class="fa-solid fa-chevron-down text-sm"></i>
+        </a>
+    </header>
+
+    <main>
+        <!-- The Letter Section -->
+        <section id="letter" class="py-24 md:py-40 px-6 bg-brand-sand">
+            <div class="max-w-4xl mx-auto reveal-up">
+                <div class="paper-letter p-10 md:p-16 md:pl-24">
+                    <h2 class="font-serif text-4xl md:text-5xl text-brand-dark mb-10 mt-4 leading-relaxed">My Dearest Mom,</h2>
+                    
+                    <div class="font-sans text-lg md:text-xl leading-[2rem] text-brand-dark/80 space-y-8 font-light">
+                        <p class="first-letter:text-6xl first-letter:font-serif first-letter:text-brand-earth first-letter:float-left first-letter:mr-4 first-letter:-mt-2">
+                            How do you put a lifetime of gratitude into a single letter? You have always been our north star. Through every season of life, your elegance, patience, and boundless love have guided us. You taught us to find beauty in the little things and strength in each other.
+                        </p>
+                        <p>
+                            From the quiet sacrifices you made without a whisper of complaint, to the joyous laughter that echoes through our home—you are the heartbeat of our family. This website is just a small token of our immense appreciation. We wanted to create something as beautiful and timeless as the memories you've given us.
+                        </p>
+                        <p>
+                            Thank you for being our mother, our confidant, and our greatest inspiration. We hope today brings you as much happiness as you've freely given to the world.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-16 text-right">
+                        <p class="font-sans text-xs tracking-[0.2em] uppercase text-brand-dark/50 mb-4">Forever your boys,</p>
+                        <p class="font-handwriting text-5xl md:text-6xl text-brand-dark transform -rotate-2 inline-block">
+                            Kunal & Vansh
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cozy Memories Section -->
+        <section class="py-24 md:py-32 px-6 bg-brand-cozy relative overflow-hidden">
+            <!-- Dynamic CSS String Lights -->
+            <div class="string-light-wire top-[5%] md:top-[10%] transform -rotate-3">
+                <div class="bulb animate-glow-pulse left-[10%]" style="animation-delay: 0.1s"></div>
+                <div class="bulb animate-glow-pulse left-[25%]" style="animation-delay: 0.5s"></div>
+                <div class="bulb animate-glow-pulse left-[40%]" style="animation-delay: 0.2s"></div>
+                <div class="bulb animate-glow-pulse left-[55%]" style="animation-delay: 0.7s"></div>
+                <div class="bulb animate-glow-pulse left-[70%]" style="animation-delay: 0.3s"></div>
+                <div class="bulb animate-glow-pulse left-[85%]" style="animation-delay: 0.8s"></div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="text-center mb-20 reveal-up">
+                    <p class="font-sans text-brand-amber text-xs tracking-[0.3em] uppercase mb-4">The Comfort of Home</p>
+                    <h2 class="font-serif text-5xl md:text-6xl text-white font-medium mb-6">Blanket Forts & <span class="italic text-white/70">String Lights</span></h2>
+                    <p class="font-sans text-white/60 max-w-2xl mx-auto font-light leading-relaxed">
+                        Beyond the grand trips, it's the quiet evenings we treasure most. The magical sanctuaries built from dining chairs and thick quilts, illuminated by the warm amber glow of fairy lights. Our safe haven, curated by you.
+                    </p>
+                </div>
+
+                <!-- Polaroid Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 px-4 md:px-10">
+                    <div class="polaroid reveal-up transform -rotate-3">
+                        <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="String Lights" class="w-full aspect-square object-cover mb-4">
+                        <p class="font-handwriting text-2xl text-center text-brand-dark absolute bottom-4 left-0 right-0">Those glowing nights</p>
+                    </div>
+                    <div class="polaroid reveal-up transform rotate-2 md:mt-12" style="transition-delay: 200ms;">
+                        <img src="https://images.unsplash.com/photo-1515002246390-7bf7e82ac242?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cozy Blanket" class="w-full aspect-square object-cover mb-4">
+                        <p class="font-handwriting text-2xl text-center text-brand-dark absolute bottom-4 left-0 right-0">Warmest memories</p>
+                    </div>
+                    <div class="polaroid reveal-up transform -rotate-1 md:-mt-8" style="transition-delay: 400ms;">
+                        <img src="https://images.unsplash.com/photo-1490237190479-7c8584742a73?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Warm Drink" class="w-full aspect-square object-cover mb-4">
+                        <p class="font-handwriting text-2xl text-center text-brand-dark absolute bottom-4 left-0 right-0">Stories shared</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Adventures Section -->
+        <section class="py-24 md:py-40 px-6 bg-brand-forest text-brand-sand">
+            <div class="max-w-7xl mx-auto">
+                
+                <div class="text-center mb-20 reveal-up">
+                    <p class="font-sans text-brand-sand/60 text-xs tracking-[0.3em] uppercase mb-4">The Great Outdoors</p>
+                    <h2 class="font-serif text-5xl md:text-7xl font-medium mb-6">Our Adventures</h2>
+                    <div class="w-12 h-[1px] bg-brand-sand/30 mx-auto"></div>
+                </div>
+
+                <!-- Editorial Layout for Uttarakhand & Jim Corbett -->
+                <div class="flex flex-col md:flex-row items-center gap-16 md:gap-24">
+                    <!-- Text Side -->
+                    <div class="w-full md:w-1/2 reveal-left">
+                        <h3 class="font-serif text-3xl md:text-4xl mb-6 text-white leading-snug">
+                            Uttarakhand & <br/><span class="italic text-brand-earth">Jim Corbett National Park</span>
+                        </h3>
+                        <div class="font-sans text-brand-sand/80 space-y-6 font-light leading-relaxed text-lg">
+                            <p>
+                                Do you remember the crisp mountain air hitting our faces? The lush greens of the Himalayas unfolding before us like a majestic painting? Uttarakhand was more than just a destination; it was a canvas where we painted some of our boldest family memories.
+                            </p>
+                            <p>
+                                And the thrill of Jim Corbett! Waking up before dawn, wrapped in layers, bouncing along dusty trails in the gypsy, holding our breath at every snapping twig, hoping to spot a tiger. You taught us to respect nature's wild beauty and to embrace the thrill of the unknown.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Images Side -->
+                    <div class="w-full md:w-1/2 relative reveal-up" style="transition-delay: 200ms;">
+                        <!-- Primary Image (Mountains) -->
+                        <div class="w-full aspect-[4/5] relative z-10 editorial-img overflow-hidden border-8 border-brand-sand/5">
+                            <img src="https://images.unsplash.com/photo-1542224566-6e85f2e6772f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Uttarakhand Mountains" class="w-full h-full object-cover">
+                        </div>
+                        <!-- Secondary Image (Forest/Safari) Overlapping -->
+                        <div class="absolute -bottom-12 -left-8 md:-left-16 w-2/3 aspect-square z-20 editorial-img overflow-hidden border-8 border-brand-forest shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1602167634289-49c04a085b30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jim Corbett Forest" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-16 bg-brand-dark text-center border-t border-white/10">
+        <h2 class="font-serif text-3xl md:text-4xl text-white mb-6">Happy Birthday, Mom!</h2>
+        <p class="font-sans text-white/50 text-sm tracking-widest uppercase mb-2">Designed with love by</p>
+        <p class="font-serif text-xl italic text-brand-earth">Kunal & Vansh</p>
+    </footer>
+
+    <!-- Interactive Surprise Button -->
+    <button id="surpriseBtn" class="fixed bottom-8 right-8 md:bottom-12 md:right-12 z-50 bg-brand-dark text-white border border-brand-earth/50 rounded-full px-6 py-4 shadow-[0_0_20px_rgba(139,115,85,0.3)] hover:bg-brand-earth hover:scale-105 transition-all duration-300 group flex items-center gap-3">
+        <i class="fa-solid fa-gift text-brand-earth group-hover:text-white transition-colors"></i>
+        <span class="font-sans text-xs uppercase tracking-widest font-medium">Surprise</span>
+    </button>
+
+    <script>
+        // Cinematic Loading Screen Logic
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            // Give it a brief moment to ensure all initial rendering is done, adding to cinematic feel
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.visibility = 'hidden';
+                    loader.style.display = 'none';
+                }, 1500); // Matches transition duration
+            }, 800);
+        });
+
+        // Intersection Observer for Scroll Reveal Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 // Trigger when 15% of element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all elements with reveal classes
+            document.querySelectorAll('.reveal-up, .reveal-left').forEach((element) => {
+                observer.observe(element);
+            });
+        });
+
+        // Interactive Surprise Button (Canvas Confetti)
+        const surpriseBtn = document.getElementById('surpriseBtn');
+        
+        surpriseBtn.addEventListener('click', () => {
+            // Elegant Confetti Palette (Gold, Rose Gold, Off-white, Dark Green)
+            const premiumColors = ['#D4AF37', '#B76E79', '#F7F5F0', '#2C3E2D']; 
+
+            // Helper for realistic fireworks effect
+            const duration = 3000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: premiumColors,
+                    zIndex: 9999
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: premiumColors,
+                    zIndex: 9999
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+
+            // Central large burst
+            setTimeout(() => {
+                confetti({
+                    particleCount: 150,
+                    spread: 100,
+                    origin: { y: 0.6 },
+                    colors: premiumColors,
+                    zIndex: 9999,
+                    disableForReducedMotion: true
+                });
+            }, 500);
+        });
+    </script>
 </body>
 </html>
