@@ -1,432 +1,402 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, Mom</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Mom!</title>
     
-    <!-- Tailwind CSS for layout and typography -->
+    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Canvas Confetti for the surprise explosion -->
+    <!-- Canvas Confetti for the massive explosion -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
-    <!-- Premium Google Fonts: Playfair Display (Serif), Inter (Sans), Caveat (Handwriting) -->
+    <!-- Fun, playful Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome for cute icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['"Inter"', 'sans-serif'],
-                        handwriting: ['"Caveat"', 'cursive']
-                    },
-                    colors: {
-                        brand: {
-                            sand: '#F7F5F0',     // Background base
-                            forest: '#2C3E2D',   // Uttarakhand section base
-                            earth: '#8B7355',    // Earthy text accents
-                            amber: '#F59E0B',    // Glowing lights
-                            dark: '#1A1A1A',     // Deep text
-                            cozy: '#18120F',     // Blanket fort background
-                        }
-                    },
-                    animation: {
-                        'spin-slow': 'spin 8s linear infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'glow-pulse': 'glowPulse 2s ease-in-out infinite alternate',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        glowPulse: {
-                            '0%': { opacity: 0.7, boxShadow: '0 0 10px 2px rgba(245, 158, 11, 0.4)' },
-                            '100%': { opacity: 1, boxShadow: '0 0 20px 6px rgba(245, 158, 11, 0.8)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
 
     <style>
         body {
-            background-color: #F7F5F0;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Fredoka', sans-serif;
+            overflow: hidden; /* Prevent scrollbars during animations */
+            touch-action: manipulation;
         }
 
-        /* Cinematic Loader */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #1A1A1A;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.5s;
+        /* Bouncy Animation for Cake & Buttons */
+        .bouncy {
+            animation: bounce 2s infinite ease-in-out;
         }
-        .loader-ring {
-            width: 60px;
-            height: 60px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-top: 1px solid #D4AF37;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        /* Glassmorphism */
-        .glass {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-        }
-
-        /* Parallax Hero */
-        .parallax-hero {
-            background-image: url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        /* Intersection Observer Fade Ins */
-        .reveal-up {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .reveal-up.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        /* Kit Kat Cake CSS Construction */
+        .kitkat-cake-base {
+            background-color: #e53935; /* Kit Kat Red */
+            background-image: repeating-linear-gradient(
+                90deg, 
+                transparent, 
+                transparent 25px, 
+                rgba(0,0,0,0.3) 25px, 
+                rgba(0,0,0,0.3) 30px
+            );
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.4), 0 15px 25px rgba(0,0,0,0.2);
         }
         
-        .reveal-left {
+        /* Candle Flame Animation */
+        .flame {
+            animation: flicker 0.5s infinite alternate;
+            box-shadow: 0 0 20px #fbbf24, 0 0 40px #f59e0b;
+        }
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
+            100% { transform: scale(1.1) rotate(2deg); opacity: 1; }
+        }
+
+        /* Squishy Button Effect */
+        .btn-squish {
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-squish:active {
+            transform: scale(0.92) translateY(4px);
+            box-shadow: 0 0px 0px rgba(0,0,0,0.2);
+        }
+
+        /* Blanket Fort String Lights */
+        .string-lights {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            pointer-events: none;
             opacity: 0;
-            transform: translateX(-50px);
-            transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: opacity 1s ease;
+            z-index: 40;
         }
-        .reveal-left.is-visible {
+        .fort-mode-active .string-lights {
             opacity: 1;
-            transform: translateX(0);
         }
-
-        /* Paper Letter Style */
-        .paper-letter {
-            background: #FFFAF0;
-            background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
-            background-size: 100% 2rem;
-            box-shadow: 2px 4px 15px rgba(0,0,0,0.05), inset 0 0 40px rgba(0,0,0,0.02);
-            border-radius: 2px;
-            position: relative;
-        }
-        .paper-letter::before {
-            content: '';
+        .wire {
             position: absolute;
-            top: 0; bottom: 0; left: 2rem;
-            width: 2px;
-            background: rgba(200, 0, 0, 0.2);
-        }
-
-        /* Polaroid Image */
-        .polaroid {
-            background: white;
-            padding: 1rem 1rem 4rem 1rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-        }
-        .polaroid:hover {
-            transform: scale(1.05) rotate(0deg) !important;
-            z-index: 10;
-        }
-
-        /* CSS String Lights */
-        .string-light-wire {
-            position: absolute;
-            top: 0; left: -10%; width: 120%; height: 100px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            top: 40px;
+            left: -10%;
+            width: 120%;
+            height: 80px;
+            border-bottom: 2px solid #333;
             border-radius: 50%;
-            z-index: 1;
         }
         .bulb {
             position: absolute;
-            width: 12px; height: 16px;
+            width: 16px;
+            height: 24px;
             border-radius: 50% 50% 30% 30%;
-            background: #F59E0B;
-            bottom: -8px;
-            box-shadow: 0 0 15px 5px rgba(245, 158, 11, 0.6);
+            background: #fcd34d;
+            box-shadow: 0 0 20px 8px rgba(252, 211, 77, 0.6);
+            animation: glow 1.5s infinite alternate;
         }
         .bulb::before {
             content: ''; position: absolute;
-            top: -4px; left: 3px; width: 6px; height: 4px;
-            background: #333; border-radius: 2px;
+            top: -6px; left: 4px; width: 8px; height: 6px;
+            background: #222; border-radius: 2px;
+        }
+        @keyframes glow {
+            0% { opacity: 0.6; box-shadow: 0 0 10px 4px rgba(252, 211, 77, 0.4); }
+            100% { opacity: 1; box-shadow: 0 0 25px 10px rgba(252, 211, 77, 0.8); }
         }
 
-        /* Image Masking for Editorial Look */
-        .editorial-img {
-            clip-path: polygon(0 0, 100% 5%, 95% 100%, 5% 95%);
-            transition: clip-path 0.5s ease;
+        /* Domino Animation */
+        #domino-track {
+            perspective: 1000px;
         }
-        .editorial-img:hover {
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        .domino-piece {
+            width: 30px;
+            height: 80px;
+            border-radius: 4px;
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.5, 0, 0.8, 0.2);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            display: inline-block;
+            margin: 0 5px;
+        }
+        .domino-piece.fall {
+            transform: rotate(75deg);
+        }
+
+        /* Safari Animations */
+        .jeep {
+            animation: driveAcross 4s linear forwards;
+        }
+        .tiger {
+            animation: popUpTiger 3s ease-in-out forwards;
+        }
+        @keyframes driveAcross {
+            0% { transform: translateX(-150px) rotate(-2deg); }
+            20% { transform: translateX(20vw) rotate(1deg); }
+            40% { transform: translateX(50vw) rotate(-1deg); }
+            60% { transform: translateX(80vw) rotate(2deg); }
+            100% { transform: translateX(120vw) rotate(0deg); }
+        }
+        @keyframes popUpTiger {
+            0% { transform: translateY(150px) scale(0.5); opacity: 0; }
+            20% { transform: translateY(0) scale(1.2) rotate(-10deg); opacity: 1; }
+            25% { transform: translateY(0) scale(1) rotate(10deg); }
+            30% { transform: translateY(0) scale(1.1) rotate(0deg); }
+            80% { transform: translateY(0) scale(1.1); opacity: 1; }
+            100% { transform: translateY(150px) scale(0.5); opacity: 0; }
         }
     </style>
 </head>
-<body class="text-brand-dark antialiased">
 
-    <!-- Loader -->
-    <div id="loader">
-        <div class="loader-ring mb-8"></div>
-        <h2 class="font-serif text-2xl text-white tracking-[0.2em] uppercase font-light">Celebrating You</h2>
-    </div>
-
-    <!-- Hero Section -->
-    <header class="relative h-screen w-full flex items-center justify-center parallax-hero overflow-hidden">
-        <!-- Dark overlay for readability -->
-        <div class="absolute inset-0 bg-black/30"></div>
+<body class="antialiased">
+    
+    <!-- Main App Wrapper (handles theme changes) -->
+    <div id="app" class="relative w-full h-screen bg-pink-100 text-slate-800 transition-colors duration-1000 flex flex-col items-center justify-between py-10 px-4">
         
-        <!-- Glassmorphism Card -->
-        <div class="glass relative z-10 p-10 md:p-16 max-w-3xl mx-4 text-center rounded-2xl reveal-up">
-            <p class="font-sans text-xs md:text-sm tracking-[0.4em] text-white/80 uppercase mb-4 md:mb-6">A Journey of Love & Grace</p>
-            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-medium leading-tight mb-4 text-shadow-lg">
-                Happy Birthday, <br/> 
-                <span class="italic text-[#F7F5F0]">Mom</span>
+        <!-- String Lights (Hidden by default, shown in Fort Mode) -->
+        <div class="string-lights">
+            <div class="wire">
+                <div class="bulb top-[76px] left-[10%]" style="animation-delay: 0s; transform: rotate(-10deg)"></div>
+                <div class="bulb top-[80px] left-[30%]" style="animation-delay: 0.5s; transform: rotate(5deg)"></div>
+                <div class="bulb top-[78px] left-[50%]" style="animation-delay: 0.2s; transform: rotate(-5deg)"></div>
+                <div class="bulb top-[80px] left-[70%]" style="animation-delay: 0.7s; transform: rotate(10deg)"></div>
+                <div class="bulb top-[76px] left-[90%]" style="animation-delay: 0.4s; transform: rotate(-8deg)"></div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="text-center z-10 mt-8">
+            <h1 id="mainTitle" class="text-5xl md:text-7xl font-bold text-pink-500 drop-shadow-md mb-2 transition-colors duration-1000">
+                Happy Birthday!
             </h1>
-            <div class="w-12 h-[2px] bg-white/50 mx-auto my-6"></div>
-            <p class="font-sans text-white/90 text-sm md:text-lg max-w-xl mx-auto font-light leading-relaxed">
-                To the woman who fills our world with warmth, beauty, and unwavering love. Today, we celebrate the masterpiece that is your life.
+            <p id="subTitle" class="text-xl md:text-2xl font-semibold text-slate-600 transition-colors duration-1000">
+                To the funnest Mom ever 💖
             </p>
         </div>
 
-        <a href="#letter" class="absolute bottom-10 z-10 text-white/70 hover:text-white transition-colors duration-300 animate-float cursor-pointer flex flex-col items-center">
-            <span class="font-sans text-[10px] tracking-widest uppercase mb-2">Scroll to explore</span>
-            <i class="fa-solid fa-chevron-down text-sm"></i>
-        </a>
-    </header>
-
-    <main>
-        <!-- The Letter Section -->
-        <section id="letter" class="py-24 md:py-40 px-6 bg-brand-sand">
-            <div class="max-w-4xl mx-auto reveal-up">
-                <div class="paper-letter p-10 md:p-16 md:pl-24">
-                    <h2 class="font-serif text-4xl md:text-5xl text-brand-dark mb-10 mt-4 leading-relaxed">My Dearest Mom,</h2>
-                    
-                    <div class="font-sans text-lg md:text-xl leading-[2rem] text-brand-dark/80 space-y-8 font-light">
-                        <p class="first-letter:text-6xl first-letter:font-serif first-letter:text-brand-earth first-letter:float-left first-letter:mr-4 first-letter:-mt-2">
-                            How do you put a lifetime of gratitude into a single letter? You have always been our north star. Through every season of life, your elegance, patience, and boundless love have guided us. You taught us to find beauty in the little things and strength in each other.
-                        </p>
-                        <p>
-                            From the quiet sacrifices you made without a whisper of complaint, to the joyous laughter that echoes through our home—you are the heartbeat of our family. This website is just a small token of our immense appreciation. We wanted to create something as beautiful and timeless as the memories you've given us.
-                        </p>
-                        <p>
-                            Thank you for being our mother, our confidant, and our greatest inspiration. We hope today brings you as much happiness as you've freely given to the world.
-                        </p>
-                    </div>
-                    
-                    <div class="mt-16 text-right">
-                        <p class="font-sans text-xs tracking-[0.2em] uppercase text-brand-dark/50 mb-4">Forever your boys,</p>
-                        <p class="font-handwriting text-5xl md:text-6xl text-brand-dark transform -rotate-2 inline-block">
-                            Kunal & Vansh
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Cozy Memories Section -->
-        <section class="py-24 md:py-32 px-6 bg-brand-cozy relative overflow-hidden">
-            <!-- Dynamic CSS String Lights -->
-            <div class="string-light-wire top-[5%] md:top-[10%] transform -rotate-3">
-                <div class="bulb animate-glow-pulse left-[10%]" style="animation-delay: 0.1s"></div>
-                <div class="bulb animate-glow-pulse left-[25%]" style="animation-delay: 0.5s"></div>
-                <div class="bulb animate-glow-pulse left-[40%]" style="animation-delay: 0.2s"></div>
-                <div class="bulb animate-glow-pulse left-[55%]" style="animation-delay: 0.7s"></div>
-                <div class="bulb animate-glow-pulse left-[70%]" style="animation-delay: 0.3s"></div>
-                <div class="bulb animate-glow-pulse left-[85%]" style="animation-delay: 0.8s"></div>
-            </div>
+        <!-- Center: CSS Kit Kat Cake & Big Button -->
+        <div class="flex flex-col items-center z-10 mt-10">
             
-            <div class="max-w-7xl mx-auto relative z-10">
-                <div class="text-center mb-20 reveal-up">
-                    <p class="font-sans text-brand-amber text-xs tracking-[0.3em] uppercase mb-4">The Comfort of Home</p>
-                    <h2 class="font-serif text-5xl md:text-6xl text-white font-medium mb-6">Blanket Forts & <span class="italic text-white/70">String Lights</span></h2>
-                    <p class="font-sans text-white/60 max-w-2xl mx-auto font-light leading-relaxed">
-                        Beyond the grand trips, it's the quiet evenings we treasure most. The magical sanctuaries built from dining chairs and thick quilts, illuminated by the warm amber glow of fairy lights. Our safe haven, curated by you.
-                    </p>
-                </div>
-
-                <!-- Polaroid Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 px-4 md:px-10">
-                    <div class="polaroid reveal-up transform -rotate-3">
-                        <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="String Lights" class="w-full aspect-square object-cover mb-4">
-                        <p class="font-handwriting text-2xl text-center text-brand-dark absolute bottom-4 left-0 right-0">Those glowing nights</p>
-                    </div>
-                    <div class="polaroid reveal-up transform rotate-2 md:mt-12" style="transition-delay: 200ms;">
-                        <img src="https://images.unsplash.com/photo-1515002246390-7bf7e82ac242?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cozy Blanket" class="w-full aspect-square object-cover mb-4">
-                        <p class="font-handwriting text-2xl text-center text-brand-dark absolute bottom-4 left-0 right-0">Warmest memories</p>
-                    </div>
-                    <div class="polaroid reveal-up transform -rotate-1 md:-mt-8" style="transition-delay: 400ms;">
-                        <img src="https://images.unsplash.com/photo-1490237190479-7c8584742a73?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Warm Drink" class="w-full aspect-square object-cover mb-4">
-                        <p class="font-handwriting text-2xl text-center text-brand-dark absolute bottom-4 left-0 right-0">Stories shared</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Our Adventures Section -->
-        <section class="py-24 md:py-40 px-6 bg-brand-forest text-brand-sand">
-            <div class="max-w-7xl mx-auto">
+            <!-- CSS Cake -->
+            <div class="relative w-64 h-40 bouncy mb-12">
+                <!-- Cake Base (Kit Kats) -->
+                <div class="absolute bottom-0 w-full h-32 kitkat-cake-base rounded-xl border-4 border-[#b71c1c]"></div>
                 
-                <div class="text-center mb-20 reveal-up">
-                    <p class="font-sans text-brand-sand/60 text-xs tracking-[0.3em] uppercase mb-4">The Great Outdoors</p>
-                    <h2 class="font-serif text-5xl md:text-7xl font-medium mb-6">Our Adventures</h2>
-                    <div class="w-12 h-[1px] bg-brand-sand/30 mx-auto"></div>
+                <!-- Chocolate Top Layer -->
+                <div class="absolute top-4 left-0 w-full h-16 bg-[#4e342e] rounded-[50%] border-4 border-[#3e2723] shadow-inner flex items-center justify-center overflow-hidden">
+                    <!-- Colorful Gems/M&Ms on top -->
+                    <div class="absolute w-5 h-5 rounded-full bg-blue-400 border-2 border-blue-600 top-2 left-12 transform rotate-12"></div>
+                    <div class="absolute w-5 h-5 rounded-full bg-yellow-400 border-2 border-yellow-600 top-8 left-24 transform -rotate-12"></div>
+                    <div class="absolute w-5 h-5 rounded-full bg-green-400 border-2 border-green-600 top-4 right-16"></div>
+                    <div class="absolute w-5 h-5 rounded-full bg-purple-400 border-2 border-purple-600 top-7 right-8 transform rotate-45"></div>
                 </div>
 
-                <!-- Editorial Layout for Uttarakhand & Jim Corbett -->
-                <div class="flex flex-col md:flex-row items-center gap-16 md:gap-24">
-                    <!-- Text Side -->
-                    <div class="w-full md:w-1/2 reveal-left">
-                        <h3 class="font-serif text-3xl md:text-4xl mb-6 text-white leading-snug">
-                            Uttarakhand & <br/><span class="italic text-brand-earth">Jim Corbett National Park</span>
-                        </h3>
-                        <div class="font-sans text-brand-sand/80 space-y-6 font-light leading-relaxed text-lg">
-                            <p>
-                                Do you remember the crisp mountain air hitting our faces? The lush greens of the Himalayas unfolding before us like a majestic painting? Uttarakhand was more than just a destination; it was a canvas where we painted some of our boldest family memories.
-                            </p>
-                            <p>
-                                And the thrill of Jim Corbett! Waking up before dawn, wrapped in layers, bouncing along dusty trails in the gypsy, holding our breath at every snapping twig, hoping to spot a tiger. You taught us to respect nature's wild beauty and to embrace the thrill of the unknown.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <!-- Images Side -->
-                    <div class="w-full md:w-1/2 relative reveal-up" style="transition-delay: 200ms;">
-                        <!-- Primary Image (Mountains) -->
-                        <div class="w-full aspect-[4/5] relative z-10 editorial-img overflow-hidden border-8 border-brand-sand/5">
-                            <img src="https://images.unsplash.com/photo-1542224566-6e85f2e6772f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Uttarakhand Mountains" class="w-full h-full object-cover">
-                        </div>
-                        <!-- Secondary Image (Forest/Safari) Overlapping -->
-                        <div class="absolute -bottom-12 -left-8 md:-left-16 w-2/3 aspect-square z-20 editorial-img overflow-hidden border-8 border-brand-forest shadow-2xl">
-                            <img src="https://images.unsplash.com/photo-1602167634289-49c04a085b30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jim Corbett Forest" class="w-full h-full object-cover">
-                        </div>
-                    </div>
+                <!-- Candle -->
+                <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-4 h-16 bg-white border-2 border-slate-300 rounded-sm">
+                    <div class="w-full h-full bg-repeating-linear-gradient(45deg, transparent, transparent 5px, text-red-500 5px, text-red-500 10px)"></div>
+                    <!-- Flame -->
+                    <div class="absolute -top-8 -left-1 w-6 h-8 bg-yellow-400 rounded-[50%_50%_50%_50%_/_60%_60%_40%_40%] flame"></div>
                 </div>
-
             </div>
-        </section>
-    </main>
 
-    <!-- Footer -->
-    <footer class="py-16 bg-brand-dark text-center border-t border-white/10">
-        <h2 class="font-serif text-3xl md:text-4xl text-white mb-6">Happy Birthday, Mom!</h2>
-        <p class="font-sans text-white/50 text-sm tracking-widest uppercase mb-2">Designed with love by</p>
-        <p class="font-serif text-xl italic text-brand-earth">Kunal & Vansh</p>
-    </footer>
+            <!-- Big Confetti Button -->
+            <button id="confettiBtn" class="btn-squish bg-gradient-to-r from-pink-400 to-purple-500 text-white font-bold text-2xl py-4 px-10 rounded-full shadow-[0_8px_0_#9d174d] hover:brightness-110 active:shadow-[0_0px_0_#9d174d] flex items-center gap-3 border-4 border-white">
+                <span>Make a Wish!</span> 
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </button>
+        </div>
 
-    <!-- Interactive Surprise Button -->
-    <button id="surpriseBtn" class="fixed bottom-8 right-8 md:bottom-12 md:right-12 z-50 bg-brand-dark text-white border border-brand-earth/50 rounded-full px-6 py-4 shadow-[0_0_20px_rgba(139,115,85,0.3)] hover:bg-brand-earth hover:scale-105 transition-all duration-300 group flex items-center gap-3">
-        <i class="fa-solid fa-gift text-brand-earth group-hover:text-white transition-colors"></i>
-        <span class="font-sans text-xs uppercase tracking-widest font-medium">Surprise</span>
-    </button>
+        <!-- Fun Modes Control Panel -->
+        <div class="w-full max-w-2xl bg-white/50 backdrop-blur-sm rounded-3xl p-4 shadow-lg border-2 border-white z-20 flex flex-wrap justify-center gap-3 md:gap-6 mb-4 transition-colors duration-1000" id="controlPanel">
+            
+            <button id="btnFort" class="btn-squish flex-1 min-w-[120px] bg-indigo-500 text-white rounded-2xl py-3 px-2 font-semibold shadow-[0_6px_0_#3730a3] flex flex-col items-center justify-center gap-1 border-2 border-indigo-300 hover:bg-indigo-400 active:shadow-none">
+                <i class="fa-solid fa-campground text-xl mb-1"></i>
+                <span class="text-sm md:text-base leading-tight">Blanket Fort</span>
+            </button>
+
+            <button id="btnDomino" class="btn-squish flex-1 min-w-[120px] bg-emerald-500 text-white rounded-2xl py-3 px-2 font-semibold shadow-[0_6px_0_#065f46] flex flex-col items-center justify-center gap-1 border-2 border-emerald-300 hover:bg-emerald-400 active:shadow-none">
+                <i class="fa-solid fa-cubes text-xl mb-1"></i>
+                <span class="text-sm md:text-base leading-tight">Dominoes</span>
+            </button>
+
+            <button id="btnSafari" class="btn-squish flex-1 min-w-[120px] bg-amber-500 text-white rounded-2xl py-3 px-2 font-semibold shadow-[0_6px_0_#b45309] flex flex-col items-center justify-center gap-1 border-2 border-amber-300 hover:bg-amber-400 active:shadow-none">
+                <i class="fa-solid fa-binoculars text-xl mb-1"></i>
+                <span class="text-sm md:text-base leading-tight">Jim Corbett</span>
+            </button>
+        </div>
+
+        <!-- Domino Track Overlay -->
+        <div id="dominoOverlay" class="fixed inset-0 pointer-events-none hidden flex items-center justify-center z-30 overflow-hidden">
+            <div id="domino-track" class="flex items-end justify-center w-full px-4 pt-40">
+                <!-- Domino pieces injected by JS -->
+            </div>
+        </div>
+
+        <!-- Safari Overlay -->
+        <div id="safariOverlay" class="fixed bottom-32 left-0 w-full h-40 pointer-events-none hidden z-30 overflow-hidden">
+            <div class="relative w-full h-full">
+                <!-- Trees/Bushes -->
+                <div class="absolute bottom-0 left-[20%] text-5xl">🌴</div>
+                <div class="absolute bottom-0 left-[60%] text-6xl">🌲</div>
+                <div class="absolute bottom-0 left-[80%] text-4xl">🌿</div>
+                
+                <!-- Animated Elements -->
+                <div class="tiger absolute bottom-2 left-[50%] text-7xl z-10">🐅</div>
+                <div class="jeep absolute bottom-0 left-0 text-7xl z-20 drop-shadow-xl">🚙</div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Cinematic Loading Screen Logic
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            // Give it a brief moment to ensure all initial rendering is done, adding to cinematic feel
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.visibility = 'hidden';
-                    loader.style.display = 'none';
-                }, 1500); // Matches transition duration
-            }, 800);
-        });
+        // DOM Elements
+        const app = document.getElementById('app');
+        const title = document.getElementById('mainTitle');
+        const subtitle = document.getElementById('subTitle');
+        const panel = document.getElementById('controlPanel');
+        
+        const btnConfetti = document.getElementById('confettiBtn');
+        const btnFort = document.getElementById('btnFort');
+        const btnDomino = document.getElementById('btnDomino');
+        const btnSafari = document.getElementById('btnSafari');
 
-        // Intersection Observer for Scroll Reveal Animations
-        document.addEventListener('DOMContentLoaded', () => {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15 // Trigger when 15% of element is visible
-            };
+        let isFortMode = false;
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target); // Only animate once
-                    }
-                });
-            }, observerOptions);
+        // 1. Massive Confetti Button
+        btnConfetti.addEventListener('click', () => {
+            // Create a massive explosion
+            const duration = 3 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
 
-            // Observe all elements with reveal classes
-            document.querySelectorAll('.reveal-up, .reveal-left').forEach((element) => {
-                observer.observe(element);
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+                // Fire from multiple spots
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+            
+            // Middle big burst
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { y: 0.6 },
+                colors: ['#f472b6', '#c084fc', '#fcd34d', '#34d399', '#ef4444'],
+                zIndex: 100
             });
         });
 
-        // Interactive Surprise Button (Canvas Confetti)
-        const surpriseBtn = document.getElementById('surpriseBtn');
-        
-        surpriseBtn.addEventListener('click', () => {
-            // Elegant Confetti Palette (Gold, Rose Gold, Off-white, Dark Green)
-            const premiumColors = ['#D4AF37', '#B76E79', '#F7F5F0', '#2C3E2D']; 
-
-            // Helper for realistic fireworks effect
-            const duration = 3000;
-            const end = Date.now() + duration;
-
-            (function frame() {
-                confetti({
-                    particleCount: 5,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: premiumColors,
-                    zIndex: 9999
-                });
-                confetti({
-                    particleCount: 5,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: premiumColors,
-                    zIndex: 9999
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            }());
-
-            // Central large burst
-            setTimeout(() => {
-                confetti({
-                    particleCount: 150,
-                    spread: 100,
-                    origin: { y: 0.6 },
-                    colors: premiumColors,
-                    zIndex: 9999,
-                    disableForReducedMotion: true
-                });
-            }, 500);
+        // 2. Blanket Fort Mode
+        btnFort.addEventListener('click', () => {
+            isFortMode = !isFortMode;
+            
+            if(isFortMode) {
+                // Dark theme
+                app.classList.remove('bg-pink-100');
+                app.classList.add('bg-slate-900', 'fort-mode-active');
+                
+                title.classList.remove('text-pink-500');
+                title.classList.add('text-amber-300');
+                
+                subtitle.classList.remove('text-slate-600');
+                subtitle.classList.add('text-slate-300');
+                
+                panel.classList.remove('bg-white/50', 'border-white');
+                panel.classList.add('bg-slate-800/80', 'border-slate-700');
+            } else {
+                // Light Theme
+                app.classList.add('bg-pink-100');
+                app.classList.remove('bg-slate-900', 'fort-mode-active');
+                
+                title.classList.add('text-pink-500');
+                title.classList.remove('text-amber-300');
+                
+                subtitle.classList.add('text-slate-600');
+                subtitle.classList.remove('text-slate-300');
+                
+                panel.classList.add('bg-white/50', 'border-white');
+                panel.classList.remove('bg-slate-800/80', 'border-slate-700');
+            }
         });
+
+        // 3. Domino Effect Mode
+        btnDomino.addEventListener('click', () => {
+            const overlay = document.getElementById('dominoOverlay');
+            const track = document.getElementById('domino-track');
+            
+            // Reset
+            track.innerHTML = '';
+            overlay.classList.remove('hidden');
+            
+            // Colors for dominoes
+            const colors = ['#ef4444', '#f97316', '#f59e0b', '#84cc16', '#10b981', '#06b6d4', '#3b82f6', '#8b5cf6', '#d946ef', '#f43f5e'];
+            
+            // Calculate how many fit based on screen width
+            const screenWidth = window.innerWidth;
+            const numDominoes = Math.min(Math.floor(screenWidth / 45), 25); 
+
+            // Create dominoes
+            for(let i = 0; i < numDominoes; i++) {
+                let dom = document.createElement('div');
+                dom.className = 'domino-piece';
+                dom.style.backgroundColor = colors[i % colors.length];
+                track.appendChild(dom);
+                
+                // Trigger fall animation sequentially
+                setTimeout(() => {
+                    dom.classList.add('fall');
+                    // Mini confetti pop when hitting the ground
+                    if (i % 3 === 0) {
+                        const rect = dom.getBoundingClientRect();
+                        const x = (rect.left + rect.width / 2) / window.innerWidth;
+                        const y = (rect.bottom) / window.innerHeight;
+                        confetti({
+                            particleCount: 15,
+                            spread: 40,
+                            origin: { x, y },
+                            colors: [colors[i % colors.length]],
+                            zIndex: 40
+                        });
+                    }
+                }, i * 120); // 120ms delay between falls
+            }
+
+            // Hide overlay after animation finishes
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                track.innerHTML = '';
+            }, (numDominoes * 120) + 1000);
+        });
+
+        // 4. Safari Mode
+        btnSafari.addEventListener('click', () => {
+            const overlay = document.getElementById('safariOverlay');
+            
+            // Remove hidden to play CSS animations
+            overlay.classList.remove('hidden');
+            
+            // Hide again after animation completes (approx 4 seconds)
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                // Force reflow to reset animation for next click
+                void overlay.offsetWidth; 
+            }, 4500);
+        });
+
     </script>
 </body>
 </html>
