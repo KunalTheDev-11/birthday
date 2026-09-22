@@ -11,263 +11,354 @@
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
-    <!-- Google Fonts: Nunito (Mobile/Playful) and Playfair Display (TV/Elegant) -->
+    <!-- Google Fonts: Nunito (Mobile) and Playfair Display (TV/Desktop) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
-        /* Base Defaults (Mobile Theme) */
+        /* Base / Mobile Theme (Playful, Bubbly, Pink/Peach) */
+        :root {
+            --mobile-bg: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            --mobile-primary: #ec4899; /* pink-500 */
+            --mobile-card-front: linear-gradient(135deg, #f687b3, #fbb6ce);
+            --mobile-card-back: #ffffff;
+            --mobile-glow: rgba(236, 72, 153, 0.6);
+        }
+
         body {
             font-family: 'Nunito', sans-serif;
-            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            background: var(--mobile-bg);
             color: #4a5568;
             -webkit-tap-highlight-color: transparent;
             min-height: 100vh;
             overflow-x: hidden;
-            transition: background 0.5s ease;
+            transition: background 0.8s ease-in-out;
+            margin: 0;
         }
 
-        h1, h2, h3 {
-            color: #d53f8c; /* Pink-600 */
+        /* Fluid Typography & Mobile Accents */
+        h1, h2, h3 { color: var(--mobile-primary); }
+        .text-glow { text-shadow: none; }
+
+        /* TV / Desktop Theme (Cinematic, Gold, Dark Mode) */
+        @media (min-width: 768px) {
+            body {
+                font-family: 'Playfair Display', serif;
+                background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+                color: #f8fafc;
+            }
+            h1, h2, h3 {
+                color: #fbbf24; /* Amber-400 */
+            }
+            .text-glow {
+                text-shadow: 0 0 20px rgba(251, 191, 36, 0.5), 0 0 40px rgba(251, 191, 36, 0.2);
+            }
+            .subtitle-theme {
+                font-family: 'Nunito', sans-serif;
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+                color: #94a3b8;
+            }
+            
+            /* Premium Button for TV */
+            .btn-premium {
+                background: transparent;
+                border: 1px solid #fbbf24;
+                color: #fbbf24;
+                box-shadow: 0 0 15px rgba(251, 191, 36, 0.1) inset;
+                transition: all 0.4s ease;
+            }
+            .btn-premium:hover {
+                background: rgba(251, 191, 36, 0.1);
+                box-shadow: 0 0 20px rgba(251, 191, 36, 0.4) inset, 0 0 20px rgba(251, 191, 36, 0.4);
+                transform: translateY(-2px);
+            }
+            
+            /* TV Inputs */
+            .input-premium {
+                background: rgba(15, 23, 42, 0.5);
+                border: 1px solid rgba(251, 191, 36, 0.3);
+                color: #f8fafc;
+                transition: all 0.3s ease;
+            }
+            .input-premium:focus {
+                border-color: #fbbf24;
+                box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+                outline: none;
+            }
         }
 
-        /* 3D Card Flip CSS */
-        .perspective { perspective: 1000px; }
-        .card-inner {
-            transform-style: preserve-3d;
-            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-        }
-        .card.flipped .card-inner { transform: rotateY(180deg); }
-        .card-front, .card-back {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
-        .card-back { transform: rotateY(180deg); }
-
-        /* Card Themes (Mobile Default) */
-        .card-front-theme {
-            background: linear-gradient(135deg, #f687b3, #fbb6ce);
-            border: 4px solid white;
-            border-radius: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        .card-back-theme {
-            background: white;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Input / Button Mobile Themes */
-        .input-theme {
-            background: white;
-            border: 2px solid #fbb6ce;
-            border-radius: 1rem;
-            color: #4a5568;
-        }
-        .btn-theme {
-            background: linear-gradient(to right, #ed64a6, #9f7aea);
-            border-radius: 9999px;
-            color: white;
-            box-shadow: 0 4px 14px 0 rgba(237, 100, 166, 0.39);
-        }
-
-        /* Screen Transitions */
+        /* Screen Cross-Fade Logic */
         .screen {
             display: none;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100%; min-height: 100vh;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .screen.active {
             display: flex;
             opacity: 1;
+            position: relative;
         }
 
-        /* =========================================
-           TV / DESKTOP THEME (min-width: 768px)
-           ========================================= */
-        @media (min-width: 768px) {
-            body {
-                font-family: 'Playfair Display', serif;
-                background: linear-gradient(135deg, #0f172a 0%, #000000 100%);
-                color: #e2e8f0;
-            }
-
-            h1, h2, h3 {
-                color: #fbbf24; /* Amber/Gold */
-                text-shadow: 0 2px 10px rgba(251, 191, 36, 0.2);
-            }
-
-            .subtitle-theme {
-                color: #cbd5e1;
-                font-family: 'Nunito', sans-serif; /* Keep sans for small text */
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-            }
-
-            /* TV Card Theme */
-            .card-front-theme {
-                background: linear-gradient(135deg, #1e293b, #0f172a);
-                border: 2px solid #fbbf24;
-                border-radius: 0.25rem;
-                box-shadow: inset 0 0 20px rgba(251, 191, 36, 0.1);
-            }
-            .card-front-theme::after {
-                content: "❈";
-                color: #fbbf24;
-                opacity: 0.5;
-                font-size: 2rem;
-            }
-            .card-front-theme .mobile-q { display: none; } /* Hide the '?' used on mobile */
-            
-            .card-back-theme {
-                background: #1e293b;
-                border: 2px solid #fbbf24;
-                border-radius: 0.25rem;
-                box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
-            }
-
-            /* Input / Button TV Themes */
-            .input-theme {
-                background: rgba(30, 41, 59, 0.8);
-                border: 1px solid #fbbf24;
-                border-radius: 0.25rem;
-                color: white;
-            }
-            .btn-theme {
-                background: transparent;
-                border: 2px solid #fbbf24;
-                border-radius: 0.25rem;
-                color: #fbbf24;
-                transition: all 0.3s ease;
-                box-shadow: none;
-            }
-            .btn-theme:hover {
-                background: #fbbf24;
-                color: black;
-                box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
-            }
-
-            /* Glassmorphism panel for TV */
-            .panel-tv {
-                background: rgba(15, 23, 42, 0.6);
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(251, 191, 36, 0.2);
-                border-radius: 0.5rem;
-            }
+        /* Staggered Entrances */
+        .animate-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Pulse animation for countdown */
+        @keyframes subtlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        .timer-pulse { animation: subtlePulse 2s infinite ease-in-out; }
+
+        /* 3D Card Engine */
+        .perspective { perspective: 1200px; }
+        .card {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        .card:hover {
+            transform: scale3d(1.03, 1.03, 1.03) translateY(-4px);
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            /* Ultra-satisfying bouncy flip */
+            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); 
+        }
+        .card.flipped .card-inner { transform: rotateY(180deg); }
         
-        /* Dev Panel Specific Styles */
-        .dev-panel-font {
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%; height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+        .card-back { transform: rotateY(180deg); }
+
+        /* Mobile Card Theme */
+        .card-front {
+            background: var(--mobile-card-front);
+            border: 3px solid rgba(255,255,255,0.8);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .card-front::after { content: "?"; font-size: 3rem; color: white; opacity: 0.7; font-weight: 800; }
+        .card-back {
+            background: var(--mobile-card-back);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+            font-size: 3.5rem;
+        }
+
+        /* TV Card Theme Override */
+        @media (min-width: 768px) {
+            .card-front {
+                background: linear-gradient(135deg, #1e293b, #0f172a);
+                border: 1px solid rgba(251, 191, 36, 0.3);
+                box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            }
+            .card-front::after { content: "✧"; color: #fbbf24; opacity: 0.4; font-size: 2.5rem; font-weight: 400; }
+            .card-back {
+                background: #1e293b;
+                border: 1px solid rgba(251, 191, 36, 0.5);
+                box-shadow: 0 0 20px rgba(0,0,0,0.5), inset 0 0 30px rgba(251,191,36,0.05);
+                font-size: 4.5rem;
+            }
+        }
+
+        /* Match Glowing Effect */
+        .card.matched .card-back {
+            animation: matchGlow 1s ease-out forwards;
+        }
+        @keyframes matchGlow {
+            0% { box-shadow: 0 0 0px var(--mobile-glow); transform: scale(1); }
+            50% { box-shadow: 0 0 30px var(--mobile-glow); transform: scale(1.1); }
+            100% { box-shadow: 0 0 15px var(--mobile-glow); transform: scale(1); }
+        }
+        @media (min-width: 768px) {
+            @keyframes matchGlow {
+                0% { box-shadow: 0 0 0px rgba(251, 191, 36, 0.8); transform: scale(1); }
+                50% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.8); transform: scale(1.1); }
+                100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); transform: scale(1); }
+            }
+        }
+
+        /* Secret Dev Panel (Glassmorphism) */
+        .dev-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.05) inset;
+        }
+        .dev-btn {
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .dev-btn::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.4s ease;
+        }
+        .dev-btn:hover::after { left: 100%; }
+
     </style>
 </head>
-<body class="antialiased relative">
+<body class="antialiased relative selection:bg-pink-300 selection:text-pink-900 md:selection:bg-yellow-500 md:selection:text-black">
 
-    <div id="screen-setup" class="screen active flex-col items-center justify-center min-h-screen p-6">
-        <div class="panel-tv max-w-md w-full bg-white/60 backdrop-blur-md p-8 rounded-3xl md:rounded-none shadow-xl text-center relative z-10">
-            <h1 class="text-3xl md:text-4xl font-bold mb-6">Party Setup</h1>
+    <!-- Screen 1: Setup -->
+    <div id="screen-setup" class="screen active flex-col items-center justify-center p-6">
+        <div class="max-w-md w-full bg-white/70 md:bg-white/5 backdrop-blur-xl p-8 md:p-10 rounded-3xl md:rounded-2xl shadow-2xl md:border md:border-white/10 relative z-10 animate-up">
             
-            <div class="space-y-4 text-left">
-                <div>
-                    <label class="block text-sm font-bold mb-1 subtitle-theme">Countdown Time (Minutes)</label>
-                    <input type="number" id="setup-minutes" value="5" min="1" class="input-theme w-full p-3 focus:outline-none focus:ring-2 focus:ring-pink-400 md:focus:ring-yellow-400">
+            <div class="text-center mb-8">
+                <span class="inline-block px-3 py-1 bg-pink-100 text-pink-600 md:bg-yellow-900/30 md:text-yellow-500 rounded-full text-xs font-bold tracking-widest uppercase mb-4 subtitle-theme">Configuration</span>
+                <h1 class="text-4xl md:text-5xl font-bold text-glow">Surprise Setup</h1>
+            </div>
+            
+            <div class="space-y-6 text-left">
+                <div class="animate-up delay-1">
+                    <label class="block text-sm font-bold mb-2 subtitle-theme text-gray-600 md:text-gray-300">Countdown Duration (Minutes)</label>
+                    <input type="number" id="setup-minutes" value="5" min="1" class="w-full p-4 rounded-xl md:rounded-lg bg-white md:input-premium border-2 border-pink-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-100 md:focus:ring-0 text-lg transition-all">
                 </div>
                 
-                <div>
-                    <label class="block text-sm font-bold mb-1 subtitle-theme">Where is the gift hidden?</label>
-                    <input type="text" id="setup-location" placeholder="e.g. Under the living room sofa" class="input-theme w-full p-3 focus:outline-none focus:ring-2 focus:ring-pink-400 md:focus:ring-yellow-400">
+                <div class="animate-up delay-2">
+                    <label class="block text-sm font-bold mb-2 subtitle-theme text-gray-600 md:text-gray-300">Secret Gift Location</label>
+                    <input type="text" id="setup-location" placeholder="e.g. Inside the microwave!" class="w-full p-4 rounded-xl md:rounded-lg bg-white md:input-premium border-2 border-pink-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-100 md:focus:ring-0 text-lg transition-all">
                 </div>
                 
-                <button onclick="startCountdown()" class="btn-theme w-full font-bold py-4 mt-6 text-lg">
-                    Begin the Surprise
+                <button onclick="startCountdown()" class="w-full py-4 mt-4 text-xl font-bold text-white rounded-xl bg-gradient-to-r from-pink-500 to-purple-500 md:btn-premium hover:shadow-lg transition-all transform hover:-translate-y-1 animate-up delay-3">
+                    Lock In & Begin
                 </button>
             </div>
             
-            <p class="mt-4 text-xs opacity-50 subtitle-theme text-center">Press Ctrl+Shift+D for Dev Mode</p>
+            <p class="mt-6 text-xs text-center opacity-40 subtitle-theme animate-up delay-4">Shh... Ctrl+Shift+D</p>
         </div>
     </div>
 
-    <div id="screen-countdown" class="screen flex-col items-center justify-center min-h-screen w-full">
-        <div class="text-center w-full px-4 relative z-10">
-            <h2 class="text-2xl md:text-5xl mb-4 subtitle-theme">The surprise begins in...</h2>
+    <!-- Screen 2: Countdown -->
+    <div id="screen-countdown" class="screen flex-col items-center justify-center w-full">
+        <div class="text-center w-full px-4 relative z-10 flex flex-col items-center">
+            <h2 class="text-2xl md:text-4xl mb-6 subtitle-theme tracking-[0.2em] opacity-80 animate-up">The Surprise Unlocks In</h2>
             
             <!-- Timer Display -->
-            <div id="timer-display" class="text-7xl md:text-[15rem] font-bold tracking-tighter tabular-nums drop-shadow-lg md:drop-shadow-[0_0_40px_rgba(251,191,36,0.3)]">
+            <div id="timer-display" class="timer-pulse text-[5rem] sm:text-[8rem] md:text-[14rem] font-bold tracking-tighter tabular-nums leading-none text-glow animate-up delay-1">
                 00:00
             </div>
             
-            <p class="mt-8 text-lg md:text-2xl opacity-80 subtitle-theme">Get ready, Mom!</p>
+            <div class="mt-12 h-1 w-24 bg-pink-300 md:bg-yellow-500 rounded-full opacity-50 animate-up delay-2"></div>
         </div>
     </div>
 
-    <div id="screen-game" class="screen min-h-screen w-full flex-col md:flex-row items-center justify-center p-4 md:p-12 gap-8 md:gap-16">
+    <!-- Screen 3: Game -->
+    <div id="screen-game" class="screen w-full flex-col lg:flex-row items-center justify-center p-4 md:p-12 gap-8 lg:gap-24">
         
-        <!-- Left Side (TV) / Top Side (Mobile) -->
-        <div class="text-center md:text-left md:w-1/3 panel-tv p-6 rounded-2xl md:p-10 w-full max-w-sm md:max-w-none relative z-10">
-            <h1 class="text-4xl md:text-6xl font-bold mb-2 md:mb-6">Memory Match</h1>
-            <p class="text-lg md:text-2xl mb-6 md:mb-10 subtitle-theme opacity-90">Find all the matching pairs to reveal your birthday surprise location!</p>
+        <!-- Stats / Header Area -->
+        <div class="text-center lg:text-left lg:w-1/3 w-full max-w-sm lg:max-w-none relative z-10 animate-up">
+            <span class="inline-block px-3 py-1 bg-pink-100 text-pink-600 md:bg-yellow-900/30 md:text-yellow-500 rounded-full text-xs font-bold tracking-widest uppercase mb-4 subtitle-theme">Unlock The Secret</span>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-glow leading-tight">Memory<br class="hidden lg:block"> Match</h1>
+            <p class="text-lg md:text-xl mb-8 subtitle-theme opacity-80">Pair all items to reveal the location of your birthday gift.</p>
             
-            <div class="flex justify-around md:flex-col gap-4 text-xl md:text-3xl font-bold">
-                <div class="bg-white/40 md:bg-transparent px-4 py-2 rounded-xl md:p-0">
-                    <span class="subtitle-theme text-sm block md:inline md:text-2xl">Moves:</span> 
-                    <span id="move-counter">0</span>
+            <div class="flex justify-center lg:justify-start gap-6 lg:gap-10 text-2xl md:text-3xl font-bold">
+                <div class="flex flex-col items-center lg:items-start">
+                    <span class="subtitle-theme text-xs md:text-sm opacity-60 mb-1">Moves</span> 
+                    <span id="move-counter" class="text-pink-600 md:text-white">0</span>
                 </div>
-                <div class="bg-white/40 md:bg-transparent px-4 py-2 rounded-xl md:p-0">
-                    <span class="subtitle-theme text-sm block md:inline md:text-2xl">Matches:</span> 
-                    <span id="match-counter">0</span><span class="opacity-50 text-sm md:text-2xl">/6</span>
+                <div class="w-px h-12 bg-black/10 md:bg-white/20"></div>
+                <div class="flex flex-col items-center lg:items-start">
+                    <span class="subtitle-theme text-xs md:text-sm opacity-60 mb-1">Found</span> 
+                    <div class="text-pink-600 md:text-white">
+                        <span id="match-counter">0</span><span class="opacity-40 text-lg">/6</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Right Side (TV) / Bottom Side (Mobile) -->
-        <div class="md:w-2/3 w-full max-w-md md:max-w-4xl relative z-10">
-            <div id="game-grid" class="grid grid-cols-3 md:grid-cols-4 gap-3 md:gap-6 perspective">
-                <!-- Cards injected here via JS -->
+        <!-- Grid Area -->
+        <div class="lg:w-1/2 w-full max-w-md lg:max-w-3xl relative z-10 animate-up delay-2">
+            <div id="game-grid" class="grid grid-cols-3 md:grid-cols-4 gap-3 md:gap-5 perspective w-full">
+                <!-- Cards injected via JS -->
             </div>
         </div>
     </div>
 
-    <div id="screen-win" class="screen flex-col items-center justify-center min-h-screen p-6 text-center">
-        <div class="panel-tv max-w-2xl w-full bg-white/70 backdrop-blur-xl p-10 md:p-16 rounded-3xl md:rounded-lg shadow-2xl relative z-10">
-            <div class="text-6xl md:text-8xl mb-6">🎂</div>
+    <!-- Screen 4: Win Reveal -->
+    <div id="screen-win" class="screen flex-col items-center justify-center p-6 text-center">
+        <!-- Sunburst background effect for Win screen -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0%,transparent_70%)] pointer-events-none"></div>
+        
+        <div class="max-w-3xl w-full bg-white/80 md:bg-white/5 backdrop-blur-2xl p-10 md:p-16 rounded-[2rem] shadow-2xl md:border md:border-white/10 relative z-10">
             
-            <h1 class="text-4xl md:text-7xl font-bold mb-6">Happy Birthday Mom!</h1>
+            <div class="text-7xl md:text-8xl mb-8 animate-up timer-pulse" style="animation-duration: 3s;">🎂</div>
             
-            <p class="text-xl md:text-3xl mb-8 subtitle-theme">You successfully completed the challenge.</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-glow animate-up delay-1">Happy Birthday!</h1>
             
-            <div class="bg-white/50 md:bg-black/40 border-2 border-pink-300 md:border-yellow-500 rounded-2xl p-6 md:p-10 mb-8">
-                <p class="text-lg md:text-2xl opacity-80 mb-2 subtitle-theme">Your gift is hidden at:</p>
-                <p id="reveal-location" class="text-2xl md:text-4xl font-bold text-pink-600 md:text-yellow-400 uppercase tracking-wide"></p>
+            <p class="text-xl md:text-2xl mb-10 subtitle-theme opacity-90 animate-up delay-2">Challenge complete. Your surprise awaits.</p>
+            
+            <div class="bg-pink-50 md:bg-black/40 border md:border-2 border-pink-200 md:border-yellow-500/50 rounded-2xl p-8 md:p-12 mb-10 animate-up delay-3 relative overflow-hidden group hover:border-pink-400 md:hover:border-yellow-400 transition-colors">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <p class="text-sm md:text-lg opacity-60 mb-3 subtitle-theme">Location Decrypted</p>
+                <p id="reveal-location" class="text-3xl md:text-5xl font-extrabold text-pink-600 md:text-yellow-400 uppercase tracking-wide text-glow"></p>
             </div>
             
-            <p class="text-2xl md:text-4xl font-bold font-['Playfair_Display'] italic">
+            <p class="text-3xl md:text-5xl font-bold font-['Playfair_Display'] italic opacity-90 animate-up delay-4">
                 Love, Kunal ❤️
             </p>
         </div>
     </div>
 
-    <!-- Dev Mode Panel (Hidden by Default) -->
-    <div id="dev-panel" class="hidden fixed top-4 right-4 bg-gray-900 border border-gray-700 p-6 rounded-xl shadow-2xl z-[100] w-80 text-white dev-panel-font transition-opacity duration-200">
-        <h3 class="text-xl font-bold mb-4 text-green-400 flex justify-between items-center border-b border-gray-700 pb-2">
-            <span>⚙️ Dev Mode</span>
-            <button onclick="toggleDevMode()" class="text-gray-400 hover:text-white transition-colors text-2xl leading-none bg-transparent outline-none">&times;</button>
-        </h3>
+    <!-- Secret Dev Panel -->
+    <div id="dev-panel" class="hidden fixed top-6 right-6 dev-panel p-6 rounded-2xl z-[100] w-80 text-white font-sans transition-all duration-300 opacity-0 transform scale-95 origin-top-right">
+        
+        <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-4">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                <h3 class="text-lg font-semibold tracking-wide">Developer Mode</h3>
+            </div>
+            <button onclick="toggleDevMode()" class="text-gray-400 hover:text-white transition-colors text-2xl leading-none">&times;</button>
+        </div>
+
         <div class="space-y-3">
-            <button onclick="devSkipCountdown()" class="w-full bg-blue-600 hover:bg-blue-500 py-2 rounded font-bold transition-colors shadow-lg">Skip Countdown</button>
-            <button onclick="devAutoWin()" class="w-full bg-yellow-600 hover:bg-yellow-500 py-2 rounded font-bold transition-colors shadow-lg text-black">Auto-Win Game</button>
-            <button onclick="devResetApp()" class="w-full bg-red-600 hover:bg-red-500 py-2 rounded font-bold transition-colors shadow-lg">Reset Entire App</button>
+            <button onclick="devSkipCountdown()" class="dev-btn w-full bg-white/10 hover:bg-white/20 border border-white/10 py-2.5 rounded-lg text-sm font-medium tracking-wide">
+                ⏩ Skip Countdown
+            </button>
+            <button onclick="devAutoWin()" class="dev-btn w-full bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 text-emerald-300 py-2.5 rounded-lg text-sm font-medium tracking-wide">
+                🏆 Auto-Win Game
+            </button>
+            <button onclick="devResetApp()" class="dev-btn w-full bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/30 text-rose-300 py-2.5 rounded-lg text-sm font-medium tracking-wide">
+                🔄 Hard Reset
+            </button>
             
-            <div class="pt-3 border-t border-gray-700 mt-2">
-                <label class="text-xs text-gray-400 block mb-1">Live Update Gift Location:</label>
-                <input type="text" id="dev-location-input" class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-sm text-white focus:outline-none focus:border-green-400" oninput="devUpdateLocation(this.value)" placeholder="Type new location here...">
+            <div class="pt-4 mt-2 border-t border-white/10">
+                <label class="text-xs text-gray-400 uppercase tracking-wider block mb-2 font-semibold">Live Override Location</label>
+                <input type="text" id="dev-location-input" class="w-full bg-black/40 border border-white/10 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-green-400 transition-colors" oninput="devUpdateLocation(this.value)" placeholder="Inject new location...">
             </div>
         </div>
     </div>
 
     <script>
-        // --- State ---
+        // --- Core State ---
         let countdownTimer;
         let giftLocationText = "";
         
@@ -281,53 +372,75 @@
         let moves = 0;
 
         // --- DOM Elements ---
-        const sSetup = document.getElementById('screen-setup');
-        const sCountdown = document.getElementById('screen-countdown');
-        const sGame = document.getElementById('screen-game');
-        const sWin = document.getElementById('screen-win');
-        const devPanel = document.getElementById('dev-panel');
+        const screens = {
+            setup: document.getElementById('screen-setup'),
+            countdown: document.getElementById('screen-countdown'),
+            game: document.getElementById('screen-game'),
+            win: document.getElementById('screen-win')
+        };
         
+        const devPanel = document.getElementById('dev-panel');
         const timerDisplay = document.getElementById('timer-display');
         const gameGrid = document.getElementById('game-grid');
         const moveCounter = document.getElementById('move-counter');
         const matchCounter = document.getElementById('match-counter');
         const revealLocation = document.getElementById('reveal-location');
 
-        // --- Utilities ---
-        function showScreen(screenEl) {
-            document.querySelectorAll('.screen').forEach(s => {
-                s.classList.remove('active');
-                setTimeout(() => s.style.display = 'none', 500);
+        // --- Cinematic Transitions ---
+        function showScreen(screenName) {
+            const targetScreen = screens[screenName];
+            
+            // Re-trigger animation classes for the target screen
+            const animatedElements = targetScreen.querySelectorAll('.animate-up');
+            animatedElements.forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight; // trigger reflow
+                el.style.animation = null; 
             });
+
+            // Fade out current screens
+            Object.values(screens).forEach(s => {
+                if(s.classList.contains('active')) {
+                    s.style.opacity = '0';
+                    setTimeout(() => {
+                        s.classList.remove('active');
+                        s.style.display = 'none';
+                    }, 800); // Matches CSS transition duration
+                }
+            });
+
+            // Fade in new screen
             setTimeout(() => {
-                screenEl.style.display = 'flex';
-                void screenEl.offsetWidth; // Trigger reflow
-                screenEl.classList.add('active');
-            }, 550);
+                targetScreen.style.display = 'flex';
+                targetScreen.offsetHeight; // Trigger reflow
+                targetScreen.classList.add('active');
+                targetScreen.style.opacity = '1';
+            }, 850);
         }
 
+        // --- Setup & Timer Logic ---
         function startCountdown() {
             const minutes = parseInt(document.getElementById('setup-minutes').value) || 0;
             const locInput = document.getElementById('setup-location').value.trim();
             
             if (!locInput) {
-                // Ensure a location is provided (visual cue instead of alert)
+                // Visual Error Shake
                 const inputEl = document.getElementById('setup-location');
-                inputEl.style.borderColor = 'red';
-                inputEl.style.animation = 'shake 0.5s';
-                setTimeout(() => {
-                    inputEl.style.borderColor = '';
-                    inputEl.style.animation = '';
-                }, 1000);
+                inputEl.style.transform = "translateX(-10px)";
+                setTimeout(() => inputEl.style.transform = "translateX(10px)", 100);
+                setTimeout(() => inputEl.style.transform = "translateX(-10px)", 200);
+                setTimeout(() => inputEl.style.transform = "translateX(0)", 300);
+                inputEl.style.borderColor = "#f43f5e"; // rose-500
+                setTimeout(() => inputEl.style.borderColor = "", 1000);
                 return;
             }
 
             giftLocationText = locInput;
-            document.getElementById('dev-location-input').value = locInput; // Sync dev panel
+            document.getElementById('dev-location-input').value = locInput;
             
             let totalSeconds = minutes * 60;
-
-            showScreen(sCountdown);
+            
+            showScreen('countdown');
             updateTimerDisplay(totalSeconds);
 
             clearInterval(countdownTimer);
@@ -348,8 +461,9 @@
             timerDisplay.innerText = `${m}:${s}`;
         }
 
+        // --- STREAMING_CHUNK:Implementing Interactive Game Logic... ---
         function initGame() {
-            showScreen(sGame);
+            showScreen('game');
             
             cardsArray = [...emojis, ...emojis];
             matchedPairs = 0;
@@ -358,26 +472,25 @@
             matchCounter.innerText = matchedPairs;
             gameGrid.innerHTML = '';
             
-            // Shuffle Array
+            // Fisher-Yates Shuffle
             for (let i = cardsArray.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [cardsArray[i], cardsArray[j]] = [cardsArray[j], cardsArray[i]];
             }
 
-            // Create Cards in DOM
-            cardsArray.forEach((emoji) => {
+            // Create Cards
+            cardsArray.forEach((emoji, index) => {
                 const card = document.createElement('div');
-                card.classList.add('card', 'relative', 'w-full', 'aspect-[3/4]', 'md:aspect-square', 'cursor-pointer');
-                card.dataset.emoji = emoji;
+                card.classList.add('card', 'w-full', 'aspect-[3/4]', 'md:aspect-square');
+                // Staggered entrance for cards
+                card.style.opacity = '0';
+                card.style.animation = `fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards ${index * 0.05 + 0.5}s`;
                 
+                card.dataset.emoji = emoji;
                 card.innerHTML = `
-                    <div class="card-inner absolute w-full h-full">
-                        <div class="card-front card-front-theme absolute w-full h-full flex items-center justify-center text-4xl">
-                            <span class="mobile-q text-white opacity-80 drop-shadow-md">?</span>
-                        </div>
-                        <div class="card-back card-back-theme absolute w-full h-full flex items-center justify-center text-5xl md:text-7xl">
-                            ${emoji}
-                        </div>
+                    <div class="card-inner">
+                        <div class="card-front"></div>
+                        <div class="card-back">${emoji}</div>
                     </div>
                 `;
                 card.addEventListener('click', flipCard);
@@ -414,33 +527,43 @@
         }
 
         function disableCards() {
+            // Remove listeners
             firstCard.removeEventListener('click', flipCard);
             secondCard.removeEventListener('click', flipCard);
             
+            // Add glowing effect class
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            
             matchedPairs++;
             matchCounter.innerText = matchedPairs;
-            resetBoard();
-
-            if (matchedPairs === (cardsArray.length / 2)) {
-                setTimeout(triggerWin, 800);
-            }
+            
+            // Slight delay before unlocking board to let the glow animation play
+            lockBoard = true;
+            setTimeout(() => {
+                resetBoard();
+                if (matchedPairs === (cardsArray.length / 2)) {
+                    setTimeout(triggerWin, 600);
+                }
+            }, 500);
         }
 
         function unflipCards() {
             lockBoard = true;
             
-            // Shake effect
+            // Premium Shake effect
             setTimeout(() => {
                 if(firstCard && secondCard) {
-                    firstCard.style.transform = "translateX(-5px)";
-                    secondCard.style.transform = "translateX(-5px)";
+                    firstCard.style.transform = "translateX(-8px) rotateY(180deg)";
+                    secondCard.style.transform = "translateX(-8px) rotateY(180deg)";
                     setTimeout(() => {
-                        firstCard.style.transform = "translateX(5px)";
-                        secondCard.style.transform = "translateX(5px)";
-                    }, 100);
+                        firstCard.style.transform = "translateX(8px) rotateY(180deg)";
+                        secondCard.style.transform = "translateX(8px) rotateY(180deg)";
+                    }, 120);
                 }
-            }, 300);
+            }, 400);
 
+            // Revert flip
             setTimeout(() => {
                 if(firstCard && secondCard) {
                     firstCard.style.transform = "";
@@ -449,103 +572,111 @@
                     secondCard.classList.remove('flipped');
                 }
                 resetBoard();
-            }, 1200);
+            }, 1000);
         }
 
         function resetBoard() {
             [firstCard, secondCard, lockBoard] = [null, null, false];
         }
 
+        // --- STREAMING_CHUNK:Implementing Win Sequence and Advanced Confetti... ---
         function triggerWin() {
-            // Update reveal text just in case it was changed in Dev Mode
             revealLocation.innerText = giftLocationText || "Ask Kunal!";
-            showScreen(sWin);
-            
-            // Setup Confetti based on Theme/Device
+            showScreen('win');
+            fireAdvancedConfetti();
+        }
+
+        function fireAdvancedConfetti() {
             const isDesktop = window.innerWidth >= 768;
-            const colors = isDesktop ? ['#fbbf24', '#fcd34d', '#ffffff', '#94a3b8'] : ['#f472b6', '#c084fc', '#fcd34d', '#34d399', '#60a5fa'];
+            // Rich colors that pop on both dark and light backgrounds
+            const colors = isDesktop ? 
+                ['#fbbf24', '#f59e0b', '#ffffff', '#cbd5e1'] : // Golds and silvers
+                ['#ec4899', '#f472b6', '#fbbf24', '#38bdf8', '#ffffff']; // Vibrant party
             
             const duration = 15 * 1000;
             const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 90, colors: colors };
 
-            (function frame() {
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
                 const timeLeft = animationEnd - Date.now();
-                if (timeLeft <= 0) return;
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
 
                 const particleCount = 50 * (timeLeft / duration);
                 
-                confetti({
-                    particleCount,
-                    spread: 80,
-                    origin: { x: Math.random(), y: Math.random() - 0.2 },
-                    colors: colors,
-                    disableForReducedMotion: true,
-                    zIndex: 90
-                });
-                
-                requestAnimationFrame(frame);
-            }());
+                // Fire from left
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
+                }));
+                // Fire from right
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
+                }));
+            }, 250);
         }
 
-        // --- Dev Mode Listeners & Logic ---
+        // --- STREAMING_CHUNK:Implementing Developer Mode Logic... ---
         document.addEventListener('keydown', (e) => {
-            // Trigger on Ctrl + Shift + D
             if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
-                e.preventDefault(); // Prevent standard browser shortcuts (like bookmarking)
+                e.preventDefault(); 
                 toggleDevMode();
             }
         });
 
         function toggleDevMode() {
             if (devPanel.classList.contains('hidden')) {
+                // Show
                 devPanel.classList.remove('hidden');
-                // Sync the input in the dev panel with the current state
                 document.getElementById('dev-location-input').value = giftLocationText || document.getElementById('setup-location').value;
+                // Animate in
+                setTimeout(() => {
+                    devPanel.classList.remove('opacity-0', 'scale-95');
+                    devPanel.classList.add('opacity-100', 'scale-100');
+                }, 10);
             } else {
-                devPanel.classList.add('hidden');
+                // Hide with animation
+                devPanel.classList.remove('opacity-100', 'scale-100');
+                devPanel.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    devPanel.classList.add('hidden');
+                }, 300);
             }
         }
 
         function devSkipCountdown() {
-            clearInterval(countdownTimer);
-            initGame();
+            if(screens.countdown.classList.contains('active')) {
+                clearInterval(countdownTimer);
+                initGame();
+            }
         }
 
         function devAutoWin() {
-            clearInterval(countdownTimer);
-            // Flip all cards visually (purely aesthetic for the skip)
-            document.querySelectorAll('.card').forEach(c => c.classList.add('flipped'));
-            setTimeout(triggerWin, 500);
+            if(screens.game.classList.contains('active')) {
+                // Visually flip all cards
+                document.querySelectorAll('.card').forEach(c => c.classList.add('flipped', 'matched'));
+                setTimeout(triggerWin, 800);
+            }
         }
 
         function devResetApp() {
             clearInterval(countdownTimer);
             resetBoard();
-            document.getElementById('setup-minutes').value = '5';
-            document.getElementById('setup-location').value = giftLocationText;
-            showScreen(sSetup);
+            showScreen('setup');
         }
 
         function devUpdateLocation(val) {
             giftLocationText = val;
-            // Also sync the main setup input so they stay aligned
             document.getElementById('setup-location').value = val;
-            // Live update the win screen if it's currently visible
             revealLocation.innerText = val; 
         }
-
-        // Add shake animation style dynamically for validation
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes shake {
-                0% { transform: translateX(0); }
-                25% { transform: translateX(-5px); }
-                50% { transform: translateX(5px); }
-                75% { transform: translateX(-5px); }
-                100% { transform: translateX(0); }
-            }
-        `;
-        document.head.appendChild(style);
 
     </script>
 </body>
