@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday Mom - Special Surprise</title>
+    <title>A Special Celebration for Mom</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -164,7 +164,7 @@
             border: 3px solid rgba(255,255,255,0.8);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        .card-front::after { content: "?"; font-size: 3rem; color: white; opacity: 0.7; font-weight: 800; }
+        .card-front::after { content: "♥"; font-size: 3rem; color: white; opacity: 0.7; font-weight: 800; }
         .card-back {
             background: var(--mobile-card-back);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
@@ -233,34 +233,36 @@
         <div class="max-w-md w-full bg-white/70 md:bg-white/5 backdrop-blur-xl p-8 md:p-10 rounded-3xl md:rounded-2xl shadow-2xl md:border md:border-white/10 relative z-10 animate-up">
             
             <div class="text-center mb-8">
-                <span class="inline-block px-3 py-1 bg-pink-100 text-pink-600 md:bg-yellow-900/30 md:text-yellow-500 rounded-full text-xs font-bold tracking-widest uppercase mb-4 subtitle-theme">Configuration</span>
-                <h1 class="text-4xl md:text-5xl font-bold text-glow">Surprise Setup</h1>
+                <span class="inline-block px-3 py-1 bg-pink-100 text-pink-600 md:bg-yellow-900/30 md:text-yellow-500 rounded-full text-xs font-bold tracking-widest uppercase mb-4 subtitle-theme">Confidential Setup</span>
+                <h1 class="text-4xl md:text-5xl font-bold text-glow">The Perfect Surprise</h1>
             </div>
             
             <div class="space-y-6 text-left">
                 <div class="animate-up delay-1">
-                    <label class="block text-sm font-bold mb-2 subtitle-theme text-gray-600 md:text-gray-300">Countdown Duration (Minutes)</label>
+                    <label class="block text-sm font-bold mb-2 subtitle-theme text-gray-600 md:text-gray-300">Anticipation Build-Up (Minutes)</label>
                     <input type="number" id="setup-minutes" value="5" min="1" class="w-full p-4 rounded-xl md:rounded-lg bg-white md:input-premium border-2 border-pink-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-100 md:focus:ring-0 text-lg transition-all">
                 </div>
                 
                 <div class="animate-up delay-2">
-                    <label class="block text-sm font-bold mb-2 subtitle-theme text-gray-600 md:text-gray-300">Secret Gift Location</label>
-                    <input type="text" id="setup-location" placeholder="e.g. Inside the microwave!" class="w-full p-4 rounded-xl md:rounded-lg bg-white md:input-premium border-2 border-pink-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-100 md:focus:ring-0 text-lg transition-all">
+                    <label class="block text-sm font-bold mb-2 subtitle-theme text-gray-600 md:text-gray-300">The Ultimate Reward (Gift Location)</label>
+                    <input type="text" id="setup-location" placeholder="e.g. Hidden inside the microwave!" class="w-full p-4 rounded-xl md:rounded-lg bg-white md:input-premium border-2 border-pink-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-100 md:focus:ring-0 text-lg transition-all">
                 </div>
                 
                 <button onclick="startCountdown()" class="w-full py-4 mt-4 text-xl font-bold text-white rounded-xl bg-gradient-to-r from-pink-500 to-purple-500 md:btn-premium hover:shadow-lg transition-all transform hover:-translate-y-1 animate-up delay-3">
-                    Lock In & Begin
+                    Initiate Birthday Protocol
                 </button>
             </div>
             
-            <p class="mt-6 text-xs text-center opacity-40 subtitle-theme animate-up delay-4">Shh... Ctrl+Shift+D</p>
+            <p class="mt-6 text-xs text-center opacity-40 subtitle-theme animate-up delay-4">Secret Access: Ctrl+Shift+D</p>
         </div>
     </div>
 
     <!-- Screen 2: Countdown -->
     <div id="screen-countdown" class="screen flex-col items-center justify-center w-full">
         <div class="text-center w-full px-4 relative z-10 flex flex-col items-center">
-            <h2 class="text-2xl md:text-4xl mb-6 subtitle-theme tracking-[0.2em] opacity-80 animate-up">The Surprise Unlocks In</h2>
+            <h2 class="text-2xl md:text-4xl mb-6 subtitle-theme tracking-[0.2em] opacity-80 animate-up text-center max-w-3xl leading-relaxed">
+                A very special celebration<br class="hidden md:block"> is about to begin...
+            </h2>
             
             <!-- Timer Display -->
             <div id="timer-display" class="timer-pulse text-[5rem] sm:text-[8rem] md:text-[14rem] font-bold tracking-tighter tabular-nums leading-none text-glow animate-up delay-1">
@@ -276,9 +278,9 @@
         
         <!-- Stats / Header Area -->
         <div class="text-center lg:text-left lg:w-1/3 w-full max-w-sm lg:max-w-none relative z-10 animate-up">
-            <span class="inline-block px-3 py-1 bg-pink-100 text-pink-600 md:bg-yellow-900/30 md:text-yellow-500 rounded-full text-xs font-bold tracking-widest uppercase mb-4 subtitle-theme">Unlock The Secret</span>
+            <span class="inline-block px-3 py-1 bg-pink-100 text-pink-600 md:bg-yellow-900/30 md:text-yellow-500 rounded-full text-xs font-bold tracking-widest uppercase mb-4 subtitle-theme">A Little Birthday Challenge</span>
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-glow leading-tight">Memory<br class="hidden lg:block"> Match</h1>
-            <p class="text-lg md:text-xl mb-8 subtitle-theme opacity-80">Pair all items to reveal the location of your birthday gift.</p>
+            <p class="text-lg md:text-xl mb-8 subtitle-theme opacity-80 leading-relaxed">Match the playful pairs to unlock the location of your beautiful surprise.</p>
             
             <div class="flex justify-center lg:justify-start gap-6 lg:gap-10 text-2xl md:text-3xl font-bold">
                 <div class="flex flex-col items-center lg:items-start">
@@ -287,7 +289,7 @@
                 </div>
                 <div class="w-px h-12 bg-black/10 md:bg-white/20"></div>
                 <div class="flex flex-col items-center lg:items-start">
-                    <span class="subtitle-theme text-xs md:text-sm opacity-60 mb-1">Found</span> 
+                    <span class="subtitle-theme text-xs md:text-sm opacity-60 mb-1">Discovered</span> 
                     <div class="text-pink-600 md:text-white">
                         <span id="match-counter">0</span><span class="opacity-40 text-lg">/6</span>
                     </div>
@@ -308,22 +310,24 @@
         <!-- Sunburst background effect for Win screen -->
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0%,transparent_70%)] pointer-events-none"></div>
         
-        <div class="max-w-3xl w-full bg-white/80 md:bg-white/5 backdrop-blur-2xl p-10 md:p-16 rounded-[2rem] shadow-2xl md:border md:border-white/10 relative z-10">
+        <div class="max-w-4xl w-full bg-white/80 md:bg-white/5 backdrop-blur-2xl p-10 md:p-16 rounded-[2rem] shadow-2xl md:border md:border-white/10 relative z-10">
             
-            <div class="text-7xl md:text-8xl mb-8 animate-up timer-pulse" style="animation-duration: 3s;">🎂</div>
+            <div class="text-7xl md:text-8xl mb-8 animate-up timer-pulse" style="animation-duration: 3s;">✨</div>
             
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-glow animate-up delay-1">Happy Birthday!</h1>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-glow animate-up delay-1">Happy Birthday, Mom!</h1>
             
-            <p class="text-xl md:text-2xl mb-10 subtitle-theme opacity-90 animate-up delay-2">Challenge complete. Your surprise awaits.</p>
+            <p class="text-xl md:text-2xl mb-10 subtitle-theme opacity-90 animate-up delay-2 leading-relaxed">
+                You matched them all beautifully! A very special gift is waiting for you...
+            </p>
             
             <div class="bg-pink-50 md:bg-black/40 border md:border-2 border-pink-200 md:border-yellow-500/50 rounded-2xl p-8 md:p-12 mb-10 animate-up delay-3 relative overflow-hidden group hover:border-pink-400 md:hover:border-yellow-400 transition-colors">
                 <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                <p class="text-sm md:text-lg opacity-60 mb-3 subtitle-theme">Location Decrypted</p>
+                <p class="text-sm md:text-lg opacity-60 mb-3 subtitle-theme">Your Surprise Awaits At:</p>
                 <p id="reveal-location" class="text-3xl md:text-5xl font-extrabold text-pink-600 md:text-yellow-400 uppercase tracking-wide text-glow"></p>
             </div>
             
             <p class="text-3xl md:text-5xl font-bold font-['Playfair_Display'] italic opacity-90 animate-up delay-4">
-                Love, Kunal ❤️
+                With all my love, Kunal ❤️
             </p>
         </div>
     </div>
@@ -334,25 +338,25 @@
         <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-4">
             <div class="flex items-center gap-2">
                 <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-                <h3 class="text-lg font-semibold tracking-wide">Developer Mode</h3>
+                <h3 class="text-lg font-semibold tracking-wide">Command Center</h3>
             </div>
             <button onclick="toggleDevMode()" class="text-gray-400 hover:text-white transition-colors text-2xl leading-none">&times;</button>
         </div>
 
         <div class="space-y-3">
             <button onclick="devSkipCountdown()" class="dev-btn w-full bg-white/10 hover:bg-white/20 border border-white/10 py-2.5 rounded-lg text-sm font-medium tracking-wide">
-                ⏩ Skip Countdown
+                ⏩ Skip Countdown Sequence
             </button>
             <button onclick="devAutoWin()" class="dev-btn w-full bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 text-emerald-300 py-2.5 rounded-lg text-sm font-medium tracking-wide">
-                🏆 Auto-Win Game
+                🏆 Force Auto-Win Game
             </button>
             <button onclick="devResetApp()" class="dev-btn w-full bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/30 text-rose-300 py-2.5 rounded-lg text-sm font-medium tracking-wide">
-                🔄 Hard Reset
+                🔄 Hard Reset Application
             </button>
             
             <div class="pt-4 mt-2 border-t border-white/10">
-                <label class="text-xs text-gray-400 uppercase tracking-wider block mb-2 font-semibold">Live Override Location</label>
-                <input type="text" id="dev-location-input" class="w-full bg-black/40 border border-white/10 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-green-400 transition-colors" oninput="devUpdateLocation(this.value)" placeholder="Inject new location...">
+                <label class="text-xs text-gray-400 uppercase tracking-wider block mb-2 font-semibold">Live Override Coordinates</label>
+                <input type="text" id="dev-location-input" class="w-full bg-black/40 border border-white/10 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-green-400 transition-colors" oninput="devUpdateLocation(this.value)" placeholder="Inject new gift location...">
             </div>
         </div>
     </div>
@@ -418,6 +422,7 @@
             }, 850);
         }
 
+        // --- STREAMING_CHUNK:Setting up Countdown Engine... ---
         // --- Setup & Timer Logic ---
         function startCountdown() {
             const minutes = parseInt(document.getElementById('setup-minutes').value) || 0;
