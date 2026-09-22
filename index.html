@@ -14,22 +14,23 @@
     <!-- Google Fonts: Nunito (Mobile) and Playfair Display (TV/Desktop) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap" rel="stylesheet">
 
     <style>
-        /* Base / Mobile Theme (Playful, Bubbly, Pink/Peach) */
+        /* Base / Mobile Theme (Playful, Bubbly, Pink/Peach) - HIGH CONTRAST */
         :root {
             --mobile-bg: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-            --mobile-primary: #ec4899; /* pink-500 */
-            --mobile-card-front: linear-gradient(135deg, #f687b3, #fbb6ce);
+            --mobile-primary: #be185d; /* Darker pink-700 for maximum visibility */
+            --mobile-card-front: linear-gradient(135deg, #f472b6, #fb7185);
             --mobile-card-back: #ffffff;
-            --mobile-glow: rgba(236, 72, 153, 0.6);
+            --mobile-glow: rgba(236, 72, 153, 1);
         }
 
         body {
             font-family: 'Nunito', sans-serif;
             background: var(--mobile-bg);
-            color: #4a5568;
+            color: #111827; /* Near black for extreme legibility */
+            font-weight: 800;
             -webkit-tap-highlight-color: transparent;
             min-height: 100vh;
             overflow-x: hidden;
@@ -37,71 +38,107 @@
             margin: 0;
         }
 
-        /* Fluid Typography & Mobile Accents */
-        h1, h2, h3 { color: var(--mobile-primary); }
-        .text-glow { text-shadow: none; }
+        /* Fluid Typography & High Contrast Mobile Accents */
+        h1, h2, h3 { 
+            color: var(--mobile-primary); 
+            text-shadow: 2px 2px 0px rgba(255,255,255,1), 0 0 15px rgba(255,255,255,0.8);
+        }
+        
+        .subtitle-theme {
+            font-family: 'Nunito', sans-serif;
+            color: #9d174d; /* pink-800 */
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 900;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+        }
 
-        /* TV / Desktop Theme (Cinematic, Gold, Dark Mode) */
+        /* Input High Contrast Fixes */
+        input {
+            color: #111827 !important;
+            font-weight: 800 !important;
+        }
+        input::placeholder {
+            color: #6b7280 !important;
+            font-weight: 700;
+        }
+
+        /* TV / Desktop Theme (Cinematic, Gold, Dark Mode) - HIGH CONTRAST */
         @media (min-width: 768px) {
             body {
                 font-family: 'Playfair Display', serif;
-                background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
-                color: #f8fafc;
+                background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); /* Deeper dark for contrast */
+                color: #ffffff; /* Pure white text */
             }
             h1, h2, h3 {
                 color: #fbbf24; /* Amber-400 */
-            }
-            .text-glow {
-                text-shadow: 0 0 20px rgba(251, 191, 36, 0.5), 0 0 40px rgba(251, 191, 36, 0.2);
+                /* Heavy dark shadow + gold glow to pop off the screen */
+                text-shadow: 0 4px 8px rgba(0,0,0,1), 0 0 20px rgba(251, 191, 36, 0.8), 0 0 40px rgba(251, 191, 36, 0.4);
             }
             .subtitle-theme {
                 font-family: 'Nunito', sans-serif;
-                letter-spacing: 0.15em;
-                text-transform: uppercase;
-                color: #94a3b8;
+                color: #f1f5f9; /* Slate-100 */
+                text-shadow: 0 2px 6px rgba(0,0,0,1);
             }
             
             /* Premium Button for TV */
             .btn-premium {
-                background: transparent;
-                border: 1px solid #fbbf24;
+                background: rgba(15, 23, 42, 0.8);
+                border: 2px solid #fbbf24;
                 color: #fbbf24;
-                box-shadow: 0 0 15px rgba(251, 191, 36, 0.1) inset;
+                box-shadow: 0 0 15px rgba(251, 191, 36, 0.3) inset, 0 4px 10px rgba(0,0,0,0.8);
+                font-weight: 800;
                 transition: all 0.4s ease;
+                text-shadow: 0 2px 4px rgba(0,0,0,1);
             }
             .btn-premium:hover {
-                background: rgba(251, 191, 36, 0.1);
-                box-shadow: 0 0 20px rgba(251, 191, 36, 0.4) inset, 0 0 20px rgba(251, 191, 36, 0.4);
+                background: rgba(251, 191, 36, 0.2);
+                box-shadow: 0 0 20px rgba(251, 191, 36, 0.6) inset, 0 0 30px rgba(251, 191, 36, 0.6);
                 transform: translateY(-2px);
             }
             
             /* TV Inputs */
             .input-premium {
-                background: rgba(15, 23, 42, 0.5);
-                border: 1px solid rgba(251, 191, 36, 0.3);
-                color: #f8fafc;
+                background: rgba(2, 6, 23, 0.95); /* Nearly black solid background */
+                border: 2px solid rgba(251, 191, 36, 0.6);
+                color: #ffffff !important;
+                font-weight: 800 !important;
+                box-shadow: inset 0 2px 10px rgba(0,0,0,1);
                 transition: all 0.3s ease;
+            }
+            .input-premium::placeholder {
+                color: #94a3b8 !important;
             }
             .input-premium:focus {
                 border-color: #fbbf24;
-                box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+                box-shadow: 0 0 25px rgba(251, 191, 36, 0.5);
                 outline: none;
             }
         }
 
-        /* Screen Cross-Fade Logic */
+        /* Screen Cross-Fade & Anti-Clip Logic */
         .screen {
             display: none;
             opacity: 0;
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             width: 100%; min-height: 100vh;
+            /* Allow scrolling on small devices so nothing is clipped */
+            overflow-y: auto;
+            overflow-x: hidden;
             transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 2rem 1rem;
         }
         .screen.active {
             display: flex;
             opacity: 1;
             position: relative;
+        }
+        
+        /* Center content vertically if screen is tall enough */
+        .content-wrapper {
+            margin: auto; 
+            width: 100%;
         }
 
         /* Staggered Entrances */
@@ -122,7 +159,7 @@
         /* Pulse animation for countdown */
         @keyframes subtlePulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+            50% { transform: scale(1.03); }
         }
         .timer-pulse { animation: subtlePulse 2s infinite ease-in-out; }
 
@@ -134,14 +171,13 @@
             transform-style: preserve-3d;
         }
         .card:hover {
-            transform: scale3d(1.03, 1.03, 1.03) translateY(-4px);
+            transform: scale3d(1.05, 1.05, 1.05) translateY(-4px);
         }
         .card-inner {
             position: relative;
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
-            /* Ultra-satisfying bouncy flip */
             transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); 
         }
         .card.flipped .card-inner { transform: rotateY(180deg); }
@@ -158,32 +194,47 @@
         }
         .card-back { transform: rotateY(180deg); }
 
-        /* Mobile Card Theme */
+        /* Mobile Card Theme - HIGH VISIBILITY */
         .card-front {
             background: var(--mobile-card-front);
-            border: 3px solid rgba(255,255,255,0.8);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 4px solid #ffffff;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
-        .card-front::after { content: "♥"; font-size: 3rem; color: white; opacity: 0.7; font-weight: 800; }
+        /* Solid fully visible heart icon on front */
+        .card-front::after { 
+            content: "♥"; 
+            font-size: min(12vw, 4rem); 
+            color: #ffffff; 
+            opacity: 1; 
+            font-weight: 900; 
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
         .card-back {
             background: var(--mobile-card-back);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
-            font-size: 3.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            font-size: min(15vw, 4rem);
         }
 
         /* TV Card Theme Override */
         @media (min-width: 768px) {
             .card-front {
-                background: linear-gradient(135deg, #1e293b, #0f172a);
-                border: 1px solid rgba(251, 191, 36, 0.3);
-                box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+                background: linear-gradient(135deg, #1e293b, #020617);
+                border: 2px solid rgba(251, 191, 36, 0.8);
+                box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 5px 15px rgba(0,0,0,0.8);
             }
-            .card-front::after { content: "✧"; color: #fbbf24; opacity: 0.4; font-size: 2.5rem; font-weight: 400; }
+            .card-front::after { 
+                content: "✧"; 
+                color: #fbbf24; 
+                opacity: 1; 
+                font-size: 3rem; 
+                font-weight: 800;
+                text-shadow: 0 0 15px #fbbf24, 0 4px 10px rgba(0,0,0,1);
+            }
             .card-back {
-                background: #1e293b;
-                border: 1px solid rgba(251, 191, 36, 0.5);
-                box-shadow: 0 0 20px rgba(0,0,0,0.5), inset 0 0 30px rgba(251,191,36,0.05);
-                font-size: 4.5rem;
+                background: #0f172a;
+                border: 2px solid #fbbf24;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.9), inset 0 0 40px rgba(251,191,36,0.1);
+                font-size: 5rem;
             }
         }
 
@@ -198,165 +249,186 @@
         }
         @media (min-width: 768px) {
             @keyframes matchGlow {
-                0% { box-shadow: 0 0 0px rgba(251, 191, 36, 0.8); transform: scale(1); }
-                50% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.8); transform: scale(1.1); }
-                100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); transform: scale(1); }
+                0% { box-shadow: 0 0 0px rgba(251, 191, 36, 1); transform: scale(1); }
+                50% { box-shadow: 0 0 50px rgba(251, 191, 36, 1); transform: scale(1.1); }
+                100% { box-shadow: 0 0 25px rgba(251, 191, 36, 0.8); transform: scale(1); }
             }
         }
 
-        /* Secret Dev Panel (Glassmorphism) */
+        /* Secret Dev Panel - High Contrast */
         .dev-panel {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.05) inset;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 1), 0 0 0 1px rgba(255,255,255,0.1) inset;
         }
         .dev-btn {
             transition: all 0.2s ease;
             position: relative;
             overflow: hidden;
+            font-weight: 800;
         }
         .dev-btn::after {
             content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
             transition: left 0.4s ease;
         }
         .dev-btn:hover::after { left: 100%; }
 
     </style>
 </head>
-<body class="antialiased relative selection:bg-pink-300 selection:text-pink-900 md:selection:bg-yellow-500 md:selection:text-black">
+<body class="antialiased selection:bg-pink-400 selection:text-white md:selection:bg-yellow-500 md:selection:text-black">
 
     <!-- Screen 1: Setup -->
-    <div id="screen-setup" class="screen active flex-col items-center justify-center p-6">
-        <div class="max-w-md w-full bg-white/70 md:bg-white/5 backdrop-blur-xl p-8 md:p-10 rounded-3xl md:rounded-2xl shadow-2xl md:border md:border-white/10 relative z-10 animate-up">
-            
-            <div class="text-center mb-8">
-                <span class="inline-block px-3 py-1 bg-pink-100 text-pink-600 md:bg-yellow-900/30 md:text-yellow-500 rounded-full text-xs font-bold tracking-widest uppercase mb-4 subtitle-theme">Confidential Setup</span>
-                <h1 class="text-4xl md:text-5xl font-bold text-glow">The Perfect Surprise</h1>
-            </div>
-            
-            <div class="space-y-6 text-left">
-                <div class="animate-up delay-1">
-                    <label class="block text-sm font-bold mb-2 subtitle-theme text-gray-600 md:text-gray-300">Anticipation Build-Up (Minutes)</label>
-                    <input type="number" id="setup-minutes" value="5" min="1" class="w-full p-4 rounded-xl md:rounded-lg bg-white md:input-premium border-2 border-pink-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-100 md:focus:ring-0 text-lg transition-all">
+    <div id="screen-setup" class="screen active flex-col items-center justify-center">
+        <div class="content-wrapper flex flex-col items-center">
+            <!-- Increased opacity on background, added strong shadow -->
+            <div class="max-w-md w-full bg-white/95 md:bg-[#0f172a]/95 backdrop-blur-3xl p-8 md:p-10 rounded-3xl md:rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] md:shadow-[0_20px_50px_rgba(0,0,0,0.8)] md:border-2 md:border-yellow-500/30 relative z-10 animate-up">
+                
+                <div class="text-center mb-8">
+                    <!-- Solid background badge -->
+                    <span class="inline-block px-4 py-2 bg-pink-200 text-pink-800 md:bg-yellow-500 md:text-black rounded-full text-xs font-black tracking-widest uppercase mb-4 shadow-sm">Confidential Setup</span>
+                    <h1 class="text-4xl md:text-5xl font-black">The Perfect Surprise</h1>
                 </div>
                 
-                <div class="animate-up delay-2">
-                    <label class="block text-sm font-bold mb-2 subtitle-theme text-gray-600 md:text-gray-300">The Ultimate Reward (Gift Location)</label>
-                    <input type="text" id="setup-location" placeholder="e.g. Hidden inside the microwave!" class="w-full p-4 rounded-xl md:rounded-lg bg-white md:input-premium border-2 border-pink-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-100 md:focus:ring-0 text-lg transition-all">
+                <div class="space-y-6 text-left">
+                    <div class="animate-up delay-1">
+                        <!-- Removed all text-gray / opacity classes, relying on global high contrast -->
+                        <label class="block text-sm font-black mb-2 subtitle-theme">Anticipation Build-Up (Minutes)</label>
+                        <input type="number" id="setup-minutes" value="5" min="1" class="w-full p-4 rounded-xl md:rounded-lg bg-gray-50 md:input-premium border-2 border-pink-400 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 md:focus:ring-0 text-xl font-bold transition-all shadow-inner">
+                    </div>
+                    
+                    <div class="animate-up delay-2">
+                        <label class="block text-sm font-black mb-2 subtitle-theme">The Ultimate Reward (Gift Location)</label>
+                        <input type="text" id="setup-location" placeholder="e.g. Hidden inside the microwave!" class="w-full p-4 rounded-xl md:rounded-lg bg-gray-50 md:input-premium border-2 border-pink-400 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 md:focus:ring-0 text-xl font-bold transition-all shadow-inner">
+                    </div>
+                    
+                    <!-- Button with solid, heavy gradient and shadow -->
+                    <button onclick="startCountdown()" class="w-full py-4 mt-6 text-2xl font-black text-white rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 shadow-[0_10px_20px_rgba(225,29,72,0.4)] md:shadow-none md:btn-premium hover:shadow-[0_15px_30px_rgba(225,29,72,0.6)] transition-all transform hover:-translate-y-1 animate-up delay-3 uppercase tracking-wide border-2 border-transparent md:border-yellow-400">
+                        Initiate Birthday Protocol
+                    </button>
                 </div>
                 
-                <button onclick="startCountdown()" class="w-full py-4 mt-4 text-xl font-bold text-white rounded-xl bg-gradient-to-r from-pink-500 to-purple-500 md:btn-premium hover:shadow-lg transition-all transform hover:-translate-y-1 animate-up delay-3">
-                    Initiate Birthday Protocol
-                </button>
+                <!-- Highly visible dev mode hint -->
+                <p class="mt-8 text-sm font-bold text-center text-gray-800 md:text-gray-400 animate-up delay-4 bg-gray-200/50 md:bg-black/30 py-2 rounded-lg">Secret Access: Ctrl+Shift+D</p>
             </div>
-            
-            <p class="mt-6 text-xs text-center opacity-40 subtitle-theme animate-up delay-4">Secret Access: Ctrl+Shift+D</p>
         </div>
     </div>
 
     <!-- Screen 2: Countdown -->
     <div id="screen-countdown" class="screen flex-col items-center justify-center w-full">
-        <div class="text-center w-full px-4 relative z-10 flex flex-col items-center">
-            <h2 class="text-2xl md:text-4xl mb-6 subtitle-theme tracking-[0.2em] opacity-80 animate-up text-center max-w-3xl leading-relaxed">
+        <div class="content-wrapper text-center w-full relative z-10 flex flex-col items-center">
+            <!-- Removed opacity, added text shadow globally -->
+            <h2 class="text-2xl md:text-5xl mb-8 subtitle-theme tracking-[0.2em] animate-up text-center max-w-4xl leading-relaxed drop-shadow-xl font-black">
                 A very special celebration<br class="hidden md:block"> is about to begin...
             </h2>
             
-            <!-- Timer Display -->
-            <div id="timer-display" class="timer-pulse text-[5rem] sm:text-[8rem] md:text-[14rem] font-bold tracking-tighter tabular-nums leading-none text-glow animate-up delay-1">
+            <!-- Timer Display with maximum pop -->
+            <div id="timer-display" class="timer-pulse text-[6rem] sm:text-[10rem] md:text-[15rem] font-black tracking-tighter tabular-nums leading-none animate-up delay-1 drop-shadow-[0_10px_10px_rgba(0,0,0,0.3)] md:drop-shadow-[0_20px_30px_rgba(0,0,0,0.8)]">
                 00:00
             </div>
             
-            <div class="mt-12 h-1 w-24 bg-pink-300 md:bg-yellow-500 rounded-full opacity-50 animate-up delay-2"></div>
+            <div class="mt-16 h-2 w-32 bg-pink-500 md:bg-yellow-400 rounded-full shadow-[0_0_15px_rgba(236,72,153,0.8)] md:shadow-[0_0_20px_rgba(251,191,36,0.8)] animate-up delay-2"></div>
         </div>
     </div>
 
     <!-- Screen 3: Game -->
-    <div id="screen-game" class="screen w-full flex-col lg:flex-row items-center justify-center p-4 md:p-12 gap-8 lg:gap-24">
-        
-        <!-- Stats / Header Area -->
-        <div class="text-center lg:text-left lg:w-1/3 w-full max-w-sm lg:max-w-none relative z-10 animate-up">
-            <span class="inline-block px-3 py-1 bg-pink-100 text-pink-600 md:bg-yellow-900/30 md:text-yellow-500 rounded-full text-xs font-bold tracking-widest uppercase mb-4 subtitle-theme">A Little Birthday Challenge</span>
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-glow leading-tight">Memory<br class="hidden lg:block"> Match</h1>
-            <p class="text-lg md:text-xl mb-8 subtitle-theme opacity-80 leading-relaxed">Match the playful pairs to unlock the location of your beautiful surprise.</p>
-            
-            <div class="flex justify-center lg:justify-start gap-6 lg:gap-10 text-2xl md:text-3xl font-bold">
-                <div class="flex flex-col items-center lg:items-start">
-                    <span class="subtitle-theme text-xs md:text-sm opacity-60 mb-1">Moves</span> 
-                    <span id="move-counter" class="text-pink-600 md:text-white">0</span>
-                </div>
-                <div class="w-px h-12 bg-black/10 md:bg-white/20"></div>
-                <div class="flex flex-col items-center lg:items-start">
-                    <span class="subtitle-theme text-xs md:text-sm opacity-60 mb-1">Discovered</span> 
-                    <div class="text-pink-600 md:text-white">
-                        <span id="match-counter">0</span><span class="opacity-40 text-lg">/6</span>
+    <div id="screen-game" class="screen w-full flex-col lg:flex-row items-center justify-center gap-8 lg:gap-24">
+        <div class="content-wrapper flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 w-full max-w-7xl">
+            <!-- Stats / Header Area -->
+            <div class="text-center lg:text-left lg:w-1/3 w-full max-w-sm lg:max-w-none relative z-10 animate-up bg-white/60 md:bg-transparent backdrop-blur-md md:backdrop-blur-none p-6 md:p-0 rounded-3xl border-2 border-white/50 md:border-none shadow-xl md:shadow-none">
+                <!-- Solid badge -->
+                <span class="inline-block px-4 py-2 bg-pink-600 text-white md:bg-yellow-500 md:text-black rounded-full text-xs font-black tracking-widest uppercase mb-4 shadow-md">A Little Birthday Challenge</span>
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-4 leading-tight drop-shadow-lg">Memory<br class="hidden lg:block"> Match</h1>
+                
+                <!-- Solid, thick paragraph text -->
+                <p class="text-xl md:text-2xl mb-8 subtitle-theme font-black leading-relaxed">Match the playful pairs to unlock the location of your beautiful surprise.</p>
+                
+                <div class="flex justify-center lg:justify-start gap-8 lg:gap-12 text-3xl md:text-4xl font-black bg-white/80 md:bg-black/40 p-4 md:p-6 rounded-2xl border-2 border-pink-200 md:border-yellow-500/30 shadow-inner">
+                    <div class="flex flex-col items-center lg:items-start">
+                        <span class="subtitle-theme text-sm md:text-base mb-1">Moves</span> 
+                        <span id="move-counter" class="text-pink-700 md:text-white drop-shadow-md">0</span>
+                    </div>
+                    <div class="w-1 h-16 bg-pink-200 md:bg-white/30 rounded-full"></div>
+                    <div class="flex flex-col items-center lg:items-start">
+                        <span class="subtitle-theme text-sm md:text-base mb-1">Discovered</span> 
+                        <div class="text-pink-700 md:text-white drop-shadow-md">
+                            <span id="match-counter">0</span><span class="text-xl md:text-2xl text-gray-500 md:text-gray-300 ml-1">/6</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Grid Area -->
-        <div class="lg:w-1/2 w-full max-w-md lg:max-w-3xl relative z-10 animate-up delay-2">
-            <div id="game-grid" class="grid grid-cols-3 md:grid-cols-4 gap-3 md:gap-5 perspective w-full">
-                <!-- Cards injected via JS -->
+            <!-- Grid Area -->
+            <div class="lg:w-1/2 w-full max-w-md lg:max-w-3xl relative z-10 animate-up delay-2">
+                <div id="game-grid" class="grid grid-cols-3 md:grid-cols-4 gap-4 md:gap-6 perspective w-full pb-8">
+                    <!-- Cards injected via JS -->
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Screen 4: Win Reveal -->
-    <div id="screen-win" class="screen flex-col items-center justify-center p-6 text-center">
-        <!-- Sunburst background effect for Win screen -->
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0%,transparent_70%)] pointer-events-none"></div>
+    <div id="screen-win" class="screen flex-col items-center justify-center text-center">
+        <!-- Intense Sunburst background effect for Win screen -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.4)_0%,transparent_70%)] pointer-events-none"></div>
         
-        <div class="max-w-4xl w-full bg-white/80 md:bg-white/5 backdrop-blur-2xl p-10 md:p-16 rounded-[2rem] shadow-2xl md:border md:border-white/10 relative z-10">
-            
-            <div class="text-7xl md:text-8xl mb-8 animate-up timer-pulse" style="animation-duration: 3s;">✨</div>
-            
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-glow animate-up delay-1">Happy Birthday, Mom!</h1>
-            
-            <p class="text-xl md:text-2xl mb-10 subtitle-theme opacity-90 animate-up delay-2 leading-relaxed">
-                You matched them all beautifully! A very special gift is waiting for you...
-            </p>
-            
-            <div class="bg-pink-50 md:bg-black/40 border md:border-2 border-pink-200 md:border-yellow-500/50 rounded-2xl p-8 md:p-12 mb-10 animate-up delay-3 relative overflow-hidden group hover:border-pink-400 md:hover:border-yellow-400 transition-colors">
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                <p class="text-sm md:text-lg opacity-60 mb-3 subtitle-theme">Your Surprise Awaits At:</p>
-                <p id="reveal-location" class="text-3xl md:text-5xl font-extrabold text-pink-600 md:text-yellow-400 uppercase tracking-wide text-glow"></p>
+        <div class="content-wrapper flex flex-col items-center">
+            <!-- Thick borders, solid backgrounds, extremely high shadow -->
+            <div class="max-w-4xl w-full bg-white/95 md:bg-[#0f172a]/95 backdrop-blur-3xl p-8 md:p-16 rounded-[2rem] shadow-[0_30px_60px_rgba(0,0,0,0.3)] md:shadow-[0_30px_70px_rgba(0,0,0,0.9)] border-4 border-pink-100 md:border-2 md:border-yellow-500/50 relative z-10">
+                
+                <div class="text-[5rem] md:text-[7rem] mb-6 animate-up timer-pulse drop-shadow-2xl" style="animation-duration: 3s;">✨</div>
+                
+                <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-8 animate-up delay-1 drop-shadow-[0_5px_15px_rgba(236,72,153,0.5)] md:drop-shadow-[0_10px_30px_rgba(251,191,36,0.6)]">
+                    Happy Birthday, Mom!
+                </h1>
+                
+                <!-- Solid, massive subtitle -->
+                <p class="text-2xl md:text-3xl mb-12 subtitle-theme font-black animate-up delay-2 leading-relaxed">
+                    You matched them all beautifully!<br>A very special gift is waiting for you...
+                </p>
+                
+                <!-- Gift Location Box - Unmissable -->
+                <div class="bg-pink-50 md:bg-[#020617] border-4 md:border-4 border-pink-400 md:border-yellow-400 rounded-3xl p-8 md:p-14 mb-12 animate-up delay-3 relative overflow-hidden group shadow-[0_10px_30px_rgba(236,72,153,0.3)] md:shadow-[0_15px_40px_rgba(251,191,36,0.4)]">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                    <p class="text-lg md:text-2xl font-black mb-4 subtitle-theme uppercase tracking-widest text-pink-600 md:text-gray-300">Your Surprise Awaits At:</p>
+                    <p id="reveal-location" class="text-4xl sm:text-5xl md:text-6xl font-black text-pink-700 md:text-yellow-400 uppercase tracking-wider drop-shadow-xl break-words leading-tight"></p>
+                </div>
+                
+                <!-- Sign off -->
+                <p class="text-3xl sm:text-4xl md:text-5xl font-black font-['Playfair_Display'] italic text-gray-900 md:text-white animate-up delay-4 drop-shadow-md md:drop-shadow-2xl">
+                    With all my love, Kunal ❤️
+                </p>
             </div>
-            
-            <p class="text-3xl md:text-5xl font-bold font-['Playfair_Display'] italic opacity-90 animate-up delay-4">
-                With all my love, Kunal ❤️
-            </p>
         </div>
     </div>
 
-    <!-- Secret Dev Panel -->
-    <div id="dev-panel" class="hidden fixed top-6 right-6 dev-panel p-6 rounded-2xl z-[100] w-80 text-white font-sans transition-all duration-300 opacity-0 transform scale-95 origin-top-right">
+    <!-- Secret Dev Panel (Ultra High Contrast) -->
+    <div id="dev-panel" class="hidden fixed top-6 right-6 dev-panel p-6 rounded-2xl z-[100] w-80 md:w-96 text-white font-sans transition-all duration-300 opacity-0 transform scale-95 origin-top-right">
         
-        <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-4">
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-                <h3 class="text-lg font-semibold tracking-wide">Command Center</h3>
+        <div class="flex justify-between items-center border-b-2 border-gray-600 pb-4 mb-5">
+            <div class="flex items-center gap-3">
+                <div class="w-3 h-3 rounded-full bg-green-400 animate-pulse shadow-[0_0_10px_#4ade80]"></div>
+                <h3 class="text-xl font-black tracking-wide text-white drop-shadow-md">Command Center</h3>
             </div>
-            <button onclick="toggleDevMode()" class="text-gray-400 hover:text-white transition-colors text-2xl leading-none">&times;</button>
+            <button onclick="toggleDevMode()" class="text-gray-300 hover:text-white transition-colors text-3xl font-bold leading-none bg-black/50 w-8 h-8 rounded flex items-center justify-center border border-gray-600">&times;</button>
         </div>
 
-        <div class="space-y-3">
-            <button onclick="devSkipCountdown()" class="dev-btn w-full bg-white/10 hover:bg-white/20 border border-white/10 py-2.5 rounded-lg text-sm font-medium tracking-wide">
+        <div class="space-y-4">
+            <button onclick="devSkipCountdown()" class="dev-btn w-full bg-gray-700 hover:bg-gray-600 border-2 border-gray-500 py-3 rounded-xl text-base text-white shadow-lg">
                 ⏩ Skip Countdown Sequence
             </button>
-            <button onclick="devAutoWin()" class="dev-btn w-full bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 text-emerald-300 py-2.5 rounded-lg text-sm font-medium tracking-wide">
+            <button onclick="devAutoWin()" class="dev-btn w-full bg-emerald-700 hover:bg-emerald-600 border-2 border-emerald-400 text-white py-3 rounded-xl text-base shadow-[0_0_15px_rgba(52,211,153,0.3)]">
                 🏆 Force Auto-Win Game
             </button>
-            <button onclick="devResetApp()" class="dev-btn w-full bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/30 text-rose-300 py-2.5 rounded-lg text-sm font-medium tracking-wide">
+            <button onclick="devResetApp()" class="dev-btn w-full bg-rose-700 hover:bg-rose-600 border-2 border-rose-400 text-white py-3 rounded-xl text-base shadow-[0_0_15px_rgba(251,113,133,0.3)]">
                 🔄 Hard Reset Application
             </button>
             
-            <div class="pt-4 mt-2 border-t border-white/10">
-                <label class="text-xs text-gray-400 uppercase tracking-wider block mb-2 font-semibold">Live Override Coordinates</label>
-                <input type="text" id="dev-location-input" class="w-full bg-black/40 border border-white/10 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-green-400 transition-colors" oninput="devUpdateLocation(this.value)" placeholder="Inject new gift location...">
+            <div class="pt-5 mt-4 border-t-2 border-gray-600">
+                <label class="text-sm text-gray-300 uppercase tracking-widest block mb-3 font-black drop-shadow-sm">Live Override Coordinates</label>
+                <input type="text" id="dev-location-input" class="w-full bg-black border-2 border-gray-500 rounded-xl p-4 text-lg text-white font-bold focus:outline-none focus:border-green-400 focus:shadow-[0_0_15px_rgba(74,222,128,0.5)] transition-all placeholder-gray-500" oninput="devUpdateLocation(this.value)" placeholder="Inject new gift location...">
             </div>
         </div>
     </div>
@@ -409,34 +481,41 @@
                     setTimeout(() => {
                         s.classList.remove('active');
                         s.style.display = 'none';
-                    }, 800); // Matches CSS transition duration
+                    }, 800); 
                 }
             });
 
             // Fade in new screen
             setTimeout(() => {
                 targetScreen.style.display = 'flex';
-                targetScreen.offsetHeight; // Trigger reflow
+                targetScreen.offsetHeight; 
                 targetScreen.classList.add('active');
                 targetScreen.style.opacity = '1';
+                
+                // Scroll to top of the new screen specifically to prevent awkward positioning
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                targetScreen.scrollTo({ top: 0 });
             }, 850);
         }
 
-        // --- STREAMING_CHUNK:Setting up Countdown Engine... ---
         // --- Setup & Timer Logic ---
         function startCountdown() {
             const minutes = parseInt(document.getElementById('setup-minutes').value) || 0;
             const locInput = document.getElementById('setup-location').value.trim();
             
             if (!locInput) {
-                // Visual Error Shake
+                // High-visibility Error Shake
                 const inputEl = document.getElementById('setup-location');
-                inputEl.style.transform = "translateX(-10px)";
-                setTimeout(() => inputEl.style.transform = "translateX(10px)", 100);
-                setTimeout(() => inputEl.style.transform = "translateX(-10px)", 200);
+                inputEl.style.transform = "translateX(-15px)";
+                setTimeout(() => inputEl.style.transform = "translateX(15px)", 100);
+                setTimeout(() => inputEl.style.transform = "translateX(-15px)", 200);
                 setTimeout(() => inputEl.style.transform = "translateX(0)", 300);
-                inputEl.style.borderColor = "#f43f5e"; // rose-500
-                setTimeout(() => inputEl.style.borderColor = "", 1000);
+                inputEl.style.borderColor = "#e11d48"; // rose-600
+                inputEl.style.boxShadow = "0 0 20px rgba(225,29,72,0.6)";
+                setTimeout(() => {
+                    inputEl.style.borderColor = "";
+                    inputEl.style.boxShadow = "";
+                }, 1500);
                 return;
             }
 
@@ -466,7 +545,7 @@
             timerDisplay.innerText = `${m}:${s}`;
         }
 
-        // --- STREAMING_CHUNK:Implementing Interactive Game Logic... ---
+        // --- STREAMING_CHUNK:Implementing Interactive Memory Game Logic... ---
         function initGame() {
             showScreen('game');
             
@@ -487,7 +566,7 @@
             cardsArray.forEach((emoji, index) => {
                 const card = document.createElement('div');
                 card.classList.add('card', 'w-full', 'aspect-[3/4]', 'md:aspect-square');
-                // Staggered entrance for cards
+                
                 card.style.opacity = '0';
                 card.style.animation = `fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards ${index * 0.05 + 0.5}s`;
                 
@@ -532,18 +611,15 @@
         }
 
         function disableCards() {
-            // Remove listeners
             firstCard.removeEventListener('click', flipCard);
             secondCard.removeEventListener('click', flipCard);
             
-            // Add glowing effect class
             firstCard.classList.add('matched');
             secondCard.classList.add('matched');
             
             matchedPairs++;
             matchCounter.innerText = matchedPairs;
             
-            // Slight delay before unlocking board to let the glow animation play
             lockBoard = true;
             setTimeout(() => {
                 resetBoard();
@@ -556,7 +632,6 @@
         function unflipCards() {
             lockBoard = true;
             
-            // Premium Shake effect
             setTimeout(() => {
                 if(firstCard && secondCard) {
                     firstCard.style.transform = "translateX(-8px) rotateY(180deg)";
@@ -568,7 +643,6 @@
                 }
             }, 400);
 
-            // Revert flip
             setTimeout(() => {
                 if(firstCard && secondCard) {
                     firstCard.style.transform = "";
@@ -584,7 +658,7 @@
             [firstCard, secondCard, lockBoard] = [null, null, false];
         }
 
-        // --- STREAMING_CHUNK:Implementing Win Sequence and Advanced Confetti... ---
+        // --- STREAMING_CHUNK:Implementing Win Sequence and High-Contrast Confetti... ---
         function triggerWin() {
             revealLocation.innerText = giftLocationText || "Ask Kunal!";
             showScreen('win');
@@ -593,14 +667,14 @@
 
         function fireAdvancedConfetti() {
             const isDesktop = window.innerWidth >= 768;
-            // Rich colors that pop on both dark and light backgrounds
+            // Extremely vibrant, pure hex colors that stand out everywhere
             const colors = isDesktop ? 
-                ['#fbbf24', '#f59e0b', '#ffffff', '#cbd5e1'] : // Golds and silvers
-                ['#ec4899', '#f472b6', '#fbbf24', '#38bdf8', '#ffffff']; // Vibrant party
+                ['#ffbf00', '#ffea00', '#ffffff', '#e2e8f0', '#fb923c'] : 
+                ['#e11d48', '#db2777', '#f59e0b', '#3b82f6', '#ffffff', '#10b981']; 
             
             const duration = 15 * 1000;
             const animationEnd = Date.now() + duration;
-            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 90, colors: colors };
+            const defaults = { startVelocity: 35, spread: 360, ticks: 70, zIndex: 90, colors: colors };
 
             function randomInRange(min, max) {
                 return Math.random() * (max - min) + min;
@@ -615,12 +689,10 @@
 
                 const particleCount = 50 * (timeLeft / duration);
                 
-                // Fire from left
                 confetti(Object.assign({}, defaults, { 
                     particleCount, 
                     origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
                 }));
-                // Fire from right
                 confetti(Object.assign({}, defaults, { 
                     particleCount, 
                     origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
@@ -628,7 +700,7 @@
             }, 250);
         }
 
-        // --- STREAMING_CHUNK:Implementing Developer Mode Logic... ---
+        // --- STREAMING_CHUNK:Binding Dev Mode Key Listeners... ---
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
                 e.preventDefault(); 
@@ -638,16 +710,13 @@
 
         function toggleDevMode() {
             if (devPanel.classList.contains('hidden')) {
-                // Show
                 devPanel.classList.remove('hidden');
                 document.getElementById('dev-location-input').value = giftLocationText || document.getElementById('setup-location').value;
-                // Animate in
                 setTimeout(() => {
                     devPanel.classList.remove('opacity-0', 'scale-95');
                     devPanel.classList.add('opacity-100', 'scale-100');
                 }, 10);
             } else {
-                // Hide with animation
                 devPanel.classList.remove('opacity-100', 'scale-100');
                 devPanel.classList.add('opacity-0', 'scale-95');
                 setTimeout(() => {
@@ -665,7 +734,6 @@
 
         function devAutoWin() {
             if(screens.game.classList.contains('active')) {
-                // Visually flip all cards
                 document.querySelectorAll('.card').forEach(c => c.classList.add('flipped', 'matched'));
                 setTimeout(triggerWin, 800);
             }
