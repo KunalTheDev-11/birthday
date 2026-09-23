@@ -5,59 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Birthday, Mom!</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS for robust layout and styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Canvas Confetti for the finale -->
+    <!-- Canvas Confetti for the grand finale fireworks -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
-    <!-- Premium Fonts -->
+    <!-- QRCodeJS for the dynamic shareable code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <!-- Premium Fonts: Outfit (Bubbly/Mobile), Playfair Display (Cinematic/TV) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Outfit for Mobile (Playful/Bubbly), Playfair Display for TV (Luxury/Cinematic) -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
 
     <style>
         /* --- MOBILE THEME (Default < 1024px) --- */
         :root {
-            --bg-grad-1: #fbcfe8; /* Pink 200 */
-            --bg-grad-2: #fde68a; /* Amber 200 */
-            --text-main: #111827; /* Dark for max contrast */
-            --text-accent: #be185d; /* Deep Pink */
+            --bg-grad-1: #fbcfe8; /* Soft Pink */
+            --bg-grad-2: #fde68a; /* Soft Amber */
+            --text-main: #111827; /* Max contrast dark */
+            --text-accent: #be185d; /* Deep pink accent */
             --font-main: 'Outfit', sans-serif;
-            --card-front: linear-gradient(135deg, #f472b6, #fb7185);
-            --card-back: rgba(255, 255, 255, 0.9);
-            /* Heavy white glow for readability on vibrant background */
-            --shadow-text: 2px 2px 0px rgba(255,255,255,1), -2px -2px 0px rgba(255,255,255,1), 2px -2px 0px rgba(255,255,255,1), -2px 2px 0px rgba(255,255,255,1), 0px 4px 15px rgba(255,255,255,0.8);
-            --shadow-box: 0 10px 30px -5px rgba(190, 24, 93, 0.3), inset 0 0 20px rgba(255,255,255,0.5);
-            --glass-bg: rgba(255, 255, 255, 0.4);
-            --glass-border: 3px solid rgba(255, 255, 255, 0.8);
+            /* Heavy white glow for readability on vibrant backgrounds */
+            --shadow-text: 2px 2px 0px rgba(255,255,255,1), -2px -2px 0px rgba(255,255,255,1), 2px -2px 0px rgba(255,255,255,1), -2px 2px 0px rgba(255,255,255,1), 0px 4px 15px rgba(255,255,255,0.9);
+            --shadow-box: 0 10px 30px -5px rgba(190, 24, 93, 0.3), inset 0 0 20px rgba(255,255,255,0.6);
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: 3px solid rgba(255, 255, 255, 0.9);
             --btn-bg: #be185d;
             --btn-text: #ffffff;
-            --progress-fill: #10b981;
+            --progress-fill: #10b981; /* Emerald */
+            --card-front-bg: linear-gradient(135deg, #f472b6, #fb7185);
+            --particle-color: rgba(255, 255, 255, 0.6);
         }
 
         /* --- DESKTOP/TV THEME (>= 1024px) --- */
         @media (min-width: 1024px) {
             :root {
-                --bg-grad-1: #0f172a; /* Slate 900 */
-                --bg-grad-2: #020617; /* Slate 950 */
-                --text-main: #fbbf24; /* Amber 400 (Gold) */
-                --text-accent: #fef3c7; /* Amber 100 */
+                --bg-grad-1: #0f172a; /* Deep Slate Navy */
+                --bg-grad-2: #020617; /* Near Black */
+                --text-main: #fbbf24; /* Gold / Amber 400 */
+                --text-accent: #fef3c7; /* Light Gold */
                 --font-main: 'Playfair Display', serif;
-                --card-front: linear-gradient(135deg, #1e1b4b, #000000);
-                --card-back: rgba(15, 23, 42, 0.9);
-                /* Deep dark shadows for luxury gold pop */
+                /* Deep dark shadows for luxury gold pop against dark bg */
                 --shadow-text: 3px 3px 5px rgba(0,0,0,1), -2px -2px 5px rgba(0,0,0,1), 0 0 25px rgba(251,191,36,0.6);
-                --shadow-box: 0 25px 50px rgba(0,0,0,0.9), inset 0 0 15px rgba(251,191,36,0.2);
-                --glass-bg: rgba(2, 6, 23, 0.6);
-                --glass-border: 2px solid rgba(251, 191, 36, 0.3);
+                --shadow-box: 0 25px 50px rgba(0,0,0,0.9), inset 0 0 15px rgba(251,191,36,0.25);
+                --glass-bg: rgba(2, 6, 23, 0.65);
+                --glass-border: 2px solid rgba(251, 191, 36, 0.4);
                 --btn-bg: #fbbf24;
                 --btn-text: #020617;
                 --progress-fill: #fbbf24;
+                --card-front-bg: linear-gradient(135deg, #1e1b4b, #000000);
+                --particle-color: rgba(251, 191, 36, 0.5);
             }
         }
 
+        /* --- STREAMING_CHUNK: Core Element Styling --- */
         body {
             font-family: var(--font-main);
             color: var(--text-main);
@@ -69,7 +72,6 @@
             min-height: 100vh;
         }
 
-        /* Canvas Background */
         #bg-canvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -77,24 +79,24 @@
             pointer-events: none;
         }
 
-        /* Typography & Glassmorphism Utilities */
         .text-pop { text-shadow: var(--shadow-text); color: var(--text-main); }
         .text-accent { color: var(--text-accent); text-shadow: var(--shadow-text); }
         
         .glass-panel {
             background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: var(--glass-border);
             box-shadow: var(--shadow-box);
         }
 
-        /* Input Overrides for ultimate contrast */
+        /* Input specific overrides for high contrast readability */
         input {
             color: #111827 !important;
             background: #ffffff !important;
             border: 3px solid #be185d !important;
             font-weight: 900 !important;
+            box-shadow: inset 0 4px 6px rgba(0,0,0,0.1) !important;
         }
         input::placeholder { color: #6b7280; opacity: 1; }
         @media (min-width: 1024px) {
@@ -103,8 +105,10 @@
                 background: #020617 !important;
                 border: 2px solid #fbbf24 !important;
             }
+            input::placeholder { color: #9ca3af; }
         }
 
+        /* --- STREAMING_CHUNK: Animations & Transitions --- */
         .screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -126,33 +130,32 @@
             transform: scale(1);
         }
 
-        /* Smooth element entry */
+        /* Staggered entrance animations */
         .stagger-up > * {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
             animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-        
-        /* Apply delays sequentially */
         .stagger-up > *:nth-child(1) { animation-delay: 0.1s; }
         .stagger-up > *:nth-child(2) { animation-delay: 0.2s; }
         .stagger-up > *:nth-child(3) { animation-delay: 0.3s; }
         .stagger-up > *:nth-child(4) { animation-delay: 0.4s; }
 
-        .perspective { perspective: 1000px; }
+        /* --- STREAMING_CHUNK: Game Card Styling --- */
+        .perspective { perspective: 1200px; }
         .card {
             cursor: pointer;
             transform-style: preserve-3d;
-            transition: transform 0.2s;
+            transition: transform 0.2s ease;
         }
-        .card:hover { transform: scale(1.03); }
+        .card:hover { transform: scale(1.04); }
         
         .card-inner {
             position: relative;
             width: 100%; height: 100%;
             transform-style: preserve-3d;
-            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy flip */
+            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy 3D flip */
         }
         .card.flipped .card-inner { transform: rotateY(180deg); }
         
@@ -167,24 +170,28 @@
             justify-content: center;
             border: var(--glass-border);
             box-shadow: var(--shadow-box);
+            overflow: hidden;
         }
         
         .card-front {
-            background: var(--card-front);
+            background: var(--card-front-bg);
         }
         .card-front::after {
             content: "✧";
             font-size: min(8vw, 3rem);
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.8);
+            font-family: sans-serif;
         }
         @media (min-width: 1024px) {
-            .card-front::after { color: rgba(251,191,36,0.5); }
+            .card-front::after { color: rgba(251,191,36,0.6); }
         }
 
         .card-back {
-            background: var(--card-back);
+            background-color: #ffffff;
             transform: rotateY(180deg);
-            font-size: min(10vw, 3.5rem); /* Massive emojis */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .card.matched .card-back {
@@ -192,117 +199,125 @@
         }
         @keyframes matchGlow {
             0% { transform: rotateY(180deg) scale(1); filter: brightness(1); }
-            50% { transform: rotateY(180deg) scale(1.1); filter: brightness(1.3); box-shadow: 0 0 30px #10b981; border-color: #10b981; }
+            50% { transform: rotateY(180deg) scale(1.1); filter: brightness(1.3); box-shadow: 0 0 40px #10b981; border-color: #10b981; border-width: 4px; }
             100% { transform: rotateY(180deg) scale(1); filter: brightness(1); }
         }
 
-        /* Screen Shake on mismatch */
-        .shake-game { animation: screenShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+        /* Screen Shake */
+        .shake-game { animation: screenShake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
         @keyframes screenShake {
             0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-10px); }
-            40%, 80% { transform: translateX(10px); }
+            20%, 60% { transform: translateX(-12px); }
+            40%, 80% { transform: translateX(12px); }
         }
 
-        /* Floating Compliment Juice */
-        .compliment {
+        /* Floating text effects */
+        .floating-text {
             position: absolute;
             pointer-events: none;
             font-size: 2.5rem;
             font-weight: 900;
             color: #10b981;
-            text-shadow: 3px 3px 0 #fff, -3px -3px 0 #fff, 0 0 20px #10b981;
+            text-shadow: 3px 3px 0 #fff, -3px -3px 0 #fff, 0 0 25px #10b981;
             z-index: 100;
-            animation: floatCompliment 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation: floatUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
         @media (min-width: 1024px) {
-            .compliment { text-shadow: 4px 4px 0 #000, 0 0 30px #4ade80; }
+            .floating-text { text-shadow: 4px 4px 0 #000, 0 0 35px #4ade80; }
         }
-        @keyframes floatCompliment {
+        @keyframes floatUp {
             0% { opacity: 0; transform: translate(-50%, 0) scale(0.5); }
             20% { opacity: 1; transform: translate(-50%, -40px) scale(1.2); }
-            100% { opacity: 0; transform: translate(-50%, -120px) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -130px) scale(1); }
         }
 
-        /* Button Styling */
         .btn-primary {
             background: var(--btn-bg);
             color: var(--btn-text);
             border: var(--glass-border);
-            text-shadow: none; /* Keep button text clean */
+            text-shadow: none; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.3);
+        }
+        
+        /* QR Code Styling */
+        #qrcode img {
+            margin: 0 auto;
+            border: 8px solid white;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
 
+    <!-- 1. Setup Screen -->
     <div id="screen-setup" class="screen active">
         <div class="glass-panel p-8 lg:p-12 rounded-[2rem] w-full max-w-lg stagger-up">
-            <h1 class="text-4xl lg:text-5xl font-black mb-8 text-pop text-center">Secret Setup</h1>
+            <h1 class="text-4xl lg:text-5xl font-black mb-8 text-pop text-center tracking-tight">Secret Setup</h1>
             
             <div class="space-y-6">
                 <div>
-                    <label class="block text-xl font-black mb-2 text-pop">Countdown (Seconds)</label>
-                    <input type="number" id="setup-time" placeholder="e.g., 5" class="w-full p-4 rounded-xl text-2xl outline-none shadow-inner" min="1">
+                    <label class="block text-xl lg:text-2xl font-black mb-2 text-pop">Countdown (Seconds)</label>
+                    <input type="number" id="setup-time" value="5" class="w-full p-4 rounded-xl text-2xl outline-none" min="1">
                 </div>
                 
                 <div>
-                    <label class="block text-xl font-black mb-2 text-pop">Gift Location</label>
-                    <input type="text" id="setup-location" placeholder="e.g., Inside the microwave!" class="w-full p-4 rounded-xl text-xl outline-none shadow-inner">
+                    <label class="block text-xl lg:text-2xl font-black mb-2 text-pop">Gift Location</label>
+                    <input type="text" id="setup-location" placeholder="e.g., Inside the oven!" class="w-full p-4 rounded-xl text-xl outline-none">
                 </div>
                 
-                <button onclick="lockAndStart()" class="btn-primary w-full py-5 mt-4 text-2xl font-black rounded-xl transition-transform hover:scale-105 active:scale-95 shadow-2xl uppercase tracking-wider">
+                <button onclick="lockAndStart()" class="btn-primary w-full py-5 mt-4 text-2xl font-black rounded-xl transition-transform hover:scale-105 active:scale-95 uppercase tracking-wider">
                     Lock & Hand to Mom
                 </button>
             </div>
-            <p class="mt-8 text-center text-sm font-bold opacity-70 text-pop">Dev Panel: Ctrl+Shift+D</p>
+            <p class="mt-8 text-center text-sm font-bold text-pop">Admin Panel: Ctrl+Shift+D</p>
         </div>
     </div>
 
+    <!-- 2. Countdown Screen -->
     <div id="screen-countdown" class="screen">
-        <div class="text-center w-full max-w-4xl stagger-up">
-            <h2 class="text-3xl lg:text-5xl font-black mb-8 text-accent uppercase tracking-widest">Surprise Unlocks In</h2>
-            <div class="glass-panel py-12 px-8 rounded-[3rem] inline-block mx-auto transform transition-transform hover:scale-105">
-                <div id="big-timer" class="text-[8rem] lg:text-[14rem] font-black text-pop leading-none tracking-tighter" style="font-variant-numeric: tabular-nums;">
+        <div class="text-center w-full max-w-4xl stagger-up flex flex-col items-center">
+            <h2 class="text-3xl lg:text-5xl font-black mb-10 text-accent uppercase tracking-widest drop-shadow-xl">Surprise Unlocks In</h2>
+            <div class="glass-panel py-12 px-10 rounded-[3rem] transform transition-transform hover:scale-105 inline-flex justify-center items-center">
+                <div id="big-timer" class="text-[9rem] lg:text-[16rem] font-black text-pop leading-none tracking-tighter" style="font-variant-numeric: tabular-nums;">
                     --
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- 3. Welcome Screen -->
     <div id="screen-welcome" class="screen">
         <div class="text-center px-4 stagger-up flex flex-col items-center">
-            <div class="text-[5rem] lg:text-[8rem] mb-4 drop-shadow-2xl">✨</div>
+            <div class="text-[5rem] lg:text-[7rem] mb-4 drop-shadow-2xl animate-bounce" style="animation-duration: 2s;">✨</div>
             <h1 class="text-6xl sm:text-7xl lg:text-[8rem] font-black mb-6 text-pop leading-tight">
                 Happy Birthday,<br>Mom!
             </h1>
             <p class="text-2xl lg:text-4xl mb-12 font-black text-accent max-w-2xl mx-auto leading-relaxed">
-                I made a little challenge for you. Complete it to find your special gift!
+                I designed a little challenge for you. Complete it to unlock your special gift!
             </p>
-            <button onclick="startGame()" class="btn-primary px-12 py-6 text-2xl lg:text-4xl font-black rounded-full transition-transform hover:scale-110 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.4)] uppercase tracking-widest">
-                Start Challenge
+            <button onclick="startGame()" class="btn-primary px-12 py-6 text-2xl lg:text-4xl font-black rounded-full transition-transform hover:scale-110 active:scale-95 uppercase tracking-widest">
+                Start The Hunt
             </button>
         </div>
     </div>
 
+    <!-- 4. Game Screen -->
     <div id="screen-game" class="screen justify-start lg:justify-center pt-6 lg:pt-0">
-        
         <div class="w-full max-w-lg lg:max-w-4xl flex flex-col gap-4 mb-6 z-10 px-4 stagger-up">
-            
             <div class="flex justify-between items-end mb-2">
                 <div>
-                    <div class="text-sm lg:text-lg uppercase font-black text-pop mb-1">Score Multiplier</div>
+                    <div class="text-sm lg:text-lg uppercase font-black text-pop mb-1 tracking-wider">Multiplier</div>
                     <div id="combo-display" class="text-3xl lg:text-5xl font-black text-accent transition-all duration-300">Combo x0</div>
                 </div>
                 <div class="text-right">
-                    <div class="text-sm lg:text-lg uppercase font-black text-pop mb-1">Time Remaining</div>
+                    <div class="text-sm lg:text-lg uppercase font-black text-pop mb-1 tracking-wider">Time Left</div>
                     <div id="game-timer-text" class="text-4xl lg:text-6xl font-black text-pop">60s</div>
                 </div>
             </div>
             
-            <!-- Sleek Progress Bar -->
             <div class="w-full h-6 lg:h-8 rounded-full shadow-inner overflow-hidden glass-panel !p-0 !border-2">
                 <div id="game-timer-bar" class="h-full rounded-full transition-all duration-1000 linear" style="width: 100%; background: var(--progress-fill);"></div>
             </div>
@@ -310,67 +325,76 @@
 
         <div class="w-full max-w-md lg:max-w-2xl px-4 stagger-up relative" id="game-container">
             <div id="game-grid" class="grid grid-cols-4 gap-3 lg:gap-5 perspective">
-                <!-- Cards injected here via JS -->
+                <!-- Cards injected via JS -->
             </div>
         </div>
     </div>
 
+    <!-- 5. Win Screen -->
     <div id="screen-win" class="screen">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0%,transparent_70%)] lg:bg-[radial-gradient(circle_at_center,rgba(251,191,36,0.15)_0%,transparent_60%)] pointer-events-none"></div>
         
-        <div class="text-center px-4 stagger-up flex flex-col items-center z-10">
-            <h1 class="text-6xl sm:text-7xl lg:text-9xl font-black mb-4 text-pop">
+        <div class="text-center px-4 stagger-up flex flex-col items-center z-10 w-full max-w-5xl">
+            <h1 class="text-6xl sm:text-7xl lg:text-[7rem] font-black mb-4 text-pop">
                 You Did It!
             </h1>
             
-            <p class="text-3xl lg:text-5xl font-black text-accent mb-10">
+            <p class="text-2xl lg:text-4xl font-black text-accent mb-8">
                 Your special gift is hidden at:
             </p>
             
-            <div class="glass-panel p-8 lg:p-16 rounded-[2.5rem] max-w-4xl w-full mb-12 transform transition hover:scale-105 shadow-[0_0_50px_rgba(255,255,255,0.3)]">
-                <p id="reveal-location" class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-wide leading-tight text-pop"></p>
+            <div class="glass-panel p-8 lg:p-12 rounded-[2.5rem] w-full mb-8 transform transition hover:scale-105">
+                <p id="reveal-location" class="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-wide leading-tight text-pop"></p>
             </div>
             
-            <p class="text-5xl lg:text-7xl font-black italic text-pop" style="font-family: 'Playfair Display', serif;">
-                Love, Kunal ❤️
-            </p>
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 w-full mb-8">
+                <div id="qrcode-container" class="bg-white/20 p-4 rounded-3xl backdrop-blur-md shadow-2xl">
+                    <div id="qrcode"></div>
+                    <p class="mt-3 text-sm font-bold text-pop">Scan to keep!</p>
+                </div>
+                
+                <p class="text-5xl lg:text-7xl font-black italic text-pop" style="font-family: 'Playfair Display', serif;">
+                    Love, Kunal ❤️
+                </p>
+            </div>
         </div>
     </div>
 
+    <!-- 6. Lose Screen -->
     <div id="screen-lose" class="screen">
         <div class="text-center px-4 stagger-up flex flex-col items-center z-10">
             <h1 class="text-6xl sm:text-7xl lg:text-9xl font-black mb-8 text-pop">
                 Time's Up!
             </h1>
             <p class="text-3xl lg:text-5xl font-black text-accent mb-12">
-                So close! Don't give up.
+                So close! You've got this.
             </p>
-            <button onclick="startGame()" class="btn-primary px-12 py-6 text-3xl lg:text-4xl font-black rounded-full transition-transform hover:scale-110 shadow-2xl uppercase tracking-widest">
+            <button onclick="startGame()" class="btn-primary px-12 py-6 text-3xl lg:text-4xl font-black rounded-full transition-transform hover:scale-110 uppercase tracking-widest">
                 Try Again
             </button>
         </div>
     </div>
 
-    <div id="dev-panel" class="hidden fixed top-4 right-4 glass-panel !bg-slate-900/90 !border-slate-700 p-6 rounded-2xl z-[9999] w-80 text-white shadow-2xl transition-all duration-300 transform scale-95 opacity-0" style="font-family: sans-serif;">
+    <div id="dev-panel" class="hidden fixed top-4 right-4 bg-slate-900/95 backdrop-blur-xl border border-slate-700 p-6 rounded-2xl z-[9999] w-84 text-white shadow-2xl transition-all duration-300 transform scale-95 opacity-0" style="font-family: sans-serif;">
         <div class="flex justify-between items-center border-b border-white/20 pb-4 mb-4">
-            <h3 class="text-2xl font-black flex items-center gap-2 text-white shadow-none">
+            <h3 class="text-2xl font-black flex items-center gap-2 text-white m-0">
                 <span class="w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_#ef4444]"></span>
                 Command Center
             </h3>
             <button onclick="toggleDevMode()" class="text-white/60 hover:text-white text-3xl font-black leading-none">&times;</button>
         </div>
         
-        <div class="space-y-4">
+        <div class="space-y-3">
             <button onclick="devSkipToWelcome()" class="w-full bg-blue-600 hover:bg-blue-500 py-3 rounded-xl font-bold shadow-lg transition-colors border-2 border-blue-400 text-white text-lg">
                 ⏭️ Jump to Welcome
             </button>
             <button onclick="devForceWin()" class="w-full bg-emerald-600 hover:bg-emerald-500 py-3 rounded-xl font-bold shadow-lg transition-colors border-2 border-emerald-400 text-white text-lg">
-                🏆 Force Win / Reveal
+                🏆 Force Win Reveal
             </button>
-            <div class="pt-2 border-t border-white/10">
-                <label class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1 block">Live Edit Location</label>
-                <input type="text" id="dev-location" placeholder="Change location..." class="w-full p-2 rounded bg-slate-800 text-white border border-slate-600 font-normal !text-sm mb-2">
-                <button onclick="devUpdateLocation()" class="w-full bg-slate-700 hover:bg-slate-600 py-2 rounded font-bold transition-colors text-white text-sm">Update Gift Text</button>
+            <div class="pt-3 pb-1 border-t border-white/10">
+                <label class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Live Edit Location</label>
+                <input type="text" id="dev-location" placeholder="Change location..." class="w-full p-3 rounded-lg bg-slate-800 text-white border border-slate-600 font-normal !text-base mb-2 !shadow-none outline-none focus:border-blue-400">
+                <button onclick="devUpdateLocation()" class="w-full bg-slate-700 hover:bg-slate-600 py-2 rounded-lg font-bold transition-colors text-white text-sm">Update Gift Text</button>
             </div>
             <button onclick="location.reload()" class="w-full bg-rose-700 hover:bg-rose-600 py-3 rounded-xl font-bold shadow-lg transition-colors border-2 border-rose-500 text-white text-lg mt-2">
                 🔄 Hard Reset App
@@ -379,12 +403,60 @@
     </div>
 
     <script>
-        // --- Global State ---
+        // --- State Management ---
         let giftLocationText = "";
         let countdownTime = 0;
         let bigTimerInterval;
         
-        // --- Particle System (Dual Theme) ---
+        // --- Web Audio API Synthesizer ---
+        // Generates native sounds without external files
+        let audioCtx = null;
+        
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playTone(freq, type, duration, vol = 0.1) {
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            
+            gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        function playPop() { playTone(450, 'sine', 0.1, 0.15); }
+        function playShake() { playTone(150, 'sawtooth', 0.2, 0.2); }
+        function playChime() {
+            playTone(880, 'sine', 0.15, 0.1);
+            setTimeout(() => playTone(1320, 'sine', 0.3, 0.1), 100);
+            setTimeout(() => playTone(1760, 'sine', 0.5, 0.1), 200);
+        }
+        function playWinFanfare() {
+            const notes = [
+                {f: 440, d: 0.2}, {f: 554, d: 0.2}, {f: 659, d: 0.2}, 
+                {f: 880, d: 0.6}, {f: 659, d: 0.2}, {f: 880, d: 0.8}
+            ];
+            let time = 0;
+            notes.forEach(note => {
+                setTimeout(() => playTone(note.f, 'triangle', note.d, 0.2), time * 1000);
+                time += note.d;
+            });
+        }
+
+        // --- Background Particle Engine ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -398,37 +470,37 @@
         function createParticles() {
             particles = [];
             const isDesktop = window.innerWidth >= 1024;
-            const count = isDesktop ? 100 : 40; // More dust on TV, fewer bubbles on mobile
+            const count = isDesktop ? 120 : 50; 
             
             for (let i = 0; i < count; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    radius: isDesktop ? Math.random() * 1.5 + 0.5 : Math.random() * 6 + 2,
-                    vx: isDesktop ? (Math.random() - 0.5) * 0.5 : (Math.random() - 0.5) * 0.2,
-                    vy: isDesktop ? (Math.random() - 0.5) * 0.5 : (Math.random() * -1) - 0.5,
-                    alpha: Math.random() * 0.5 + 0.1
+                    radius: isDesktop ? Math.random() * 2 + 0.5 : Math.random() * 8 + 3,
+                    vx: isDesktop ? (Math.random() - 0.5) * 0.4 : (Math.random() - 0.5) * 0.2,
+                    vy: isDesktop ? (Math.random() - 0.5) * 0.4 : (Math.random() * -1.5) - 0.5,
+                    alpha: Math.random() * 0.6 + 0.1
                 });
             }
         }
         
         function animateCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            const isDesktop = window.innerWidth >= 1024;
+            const style = getComputedStyle(document.documentElement);
+            const pColor = style.getPropertyValue('--particle-color').trim();
             
             particles.forEach(p => {
                 p.x += p.vx;
                 p.y += p.vy;
                 
-                // Wrap around
-                if (p.x < 0) p.x = canvas.width;
-                if (p.x > canvas.width) p.x = 0;
-                if (p.y < 0) p.y = canvas.height;
-                if (p.y > canvas.height) p.y = 0;
+                if (p.x < -10) p.x = canvas.width + 10;
+                if (p.x > canvas.width + 10) p.x = -10;
+                if (p.y < -10) p.y = canvas.height + 10;
+                if (p.y > canvas.height + 10) p.y = -10;
                 
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = isDesktop ? `rgba(251, 191, 36, ${p.alpha})` : `rgba(255, 255, 255, ${p.alpha})`;
+                ctx.fillStyle = pColor;
                 ctx.fill();
             });
             requestAnimationFrame(animateCanvas);
@@ -438,7 +510,7 @@
         initCanvas();
         animateCanvas();
 
-        // --- Screen Navigation ---
+        // --- Screen Navigation Logic ---
         const screens = {
             setup: document.getElementById('screen-setup'),
             countdown: document.getElementById('screen-countdown'),
@@ -449,35 +521,27 @@
         };
 
         function showScreen(screenId) {
-            Object.values(screens).forEach(s => {
-                if(s.classList.contains('active')) {
-                    s.classList.remove('active');
-                }
-            });
-            
+            Object.values(screens).forEach(s => s.classList.remove('active'));
             const target = screens[screenId];
             
-            // Re-trigger stagger animations
+            // Re-trigger stagger animations cleanly
             const staggerEl = target.querySelector('.stagger-up');
             if(staggerEl) {
-                const clones = Array.from(staggerEl.children).map(child => {
-                    const clone = child.cloneNode(true);
-                    return clone;
-                });
+                const clones = Array.from(staggerEl.children).map(child => child.cloneNode(true));
                 staggerEl.innerHTML = '';
                 clones.forEach(c => staggerEl.appendChild(c));
             }
-            
             target.classList.add('active');
         }
 
-        // --- STREAMING_CHUNK: Setup & Countdown Logic ---
+        // --- Flow Control ---
         function lockAndStart() {
+            initAudio(); // Required to bypass autoplay policies
+            
             const timeInput = document.getElementById('setup-time');
             const locInput = document.getElementById('setup-location');
             
             if(!timeInput.value || timeInput.value <= 0 || !locInput.value.trim()) {
-                // Quick error shake
                 timeInput.closest('.glass-panel').style.animation = 'screenShake 0.4s both';
                 setTimeout(() => timeInput.closest('.glass-panel').style.animation = '', 400);
                 return;
@@ -499,8 +563,8 @@
                 countdownTime--;
                 timerEl.innerText = countdownTime;
                 
-                // Pop animation on text change
-                timerEl.style.transform = 'scale(1.1)';
+                // Pop animation
+                timerEl.style.transform = 'scale(1.15)';
                 setTimeout(() => timerEl.style.transform = 'scale(1)', 150);
 
                 if(countdownTime <= 0) {
@@ -511,23 +575,27 @@
             }, 1000);
         }
 
-        // --- STREAMING_CHUNK: Advanced Memory Game Engine ---
-        // Specific user-requested emojis for memories
-        const emojis = ['🐅', '🏕️', '🍫', '🍕', '🐘', '🏰', '🥜', '🛕'];
-        let cards = [];
-        let firstCard = null;
-        let secondCard = null;
-        let lockBoard = false;
-        let matchedPairs = 0;
-        let combo = 0;
+        // --- STREAMING_CHUNK: Memory Match Game Engine ---
+        // Real Unsplash photo URLs for memories
+        const memoryPhotos = [
+            'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=400&q=80', // Himalayas
+            'https://images.unsplash.com/photo-1518175510650-32df380e227a?auto=format&fit=crop&w=400&q=80', // Blanket Fort / Lights
+            'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80', // Chocolate Cake
+            'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80', // Pizza
+            'https://images.unsplash.com/photo-1602491453631-e2a56e4173d7?auto=format&fit=crop&w=400&q=80', // Tiger Safari
+            'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=400&q=80', // Taj / Castle
+            'https://images.unsplash.com/photo-1599577180579-7bee7a885f8e?auto=format&fit=crop&w=400&q=80', // Nuts / Dry fruits
+            'https://images.unsplash.com/photo-1590458631557-0b1a03e1b71f?auto=format&fit=crop&w=400&q=80'  // Dominoes
+        ];
         
-        let gameTime = 60;
-        const maxTime = 60;
-        let gameInterval;
-
-        const compliments = ["Amazing!", "Perfect!", "Brilliant!", "Wow!", "Genius!", "Beautiful!"];
+        let cards = [];
+        let firstCard = null, secondCard = null;
+        let lockBoard = false;
+        let matchedPairs = 0, combo = 0;
+        let gameTime = 60, gameInterval;
 
         function startGame() {
+            initAudio();
             showScreen('game');
             resetGameEngine();
             generateGrid();
@@ -535,7 +603,7 @@
         }
 
         function resetGameEngine() {
-            firstCard = null; secondCard = null; lockBoard = false;
+            [firstCard, secondCard, lockBoard] = [null, null, false];
             matchedPairs = 0; combo = 0; gameTime = 60;
             updateComboUI();
         }
@@ -544,18 +612,18 @@
             const grid = document.getElementById('game-grid');
             grid.innerHTML = '';
             
-            cards = [...emojis, ...emojis];
+            cards = [...memoryPhotos, ...memoryPhotos];
             cards.sort(() => Math.random() - 0.5); // Shuffle
 
-            cards.forEach((emoji, i) => {
+            cards.forEach((photoUrl, i) => {
                 const card = document.createElement('div');
                 card.classList.add('card', 'w-full', 'aspect-square');
+                card.dataset.photo = photoUrl;
                 
-                card.dataset.emoji = emoji;
                 card.innerHTML = `
                     <div class="card-inner">
                         <div class="card-front"></div>
-                        <div class="card-back">${emoji}</div>
+                        <div class="card-back" style="background-image: url('${photoUrl}')"></div>
                     </div>
                 `;
                 card.addEventListener('click', flipCard);
@@ -580,25 +648,28 @@
         }
 
         function updateTimerUI() {
-            document.getElementById('game-timer-text').innerText = `${gameTime}s`;
-            const pct = Math.max(0, (gameTime / maxTime) * 100);
+            const timeText = document.getElementById('game-timer-text');
+            timeText.innerText = `${gameTime}s`;
+            
+            const pct = Math.min(100, Math.max(0, (gameTime / 60) * 100));
             const bar = document.getElementById('game-timer-bar');
             bar.style.width = `${pct}%`;
             
             if(gameTime <= 10) {
-                bar.style.background = '#ef4444'; // Red urgency
-                document.getElementById('game-timer-text').style.color = '#ef4444';
+                bar.style.background = '#ef4444';
+                timeText.style.color = '#ef4444';
+                timeText.classList.add('animate-pulse');
             } else {
                 bar.style.background = 'var(--progress-fill)';
-                document.getElementById('game-timer-text').style.color = 'var(--text-main)';
+                timeText.style.color = 'var(--text-main)';
+                timeText.classList.remove('animate-pulse');
             }
         }
 
         function flipCard() {
-            if (lockBoard) return;
-            if (this === firstCard) return;
-            if (this.classList.contains('matched')) return;
+            if (lockBoard || this === firstCard || this.classList.contains('matched')) return;
 
+            playPop();
             this.classList.add('flipped');
 
             if (!firstCard) {
@@ -611,9 +682,7 @@
         }
 
         function checkForMatch() {
-            const isMatch = firstCard.dataset.emoji === secondCard.dataset.emoji;
-
-            if (isMatch) {
+            if (firstCard.dataset.photo === secondCard.dataset.photo) {
                 matchSuccess();
             } else {
                 matchFail();
@@ -623,20 +692,25 @@
         function matchSuccess() {
             combo++;
             matchedPairs++;
+            
+            // Add time bonus
+            const bonusTime = 5;
+            gameTime = Math.min(60, gameTime + bonusTime);
+            
+            playChime();
             updateComboUI();
-            spawnCompliment();
+            spawnFloatingText(`+${bonusTime}s`);
             
             firstCard.removeEventListener('click', flipCard);
             secondCard.removeEventListener('click', flipCard);
-            
             firstCard.classList.add('matched');
             secondCard.classList.add('matched');
             
             resetBoard();
 
-            if (matchedPairs === emojis.length) {
+            if (matchedPairs === memoryPhotos.length) {
                 clearInterval(gameInterval);
-                setTimeout(triggerWin, 1000);
+                setTimeout(triggerWin, 1200);
             }
         }
 
@@ -644,8 +718,8 @@
             combo = 0;
             updateComboUI();
             lockBoard = true;
+            playShake();
             
-            // Apply screen shake to game container
             const container = document.getElementById('screen-game');
             container.classList.add('shake-game');
             
@@ -654,7 +728,7 @@
                 secondCard.classList.remove('flipped');
                 container.classList.remove('shake-game');
                 resetBoard();
-            }, 800);
+            }, 900);
         }
 
         function updateComboUI() {
@@ -674,66 +748,65 @@
             setTimeout(() => el.style.transform = 'scale(1)', 200);
         }
 
-        function spawnCompliment() {
+        function spawnFloatingText(text) {
             const container = document.getElementById('game-container');
             const el = document.createElement('div');
-            el.className = 'compliment';
-            el.innerText = compliments[Math.floor(Math.random() * compliments.length)];
+            el.className = 'floating-text';
+            el.innerText = text;
             
-            // Center horizontally within container
             el.style.left = '50%';
-            el.style.top = '30%';
+            el.style.top = '40%';
             
             container.appendChild(el);
             setTimeout(() => el.remove(), 1200);
         }
 
-        function resetBoard() {
-            [firstCard, secondCard, lockBoard] = [null, null, false];
-        }
+        function resetBoard() { [firstCard, secondCard, lockBoard] = [null, null, false]; }
 
-        // --- STREAMING_CHUNK: The Win / Fireworks Sequence ---
+        // --- STREAMING_CHUNK: Win Sequence & Dynamic QR Code ---
         function triggerWin() {
             document.getElementById('reveal-location').innerText = giftLocationText || "Ask Kunal!";
             showScreen('win');
+            playWinFanfare();
             fireworksEngine();
+            generateQRCode();
+        }
+
+        function generateQRCode() {
+            const qrContainer = document.getElementById("qrcode");
+            qrContainer.innerHTML = ""; // Clear existing
+            new QRCode(qrContainer, {
+                text: window.location.href,
+                width: 160,
+                height: 160,
+                colorDark : "#111827",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
         }
 
         function fireworksEngine() {
             const duration = 15 * 1000;
             const animationEnd = Date.now() + duration;
-            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            const defaults = { startVelocity: 35, spread: 360, ticks: 70, zIndex: 0 };
 
-            function randomInRange(min, max) {
-                return Math.random() * (max - min) + min;
-            }
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
 
             const interval = setInterval(function() {
                 const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
 
-                if (timeLeft <= 0) {
-                    return clearInterval(interval);
-                }
-
-                const particleCount = 50 * (timeLeft / duration);
-                
-                // Use brand colors for fireworks
+                const particleCount = 60 * (timeLeft / duration);
                 const colors = window.innerWidth >= 1024 
-                    ? ['#fbbf24', '#fef3c7', '#ffffff'] // TV Gold/White
-                    : ['#be185d', '#f472b6', '#ffffff']; // Mobile Pink/White
+                    ? ['#fbbf24', '#fef3c7', '#ffffff'] 
+                    : ['#be185d', '#f472b6', '#ffffff'];
 
-                confetti({
-                    ...defaults, particleCount, colors,
-                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
-                });
-                confetti({
-                    ...defaults, particleCount, colors,
-                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
-                });
-            }, 250);
+                confetti({ ...defaults, particleCount, colors, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+                confetti({ ...defaults, particleCount, colors, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+            }, 300);
         }
 
-        // --- STREAMING_CHUNK: Developer Command Center ---
+        // --- STREAMING_CHUNK: Developer Mode / Command Center ---
         const devPanel = document.getElementById('dev-panel');
 
         document.addEventListener('keydown', (e) => {
@@ -770,10 +843,8 @@
         }
         
         function devUpdateLocation() {
-            const input = document.getElementById('dev-location').value;
-            giftLocationText = input;
+            giftLocationText = document.getElementById('dev-location').value;
             document.getElementById('reveal-location').innerText = giftLocationText;
-            alert("Gift location updated for final screen!");
         }
     </script>
 </body>
