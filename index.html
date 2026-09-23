@@ -11,9 +11,6 @@
     <!-- Canvas Confetti for the grand finale fireworks -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
-    <!-- QRCodeJS for the dynamic shareable code -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    
     <!-- Premium Fonts: Outfit (Bubbly/Mobile), Playfair Display (Cinematic/TV) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +24,6 @@
             --text-main: #111827; /* Max contrast dark */
             --text-accent: #be185d; /* Deep pink accent */
             --font-main: 'Outfit', sans-serif;
-            /* Heavy white glow for readability on vibrant backgrounds */
             --shadow-text: 2px 2px 0px rgba(255,255,255,1), -2px -2px 0px rgba(255,255,255,1), 2px -2px 0px rgba(255,255,255,1), -2px 2px 0px rgba(255,255,255,1), 0px 4px 15px rgba(255,255,255,0.9);
             --shadow-box: 0 10px 30px -5px rgba(190, 24, 93, 0.3), inset 0 0 20px rgba(255,255,255,0.6);
             --glass-bg: rgba(255, 255, 255, 0.45);
@@ -47,7 +43,6 @@
                 --text-main: #fbbf24; /* Gold / Amber 400 */
                 --text-accent: #fef3c7; /* Light Gold */
                 --font-main: 'Playfair Display', serif;
-                /* Deep dark shadows for luxury gold pop against dark bg */
                 --shadow-text: 3px 3px 5px rgba(0,0,0,1), -2px -2px 5px rgba(0,0,0,1), 0 0 25px rgba(251,191,36,0.6);
                 --shadow-box: 0 25px 50px rgba(0,0,0,0.9), inset 0 0 15px rgba(251,191,36,0.25);
                 --glass-bg: rgba(2, 6, 23, 0.65);
@@ -60,7 +55,6 @@
             }
         }
 
-        /* --- STREAMING_CHUNK: Core Element Styling --- */
         body {
             font-family: var(--font-main);
             color: var(--text-main);
@@ -90,7 +84,6 @@
             box-shadow: var(--shadow-box);
         }
 
-        /* Input specific overrides for high contrast readability */
         input {
             color: #111827 !important;
             background: #ffffff !important;
@@ -108,7 +101,14 @@
             input::placeholder { color: #9ca3af; }
         }
 
-        /* --- STREAMING_CHUNK: Animations & Transitions --- */
+        .btn-primary {
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border: var(--glass-border);
+            text-shadow: none; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.3);
+        }
+
         .screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -130,7 +130,6 @@
             transform: scale(1);
         }
 
-        /* Staggered entrance animations */
         .stagger-up > * {
             opacity: 0;
             transform: translateY(40px);
@@ -142,7 +141,6 @@
         .stagger-up > *:nth-child(3) { animation-delay: 0.3s; }
         .stagger-up > *:nth-child(4) { animation-delay: 0.4s; }
 
-        /* --- STREAMING_CHUNK: Game Card Styling --- */
         .perspective { perspective: 1200px; }
         .card {
             cursor: pointer;
@@ -155,7 +153,7 @@
             position: relative;
             width: 100%; height: 100%;
             transform-style: preserve-3d;
-            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy 3D flip */
+            transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .card.flipped .card-inner { transform: rotateY(180deg); }
         
@@ -173,9 +171,7 @@
             overflow: hidden;
         }
         
-        .card-front {
-            background: var(--card-front-bg);
-        }
+        .card-front { background: var(--card-front-bg); }
         .card-front::after {
             content: "✧";
             font-size: min(8vw, 3rem);
@@ -203,7 +199,6 @@
             100% { transform: rotateY(180deg) scale(1); filter: brightness(1); }
         }
 
-        /* Screen Shake */
         .shake-game { animation: screenShake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
         @keyframes screenShake {
             0%, 100% { transform: translateX(0); }
@@ -211,11 +206,10 @@
             40%, 80% { transform: translateX(12px); }
         }
 
-        /* Floating text effects */
         .floating-text {
             position: absolute;
             pointer-events: none;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 900;
             color: #10b981;
             text-shadow: 3px 3px 0 #fff, -3px -3px 0 #fff, 0 0 25px #10b981;
@@ -231,20 +225,15 @@
             100% { opacity: 0; transform: translate(-50%, -130px) scale(1); }
         }
 
-        .btn-primary {
-            background: var(--btn-bg);
-            color: var(--btn-text);
-            border: var(--glass-border);
-            text-shadow: none; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.3);
-        }
-        
-        /* QR Code Styling */
-        #qrcode img {
+        /* QR Code Layout */
+        #qr-image {
             margin: 0 auto;
             border: 8px solid white;
             border-radius: 12px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            width: 160px;
+            height: 160px;
+            background: white;
         }
     </style>
 </head>
@@ -255,7 +244,7 @@
     <!-- 1. Setup Screen -->
     <div id="screen-setup" class="screen active">
         <div class="glass-panel p-8 lg:p-12 rounded-[2rem] w-full max-w-lg stagger-up">
-            <h1 class="text-4xl lg:text-5xl font-black mb-8 text-pop text-center tracking-tight">Secret Setup</h1>
+            <h1 class="text-4xl lg:text-5xl font-black mb-8 text-pop text-center tracking-tight">Game Setup</h1>
             
             <div class="space-y-6">
                 <div>
@@ -269,7 +258,7 @@
                 </div>
                 
                 <button onclick="lockAndStart()" class="btn-primary w-full py-5 mt-4 text-2xl font-black rounded-xl transition-transform hover:scale-105 active:scale-95 uppercase tracking-wider">
-                    Lock & Hand to Mom
+                    Lock & Start Sequence
                 </button>
             </div>
             <p class="mt-8 text-center text-sm font-bold text-pop">Admin Panel: Ctrl+Shift+D</p>
@@ -288,17 +277,13 @@
         </div>
     </div>
 
-    <!-- 3. Welcome Screen -->
+    <!-- 3. Welcome Screen (Minimalist) -->
     <div id="screen-welcome" class="screen">
         <div class="text-center px-4 stagger-up flex flex-col items-center">
-            <div class="text-[5rem] lg:text-[7rem] mb-4 drop-shadow-2xl animate-bounce" style="animation-duration: 2s;">✨</div>
-            <h1 class="text-6xl sm:text-7xl lg:text-[8rem] font-black mb-6 text-pop leading-tight">
+            <h1 class="text-6xl sm:text-7xl lg:text-[9rem] font-black mb-12 text-pop leading-tight">
                 Happy Birthday,<br>Mom!
             </h1>
-            <p class="text-2xl lg:text-4xl mb-12 font-black text-accent max-w-2xl mx-auto leading-relaxed">
-                I designed a little challenge for you. Complete it to unlock your special gift!
-            </p>
-            <button onclick="startGame()" class="btn-primary px-12 py-6 text-2xl lg:text-4xl font-black rounded-full transition-transform hover:scale-110 active:scale-95 uppercase tracking-widest">
+            <button onclick="startGame()" class="btn-primary px-16 py-8 text-3xl lg:text-5xl font-black rounded-full transition-transform hover:scale-110 active:scale-95 uppercase tracking-widest shadow-2xl">
                 Start The Hunt
             </button>
         </div>
@@ -343,17 +328,17 @@
                 Your special gift is hidden at:
             </p>
             
-            <div class="glass-panel p-8 lg:p-12 rounded-[2.5rem] w-full mb-8 transform transition hover:scale-105">
+            <div class="glass-panel p-8 lg:p-12 rounded-[2.5rem] w-full mb-10 transform transition hover:scale-105">
                 <p id="reveal-location" class="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-wide leading-tight text-pop"></p>
             </div>
             
-            <div class="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 w-full mb-8">
-                <div id="qrcode-container" class="bg-white/20 p-4 rounded-3xl backdrop-blur-md shadow-2xl">
-                    <div id="qrcode"></div>
-                    <p class="mt-3 text-sm font-bold text-pop">Scan to keep!</p>
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 w-full mb-8">
+                <div class="bg-white/20 p-5 rounded-3xl backdrop-blur-md shadow-2xl flex flex-col items-center">
+                    <img id="qr-image" src="" alt="QR Code" />
+                    <p class="mt-4 text-lg font-black text-pop">Scan to keep!</p>
                 </div>
                 
-                <p class="text-5xl lg:text-7xl font-black italic text-pop" style="font-family: 'Playfair Display', serif;">
+                <p class="text-6xl lg:text-8xl font-black italic text-pop" style="font-family: 'Playfair Display', serif;">
                     Love, Kunal ❤️
                 </p>
             </div>
@@ -369,7 +354,7 @@
             <p class="text-3xl lg:text-5xl font-black text-accent mb-12">
                 So close! You've got this.
             </p>
-            <button onclick="startGame()" class="btn-primary px-12 py-6 text-3xl lg:text-4xl font-black rounded-full transition-transform hover:scale-110 uppercase tracking-widest">
+            <button onclick="startGame()" class="btn-primary px-16 py-8 text-3xl lg:text-4xl font-black rounded-full transition-transform hover:scale-110 uppercase tracking-widest">
                 Try Again
             </button>
         </div>
@@ -403,13 +388,11 @@
     </div>
 
     <script>
-        // --- State Management ---
         let giftLocationText = "";
         let countdownTime = 0;
         let bigTimerInterval;
         
-        // --- Web Audio API Synthesizer ---
-        // Generates native sounds without external files
+        // Web Audio API Synthesizer
         let audioCtx = null;
         
         function initAudio() {
@@ -456,7 +439,6 @@
             });
         }
 
-        // --- Background Particle Engine ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -510,7 +492,6 @@
         initCanvas();
         animateCanvas();
 
-        // --- Screen Navigation Logic ---
         const screens = {
             setup: document.getElementById('screen-setup'),
             countdown: document.getElementById('screen-countdown'),
@@ -534,9 +515,8 @@
             target.classList.add('active');
         }
 
-        // --- Flow Control ---
         function lockAndStart() {
-            initAudio(); // Required to bypass autoplay policies
+            initAudio(); // Initialize audio context on first user gesture
             
             const timeInput = document.getElementById('setup-time');
             const locInput = document.getElementById('setup-location');
@@ -563,7 +543,6 @@
                 countdownTime--;
                 timerEl.innerText = countdownTime;
                 
-                // Pop animation
                 timerEl.style.transform = 'scale(1.15)';
                 setTimeout(() => timerEl.style.transform = 'scale(1)', 150);
 
@@ -575,17 +554,16 @@
             }, 1000);
         }
 
-        // --- STREAMING_CHUNK: Memory Match Game Engine ---
-        // Real Unsplash photo URLs for memories
+        // Unsplash photo URLs for memories (Uttarakhand, Blanket Fort, Safari, Taj, Cake, Pizza, Dry Fruits, Dominoes)
         const memoryPhotos = [
-            'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=400&q=80', // Himalayas
-            'https://images.unsplash.com/photo-1518175510650-32df380e227a?auto=format&fit=crop&w=400&q=80', // Blanket Fort / Lights
-            'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80', // Chocolate Cake
-            'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80', // Pizza
-            'https://images.unsplash.com/photo-1602491453631-e2a56e4173d7?auto=format&fit=crop&w=400&q=80', // Tiger Safari
-            'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=400&q=80', // Taj / Castle
-            'https://images.unsplash.com/photo-1599577180579-7bee7a885f8e?auto=format&fit=crop&w=400&q=80', // Nuts / Dry fruits
-            'https://images.unsplash.com/photo-1590458631557-0b1a03e1b71f?auto=format&fit=crop&w=400&q=80'  // Dominoes
+            'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=400&q=80',
+            'https://images.unsplash.com/photo-1518175510650-32df380e227a?auto=format&fit=crop&w=400&q=80',
+            'https://images.unsplash.com/photo-1602491453631-e2a56e4173d7?auto=format&fit=crop&w=400&q=80',
+            'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=400&q=80',
+            'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80',
+            'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80',
+            'https://images.unsplash.com/photo-1599577180579-7bee7a885f8e?auto=format&fit=crop&w=400&q=80',
+            'https://images.unsplash.com/photo-1590458631557-0b1a03e1b71f?auto=format&fit=crop&w=400&q=80'
         ];
         
         let cards = [];
@@ -613,9 +591,9 @@
             grid.innerHTML = '';
             
             cards = [...memoryPhotos, ...memoryPhotos];
-            cards.sort(() => Math.random() - 0.5); // Shuffle
+            cards.sort(() => Math.random() - 0.5); // Shuffle array
 
-            cards.forEach((photoUrl, i) => {
+            cards.forEach((photoUrl) => {
                 const card = document.createElement('div');
                 card.classList.add('card', 'w-full', 'aspect-square');
                 card.dataset.photo = photoUrl;
@@ -693,7 +671,6 @@
             combo++;
             matchedPairs++;
             
-            // Add time bonus
             const bonusTime = 5;
             gameTime = Math.min(60, gameTime + bonusTime);
             
@@ -753,17 +730,14 @@
             const el = document.createElement('div');
             el.className = 'floating-text';
             el.innerText = text;
-            
             el.style.left = '50%';
             el.style.top = '40%';
-            
             container.appendChild(el);
             setTimeout(() => el.remove(), 1200);
         }
 
         function resetBoard() { [firstCard, secondCard, lockBoard] = [null, null, false]; }
 
-        // --- STREAMING_CHUNK: Win Sequence & Dynamic QR Code ---
         function triggerWin() {
             document.getElementById('reveal-location').innerText = giftLocationText || "Ask Kunal!";
             showScreen('win');
@@ -773,16 +747,10 @@
         }
 
         function generateQRCode() {
-            const qrContainer = document.getElementById("qrcode");
-            qrContainer.innerHTML = ""; // Clear existing
-            new QRCode(qrContainer, {
-                text: window.location.href,
-                width: 160,
-                height: 160,
-                colorDark : "#111827",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-            });
+            const qrImg = document.getElementById("qr-image");
+            // Use current URL dynamically
+            const currentUrl = encodeURIComponent(window.location.href);
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${currentUrl}`;
         }
 
         function fireworksEngine() {
@@ -806,7 +774,6 @@
             }, 300);
         }
 
-        // --- STREAMING_CHUNK: Developer Mode / Command Center ---
         const devPanel = document.getElementById('dev-panel');
 
         document.addEventListener('keydown', (e) => {
@@ -844,7 +811,7 @@
         
         function devUpdateLocation() {
             giftLocationText = document.getElementById('dev-location').value;
-            document.getElementById('reveal-location').innerText = giftLocationText;
+            document.getElementById('reveal-location').innerText = giftLocationText || "Ask Kunal!";
         }
     </script>
 </body>
