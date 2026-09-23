@@ -390,9 +390,10 @@
            10. COMPONENT: QUANTUM COUNTDOWN HUD 2.0 (Massive upgrades)
            ========================================================================== */
         .quantum-cd-container {
-            position: relative; width: clamp(140px, 27.5vw, 225px); height: clamp(140px, 27.5vw, 225px);
+            position: relative; width: clamp(200px, 35vw, 300px); height: clamp(200px, 35vw, 300px);
             display: flex; justify-content: center; align-items: center; margin: 0 auto 2rem;
             filter: drop-shadow(0 0 15px rgba(255,255,255,0.5));
+            container-type: inline-size; /* Enables container-based scaling */
         }
         @media (min-width: 1024px) { .quantum-cd-container { filter: drop-shadow(0 0 20px rgba(255,215,0,0.5)); } }
 
@@ -421,8 +422,16 @@
         }
 
         .quantum-number {
-            font-size: clamp(4.5rem, 12.5vw, 8rem); font-weight: 900; font-variant-numeric: tabular-nums;
-            text-shadow: var(--mobile-shadow-text); line-height: 0.9;
+            font-size: clamp(3rem, 25cqw, 7rem); /* Scales dynamically based on the box container width */
+            font-weight: 900; 
+            font-variant-numeric: tabular-nums;
+            text-shadow: var(--mobile-shadow-text); 
+            line-height: 1; 
+            min-height: 1em; 
+            margin-bottom: 0.2rem; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: transform 0.1s var(--ease-spring), opacity 0.1s;
         }
         .quantum-ms {
