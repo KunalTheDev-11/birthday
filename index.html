@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,7 +7,6 @@
     
     <!-- Tailwind CSS for robust layout and styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <!-- Canvas Confetti for the grand finale fireworks -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
@@ -109,6 +108,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.3);
         }
 
+        /* Screens Setup */
         .screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -130,6 +130,7 @@
             transform: scale(1);
         }
 
+        /* Animations */
         .stagger-up > * {
             opacity: 0;
             transform: translateY(40px);
@@ -141,6 +142,7 @@
         .stagger-up > *:nth-child(3) { animation-delay: 0.3s; }
         .stagger-up > *:nth-child(4) { animation-delay: 0.4s; }
 
+        /* Game Cards */
         .perspective { perspective: 1200px; }
         .card {
             cursor: pointer;
@@ -231,18 +233,69 @@
             border: 8px solid white;
             border-radius: 12px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             background: white;
         }
+
+        /* Mute Button */
+        #mute-btn {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 9999;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        #mute-btn:hover { transform: scale(1.1); }
+        #mute-btn svg { width: 1.5rem; height: 1.5rem; fill: var(--btn-text); }
     </style>
 </head>
 <body>
 
     <canvas id="bg-canvas"></canvas>
 
+    <!-- Global Mute Toggle -->
+    <button id="mute-btn" class="glass-panel" onclick="toggleMute()" title="Mute/Unmute Audio">
+        <svg id="icon-unmuted" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        <svg id="icon-muted" viewBox="0 0 24 24" class="hidden"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+    </button>
+
+    <!-- 0. Mobile Reveal Screen (Only shown via QR code scan) -->
+    <div id="screen-mobile-reveal" class="screen">
+        <div class="text-center px-4 flex flex-col items-center justify-center h-full w-full max-w-lg mx-auto z-10" id="mobile-reveal-content">
+            <!-- Initial Tap State -->
+            <div id="mobile-tap-state" class="stagger-up w-full flex flex-col items-center">
+                <h1 class="text-5xl font-black mb-10 text-pop leading-tight drop-shadow-2xl text-center">
+                    A Surprise<br>Awaits!
+                </h1>
+                <button onclick="triggerMobileReveal()" class="btn-primary w-full max-w-[280px] aspect-square rounded-[3rem] text-3xl font-black transition-transform hover:scale-105 active:scale-95 flex flex-col items-center justify-center gap-4 shadow-2xl relative overflow-hidden group">
+                    <span class="text-7xl group-hover:scale-110 transition-transform duration-300">🎁</span>
+                    <span>Tap to Open!</span>
+                    <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </button>
+            </div>
+            
+            <!-- Final Reveal State (Hidden initially) -->
+            <div id="mobile-unlocked-state" class="hidden w-full flex-col items-center">
+                <h1 class="text-6xl font-black mb-8 text-pop drop-shadow-2xl">Happy Birthday!</h1>
+                <p class="text-2xl font-black text-accent mb-6">Your gift is waiting at:</p>
+                <div class="glass-panel p-8 rounded-3xl w-full mb-10 transform transition hover:scale-105 shadow-2xl bg-white/60">
+                    <p id="mobile-final-location" class="text-4xl font-black uppercase tracking-wide leading-tight text-pop"></p>
+                </div>
+                <p class="text-5xl font-black italic text-pop" style="font-family: 'Playfair Display', serif;">Love, Kunal ❤️</p>
+            </div>
+        </div>
+    </div>
+
     <!-- 1. Setup Screen -->
-    <div id="screen-setup" class="screen active">
+    <div id="screen-setup" class="screen">
         <div class="glass-panel p-8 lg:p-12 rounded-[2rem] w-full max-w-lg stagger-up">
             <h1 class="text-4xl lg:text-5xl font-black mb-8 text-pop text-center tracking-tight">Game Setup</h1>
             
@@ -258,19 +311,28 @@
                 </div>
                 
                 <button onclick="lockAndStart()" class="btn-primary w-full py-5 mt-4 text-2xl font-black rounded-xl transition-transform hover:scale-105 active:scale-95 uppercase tracking-wider">
-                    Lock & Start Sequence
+                    Lock & Hand to Mom
                 </button>
             </div>
             <p class="mt-8 text-center text-sm font-bold text-pop">Admin Panel: Ctrl+Shift+D</p>
         </div>
     </div>
 
-    <!-- 2. Countdown Screen -->
+    <!-- 2. Cinematic SVG Countdown Screen -->
     <div id="screen-countdown" class="screen">
         <div class="text-center w-full max-w-4xl stagger-up flex flex-col items-center">
-            <h2 class="text-3xl lg:text-5xl font-black mb-10 text-accent uppercase tracking-widest drop-shadow-xl">Surprise Unlocks In</h2>
-            <div class="glass-panel py-12 px-10 rounded-[3rem] transform transition-transform hover:scale-105 inline-flex justify-center items-center">
-                <div id="big-timer" class="text-[9rem] lg:text-[16rem] font-black text-pop leading-none tracking-tighter" style="font-variant-numeric: tabular-nums;">
+            <h2 class="text-3xl lg:text-5xl font-black mb-12 text-accent uppercase tracking-widest drop-shadow-xl">Surprise Unlocks In</h2>
+            
+            <div class="relative flex items-center justify-center">
+                <!-- SVG Progress Ring -->
+                <svg class="w-64 h-64 lg:w-96 lg:h-96 transform -rotate-90 drop-shadow-2xl">
+                    <!-- Background Track -->
+                    <circle cx="50%" cy="50%" r="45%" stroke="currentColor" stroke-width="8" fill="transparent" class="text-black/10 lg:text-white/10"/>
+                    <!-- Progress Circle -->
+                    <circle id="countdown-ring" cx="50%" cy="50%" r="45%" stroke="var(--progress-fill)" stroke-width="12" fill="transparent" stroke-linecap="round" class="transition-all duration-1000 ease-linear" style="stroke-dasharray: 1000; stroke-dashoffset: 0;"/>
+                </svg>
+                <!-- Number -->
+                <div id="big-timer" class="absolute text-7xl lg:text-9xl font-black text-pop leading-none tracking-tighter" style="font-variant-numeric: tabular-nums;">
                     --
                 </div>
             </div>
@@ -280,7 +342,7 @@
     <!-- 3. Welcome Screen (Minimalist) -->
     <div id="screen-welcome" class="screen">
         <div class="text-center px-4 stagger-up flex flex-col items-center">
-            <h1 class="text-6xl sm:text-7xl lg:text-[9rem] font-black mb-12 text-pop leading-tight">
+            <h1 class="text-6xl sm:text-7xl lg:text-[9rem] font-black mb-12 text-pop leading-tight drop-shadow-2xl">
                 Happy Birthday,<br>Mom!
             </h1>
             <button onclick="startGame()" class="btn-primary px-16 py-8 text-3xl lg:text-5xl font-black rounded-full transition-transform hover:scale-110 active:scale-95 uppercase tracking-widest shadow-2xl">
@@ -315,27 +377,23 @@
         </div>
     </div>
 
-    <!-- 5. Win Screen -->
+    <!-- 5. Win Screen (TV/Desktop display) -->
     <div id="screen-win" class="screen">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0%,transparent_70%)] lg:bg-[radial-gradient(circle_at_center,rgba(251,191,36,0.15)_0%,transparent_60%)] pointer-events-none"></div>
         
         <div class="text-center px-4 stagger-up flex flex-col items-center z-10 w-full max-w-5xl">
-            <h1 class="text-6xl sm:text-7xl lg:text-[7rem] font-black mb-4 text-pop">
+            <h1 class="text-6xl sm:text-7xl lg:text-[7rem] font-black mb-4 text-pop drop-shadow-2xl">
                 You Did It!
             </h1>
             
             <p class="text-2xl lg:text-4xl font-black text-accent mb-8">
-                Your special gift is hidden at:
+                Scan below to reveal your gift location:
             </p>
             
-            <div class="glass-panel p-8 lg:p-12 rounded-[2.5rem] w-full mb-10 transform transition hover:scale-105">
-                <p id="reveal-location" class="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-wide leading-tight text-pop"></p>
-            </div>
-            
             <div class="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 w-full mb-8">
-                <div class="bg-white/20 p-5 rounded-3xl backdrop-blur-md shadow-2xl flex flex-col items-center">
-                    <img id="qr-image" src="" alt="QR Code" />
-                    <p class="mt-4 text-lg font-black text-pop">Scan to keep!</p>
+                <div class="bg-white/90 p-6 rounded-3xl backdrop-blur-md shadow-2xl flex flex-col items-center transform transition hover:scale-105 border-4 border-emerald-400">
+                    <img id="qr-image" src="" alt="QR Code" class="rounded-xl shadow-lg" />
+                    <p class="mt-4 text-xl font-black text-gray-900 uppercase tracking-widest">Scan with phone</p>
                 </div>
                 
                 <p class="text-6xl lg:text-8xl font-black italic text-pop" style="font-family: 'Playfair Display', serif;">
@@ -354,13 +412,14 @@
             <p class="text-3xl lg:text-5xl font-black text-accent mb-12">
                 So close! You've got this.
             </p>
-            <button onclick="startGame()" class="btn-primary px-16 py-8 text-3xl lg:text-4xl font-black rounded-full transition-transform hover:scale-110 uppercase tracking-widest">
+            <button onclick="startGame()" class="btn-primary px-16 py-8 text-3xl lg:text-4xl font-black rounded-full transition-transform hover:scale-110 uppercase tracking-widest shadow-2xl">
                 Try Again
             </button>
         </div>
     </div>
 
-    <div id="dev-panel" class="hidden fixed top-4 right-4 bg-slate-900/95 backdrop-blur-xl border border-slate-700 p-6 rounded-2xl z-[9999] w-84 text-white shadow-2xl transition-all duration-300 transform scale-95 opacity-0" style="font-family: sans-serif;">
+    <!-- Hidden Developer Panel -->
+    <div id="dev-panel" class="hidden fixed top-16 right-4 bg-slate-900/95 backdrop-blur-xl border border-slate-700 p-6 rounded-2xl z-[9999] w-84 text-white shadow-2xl transition-all duration-300 transform scale-95 opacity-0" style="font-family: sans-serif;">
         <div class="flex justify-between items-center border-b border-white/20 pb-4 mb-4">
             <h3 class="text-2xl font-black flex items-center gap-2 text-white m-0">
                 <span class="w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_#ef4444]"></span>
@@ -388,11 +447,13 @@
     </div>
 
     <script>
+        // --- Core Variables ---
         let giftLocationText = "";
         let countdownTime = 0;
         let bigTimerInterval;
+        let isMuted = false;
         
-        // Web Audio API Synthesizer
+        // --- Web Audio API Synthesizer ---
         let audioCtx = null;
         
         function initAudio() {
@@ -404,8 +465,14 @@
             }
         }
 
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('icon-unmuted').classList.toggle('hidden', isMuted);
+            document.getElementById('icon-muted').classList.toggle('hidden', !isMuted);
+        }
+
         function playTone(freq, type, duration, vol = 0.1) {
-            if (!audioCtx) return;
+            if (isMuted || !audioCtx) return;
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.type = type;
@@ -420,14 +487,18 @@
             osc.stop(audioCtx.currentTime + duration);
         }
 
+        // Sound library
+        function playTick() { playTone(1200, 'sine', 0.05, 0.05); }
         function playPop() { playTone(450, 'sine', 0.1, 0.15); }
         function playShake() { playTone(150, 'sawtooth', 0.2, 0.2); }
         function playChime() {
+            if(isMuted || !audioCtx) return;
             playTone(880, 'sine', 0.15, 0.1);
             setTimeout(() => playTone(1320, 'sine', 0.3, 0.1), 100);
             setTimeout(() => playTone(1760, 'sine', 0.5, 0.1), 200);
         }
         function playWinFanfare() {
+            if(isMuted || !audioCtx) return;
             const notes = [
                 {f: 440, d: 0.2}, {f: 554, d: 0.2}, {f: 659, d: 0.2}, 
                 {f: 880, d: 0.6}, {f: 659, d: 0.2}, {f: 880, d: 0.8}
@@ -439,6 +510,7 @@
             });
         }
 
+        // --- STREAMING_CHUNK:Initializing Canvas Particle System ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -492,7 +564,9 @@
         initCanvas();
         animateCanvas();
 
+        // --- STREAMING_CHUNK:Implementing Application Routing & Flow ---
         const screens = {
+            mobileReveal: document.getElementById('screen-mobile-reveal'),
             setup: document.getElementById('screen-setup'),
             countdown: document.getElementById('screen-countdown'),
             welcome: document.getElementById('screen-welcome'),
@@ -515,6 +589,38 @@
             target.classList.add('active');
         }
 
+        // Parse URL to check if this is the Phone scanning the QR code
+        function checkURLParams() {
+            const params = new URLSearchParams(window.location.search);
+            const isMobileReveal = params.get('mobile_reveal') === 'true';
+            
+            if (isMobileReveal) {
+                giftLocationText = decodeURIComponent(params.get('loc') || "Ask Kunal!");
+                showScreen('mobileReveal');
+            } else {
+                showScreen('setup');
+            }
+        }
+        
+        // Run on load
+        checkURLParams();
+
+        // --- Mobile Reveal Logic ---
+        function triggerMobileReveal() {
+            initAudio(); // Unlock audio context from user tap
+            
+            document.getElementById('mobile-tap-state').classList.add('hidden');
+            const unlockedState = document.getElementById('mobile-unlocked-state');
+            unlockedState.classList.remove('hidden');
+            unlockedState.classList.add('flex', 'stagger-up');
+            
+            document.getElementById('mobile-final-location').innerText = giftLocationText;
+            
+            playWinFanfare();
+            fireworksEngine();
+        }
+
+        // --- Setup Logic ---
         function lockAndStart() {
             initAudio(); // Initialize audio context on first user gesture
             
@@ -534,15 +640,32 @@
             startBigCountdown();
         }
 
+        // --- STREAMING_CHUNK:Implementing Enhanced Countdown Engine ---
         function startBigCountdown() {
             const timerEl = document.getElementById('big-timer');
+            const ringEl = document.getElementById('countdown-ring');
+            
+            const totalTime = countdownTime;
             timerEl.innerText = countdownTime;
+            
+            // Get radius to calculate circumference dynamically
+            const radius = ringEl.r.baseVal.valueAsString;
+            const circumference = 2 * Math.PI * (radius.includes('%') ? 120 : radius); // Approx fallback if % fails
+            ringEl.style.strokeDasharray = circumference;
+            ringEl.style.strokeDashoffset = 0;
             
             clearInterval(bigTimerInterval);
             bigTimerInterval = setInterval(() => {
                 countdownTime--;
                 timerEl.innerText = countdownTime;
                 
+                // SVG draining math
+                const pct = countdownTime / totalTime;
+                ringEl.style.strokeDashoffset = circumference - (pct * circumference);
+                
+                playTick(); // Audio tick
+                
+                // Pulse animation
                 timerEl.style.transform = 'scale(1.15)';
                 setTimeout(() => timerEl.style.transform = 'scale(1)', 150);
 
@@ -554,14 +677,15 @@
             }, 1000);
         }
 
-        // Unsplash photo URLs for memories (Uttarakhand, Blanket Fort, Safari, Taj, Cake, Pizza, Dry Fruits, Dominoes)
+        // --- STREAMING_CHUNK:Implementing Game Logic ---
+        // Unsplash photo URLs for memories (Mountains, Blanket Fort, Cake, Pizza, Safari, Castle, Dry Fruits, Dominoes)
         const memoryPhotos = [
             'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=400&q=80',
             'https://images.unsplash.com/photo-1518175510650-32df380e227a?auto=format&fit=crop&w=400&q=80',
-            'https://images.unsplash.com/photo-1602491453631-e2a56e4173d7?auto=format&fit=crop&w=400&q=80',
             'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=400&q=80',
-            'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80',
             'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80',
+            'https://images.unsplash.com/photo-1602491453631-e2a56e4173d7?auto=format&fit=crop&w=400&q=80',
+            'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80',
             'https://images.unsplash.com/photo-1599577180579-7bee7a885f8e?auto=format&fit=crop&w=400&q=80',
             'https://images.unsplash.com/photo-1590458631557-0b1a03e1b71f?auto=format&fit=crop&w=400&q=80'
         ];
@@ -738,8 +862,8 @@
 
         function resetBoard() { [firstCard, secondCard, lockBoard] = [null, null, false]; }
 
+        // --- STREAMING_CHUNK:Implementing Win Sequence and QR Magic ---
         function triggerWin() {
-            document.getElementById('reveal-location').innerText = giftLocationText || "Ask Kunal!";
             showScreen('win');
             playWinFanfare();
             fireworksEngine();
@@ -748,9 +872,14 @@
 
         function generateQRCode() {
             const qrImg = document.getElementById("qr-image");
-            // Use current URL dynamically
-            const currentUrl = encodeURIComponent(window.location.href);
-            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${currentUrl}`;
+            
+            // Generate the URL that bypasses the game on mobile and reveals location
+            const baseUrl = window.location.origin + window.location.pathname;
+            const encodedLoc = encodeURIComponent(giftLocationText);
+            const revealUrl = `${baseUrl}?mobile_reveal=true&loc=${encodedLoc}`;
+            
+            // Build QR Image
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(revealUrl)}`;
         }
 
         function fireworksEngine() {
@@ -774,6 +903,7 @@
             }, 300);
         }
 
+        // --- STREAMING_CHUNK:Implementing Hidden Developer Mode ---
         const devPanel = document.getElementById('dev-panel');
 
         document.addEventListener('keydown', (e) => {
@@ -811,7 +941,6 @@
         
         function devUpdateLocation() {
             giftLocationText = document.getElementById('dev-location').value;
-            document.getElementById('reveal-location').innerText = giftLocationText || "Ask Kunal!";
         }
     </script>
 </body>
