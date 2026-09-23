@@ -3,800 +3,1580 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday, Mom! | Ultimate Masterpiece</title>
-    
-    <!-- Premium Typography: Playfair Display for Elegance, Outfit for Modern UI -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&display=swap" rel="stylesheet">
-
+    <title>Happy Birthday!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Playfair+Display:ital,wght@0,600;0,900;1,600&display=swap" rel="stylesheet">
     <style>
+        /* ==========================================================================
+           1. CSS CUSTOM PROPERTIES (DESIGN SYSTEM)
+           ========================================================================== */
         :root {
-            /* --- MOBILE THEME (Vibrant, Bubbly, Pastel) --- */
-            --theme-bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-            --theme-text-main: #1f2937;
-            --theme-text-accent: #be185d;
-            --theme-text-shadow: 0px 3px 0px rgba(255,255,255,0.8), 0px 0px 20px rgba(255, 105, 180, 0.6);
-            --theme-font-primary: 'Outfit', sans-serif;
-            --theme-font-secondary: 'Outfit', sans-serif;
+            /* Mobile Theme (Light, Vibrant, Bubbly) */
+            --bg-mobile-grad: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fbc2eb 100%);
+            --text-mobile: #111827;
+            --text-mobile-light: #374151;
+            --shadow-mobile-text: 0px 4px 0px #ffffff, 0px 0px 15px rgba(255,105,180,0.5);
+            --shadow-mobile-box: 0 10px 30px rgba(255, 105, 180, 0.2);
+            --card-back-mobile: #ff758c;
+            --glass-mobile: rgba(255, 255, 255, 0.4);
+            --glass-border-mobile: rgba(255, 255, 255, 0.6);
+            --btn-bg-mobile: #ffffff;
+            --btn-text-mobile: #ff758c;
+            --primary-font: 'Outfit', sans-serif;
             
-            /* Glassmorphism System */
-            --glass-bg: rgba(255, 255, 255, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.8);
-            --glass-shadow: 0 12px 40px rgba(255, 105, 180, 0.25), inset 0 0 20px rgba(255,255,255,0.5);
-            
-            /* UI Elements */
-            --btn-bg: #ffffff;
-            --btn-text: #be185d;
-            --btn-shadow: 0 10px 25px rgba(190, 24, 93, 0.3), inset 0 -4px 0 rgba(0,0,0,0.05);
-            --btn-hover-transform: translateY(-4px) scale(1.03);
-            --input-bg: rgba(255, 255, 255, 0.85);
-            --input-border: #be185d;
-            
-            /* Game Engine Aesthetics */
-            --card-back-bg: linear-gradient(135deg, #f472b6, #fb7185);
-            --card-icon-color: #ffffff;
-            --progress-safe: #10b981;
-            --progress-warn: #f59e0b;
-            --progress-crit: #ef4444;
-            
-            /* Particle Engine Aesthetics */
-            --particle-ambient-base: 255, 255, 255;
+            /* Desktop/TV Theme (Dark, Cinematic, Luxurious) */
+            --bg-tv-grad: radial-gradient(circle at center, #1a202c 0%, #000000 100%);
+            --text-tv: #ffffff;
+            --text-tv-light: #e5e7eb;
+            --shadow-tv-text: 0px 4px 0px #000000, 0px 0px 25px rgba(255, 215, 0, 0.8);
+            --shadow-tv-box: 0 10px 40px rgba(0, 0, 0, 0.8);
+            --card-back-tv: linear-gradient(135deg, #d4af37, #aa7c11);
+            --glass-tv: rgba(0, 0, 0, 0.6);
+            --glass-border-tv: rgba(255, 215, 0, 0.3);
+            --btn-bg-tv: linear-gradient(to right, #ffd700, #ffb300);
+            --btn-text-tv: #000000;
+            --secondary-font: 'Playfair Display', serif;
+
+            /* Shared Variables */
+            --success: #22c55e;
+            --warning: #eab308;
+            --danger: #ef4444;
+            --transition-speed: 0.5s;
         }
 
-        /* --- DESKTOP/TV THEME (Cinematic, Luxury, Navy/Gold) --- */
-        @media (min-width: 1024px) {
-            :root {
-                --theme-bg-gradient: radial-gradient(ellipse at center, #1e1b4b 0%, #020617 100%);
-                --theme-text-main: #ffffff;
-                --theme-text-accent: #fbbf24;
-                --theme-text-shadow: 0px 4px 0px #000000, 0px 0px 30px rgba(251, 191, 36, 0.7);
-                --theme-font-primary: 'Playfair Display', serif;
-                --theme-font-secondary: 'Outfit', sans-serif; 
-                
-                --glass-bg: rgba(15, 23, 42, 0.6);
-                --glass-border: rgba(251, 191, 36, 0.3);
-                --glass-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 0 30px rgba(251,191,36,0.1);
-                
-                --btn-bg: linear-gradient(135deg, #fbbf24, #d97706);
-                --btn-text: #020617;
-                --btn-shadow: 0 10px 35px rgba(251, 191, 36, 0.4), inset 0 -4px 0 rgba(0,0,0,0.2);
-                --input-bg: rgba(2, 6, 23, 0.75);
-                --input-border: #fbbf24;
-                
-                --card-back-bg: linear-gradient(135deg, #0f172a, #000000);
-                --card-icon-color: #fbbf24;
-                --particle-ambient-base: 251, 191, 36;
-            }
+        /* ==========================================================================
+           2. RESETS & CORE LAYOUT
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
-        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+
         body {
-            font-family: var(--theme-font-primary);
-            background: var(--theme-bg-gradient);
-            color: var(--theme-text-main);
-            height: 100vh; width: 100vw;
-            overflow: hidden; display: flex; justify-content: center; align-items: center;
-            transition: background 1.5s ease-in-out;
+            font-family: var(--primary-font);
+            background: var(--bg-mobile-grad);
+            color: var(--text-mobile);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background var(--transition-speed) ease;
         }
 
-        #physics-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; pointer-events: none;
+        canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        h1, h2, h3 { font-weight: 900; text-align: center; text-shadow: var(--theme-text-shadow); margin-bottom: 1rem; line-height: 1.1; }
-        h1 { font-size: clamp(3rem, 8vw, 7rem); letter-spacing: -0.02em; }
-        h2 { font-size: clamp(2rem, 5vw, 4rem); }
-        
-        p {
-            font-family: var(--theme-font-secondary); font-size: clamp(1.2rem, 4vw, 2.2rem);
-            text-align: center; font-weight: 600; margin-bottom: 2rem; line-height: 1.5;
-            text-shadow: 0px 2px 5px rgba(255,255,255,0.5);
-        }
-        @media (min-width: 1024px) { p { font-family: var(--theme-font-primary); font-weight: 500; font-style: italic; text-shadow: 2px 3px 6px rgba(0,0,0,0.9); } }
-
-        .glass-panel {
-            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 2px solid var(--glass-border); border-radius: 32px;
-            box-shadow: var(--glass-shadow); padding: 3rem;
-            display: flex; flex-direction: column; align-items: center; transition: all 0.4s ease;
-        }
-
-        button.primary-btn {
-            font-family: var(--theme-font-secondary); font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 900;
-            padding: 1.2rem 3.5rem; border-radius: 50px; border: none;
-            background: var(--btn-bg); color: var(--btn-text); box-shadow: var(--btn-shadow);
-            cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden;
-            margin: 10px;
-        }
-        button.primary-btn:hover { transform: var(--btn-hover-transform); }
-        button.primary-btn:active { transform: translateY(2px) scale(0.98); box-shadow: inset 0 6px 15px rgba(0,0,0,0.2); }
-        
-        input.premium-input {
-            width: 100%; max-width: 450px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;
-            font-family: var(--theme-font-secondary); font-size: 1.2rem; font-weight: 800;
-            border-radius: 16px; border: 3px solid var(--input-border);
-            background: var(--input-bg); color: var(--theme-text-main); text-align: center; outline: none;
-            box-shadow: inset 0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s ease;
-        }
-        input.premium-input::placeholder { color: var(--theme-text-main); opacity: 0.5; }
-        
-        #app-container { position: relative; width: 100%; height: 100%; z-index: 10; }
+        #bg-canvas { z-index: 1; }
+        #confetti-canvas { z-index: 9998; }
 
         .screen {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 1.5rem; overflow-y: auto; overflow-x: hidden;
-            opacity: 0; pointer-events: none; transform: scale(0.96); display: none;
-            transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .screen.active { opacity: 1; pointer-events: auto; transform: scale(1); display: flex; }
-
-        .screen.active .stagger-1 { animation: fadeUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards; opacity: 0; }
-        .screen.active .stagger-2 { animation: fadeUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards; opacity: 0; }
-        .screen.active .stagger-3 { animation: fadeUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards; opacity: 0; }
-
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(50px); filter: blur(10px); }
-            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            opacity: 1;
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1.2);
+            padding: 1.5rem;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
-        .game-wrapper { width: 100%; max-width: 850px; display: flex; flex-direction: column; gap: 1.5rem; align-items: center; }
+        .screen::-webkit-scrollbar { display: none; }
+        
+        .hidden { opacity: 0; pointer-events: none; transform: scale(0.95) translateY(20px); }
+        .gone { display: none !important; }
+
+        /* ==========================================================================
+           3. TYPOGRAPHY
+           ========================================================================== */
+        h1, h2, h3 {
+            font-weight: 900;
+            text-align: center;
+            text-shadow: var(--shadow-mobile-text);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; }
+        h2 { font-size: clamp(2rem, 6vw, 4rem); }
+        h3 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+        
+        p {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            line-height: 1.4;
+        }
+
+        /* TV/Desktop Overrides */
+        @media (min-width: 1024px) {
+            body { background: var(--bg-tv-grad); color: var(--text-tv); }
+            h1, h2, h3 { font-family: var(--secondary-font); text-shadow: var(--shadow-tv-text); color: #ffd700; }
+            p { font-family: var(--secondary-font); text-shadow: 2px 2px 5px rgba(0,0,0,0.8); color: var(--text-tv-light); }
+        }
+
+        /* ==========================================================================
+           4. UI COMPONENTS (BUTTONS, INPUTS, TOGGLES)
+           ========================================================================== */
+        button {
+            padding: 1.2rem 2.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 900;
+            font-family: inherit;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: var(--btn-bg-mobile);
+            color: var(--btn-text-mobile);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15), inset 0 -4px 0 rgba(0,0,0,0.1);
+            transition: transform 0.15s, box-shadow 0.15s, background 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        button:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 -2px 0 rgba(0,0,0,0.1);
+        }
+
+        button:hover { filter: brightness(1.1); }
+
+        @media (min-width: 1024px) { 
+            button { background: var(--btn-bg-tv); color: var(--btn-text-tv); box-shadow: 0 8px 25px rgba(255,215,0,0.3), inset 0 -4px 0 rgba(0,0,0,0.2); } 
+        }
+
+        input {
+            width: 100%;
+            max-width: 500px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 15px;
+            border: 4px solid #fff;
+            background: rgba(255,255,255,0.9);
+            color: #111827;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus { border-color: #ff758c; box-shadow: 0 5px 20px rgba(255,117,140,0.4); }
+
+        @media (min-width: 1024px) { 
+            input { background: rgba(31,41,55,0.9); color: #fff; border-color: #ffd700; box-shadow: 0 5px 15px rgba(0,0,0,0.5); } 
+            input:focus { border-color: #fff; box-shadow: 0 5px 25px rgba(255,215,0,0.5); }
+        }
+
+        /* Floating Audio Toggle */
+        .audio-btn {
+            position: fixed;
+            top: 1.5rem; right: 1.5rem;
+            z-index: 9999;
+            width: 55px; height: 55px;
+            border-radius: 50%;
+            background: var(--glass-mobile);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid var(--glass-border-mobile);
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 0;
+            transition: transform 0.2s, background 0.3s;
+        }
+        
+        .audio-btn:hover { transform: scale(1.1); }
+        .audio-btn svg { width: 28px; height: 28px; fill: var(--text-mobile); transition: fill 0.3s; }
+        
+        @media (min-width: 1024px) { 
+            .audio-btn { background: var(--glass-tv); border-color: var(--glass-border-tv); box-shadow: 0 4px 20px rgba(0,0,0,0.5); } 
+            .audio-btn svg { fill: #ffd700; }
+        }
+
+        /* ==========================================================================
+           5. GAME COMPONENTS & HUD
+           ========================================================================== */
+        .glass-panel {
+            background: var(--glass-mobile);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid var(--glass-border-mobile);
+            border-radius: 25px;
+            box-shadow: var(--shadow-mobile-box);
+        }
+        
+        @media (min-width: 1024px) { 
+            .glass-panel { background: var(--glass-tv); border-color: var(--glass-border-tv); box-shadow: var(--shadow-tv-box); } 
+        }
+
         .game-hud {
-            width: 100%; display: flex; justify-content: space-between; align-items: center;
-            padding: 1rem 2rem; border-radius: 20px;
-            background: var(--glass-bg); border: 2px solid var(--glass-border);
-            box-shadow: var(--glass-shadow); backdrop-filter: blur(15px);
+            width: 100%;
+            max-width: 600px;
+            padding: 1.2rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 20;
         }
 
-        .hud-stat { display: flex; flex-direction: column; font-family: var(--theme-font-secondary); font-weight: 900; }
-        .hud-label { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; }
-        .hud-value { font-size: 2.5rem; line-height: 1; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
-        @media (min-width: 1024px) { .hud-value { color: var(--theme-text-accent); text-shadow: 2px 2px 6px rgba(0,0,0,0.8); } }
-
-        .progress-container {
-            flex-grow: 1; margin: 0 2vw; height: 14px; background: rgba(0,0,0,0.2);
-            border-radius: 10px; overflow: hidden; border: 1px solid var(--glass-border); position: relative;
+        .hud-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 900;
         }
+
+        @media (min-width: 1024px) { .hud-top { color: #ffd700; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); font-family: var(--secondary-font); } }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.7);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        @media (min-width: 1024px) { .progress-bar-container { border-color: rgba(255,215,0,0.5); } }
+
         .progress-fill {
-            height: 100%; width: 100%; background: var(--progress-safe);
-            border-radius: 10px; transition: width 1s linear, background-color 0.5s ease;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+            height: 100%;
+            width: 100%;
+            background: var(--success);
+            transition: width 1s linear, background-color 0.5s ease;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        
+        .progress-warning { background: var(--warning); box-shadow: 0 0 15px var(--warning); }
+        .progress-danger { background: var(--danger); box-shadow: 0 0 15px var(--danger); }
+
+        /* ==========================================================================
+           6. MEMORY GRID & CARDS
+           ========================================================================== */
+        .memory-grid-container { padding: 2rem; display: inline-block; z-index: 20; }
+        
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(0.5rem, 2vw, 1.2rem);
+            perspective: 1200px;
         }
 
-        .memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.5rem, 2vw, 1.2rem); perspective: 1500px; width: 100%; max-width: 650px; }
-        .card { aspect-ratio: 1 / 1; position: relative; transform-style: preserve-3d; cursor: pointer; transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .card:hover { transform: scale(1.05) translateZ(15px); }
+        .card {
+            width: clamp(65px, 18vw, 110px);
+            height: clamp(65px, 18vw, 110px);
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border-radius: 15px;
+        }
+
+        .card:active { transform: scale(0.92); }
         .card.flipped { transform: rotateY(180deg); }
-        .card.matched { cursor: default; animation: cardGlowPulse 2s infinite; }
+        .card.matched { animation: pulseGlow 2s infinite; cursor: default; }
         
         .card-face {
-            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden;
-            border-radius: 16px; border: 3px solid var(--glass-border); box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            overflow: hidden; display: flex; justify-content: center; align-items: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            border: 3px solid #fff;
+            overflow: hidden;
         }
-        .card-front { background: var(--card-back-bg); }
-        .card-front::after { content: '🎁'; font-size: 2.5rem; }
-        .card-back { transform: rotateY(180deg); background-color: #fff; }
+
+        @media (min-width: 1024px) { .card-face { border-color: #ffd700; box-shadow: 0 10px 25px rgba(0,0,0,0.5); } }
+        
+        .card-front {
+            background: var(--card-back-mobile);
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+
+        @media (min-width: 1024px) { 
+            .card-front { background: var(--card-back-tv); color: #000; text-shadow: none; font-family: var(--secondary-font); } 
+        }
+        
+        .card-back { background: #fff; transform: rotateY(180deg); }
         .card-back img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 
-        @keyframes cardGlowPulse {
-            0% { box-shadow: 0 0 10px rgba(16, 185, 129, 0.3); border-color: rgba(16, 185, 129, 0.5); }
-            50% { box-shadow: 0 0 35px rgba(16, 185, 129, 1); border-color: rgba(16, 185, 129, 1); transform: rotateY(180deg) scale(1.03); }
-            100% { box-shadow: 0 0 10px rgba(16, 185, 129, 0.3); border-color: rgba(16, 185, 129, 0.5); }
+        /* Floating Score Text */
+        .floating-text {
+            position: absolute;
+            pointer-events: none;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #22c55e;
+            text-shadow: 0px 4px 0px #fff, 0px 0px 15px rgba(34,197,94,0.9);
+            animation: floatUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            z-index: 50;
         }
 
-        .shake-active { animation: errorCameraShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
-        @keyframes errorCameraShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-15px) rotate(-2deg); } 75% { transform: translateX(15px) rotate(2deg); } }
+        /* ==========================================================================
+           7. SVG COUNTDOWN
+           ========================================================================== */
+        .countdown-wrapper {
+            position: relative;
+            width: clamp(200px, 40vw, 350px);
+            height: clamp(200px, 40vw, 350px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 3rem;
+        }
 
-        .countdown-container { position: relative; width: clamp(200px, 40vw, 300px); height: clamp(200px, 40vw, 300px); display: flex; justify-content: center; align-items: center; margin: 2rem 0; }
-        .countdown-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: rotate(-90deg); filter: drop-shadow(0 0 25px rgba(255,255,255,0.4)); }
-        @media (min-width: 1024px) { .countdown-svg { filter: drop-shadow(0 0 35px rgba(251,191,36,0.6)); } }
-        .circle-bg { fill: none; stroke: var(--glass-border); stroke-width: 8; opacity: 0.2; }
-        .circle-progress { fill: none; stroke: #ffffff; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 879; stroke-dashoffset: 0; transition: stroke-dashoffset 1s linear; }
-        @media (min-width: 1024px) { .circle-progress { stroke: var(--theme-text-accent); } }
-        .countdown-text { font-size: clamp(4rem, 15vw, 8rem); font-weight: 900; font-family: var(--theme-font-secondary); text-shadow: var(--theme-text-shadow); z-index: 2; font-variant-numeric: tabular-nums; }
+        .countdown-svg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            transform: rotate(-90deg);
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.5));
+        }
 
-        .qr-wrapper { background: #ffffff; padding: 1.5rem; border-radius: 24px; border: 6px solid var(--theme-text-accent); box-shadow: 0 25px 60px rgba(0,0,0,0.8); display: inline-block; transform: scale(1); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .qr-wrapper:hover { transform: scale(1.05) rotate(-2deg); }
-        .qr-wrapper img { display: block; border-radius: 12px; }
-        .qr-label { color: #000; font-family: var(--theme-font-secondary); font-weight: 900; font-size: 1.2rem; text-align: center; margin-top: 1rem; letter-spacing: 1px; text-shadow: none; }
+        .countdown-circle-bg { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 8; }
+        .countdown-circle {
+            fill: none;
+            stroke: #fff;
+            stroke-width: 12;
+            stroke-dasharray: 628;
+            stroke-dashoffset: 0;
+            transition: stroke-dashoffset 1s linear;
+            stroke-linecap: round;
+        }
 
-        .cake-wrapper { position: relative; margin-top: 4rem; cursor: pointer; transition: transform 0.3s; }
-        .cake-wrapper:active { transform: scale(0.95); }
-        .cake { width: 160px; height: 100px; background: #fff; border-radius: 10px; position: relative; border: 4px solid var(--theme-text-accent); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
-        .cake::before { content: ''; position: absolute; top: -10px; left: 0; width: 100%; height: 20px; background: var(--theme-text-accent); border-radius: 50%; }
-        .cake-frosting { position: absolute; top: 10px; left: -5px; width: 162px; height: 30px; background: #fff; border-radius: 20px; }
-        .candles-container { position: absolute; top: -50px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 5; }
-        .candle { width: 12px; height: 40px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #f472b6 5px, #f472b6 10px); border-radius: 4px; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .flame { position: absolute; top: -25px; left: -4px; width: 20px; height: 30px; background: #facc15; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 20px #facc15, 0 0 40px #fb923c; animation: flicker 0.1s infinite alternate; transition: opacity 0.3s; }
-        .flame.blown-out { opacity: 0; }
+        @media (min-width: 1024px) { 
+            .countdown-circle { stroke: #ffd700; filter: drop-shadow(0 0 20px #ffd700); } 
+            .countdown-circle-bg { stroke: rgba(255,215,0,0.15); } 
+        }
+
+        #countdown-number {
+            font-size: clamp(6rem, 15vw, 10rem);
+            font-weight: 900;
+            font-variant-numeric: tabular-nums;
+            text-shadow: var(--shadow-mobile-text);
+            z-index: 2;
+        }
+
+        @media (min-width: 1024px) { 
+            #countdown-number { text-shadow: var(--shadow-tv-text); color: #ffd700; font-family: var(--secondary-font); } 
+        }
+
+        /* ==========================================================================
+           8. QR CODE DISPLAY
+           ========================================================================== */
+        .qr-wrapper {
+            background: rgba(255,255,255,0.95);
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 5px solid #ffd700;
+            display: inline-block;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            transform: scale(0.9);
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .qr-wrapper img {
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .qr-label {
+            margin-top: 1rem;
+            color: #000;
+            font-weight: 900;
+            font-size: 1.2rem;
+            text-align: center;
+            font-family: var(--primary-font);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* ==========================================================================
+           9. MOBILE REVEAL & CANDLE BLOWOUT
+           ========================================================================== */
+        .cake-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .cake-svg { width: 100%; height: auto; filter: drop-shadow(0 20px 20px rgba(0,0,0,0.3)); }
         
-        @keyframes flicker { 0% { transform: scale(1) rotate(-2deg); opacity: 0.9; } 100% { transform: scale(1.1) rotate(2deg); opacity: 1; } }
+        .candle-flames {
+            position: absolute;
+            top: 25%;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
 
-        .revealed-box { background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); border: 3px solid var(--theme-text-accent); padding: 2.5rem 3.5rem; border-radius: 32px; box-shadow: var(--glass-shadow); margin: 2rem 0; word-break: break-word; text-align: center;}
-        .revealed-box span { font-size: clamp(2rem, 7vw, 4.5rem); font-weight: 900; color: var(--theme-text-accent); text-shadow: 2px 3px 0 #000, 0 0 30px rgba(251,191,36,0.5); }
+        .flame {
+            width: 15px;
+            height: 30px;
+            background: linear-gradient(to top, #ff9d00, #ffed4a);
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 20px #ffed4a, 0 0 40px #ff9d00;
+            animation: flicker 0.1s infinite alternate;
+            transform-origin: bottom center;
+            transition: opacity 0.5s, transform 0.5s;
+        }
 
-        .audio-toggle { position: fixed; top: 2rem; right: 2rem; z-index: 9999; width: 60px; height: 60px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(15px); border: 2px solid var(--glass-border); display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .audio-toggle:hover { transform: scale(1.15) rotate(15deg); background: rgba(255,255,255,0.6); }
-        .audio-toggle svg { width: 30px; height: 30px; fill: var(--theme-text-main); transition: fill 0.3s; }
-        @media (min-width: 1024px) { .audio-toggle svg { fill: var(--theme-text-accent); } }
+        .flame.blown-out {
+            opacity: 0;
+            transform: scale(0) translateY(-20px);
+            box-shadow: none;
+            animation: none;
+        }
 
-        #dev-panel { position: fixed; bottom: 2rem; left: 2rem; z-index: 10000; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); border: 2px solid #ef4444; border-radius: 20px; padding: 2rem; width: 320px; color: #fff; font-family: monospace; box-shadow: 0 0 50px rgba(239, 68, 68, 0.5); transform: translateY(150%); transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        #dev-panel.open { transform: translateY(0); }
-        #dev-panel h3 { color: #ef4444; font-size: 1.2rem; text-align: left; text-shadow: none; border-bottom: 1px solid #ef4444; padding-bottom: 10px; margin-bottom: 15px; }
-        .dev-btn { width: 100%; padding: 0.8rem; margin-bottom: 0.5rem; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 8px; cursor: pointer; font-family: inherit;}
-        .dev-btn:hover { background: #ef4444; border-color: #ef4444; }
+        .smoke {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            opacity: 0;
+            filter: blur(3px);
+        }
 
-        .floating-message { position: fixed; top: 20%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #fff; padding: 1.5rem 2.5rem; border-radius: 50px; font-weight: 900; font-size: 1.5rem; border: 2px solid var(--theme-text-accent); z-index: 9999; animation: floatMessage 3s forwards; pointer-events: none; text-align: center; width: 80%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
-        @keyframes floatMessage { 0% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); } 10% { opacity: 1; transform: translate(-50%, 0) scale(1); } 90% { opacity: 1; transform: translate(-50%, 0) scale(1); } 100% { opacity: 0; transform: translate(-50%, -50px) scale(1.1); } }
+        .flame.blown-out + .smoke { animation: smokeRise 2s ease-out forwards; }
+
+        .blow-instruction {
+            font-size: 1.5rem;
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            margin-top: 1rem;
+            border: 2px solid #fff;
+            backdrop-filter: blur(10px);
+            animation: pulseSubtle 2s infinite;
+        }
+
+        .revealed-location-box {
+            background: rgba(0,0,0,0.8);
+            border: 3px solid #ffd700;
+            border-radius: 25px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.3);
+            max-width: 90vw;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .revealed-location-text {
+            font-size: clamp(2rem, 6vw, 4rem);
+            color: #ffd700;
+            font-weight: 900;
+            text-align: center;
+            word-break: break-word;
+            font-family: var(--secondary-font);
+        }
+
+        /* ==========================================================================
+           10. CUSTOM MODAL SYSTEM (No Alerts)
+           ========================================================================== */
+        #modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        #modal-overlay.active { opacity: 1; pointer-events: all; }
+
+        .modal-box {
+            background: var(--glass-mobile);
+            border: 2px solid #fff;
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            max-width: 90vw;
+            width: 400px;
+            text-align: center;
+            transform: translateY(50px) scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        @media (min-width: 1024px) { .modal-box { background: #1f2937; border-color: #ffd700; } }
         
-        .floating-bonus { position: absolute; pointer-events: none; font-size: 2.5rem; font-weight: 900; color: #10b981; text-shadow: 0px 3px 0px #fff, 0px 0px 15px rgba(16,185,129,0.8); animation: floatUpBonus 1s ease-out forwards; z-index: 50; }
-        @keyframes floatUpBonus { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-80px) scale(1.5); } }
+        #modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
+        .modal-title { font-size: 2.5rem; margin-bottom: 1rem; color: #fff; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .modal-body { font-size: 1.5rem; margin-bottom: 2rem; color: #fff; }
+        .modal-btn { width: 100%; }
+
+        /* ==========================================================================
+           11. DEV COMMAND CENTER
+           ========================================================================== */
+        #dev-panel {
+            position: fixed;
+            bottom: 20px; left: 20px;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #ef4444;
+            z-index: 10000;
+            font-family: monospace;
+            display: none;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+            max-width: 300px;
+        }
+
+        #dev-panel h3 { color: #ef4444; font-size: 1.2rem; text-shadow: none; text-align: left; margin-bottom: 15px; font-family: monospace; }
+        #dev-panel button {
+            padding: 0.8rem; font-size: 0.9rem; margin-right: 5px; margin-bottom: 5px;
+            background: #374151; color: #fff; border-radius: 8px; box-shadow: none;
+            width: calc(50% - 5px); letter-spacing: 0;
+        }
+        #dev-panel button:hover { background: #ef4444; }
+
+        /* ==========================================================================
+           12. ANIMATIONS (KEYFRAMES)
+           ========================================================================== */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(255,255,255, 0.8); transform: rotateY(180deg) scale(1); }
+            50% { box-shadow: 0 0 25px 15px rgba(255,255,255, 0); transform: rotateY(180deg) scale(1.05); }
+            100% { box-shadow: 0 0 0 0 rgba(255,255,255, 0); transform: rotateY(180deg) scale(1); }
+        }
+
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-12px) rotate(-5deg); }
+            40% { transform: translateX(12px) rotate(5deg); }
+            60% { transform: translateX(-12px) rotate(-5deg); }
+            80% { transform: translateX(12px) rotate(5deg); }
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-80px) scale(1.5); }
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-1deg); opacity: 0.9; }
+            50% { transform: scale(1.1) rotate(2deg); opacity: 1; }
+            100% { transform: scale(0.9) rotate(-2deg); opacity: 0.8; }
+        }
+
+        @keyframes smokeRise {
+            0% { opacity: 0.8; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-100px) scale(3); }
+        }
+
+        @keyframes pulseSubtle {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
     </style>
 </head>
 <body>
 
-    <canvas id="physics-canvas"></canvas>
+    <!-- BACKGROUND CANVASES -->
+    <canvas id="bg-canvas"></canvas>
+    <canvas id="confetti-canvas" class="gone"></canvas>
 
-    <!-- Global Audio Control -->
-    <button class="audio-toggle" id="btn-audio" aria-label="Toggle Audio">
-        <svg id="icon-audio-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-        <svg id="icon-audio-off" viewBox="0 0 24 24" style="display:none;"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+    <!-- FLOATING AUDIO TOGGLE -->
+    <button id="btn-audio" class="audio-btn" onclick="app.toggleAudio()" aria-label="Toggle Audio">
+        <svg id="icon-sound-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        <svg id="icon-sound-off" viewBox="0 0 24 24" class="gone"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
     </button>
 
-    <div id="app-container">
-        
-        <!-- SCREEN 1: SETUP -->
-        <div id="screen-setup" class="screen active">
-            <div class="glass-panel stagger-1">
-                <h1 style="font-size: clamp(2rem, 5vw, 4rem);">Hunt Setup</h1>
-                <p>Configure the surprise. (Hide from Mom!)</p>
-                <input type="number" id="input-time" class="premium-input stagger-2" value="10" min="1" placeholder="Countdown Seconds">
-                <input type="text" id="input-loc" class="premium-input stagger-3" placeholder="Secret Location (e.g., Living Room Couch)" autocomplete="off">
-                <button class="primary-btn" id="btn-lock" style="width: 100%; max-width: 450px; margin-top: 1rem;">Lock & Ready</button>
-            </div>
+    <!-- CUSTOM UI MODAL -->
+    <div id="modal-overlay">
+        <div class="modal-box">
+            <h2 class="modal-title" id="modal-title">Notice</h2>
+            <p class="modal-body" id="modal-body">Message goes here.</p>
+            <button class="modal-btn" onclick="ui.closeModal()">Continue</button>
         </div>
-
-        <!-- SCREEN 2: COUNTDOWN -->
-        <div id="screen-countdown" class="screen">
-            <h2 class="stagger-1" style="letter-spacing: 4px; opacity: 0.9; text-transform: uppercase;">Surprise Unlocks In</h2>
-            <div class="countdown-container stagger-2">
-                <svg class="countdown-svg" viewBox="0 0 300 300">
-                    <circle class="circle-bg" cx="150" cy="150" r="140"></circle>
-                    <circle class="circle-progress" id="countdown-ring" cx="150" cy="150" r="140"></circle>
-                </svg>
-                <div class="countdown-text" id="countdown-num">10</div>
-            </div>
-        </div>
-
-        <!-- SCREEN 3: WELCOME -->
-        <div id="screen-welcome" class="screen">
-            <h1 class="stagger-1">Happy<br>Birthday,<br>Mom!</h1>
-            <p class="stagger-2" style="margin: 2rem 0 3rem 0; max-width: 600px;">A very special gift has been hidden nearby.<br>Prove your memory skills to reveal its location!</p>
-            <button class="primary-btn stagger-3" id="btn-start-game">Start Challenge</button>
-        </div>
-
-        <!-- SCREEN 4: MEMORY GAME -->
-        <div id="screen-game" class="screen" style="justify-content: flex-start; padding-top: 4vh;">
-            <div class="game-wrapper stagger-1">
-                <div class="game-hud">
-                    <div class="hud-stat">
-                        <span class="hud-label">Multiplier</span>
-                        <span class="hud-value" id="hud-combo">x1</span>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-fill" id="hud-time-bar"></div>
-                    </div>
-                    <div class="hud-stat" style="text-align: right;">
-                        <span class="hud-label">Time Left</span>
-                        <span class="hud-value" id="hud-time-text">60s</span>
-                    </div>
-                </div>
-                <div class="glass-panel" style="padding: 1.5rem; width: 100%;">
-                    <div class="memory-grid" id="game-grid"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SCREEN 5: TV WIN (QR Code) -->
-        <div id="screen-tv-win" class="screen">
-            <h1 class="stagger-1">You Did It!</h1>
-            <p class="stagger-2" style="font-size: clamp(1.5rem, 3vw, 2.5rem); margin-bottom: 3rem;">Open your phone's camera and scan below<br>to instantly reveal the secret location!</p>
-            <div class="qr-wrapper stagger-3">
-                <img id="qr-img" src="" alt="Magic QR Code" width="280" height="280">
-                <div class="qr-label">Scan to reveal 🎁</div>
-            </div>
-        </div>
-
-        <!-- SCREEN 6: MOBILE REVEAL (Candles) -->
-        <div id="screen-mobile-reveal" class="screen">
-            <h1 class="stagger-1" style="font-size: clamp(2.5rem, 8vw, 4rem);">Make a Wish!</h1>
-            <div id="candle-trigger-btn" class="stagger-2" style="margin-top: 2rem;">
-                <button class="primary-btn" id="btn-light-candles">Light The Candles</button>
-                <p style="font-size: 1rem; opacity: 0.8; margin-top: 10px;">(Requires Microphone access)</p>
-            </div>
-            <div id="cake-interactive" class="stagger-3" style="display: none; flex-direction: column; align-items: center;">
-                <p style="margin-bottom: 3rem; margin-top: 1rem;">Blow into your phone to make a wish,<br>or simply tap the cake!</p>
-                <div class="cake-wrapper" id="cake-wrapper">
-                    <div class="candles-container">
-                        <div class="candle"><div class="flame flame-el"></div></div>
-                        <div class="candle" style="top: -10px;"><div class="flame flame-el"></div></div>
-                        <div class="candle"><div class="flame flame-el"></div></div>
-                    </div>
-                    <div class="cake">
-                        <div class="cake-frosting"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SCREEN 7: THE FINAL GIFT -->
-        <div id="screen-final-gift" class="screen">
-            <h1 class="stagger-1">Surprise!</h1>
-            <p class="stagger-2">Your gift is waiting for you at:</p>
-            <div class="revealed-box stagger-3">
-                <span id="final-location-text">Location...</span>
-            </div>
-            <p class="stagger-4" style="margin-top: 2rem; font-size: 2rem;">We love you! ❤️</p>
-        </div>
-
     </div>
 
-    <!-- Hidden Dev Panel -->
+    <!-- SCREEN 1: SETUP (For the Creator) -->
+    <div id="screen-setup" class="screen">
+        <div class="glass-panel" style="padding: 3rem; text-align: center; max-width: 600px; width: 95%;">
+            <h1>Setup The Hunt</h1>
+            <p>Configure the surprise. This screen is just for you.</p>
+            <input type="number" id="input-time" value="5" placeholder="Countdown Seconds" min="1">
+            <input type="text" id="input-loc" placeholder="Gift Location (e.g. Master Bedroom Closet)" autocomplete="off">
+            <button onclick="app.startCountdownSequence()">Lock & Prepare</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: COUNTDOWN (Cinematic SVG) -->
+    <div id="screen-countdown" class="screen hidden">
+        <div class="countdown-wrapper">
+            <svg class="countdown-svg" viewBox="0 0 220 220">
+                <circle class="countdown-circle-bg" cx="110" cy="110" r="100"></circle>
+                <circle class="countdown-circle" id="svg-circle" cx="110" cy="110" r="100"></circle>
+            </svg>
+            <div id="countdown-number">5</div>
+        </div>
+        <h2>Get Ready...</h2>
+    </div>
+
+    <!-- SCREEN 3: WELCOME (For Mom) -->
+    <div id="screen-welcome" class="screen hidden">
+        <h1>Happy Birthday,<br>Mom!</h1>
+        <p>Your gift is hidden somewhere special.<br>Solve the puzzle to unlock the location!</p>
+        <button onclick="app.startGame()">Begin Challenge</button>
+    </div>
+
+    <!-- SCREEN 4: GAME -->
+    <div id="screen-game" class="screen hidden">
+        <div class="game-hud glass-panel">
+            <div class="hud-top">
+                <span id="time-text">60s</span>
+                <span>Matches: <span id="matches-count">0</span>/8</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+        <div class="memory-grid-container glass-panel">
+            <div class="memory-grid" id="grid"></div>
+        </div>
+    </div>
+
+    <!-- SCREEN 5: TV WIN (QR CODE REVEAL) -->
+    <div id="screen-tv-win" class="screen hidden">
+        <h1>You Did It!</h1>
+        <p>Grab your phone, open the camera, and scan this code to reveal your gift's location.</p>
+        <div class="qr-wrapper">
+            <img id="qr-image" src="" alt="QR Code" width="280" height="280">
+            <div class="qr-label">Scan to Unlock</div>
+        </div>
+    </div>
+
+    <!-- SCREEN 6: MOBILE GATEWAY (Needs Interaction to Unlock Audio/Mic) -->
+    <div id="screen-mobile-gateway" class="screen hidden">
+        <div class="glass-panel" style="padding: 3rem; text-align: center; max-width: 500px; width: 95%;">
+            <h1>You Made It!</h1>
+            <p>Your digital birthday cake is ready.</p>
+            <button onclick="app.initMobileReveal()">Light the Candles</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 7: MOBILE REVEAL (Candle Blowout) -->
+    <div id="screen-mobile-reveal" class="screen hidden">
+        <h1>Make a Wish!</h1>
+        <p>Blow into your phone to blow out the candles and reveal your gift!</p>
+        
+        <div class="cake-container" id="cake-container" onclick="app.forceBlowOut()">
+            <!-- Intricate SVG Cake -->
+            <svg class="cake-svg" viewBox="0 0 200 150">
+                <path d="M 20 100 Q 100 120 180 100 L 180 140 Q 100 160 20 140 Z" fill="#ff758c"/>
+                <path d="M 20 100 Q 100 120 180 100 Q 100 80 20 100" fill="#fecfef"/>
+                <path d="M 40 70 Q 100 90 160 70 L 160 100 Q 100 120 40 100 Z" fill="#ff9a9e"/>
+                <path d="M 40 70 Q 100 90 160 70 Q 100 50 40 70" fill="#ffffff"/>
+                <!-- Icing Details -->
+                <path d="M 20 100 Q 30 110 40 100 Q 50 110 60 100 Q 70 110 80 100 Q 90 110 100 100 Q 110 110 120 100 Q 130 110 140 100 Q 150 110 160 100 Q 170 110 180 100" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+                <path d="M 40 70 Q 50 80 60 70 Q 70 80 80 70 Q 90 80 100 70 Q 110 80 120 70 Q 130 80 140 70 Q 150 80 160 70" fill="none" stroke="#ff758c" stroke-width="3" stroke-linecap="round"/>
+                <!-- Candles bases -->
+                <rect x="75" y="40" width="8" height="25" fill="#ffd700" rx="2"/>
+                <rect x="95" y="35" width="8" height="30" fill="#22c55e" rx="2"/>
+                <rect x="115" y="40" width="8" height="25" fill="#3b82f6" rx="2"/>
+            </svg>
+
+            <!-- CSS Flames overlaying the SVG bases -->
+            <div class="candle-flames" id="candle-flames">
+                <div style="position: absolute; left: 71px; top: 10px;">
+                    <div class="flame"></div><div class="smoke"></div>
+                </div>
+                <div style="position: absolute; left: 91px; top: 5px;">
+                    <div class="flame"></div><div class="smoke"></div>
+                </div>
+                <div style="position: absolute; left: 111px; top: 10px;">
+                    <div class="flame"></div><div class="smoke"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="blow-instruction" id="blow-hint">Listening for breath... (Or tap cake to skip)</div>
+    </div>
+
+    <!-- SCREEN 8: THE FINAL GIFT REVEAL -->
+    <div id="screen-final-gift" class="screen hidden">
+        <h1>Surprise!</h1>
+        <p>Your birthday gift is waiting for you at:</p>
+        <div class="revealed-location-box">
+            <div class="revealed-location-text" id="final-loc-text">Location</div>
+        </div>
+        <br><br>
+        <h2>Happy Birthday! Love, Kunal ❤️</h2>
+    </div>
+
+    <!-- SECRET DEV PANEL -->
     <div id="dev-panel">
         <h3>Command Center</h3>
-        <button class="dev-btn" id="btn-dev-win">🏆 Force Win Game</button>
-        <button class="dev-btn" id="btn-dev-reveal">🎁 Force Final Reveal</button>
-        <button class="dev-btn" onclick="location.href = window.location.pathname">🔄 Hard Reset</button>
-        <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 10px;">Press Ctrl+Shift+D to toggle.</div>
+        <button onclick="app.game.forceWin()">Force Win</button>
+        <button onclick="location.reload()">Reset App</button>
+        <button onclick="app.startMobileSimulation()">Simulate Phone</button>
+        <button onclick="ui.closeDevPanel()">Close Panel</button>
+        <div style="margin-top:10px; font-size:0.8rem; color:#aaa;">Shortcut: Ctrl+Shift+D</div>
     </div>
 
     <script>
-        const Utils = {
-            encodeBase64: (str) => btoa(unescape(encodeURIComponent(str))),
-            decodeBase64: (str) => decodeURIComponent(escape(atob(str))),
-            photos: [
-                "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=400&q=80",
-                "https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=400&q=80",
-                "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80",
-                "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80",
-                "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=400&q=80",
-                "https://images.unsplash.com/photo-1585506942812-e72e4d78b0d1?auto=format&fit=crop&w=400&q=80",
-                "https://images.unsplash.com/photo-1599577180572-881c62b66236?auto=format&fit=crop&w=400&q=80",
-                "https://images.unsplash.com/photo-1587573089734-09cb69c0f2b4?auto=format&fit=crop&w=400&q=80"
-            ],
-            showFloatingMessage: (msg) => {
-                const el = document.createElement('div');
-                el.className = 'floating-message';
-                el.innerText = msg;
-                document.body.appendChild(el);
-                setTimeout(() => el.remove(), 3000);
-            },
-            showFloatBonus: (text, x, y) => {
-                const el = document.createElement('div');
-                el.className = 'floating-bonus';
-                el.innerText = text;
-                el.style.left = x + 'px';
-                el.style.top = y + 'px';
-                document.body.appendChild(el);
-                setTimeout(() => el.remove(), 1000);
-            }
-        };
+        /**
+         * ==========================================================================
+         * CORE UTILITIES & ENCRYPTION
+         * ==========================================================================
+         */
+        class Utils {
+            // Safe Base64 for handling spaces, emojis, and special chars in URLs
+            static encodeBase64(str) { return btoa(encodeURIComponent(str)); }
+            static decodeBase64(str) { return decodeURIComponent(atob(str)); }
+            
+            static clamp(val, min, max) { return Math.min(Math.max(val, min), max); }
+            static random(min, max) { return Math.random() * (max - min) + min; }
+        }
 
-        const Config = {
-            time: 10,
-            location: "The Living Room",
-            gameDuration: 60,
-            isTV: window.innerWidth >= 1024
-        };
-
+        /**
+         * ==========================================================================
+         * AUDIO ENGINE (WEB AUDIO API)
+         * Natively synthesizes all sounds and procedural ambient background music.
+         * ==========================================================================
+         */
         class AudioEngine {
             constructor() {
                 this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                this.isMuted = false;
                 this.masterGain = this.ctx.createGain();
                 this.masterGain.connect(this.ctx.destination);
-                this.masterGain.gain.value = 0.5; // Start half volume
-                this.isMuted = false;
+                this.masterGain.gain.value = 1.0;
+
+                this.ambientGain = this.ctx.createGain();
+                this.ambientGain.connect(this.masterGain);
+                this.ambientGain.gain.value = 0.15; // Soft volume for music
+                
                 this.ambientInterval = null;
-                this.ambientNotes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99]; // C Major Pentatonic
+                // Pentatonic scale frequencies (C Major Pentatonic) for soothing music
+                this.scale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25]; 
             }
 
-            unlock() { if (this.ctx.state === 'suspended') this.ctx.resume(); }
+            unlock() {
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
 
-            toggleMute() {
-                this.isMuted = !this.isMuted;
-                this.masterGain.gain.setTargetAtTime(this.isMuted ? 0 : 0.5, this.ctx.currentTime, 0.05);
-                document.getElementById('icon-audio-on').style.display = this.isMuted ? 'none' : 'block';
-                document.getElementById('icon-audio-off').style.display = this.isMuted ? 'block' : 'none';
+            toggleMute(forceState = null) {
+                if (forceState !== null) {
+                    this.isMuted = forceState;
+                } else {
+                    this.isMuted = !this.isMuted;
+                }
+                
+                this.masterGain.gain.setTargetAtTime(this.isMuted ? 0 : 1, this.ctx.currentTime, 0.1);
+                
+                if (!this.isMuted && !this.ambientInterval) {
+                    this.startAmbient();
+                }
                 return this.isMuted;
             }
 
-            playTone(freq, type = 'sine', attack = 0.05, decay = 0.1, sustain = 0.5, release = 0.5, vol = 0.3) {
+            // Synthesize a generic tone with an ADSR envelope
+            playTone(freq, type, duration, vol=0.2) {
                 if (this.isMuted) return;
                 this.unlock();
+                
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
-                const now = this.ctx.currentTime;
+                
                 osc.type = type;
-                osc.frequency.setValueAtTime(freq, now);
-                gain.gain.setValueAtTime(0, now);
-                gain.gain.linearRampToValueAtTime(vol, now + attack);
-                gain.gain.exponentialRampToValueAtTime(vol * sustain, now + attack + decay);
-                gain.gain.setValueAtTime(vol * sustain, now + attack + decay + 0.1);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + attack + decay + 0.1 + release);
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+                
+                // Envelope
+                gain.gain.setValueAtTime(0, this.ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(vol, this.ctx.currentTime + 0.05); // Attack
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration); // Decay/Release
+                
                 osc.connect(gain);
                 gain.connect(this.masterGain);
-                osc.start(now);
-                osc.stop(now + attack + decay + 0.1 + release);
+                
+                osc.start(this.ctx.currentTime);
+                osc.stop(this.ctx.currentTime + duration);
             }
 
-            startAmbient() {
-                if (this.ambientInterval) return;
-                this.ambientInterval = setInterval(() => {
-                    if (this.isMuted) return;
-                    const freq = this.ambientNotes[Math.floor(Math.random() * this.ambientNotes.length)];
-                    this.playTone(freq / 2, 'sine', 2.0, 1.0, 0.5, 3.0, 0.05);
-                }, 3000);
+            // Specific Sound Effects
+            tick() { this.playTone(800, 'sine', 0.1, 0.05); }
+            pop() { this.playTone(400, 'sine', 0.1, 0.15); }
+            puff() { 
+                // Noise burst for blowing out candles
+                if (this.isMuted) return;
+                const bufferSize = this.ctx.sampleRate * 0.5; 
+                const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) { data[i] = Math.random() * 2 - 1; }
+                
+                const noise = this.ctx.createBufferSource();
+                noise.buffer = buffer;
+                
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 1000;
+
+                const gain = this.ctx.createGain();
+                gain.gain.setValueAtTime(0.5, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.5);
+                
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(this.masterGain);
+                
+                noise.start();
             }
 
-            stopAmbient() { clearInterval(this.ambientInterval); this.ambientInterval = null; }
-
-            sfxTick() { this.playTone(800, 'sine', 0.01, 0.05, 0, 0.1, 0.1); }
-            sfxPop() { this.playTone(400, 'sine', 0.05, 0.1, 0, 0.2, 0.2); }
-            sfxMatch() {
-                this.playTone(523.25, 'sine', 0.1, 0.1, 0.5, 0.5, 0.2);
-                setTimeout(() => this.playTone(659.25, 'sine', 0.1, 0.1, 0.5, 0.5, 0.2), 100);
-                setTimeout(() => this.playTone(783.99, 'sine', 0.1, 0.1, 0.5, 0.5, 0.2), 200);
+            match() {
+                if (this.isMuted) return;
+                this.playTone(523.25, 'sine', 0.4, 0.1); // C5
+                setTimeout(() => this.playTone(659.25, 'sine', 0.5, 0.1), 100); // E5
+                setTimeout(() => this.playTone(783.99, 'sine', 0.8, 0.15), 200); // G5
             }
-            sfxError() { this.playTone(150, 'sawtooth', 0.1, 0.2, 0.1, 0.3, 0.1); }
-            sfxWin() {
-                this.stopAmbient();
-                const notes = [523.25, 659.25, 783.99, 1046.50];
-                notes.forEach((freq, i) => setTimeout(() => this.playTone(freq, 'square', 0.1, 0.2, 0.5, 1.0, 0.15), i * 150));
+
+            error() { this.playTone(150, 'sawtooth', 0.4, 0.1); }
+            
+            winFanfare() {
+                if (this.isMuted) return;
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // Arpeggio C E G C
+                notes.forEach((freq, i) => {
+                    setTimeout(() => this.playTone(freq, 'square', 0.6, 0.15), i * 150);
+                });
+                
+                // Final grand chord
                 setTimeout(() => {
-                    this.playTone(523.25, 'square', 0.2, 0.2, 0.8, 1.5, 0.2);
-                    this.playTone(659.25, 'square', 0.2, 0.2, 0.8, 1.5, 0.2);
-                    this.playTone(1046.50, 'square', 0.2, 0.2, 0.8, 1.5, 0.2);
+                    this.playTone(523.25, 'square', 1.5, 0.2);
+                    this.playTone(659.25, 'square', 1.5, 0.2);
+                    this.playTone(1046.50, 'square', 1.5, 0.2);
                 }, 600);
             }
-        }
-        const audio = new AudioEngine();
-        document.getElementById('btn-audio').onclick = () => audio.toggleMute();
 
-        class GraphicsEngine {
+            // Procedural Ambient Background Music
+            startAmbient() {
+                if (this.ambientInterval) clearInterval(this.ambientInterval);
+                this.ambientInterval = setInterval(() => {
+                    if (this.isMuted) return;
+                    // Pick a random note from the pentatonic scale
+                    const freq = this.scale[Math.floor(Math.random() * this.scale.length)];
+                    
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.value = freq / 2; // Drop an octave for warmth
+                    
+                    // Long, slow pad envelope
+                    gain.gain.setValueAtTime(0, this.ctx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.1, this.ctx.currentTime + 2); // Slow attack
+                    gain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 6); // Slow release
+                    
+                    osc.connect(gain);
+                    gain.connect(this.ambientGain);
+                    
+                    osc.start(this.ctx.currentTime);
+                    osc.stop(this.ctx.currentTime + 6);
+                }, 2000); // Trigger a new note every 2 seconds
+            }
+
+            stopAmbient() {
+                if (this.ambientInterval) clearInterval(this.ambientInterval);
+                this.ambientInterval = null;
+            }
+        }
+
+        /**
+         * ==========================================================================
+         * MICROPHONE ENGINE (WebRTC Blow Detection)
+         * ==========================================================================
+         */
+        class MicEngine {
             constructor() {
-                this.cvs = document.getElementById('physics-canvas');
-                this.ctx = this.cvs.getContext('2d');
+                this.audioCtx = null;
+                this.analyser = null;
+                this.microphone = null;
+                this.dataArray = null;
+                this.isListening = false;
+                this.onBlowOut = null;
+                this.reqFrame = null;
+            }
+
+            async startListening(callback) {
+                this.onBlowOut = callback;
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+                    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    this.analyser = this.audioCtx.createAnalyser();
+                    this.microphone = this.audioCtx.createMediaStreamSource(stream);
+                    
+                    // Configuration for detecting low frequency wind/breath noise
+                    this.analyser.fftSize = 256; 
+                    this.analyser.smoothingTimeConstant = 0.4;
+                    this.microphone.connect(this.analyser);
+                    
+                    const bufferLength = this.analyser.frequencyBinCount;
+                    this.dataArray = new Uint8Array(bufferLength);
+                    
+                    this.isListening = true;
+                    this.detectBlow();
+                } catch (err) {
+                    console.warn("Microphone access denied or unavailable. Fallback to tap enabled.", err);
+                    // Update hint for fallback
+                    document.getElementById('blow-hint').innerText = "Tap the cake to blow out candles!";
+                }
+            }
+
+            detectBlow() {
+                if (!this.isListening) return;
+                
+                this.analyser.getByteFrequencyData(this.dataArray);
+                
+                // Breath into a mic registers heavily in the lower frequency bins (0 to 10)
+                let lowFreqSum = 0;
+                for (let i = 0; i < 10; i++) {
+                    lowFreqSum += this.dataArray[i];
+                }
+                
+                const averageLow = lowFreqSum / 10;
+                
+                // Threshold tuning: 200 is generally a solid breath/wind rumble threshold
+                if (averageLow > 220) {
+                    this.stopListening();
+                    if (this.onBlowOut) this.onBlowOut();
+                } else {
+                    this.reqFrame = requestAnimationFrame(this.detectBlow.bind(this));
+                }
+            }
+
+            stopListening() {
+                this.isListening = false;
+                if (this.reqFrame) cancelAnimationFrame(this.reqFrame);
+                if (this.microphone) {
+                    this.microphone.mediaStream.getTracks().forEach(track => track.stop());
+                    this.microphone.disconnect();
+                }
+                if (this.audioCtx) this.audioCtx.close();
+            }
+        }
+
+        /**
+         * ==========================================================================
+         * PHYSICS SYSTEMS (Background Particles & Confetti)
+         * ==========================================================================
+         */
+        class ParticleSystem {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext('2d', { alpha: false });
                 this.particles = [];
-                this.mode = 'ambient';
+                this.isTV = window.innerWidth >= 1024;
                 this.resize();
-                window.addEventListener('resize', () => this.resize());
-                this.initAmbient();
+                
+                window.addEventListener('resize', () => {
+                    this.isTV = window.innerWidth >= 1024;
+                    this.resize();
+                    this.initParticles();
+                });
+                
+                this.initParticles();
                 this.animate();
             }
 
             resize() {
-                this.cvs.width = window.innerWidth;
-                this.cvs.height = window.innerHeight;
-                Config.isTV = window.innerWidth >= 1024;
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
             }
 
-            initAmbient() {
+            initParticles() {
                 this.particles = [];
-                const count = Config.isTV ? 120 : 50;
+                const count = this.isTV ? 120 : 50; // More particles for TV
                 for (let i = 0; i < count; i++) {
                     this.particles.push({
-                        x: Math.random() * this.cvs.width,
-                        y: Math.random() * this.cvs.height,
-                        r: Math.random() * (Config.isTV ? 3 : 15) + 2,
-                        dx: Math.random() * 1 - 0.5,
-                        dy: Math.random() * -1 - 0.5,
-                        phase: Math.random() * Math.PI * 2,
-                        opacity: Math.random() * 0.5 + 0.1
-                    });
-                }
-            }
-
-            startConfetti() {
-                this.mode = 'confetti';
-                this.particles = [];
-                const colors = ['#f472b6', '#fbbf24', '#10b981', '#38bdf8', '#ffffff'];
-                for (let i = 0; i < 200; i++) {
-                    this.particles.push({
-                        x: this.cvs.width / 2, y: this.cvs.height,
-                        vx: (Math.random() - 0.5) * 25,
-                        vy: (Math.random() - 1) * 30 - 10,
-                        size: Math.random() * 10 + 5,
-                        color: colors[Math.floor(Math.random() * colors.length)],
-                        rot: Math.random() * 360,
-                        rotSpeed: (Math.random() - 0.5) * 10
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        radius: Math.random() * (this.isTV ? 2.5 : 12) + 1, // TV = stardust, Mobile = bubbles
+                        phase: Math.random() * Math.PI * 2, // For sine wave drifting
+                        speed: Math.random() * 0.5 + 0.2,
+                        // TV gets gold dust, Mobile gets white/pink bubbles
+                        color: this.isTV 
+                            ? `rgba(255, 215, 0, ${Math.random() * 0.5 + 0.1})` 
+                            : `rgba(255, 255, 255, ${Math.random() * 0.3 + 0.1})`
                     });
                 }
             }
 
             animate() {
-                this.ctx.clearRect(0, 0, this.cvs.width, this.cvs.height);
-                if (this.mode === 'ambient') {
-                    this.particles.forEach(p => {
-                        p.x += p.dx + Math.sin(p.phase) * 0.5;
-                        p.y += p.dy;
-                        p.phase += 0.02;
-                        if (p.y < -20) { p.y = this.cvs.height + 20; p.x = Math.random() * this.cvs.width; }
-                        
-                        this.ctx.beginPath();
-                        this.ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                        const c = Config.isTV ? '251,191,36' : '255,255,255';
-                        this.ctx.fillStyle = `rgba(${c}, ${p.opacity})`;
-                        this.ctx.fill();
-                    });
-                } else if (this.mode === 'confetti') {
-                    for (let i = this.particles.length - 1; i >= 0; i--) {
-                        let p = this.particles[i];
-                        p.vy += 0.5; // gravity
-                        p.x += p.vx; p.y += p.vy; p.rot += p.rotSpeed;
-                        
-                        this.ctx.save();
-                        this.ctx.translate(p.x, p.y);
-                        this.ctx.rotate(p.rot * Math.PI / 180);
-                        this.ctx.fillStyle = p.color;
-                        this.ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
-                        this.ctx.restore();
-                        
-                        if (p.y > this.cvs.height) this.particles.splice(i, 1);
-                    }
-                    if(this.particles.length === 0) this.initAmbient(); // reset after confetti
+                // Background clear with proper theme colors
+                if (this.isTV) {
+                    // Dark radial gradient simulation in canvas
+                    const grd = this.ctx.createRadialGradient(
+                        this.canvas.width/2, this.canvas.height/2, 0, 
+                        this.canvas.width/2, this.canvas.height/2, this.canvas.width
+                    );
+                    grd.addColorStop(0, '#1a202c');
+                    grd.addColorStop(1, '#000000');
+                    this.ctx.fillStyle = grd;
+                } else {
+                    // Mobile linear gradient simulation
+                    const grd = this.ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
+                    grd.addColorStop(0, '#ff9a9e');
+                    grd.addColorStop(1, '#fecfef');
+                    this.ctx.fillStyle = grd;
                 }
-                requestAnimationFrame(() => this.animate());
+                
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Draw Flow-Field Particles
+                this.particles.forEach(p => {
+                    // Trigonometric organic movement (Flow Field simulation)
+                    p.phase += 0.01;
+                    p.y -= p.speed;
+                    p.x += Math.sin(p.phase) * 0.5;
+
+                    // Wrap around
+                    if (p.y < -p.radius * 2) {
+                        p.y = this.canvas.height + p.radius * 2;
+                        p.x = Math.random() * this.canvas.width;
+                    }
+                    if (p.x > this.canvas.width + p.radius) p.x = -p.radius;
+                    if (p.x < -p.radius) p.x = this.canvas.width + p.radius;
+
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    this.ctx.fillStyle = p.color;
+                    this.ctx.fill();
+                    
+                    // Add subtle glow to larger particles
+                    if (p.radius > 5) {
+                        this.ctx.shadowBlur = 10;
+                        this.ctx.shadowColor = p.color;
+                    } else {
+                        this.ctx.shadowBlur = 0;
+                    }
+                });
+
+                requestAnimationFrame(this.animate.bind(this));
             }
         }
-        const gfx = new GraphicsEngine();
 
-        class BirthdayApp {
-            constructor() {
-                this.gameTimer = null;
-                this.timeLeft = 60;
-                this.combo = 1;
-                this.matches = 0;
-                this.cardsLocked = false;
-                this.flippedCards = [];
-                this.micStream = null;
+        class ConfettiSystem {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.colors = ['#ffd700', '#ff69b4', '#00ff00', '#00ffff', '#ff0000', '#ffffff'];
+                this.active = false;
                 
-                this.bindEvents();
-                this.checkRouting();
-            }
-
-            switchScreen(id) {
-                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-                setTimeout(() => document.getElementById(id).classList.add('active'), 100);
-            }
-
-            bindEvents() {
-                document.getElementById('btn-lock').onclick = () => this.startCountdown();
-                document.getElementById('btn-start-game').onclick = () => this.startGame();
-                document.getElementById('btn-light-candles').onclick = () => this.requestMic();
-                document.getElementById('cake-wrapper').onclick = () => this.blowOutCandles(); // Fallback
-                
-                document.getElementById('btn-dev-win').onclick = () => this.forceWin();
-                document.getElementById('btn-dev-reveal').onclick = () => { Config.location = "Dev Secret Loc"; this.triggerFinalReveal(); };
-                
-                // Dev Panel Toggle
-                document.addEventListener('keydown', (e) => {
-                    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
-                        document.getElementById('dev-panel').classList.toggle('open');
-                    }
+                window.addEventListener('resize', () => {
+                    this.canvas.width = window.innerWidth;
+                    this.canvas.height = window.innerHeight;
                 });
             }
 
-            checkRouting() {
-                const params = new URLSearchParams(window.location.search);
-                const payload = params.get('reveal');
-                if (payload) {
-                    try {
-                        Config.location = Utils.decodeBase64(payload);
-                        this.switchScreen('screen-mobile-reveal');
-                    } catch (e) {
-                        Utils.showFloatingMessage("Invalid QR Data.");
-                    }
+            fire() {
+                this.canvas.classList.remove('gone');
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.active = true;
+                
+                // Explode from bottom center
+                for (let i = 0; i < 200; i++) {
+                    this.particles.push({
+                        x: this.canvas.width / 2,
+                        y: this.canvas.height,
+                        vx: (Math.random() - 0.5) * 25,
+                        vy: (Math.random() - 1) * 35 - 10,
+                        size: Math.random() * 12 + 5,
+                        color: this.colors[Math.floor(Math.random() * this.colors.length)],
+                        rotation: Math.random() * 360,
+                        rotSpeed: (Math.random() - 0.5) * 20
+                    });
+                }
+                this.render();
+            }
+
+            render() {
+                if (!this.active) return;
+                
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                let alive = false;
+                
+                this.particles.forEach(p => {
+                    // Physics
+                    p.vy += 0.6; // Gravity
+                    p.vx *= 0.99; // Air resistance
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.rotation += p.rotSpeed;
+                    
+                    if (p.y < this.canvas.height + 50) alive = true;
+
+                    // Draw rotated square
+                    this.ctx.save();
+                    this.ctx.translate(p.x, p.y);
+                    this.ctx.rotate(p.rotation * Math.PI / 180);
+                    this.ctx.fillStyle = p.color;
+                    this.ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+                    this.ctx.restore();
+                });
+
+                if (alive) {
+                    requestAnimationFrame(this.render.bind(this));
+                } else {
+                    this.active = false;
+                    this.particles = [];
                 }
             }
+        }
 
-            startCountdown() {
-                audio.unlock();
-                audio.startAmbient();
-                const locInput = document.getElementById('input-loc').value.trim();
-                if (locInput) Config.location = locInput;
-                Config.time = parseInt(document.getElementById('input-time').value) || 10;
-                
-                this.switchScreen('screen-countdown');
-                let left = Config.time;
-                const numEl = document.getElementById('countdown-num');
-                const ringEl = document.getElementById('countdown-ring');
-                
-                numEl.innerText = left;
-                ringEl.style.transition = 'none';
-                ringEl.style.strokeDashoffset = '0';
-                
-                setTimeout(() => {
-                    ringEl.style.transition = 'stroke-dashoffset 1s linear';
-                    const interval = setInterval(() => {
-                        left--;
-                        audio.sfxTick();
-                        numEl.innerText = left;
-                        ringEl.style.strokeDashoffset = 879 - (left / Config.time) * 879;
-                        
-                        if (left <= 0) {
-                            clearInterval(interval);
-                            this.switchScreen('screen-welcome');
-                        }
-                    }, 1000);
-                }, 50);
+        /**
+         * ==========================================================================
+         * UI CONTROLLER
+         * Manages DOM elements, Screens, and Custom Modals
+         * ==========================================================================
+         */
+        class UIController {
+            constructor() {
+                this.screens = document.querySelectorAll('.screen');
+                this.modalOverlay = document.getElementById('modal-overlay');
+                this.modalTitle = document.getElementById('modal-title');
+                this.modalBody = document.getElementById('modal-body');
             }
 
-            startGame() {
-                this.switchScreen('screen-game');
-                this.timeLeft = Config.gameDuration;
+            showScreen(id) {
+                this.screens.forEach(s => s.classList.add('hidden'));
+                setTimeout(() => {
+                    this.screens.forEach(s => s.classList.add('gone'));
+                    const target = document.getElementById(id);
+                    target.classList.remove('gone');
+                    // Force reflow
+                    void target.offsetWidth;
+                    target.classList.remove('hidden');
+                }, 600);
+            }
+
+            showModal(title, message) {
+                this.modalTitle.innerText = title;
+                this.modalBody.innerText = message;
+                this.modalOverlay.classList.add('active');
+            }
+
+            closeModal() {
+                this.modalOverlay.classList.remove('active');
+            }
+
+            toggleDevPanel() {
+                const panel = document.getElementById('dev-panel');
+                panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+            }
+            
+            closeDevPanel() {
+                document.getElementById('dev-panel').style.display = 'none';
+            }
+
+            spawnFloatText(text, x, y) {
+                const el = document.createElement('div');
+                el.className = 'floating-text';
+                el.innerText = text;
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 1200);
+            }
+        }
+
+        /**
+         * ==========================================================================
+         * GAME ENGINE (4x4 Memory Match)
+         * ==========================================================================
+         */
+        class GameEngine {
+            constructor(appRef) {
+                this.app = appRef;
+                
+                // High Quality Unsplash Images for memories
+                this.photos = [
+                    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=300&q=80", // Mountains
+                    "https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=300&q=80", // Cozy Lights
+                    "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=300&q=80", // Cake
+                    "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=300&q=80", // Pizza
+                    "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=300&q=80", // Tiger
+                    "https://images.unsplash.com/photo-1585506942812-e72e4d78b0d1?auto=format&fit=crop&w=300&q=80", // Castle
+                    "https://images.unsplash.com/photo-1599577180572-881c62b66236?auto=format&fit=crop&w=300&q=80", // Nuts
+                    "https://images.unsplash.com/photo-1587573089734-09cb69c0f2b4?auto=format&fit=crop&w=300&q=80"  // Dominoes
+                ];
+                
+                this.deck = [];
+                this.flipped = [];
                 this.matches = 0;
-                this.combo = 1;
-                this.flippedCards = [];
-                this.cardsLocked = false;
+                this.locked = false;
+                this.timeLeft = 60;
+                this.timerInt = null;
+            }
+
+            init() {
+                const grid = document.getElementById('grid');
+                grid.innerHTML = '';
+                
+                this.deck = [...this.photos, ...this.photos];
+                // Shuffle array (Fisher-Yates)
+                for (let i = this.deck.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
+                }
+
+                this.matches = 0;
+                this.locked = false;
+                this.timeLeft = 60;
                 this.updateHUD();
 
-                const grid = document.getElementById('game-grid');
-                grid.innerHTML = '';
-                let deck = [...Utils.photos, ...Utils.photos].sort(() => Math.random() - 0.5);
-
-                deck.forEach((url) => {
+                this.deck.forEach((url, i) => {
                     const card = document.createElement('div');
                     card.className = 'card';
                     card.dataset.val = url;
-                    card.innerHTML = `<div class="card-face card-front"></div><div class="card-face card-back"><img src="${url}"></div>`;
+                    
+                    // Card structure
+                    const front = document.createElement('div');
+                    front.className = 'card-face card-front';
+                    front.innerText = '❤️';
+                    
+                    const back = document.createElement('div');
+                    back.className = 'card-face card-back';
+                    const img = document.createElement('img');
+                    img.src = url;
+                    back.appendChild(img);
+                    
+                    card.appendChild(front);
+                    card.appendChild(back);
+                    
                     card.onclick = () => this.flipCard(card);
                     grid.appendChild(card);
                 });
 
-                this.gameTimer = setInterval(() => {
+                this.startTimer();
+            }
+
+            startTimer() {
+                if(this.timerInt) clearInterval(this.timerInt);
+                this.timerInt = setInterval(() => {
                     this.timeLeft--;
                     this.updateHUD();
-                    if (this.timeLeft <= 0) {
-                        clearInterval(this.gameTimer);
-                        Utils.showFloatingMessage("Time added! Keep going!");
-                        this.timeLeft += 30; // Graceful fallback instead of alert
-                        this.gameTimer = setInterval(() => { /* resume */ this.timeLeft--; this.updateHUD(); }, 1000);
+                    
+                    if(this.timeLeft <= 0) {
+                        clearInterval(this.timerInt);
+                        this.app.audio.error();
+                        this.app.ui.showModal("Time's Up!", "Don't worry, you get 30 extra seconds. Keep going!");
+                        this.timeLeft = 30; // Grace period
+                        this.startTimer();
                     }
                 }, 1000);
             }
 
             updateHUD() {
-                document.getElementById('hud-time-text').innerText = this.timeLeft + 's';
-                document.getElementById('hud-combo').innerText = 'x' + this.combo;
-                const fill = document.getElementById('hud-time-bar');
-                const pct = (this.timeLeft / Config.gameDuration) * 100;
+                const timeText = document.getElementById('time-text');
+                const fill = document.getElementById('progress-fill');
+                document.getElementById('matches-count').innerText = this.matches;
+                
+                timeText.innerText = this.timeLeft + 's';
+                const pct = (this.timeLeft / 60) * 100;
                 fill.style.width = Math.min(pct, 100) + '%';
                 
                 fill.className = 'progress-fill';
-                if (this.timeLeft <= 15) fill.classList.add('progress-danger');
-                else if (this.timeLeft <= 30) fill.classList.add('progress-warning');
+                if(this.timeLeft <= 15) fill.classList.add('progress-danger');
+                else if(this.timeLeft <= 30) fill.classList.add('progress-warning');
             }
 
             flipCard(card) {
-                if (this.cardsLocked || card.classList.contains('flipped')) return;
-                audio.sfxPop();
+                if (this.locked || card.classList.contains('flipped')) return;
+                
+                this.app.audio.pop();
                 card.classList.add('flipped');
-                this.flippedCards.push(card);
+                this.flipped.push(card);
 
-                if (this.flippedCards.length === 2) {
-                    this.cardsLocked = true;
-                    if (this.flippedCards[0].dataset.val === this.flippedCards[1].dataset.val) {
-                        // Match
-                        audio.sfxMatch();
-                        this.matches++;
-                        this.timeLeft = Math.min(Config.gameDuration, this.timeLeft + (5 * this.combo));
-                        
-                        const rect = card.getBoundingClientRect();
-                        Utils.showFloatBonus(`+${5 * this.combo}s`, rect.left, rect.top);
-                        
-                        this.combo++;
-                        this.flippedCards.forEach(c => c.classList.add('matched'));
-                        this.flippedCards = [];
-                        this.updateHUD();
-                        this.cardsLocked = false;
-                        
-                        if (this.matches === 8) {
-                            clearInterval(this.gameTimer);
-                            setTimeout(() => this.winGame(), 1000);
-                        }
-                    } else {
-                        // Error
-                        audio.sfxError();
-                        this.combo = 1;
-                        this.updateHUD();
-                        this.flippedCards.forEach(c => c.classList.add('shake-active'));
-                        setTimeout(() => {
-                            this.flippedCards.forEach(c => c.classList.remove('flipped', 'shake-active'));
-                            this.flippedCards = [];
-                            this.cardsLocked = false;
-                        }, 800);
+                if (this.flipped.length === 2) {
+                    this.locked = true;
+                    this.checkMatch();
+                }
+            }
+
+            checkMatch() {
+                const [c1, c2] = this.flipped;
+                
+                if (c1.dataset.val === c2.dataset.val) {
+                    // Match Success
+                    this.app.audio.match();
+                    this.matches++;
+                    
+                    // Bonus Time
+                    this.timeLeft = Math.min(60, this.timeLeft + 5); 
+                    
+                    // Visual feedback
+                    const rect = c2.getBoundingClientRect();
+                    this.app.ui.spawnFloatText("+5s", rect.left + rect.width/2 - 20, rect.top);
+                    
+                    c1.classList.add('matched');
+                    c2.classList.add('matched');
+                    
+                    this.flipped = [];
+                    this.updateHUD();
+                    this.locked = false;
+                    
+                    if (this.matches === 8) {
+                        clearInterval(this.timerInt);
+                        setTimeout(() => this.app.triggerWin(), 1000);
                     }
+                } else {
+                    // Match Failed
+                    this.app.audio.error();
+                    c1.classList.add('shake');
+                    c2.classList.add('shake');
+                    
+                    setTimeout(() => {
+                        c1.classList.remove('flipped', 'shake');
+                        c2.classList.remove('flipped', 'shake');
+                        this.flipped = [];
+                        this.locked = false;
+                    }, 800);
                 }
             }
 
             forceWin() {
-                if(this.gameTimer) clearInterval(this.gameTimer);
-                this.winGame();
-            }
-
-            winGame() {
-                if (Config.isTV) {
-                    const encodedURL = window.location.origin + window.location.pathname + '?reveal=' + Utils.encodeBase64(Config.location);
-                    document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(encodedURL)}`;
-                    this.switchScreen('screen-tv-win');
-                    gfx.startConfetti();
-                    audio.sfxWin();
-                } else {
-                    this.switchScreen('screen-mobile-reveal');
-                }
-            }
-
-            async requestMic() {
-                audio.unlock(); // Ensure audio context is ready
-                document.getElementById('candle-trigger-btn').style.display = 'none';
-                document.getElementById('cake-interactive').style.display = 'flex';
-                
-                try {
-                    this.micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    const actx = audio.ctx;
-                    const source = actx.createMediaStreamSource(this.micStream);
-                    const analyzer = actx.createAnalyser();
-                    analyzer.fftSize = 256;
-                    source.connect(analyzer);
-                    const dataArray = new Uint8Array(analyzer.frequencyBinCount);
-
-                    const checkAudio = () => {
-                        if(!this.micStream) return;
-                        analyzer.getByteFrequencyData(dataArray);
-                        let sum = 0;
-                        for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
-                        let avg = sum / dataArray.length;
-                        
-                        if (avg > 60) { // Threshold for blowing air
-                            this.blowOutCandles();
-                        } else {
-                            requestAnimationFrame(checkAudio);
-                        }
-                    };
-                    checkAudio();
-                } catch (e) {
-                    Utils.showFloatingMessage("Mic denied. Just tap the cake!");
-                }
-            }
-
-            blowOutCandles() {
-                if (this.micStream) {
-                    this.micStream.getTracks().forEach(t => t.stop());
-                    this.micStream = null;
-                }
-                
-                document.querySelectorAll('.flame-el').forEach(f => f.classList.add('blown-out'));
-                audio.playTone(200, 'noise', 0.1, 0.5, 0, 0.5, 0.3); // blow sound approx
-                
-                setTimeout(() => this.triggerFinalReveal(), 1500);
-            }
-
-            triggerFinalReveal() {
-                audio.sfxWin();
-                gfx.startConfetti();
-                document.getElementById('final-location-text').innerText = Config.location;
-                this.switchScreen('screen-final-gift');
+                clearInterval(this.timerInt);
+                this.app.triggerWin();
             }
         }
 
-        // Initialize App
-        const app = new BirthdayApp();
+        /**
+         * ==========================================================================
+         * MAIN APPLICATION CONTROLLER
+         * Ties all engines together and handles the Magic QR routing
+         * ==========================================================================
+         */
+        class App {
+            constructor() {
+                this.config = { time: 5, loc: "Master Bedroom Closet" };
+                
+                // Initialize Engines
+                this.ui = new UIController();
+                this.audio = new AudioEngine();
+                this.mic = new MicEngine();
+                this.particles = new ParticleSystem('bg-canvas');
+                this.confetti = new ConfettiSystem('confetti-canvas');
+                this.game = new GameEngine(this);
 
+                // Setup Event Listeners
+                this.setupKeyboardShortcuts();
+                
+                // Check for Magic QR payload in URL
+                this.checkRouting();
+            }
+
+            setupKeyboardShortcuts() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
+                        this.ui.toggleDevPanel();
+                    }
+                });
+            }
+
+            checkRouting() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const payload = urlParams.get('reveal');
+                
+                if (payload) {
+                    // MOBILE REVEAL MODE (Scanned from QR)
+                    try {
+                        this.config.loc = Utils.decodeBase64(payload);
+                        this.ui.showScreen('screen-mobile-gateway');
+                    } catch(e) {
+                        this.ui.showModal("Error", "Invalid gift code. Please scan the TV again.");
+                    }
+                } else {
+                    // SETUP MODE (Default)
+                    this.ui.showScreen('screen-setup');
+                }
+            }
+
+            toggleAudio() {
+                const isMuted = this.audio.toggleMute();
+                document.getElementById('icon-sound-on').classList.toggle('gone', isMuted);
+                document.getElementById('icon-sound-off').classList.toggle('gone', !isMuted);
+            }
+
+            // Flow: Setup -> Countdown
+            startCountdownSequence() {
+                this.audio.unlock(); // Ensure audio context is ready on user interaction
+                this.audio.startAmbient(); // Start background music
+                
+                const rawLoc = document.getElementById('input-loc').value.trim();
+                if(rawLoc) this.config.loc = rawLoc;
+                this.config.time = parseInt(document.getElementById('input-time').value) || 5;
+                
+                this.ui.showScreen('screen-countdown');
+                
+                let left = this.config.time;
+                const numEl = document.getElementById('countdown-number');
+                const circEl = document.getElementById('svg-circle');
+                
+                numEl.innerText = left;
+                circEl.style.transition = 'none';
+                circEl.style.strokeDashoffset = '0';
+                
+                setTimeout(() => {
+                    circEl.style.transition = 'stroke-dashoffset 1s linear';
+                    const countInt = setInterval(() => {
+                        left--;
+                        this.audio.tick();
+                        numEl.innerText = left;
+                        
+                        // Calculate dash offset based on percentage
+                        const offset = 628 - (left / this.config.time) * 628;
+                        circEl.style.strokeDashoffset = offset;
+                        
+                        if(left <= 0) {
+                            clearInterval(countInt);
+                            this.ui.showScreen('screen-welcome');
+                        }
+                    }, 1000);
+                }, 50);
+            }
+
+            // Flow: Welcome -> Game
+            startGame() {
+                this.ui.showScreen('screen-game');
+                this.game.init();
+            }
+
+            // Flow: Game Win -> TV (QR) or Direct Win
+            triggerWin() {
+                if (window.innerWidth >= 1024) {
+                    // TV MODE: Generate Magic QR Code
+                    // Strip existing params, add base64 payload
+                    const baseUrl = window.location.href.split('?')[0];
+                    const magicUrl = `${baseUrl}?reveal=${Utils.encodeBase64(this.config.loc)}`;
+                    
+                    const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data=${encodeURIComponent(magicUrl)}`;
+                    document.getElementById('qr-image').src = qrSrc;
+                    
+                    this.ui.showScreen('screen-tv-win');
+                    this.confetti.fire();
+                    this.audio.winFanfare();
+                } else {
+                    // ALREADY ON MOBILE: Just win directly
+                    this.revealFinalGift();
+                }
+            }
+
+            // Flow: Mobile Gateway -> Candle Screen
+            initMobileReveal() {
+                this.audio.unlock();
+                this.ui.showScreen('screen-mobile-reveal');
+                
+                // Start listening for blow
+                this.mic.startListening(() => {
+                    this.forceBlowOut();
+                });
+            }
+
+            // Action: Extinguish candles and show final gift
+            forceBlowOut() {
+                // Prevent double trigger
+                if (document.getElementById('screen-mobile-reveal').classList.contains('hidden')) return;
+                
+                this.mic.stopListening();
+                this.audio.puff();
+                
+                // Animate flames out via CSS
+                const flames = document.querySelectorAll('.flame');
+                flames.forEach(f => f.classList.add('blown-out'));
+                
+                // Wait for smoke animation, then reveal
+                setTimeout(() => {
+                    this.revealFinalGift();
+                }, 1500);
+            }
+
+            revealFinalGift() {
+                document.getElementById('final-loc-text').innerText = this.config.loc;
+                this.ui.showScreen('screen-final-gift');
+                this.audio.winFanfare();
+                this.confetti.fire();
+            }
+            
+            startMobileSimulation() {
+                // Utility for dev panel to test mobile flow on desktop
+                this.ui.closeDevPanel();
+                this.triggerWin(); 
+                setTimeout(() => {
+                    // Fake a QR scan
+                    const baseUrl = window.location.href.split('?')[0];
+                    window.location.href = `${baseUrl}?reveal=${Utils.encodeBase64(this.config.loc)}`;
+                }, 1500);
+            }
+        }
+
+        // ==========================================
+        // BOOTSTRAP APP
+        // ==========================================
+        let app; // Global scope for HTML onclick handlers
+        let ui;
+        
+        window.onload = () => {
+            app = new App();
+            ui = app.ui; // Expose to global for modal clicks
+        };
     </script>
 </body>
 </html>
