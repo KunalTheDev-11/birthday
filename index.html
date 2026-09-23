@@ -11,9 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&display=swap" rel="stylesheet">
 
     <style>
-        /* ==========================================================================
-           1. CSS DESIGN SYSTEM & DUAL-THEME VARIABLES
-           ========================================================================== */
         :root {
             /* --- MOBILE THEME (Vibrant, Bubbly, Pastel) --- */
             --theme-bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
@@ -44,7 +41,7 @@
             --progress-crit: #ef4444;
             
             /* Particle Engine Aesthetics */
-            --particle-ambient-base: 255, 255, 255; /* RGB for white/pink tint */
+            --particle-ambient-base: 255, 255, 255;
         }
 
         /* --- DESKTOP/TV THEME (Cinematic, Luxury, Navy/Gold) --- */
@@ -57,42 +54,30 @@
                 --theme-font-primary: 'Playfair Display', serif;
                 --theme-font-secondary: 'Outfit', sans-serif; 
                 
-                /* Glassmorphism System */
                 --glass-bg: rgba(15, 23, 42, 0.6);
                 --glass-border: rgba(251, 191, 36, 0.3);
                 --glass-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 0 30px rgba(251,191,36,0.1);
                 
-                /* UI Elements */
                 --btn-bg: linear-gradient(135deg, #fbbf24, #d97706);
                 --btn-text: #020617;
                 --btn-shadow: 0 10px 35px rgba(251, 191, 36, 0.4), inset 0 -4px 0 rgba(0,0,0,0.2);
                 --input-bg: rgba(2, 6, 23, 0.75);
                 --input-border: #fbbf24;
                 
-                /* Game Engine Aesthetics */
                 --card-back-bg: linear-gradient(135deg, #0f172a, #000000);
                 --card-icon-color: #fbbf24;
-                
-                /* Particle Engine Aesthetics */
-                --particle-ambient-base: 251, 191, 36; /* RGB for Gold */
+                --particle-ambient-base: 251, 191, 36;
             }
         }
 
-        /* ==========================================================================
-           2. BASE RESETS & TYPOGRAPHY
-           ========================================================================== */
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
         
         body {
             font-family: var(--theme-font-primary);
             background: var(--theme-bg-gradient);
             color: var(--theme-text-main);
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            height: 100vh; width: 100vw;
+            overflow: hidden; display: flex; justify-content: center; align-items: center;
             transition: background 1.5s ease-in-out;
         }
 
@@ -101,121 +86,67 @@
             z-index: 0; pointer-events: none;
         }
 
-        h1, h2, h3 {
-            font-weight: 900;
-            text-align: center;
-            text-shadow: var(--theme-text-shadow);
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-        
+        h1, h2, h3 { font-weight: 900; text-align: center; text-shadow: var(--theme-text-shadow); margin-bottom: 1rem; line-height: 1.1; }
         h1 { font-size: clamp(3rem, 8vw, 7rem); letter-spacing: -0.02em; }
         h2 { font-size: clamp(2rem, 5vw, 4rem); }
         
         p {
-            font-family: var(--theme-font-secondary);
-            font-size: clamp(1.2rem, 4vw, 2.2rem);
-            text-align: center;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            line-height: 1.5;
+            font-family: var(--theme-font-secondary); font-size: clamp(1.2rem, 4vw, 2.2rem);
+            text-align: center; font-weight: 600; margin-bottom: 2rem; line-height: 1.5;
             text-shadow: 0px 2px 5px rgba(255,255,255,0.5);
         }
-        
-        @media (min-width: 1024px) {
-            p { font-family: var(--theme-font-primary); font-weight: 500; font-style: italic; text-shadow: 2px 3px 6px rgba(0,0,0,0.9); }
-        }
+        @media (min-width: 1024px) { p { font-family: var(--theme-font-primary); font-weight: 500; font-style: italic; text-shadow: 2px 3px 6px rgba(0,0,0,0.9); } }
 
-        /* ==========================================================================
-           3. UI COMPONENTS (Glass, Buttons, Inputs)
-           ========================================================================== */
         .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid var(--glass-border);
-            border-radius: 32px;
-            box-shadow: var(--glass-shadow);
-            padding: 3rem;
-            display: flex; flex-direction: column; align-items: center;
-            transition: all 0.4s ease;
+            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 2px solid var(--glass-border); border-radius: 32px;
+            box-shadow: var(--glass-shadow); padding: 3rem;
+            display: flex; flex-direction: column; align-items: center; transition: all 0.4s ease;
         }
 
         button.primary-btn {
-            font-family: var(--theme-font-secondary);
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            font-weight: 900;
-            padding: 1.2rem 3.5rem;
-            border-radius: 50px; border: none;
-            background: var(--btn-bg); color: var(--btn-text);
-            box-shadow: var(--btn-shadow);
-            cursor: pointer;
-            text-transform: uppercase; letter-spacing: 2px;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative; overflow: hidden;
+            font-family: var(--theme-font-secondary); font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 900;
+            padding: 1.2rem 3.5rem; border-radius: 50px; border: none;
+            background: var(--btn-bg); color: var(--btn-text); box-shadow: var(--btn-shadow);
+            cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden;
+            margin: 10px;
         }
         button.primary-btn:hover { transform: var(--btn-hover-transform); }
         button.primary-btn:active { transform: translateY(2px) scale(0.98); box-shadow: inset 0 6px 15px rgba(0,0,0,0.2); }
         
-        /* Premium Shine Effect */
-        button.primary-btn::after {
-            content: ''; position: absolute; top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
-            transform: rotate(35deg) translateX(-100%);
-            transition: transform 0.7s ease;
-        }
-        button.primary-btn:hover::after { transform: rotate(35deg) translateX(100%); }
-
         input.premium-input {
-            width: 100%; max-width: 450px;
-            padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;
+            width: 100%; max-width: 450px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;
             font-family: var(--theme-font-secondary); font-size: 1.2rem; font-weight: 800;
             border-radius: 16px; border: 3px solid var(--input-border);
-            background: var(--input-bg); color: var(--theme-text-main);
-            text-align: center; outline: none;
-            box-shadow: inset 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            background: var(--input-bg); color: var(--theme-text-main); text-align: center; outline: none;
+            box-shadow: inset 0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s ease;
         }
         input.premium-input::placeholder { color: var(--theme-text-main); opacity: 0.5; }
-        input.premium-input:focus { transform: scale(1.02); box-shadow: inset 0 4px 15px rgba(0,0,0,0.1), 0 0 25px var(--input-border); }
-
-        /* ==========================================================================
-           4. SCREEN ROUTING & ANIMATIONS
-           ========================================================================== */
+        
         #app-container { position: relative; width: 100%; height: 100%; z-index: 10; }
 
         .screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             padding: 1.5rem; overflow-y: auto; overflow-x: hidden;
-            opacity: 0; pointer-events: none; transform: scale(0.96);
+            opacity: 0; pointer-events: none; transform: scale(0.96); display: none;
             transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .screen.active { opacity: 1; pointer-events: auto; transform: scale(1); }
+        .screen.active { opacity: 1; pointer-events: auto; transform: scale(1); display: flex; }
 
-        /* Cinematic Staggered Entrances */
         .screen.active .stagger-1 { animation: fadeUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards; opacity: 0; }
         .screen.active .stagger-2 { animation: fadeUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards; opacity: 0; }
         .screen.active .stagger-3 { animation: fadeUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards; opacity: 0; }
-        .screen.active .stagger-4 { animation: fadeUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.55s forwards; opacity: 0; }
 
         @keyframes fadeUp {
             0% { opacity: 0; transform: translateY(50px); filter: blur(10px); }
             100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        /* ==========================================================================
-           5. GAME ENGINE UI (HUD, Grid, Cards)
-           ========================================================================== */
-        .game-wrapper {
-            width: 100%; max-width: 850px;
-            display: flex; flex-direction: column; gap: 1.5rem; align-items: center;
-        }
-
+        .game-wrapper { width: 100%; max-width: 850px; display: flex; flex-direction: column; gap: 1.5rem; align-items: center; }
         .game-hud {
-            width: 100%;
-            display: flex; justify-content: space-between; align-items: center;
+            width: 100%; display: flex; justify-content: space-between; align-items: center;
             padding: 1rem 2rem; border-radius: 20px;
             background: var(--glass-bg); border: 2px solid var(--glass-border);
             box-shadow: var(--glass-shadow); backdrop-filter: blur(15px);
@@ -227,9 +158,8 @@
         @media (min-width: 1024px) { .hud-value { color: var(--theme-text-accent); text-shadow: 2px 2px 6px rgba(0,0,0,0.8); } }
 
         .progress-container {
-            flex-grow: 1; margin: 0 2vw; height: 14px;
-            background: rgba(0,0,0,0.2); border-radius: 10px;
-            overflow: hidden; border: 1px solid var(--glass-border); position: relative;
+            flex-grow: 1; margin: 0 2vw; height: 14px; background: rgba(0,0,0,0.2);
+            border-radius: 10px; overflow: hidden; border: 1px solid var(--glass-border); position: relative;
         }
         .progress-fill {
             height: 100%; width: 100%; background: var(--progress-safe);
@@ -237,28 +167,19 @@
             box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
         }
 
-        .memory-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: clamp(0.5rem, 2vw, 1.2rem);
-            perspective: 1500px; width: 100%; max-width: 650px;
-        }
-
-        .card {
-            aspect-ratio: 1 / 1; position: relative; transform-style: preserve-3d;
-            cursor: pointer; transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
+        .memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.5rem, 2vw, 1.2rem); perspective: 1500px; width: 100%; max-width: 650px; }
+        .card { aspect-ratio: 1 / 1; position: relative; transform-style: preserve-3d; cursor: pointer; transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .card:hover { transform: scale(1.05) translateZ(15px); }
         .card.flipped { transform: rotateY(180deg); }
         .card.matched { cursor: default; animation: cardGlowPulse 2s infinite; }
         
         .card-face {
-            position: absolute; width: 100%; height: 100%;
-            backface-visibility: hidden; -webkit-backface-visibility: hidden;
-            border-radius: 16px; border: 3px solid var(--glass-border);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+            border-radius: 16px; border: 3px solid var(--glass-border); box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             overflow: hidden; display: flex; justify-content: center; align-items: center;
         }
         .card-front { background: var(--card-back-bg); }
+        .card-front::after { content: '🎁'; font-size: 2.5rem; }
         .card-back { transform: rotateY(180deg); background-color: #fff; }
         .card-back img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 
@@ -269,118 +190,60 @@
         }
 
         .shake-active { animation: errorCameraShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
-        @keyframes errorCameraShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-15px) rotate(-2deg); }
-            75% { transform: translateX(15px) rotate(2deg); }
-        }
+        @keyframes errorCameraShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-15px) rotate(-2deg); } 75% { transform: translateX(15px) rotate(2deg); } }
 
-        .float-text {
-            position: absolute; pointer-events: none; font-family: var(--theme-font-secondary);
-            font-weight: 900; font-size: 3rem; color: #10b981;
-            text-shadow: 0px 4px 0px #000, 0 0 25px #10b981; z-index: 100;
-            animation: textFloatUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-        @keyframes textFloatUp {
-            0% { opacity: 0; transform: translate(-50%, 0) scale(0.5); }
-            20% { opacity: 1; transform: translate(-50%, -40px) scale(1.2); }
-            100% { opacity: 0; transform: translate(-50%, -120px) scale(1); }
-        }
-
-        /* ==========================================================================
-           6. COUNTDOWN & QR REVEAL SYSTEMS
-           ========================================================================== */
-        .countdown-container {
-            position: relative; width: clamp(200px, 40vw, 300px); height: clamp(200px, 40vw, 300px);
-            display: flex; justify-content: center; align-items: center; margin: 2rem 0;
-        }
-        .countdown-svg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: rotate(-90deg);
-            filter: drop-shadow(0 0 25px rgba(255,255,255,0.4));
-        }
+        .countdown-container { position: relative; width: clamp(200px, 40vw, 300px); height: clamp(200px, 40vw, 300px); display: flex; justify-content: center; align-items: center; margin: 2rem 0; }
+        .countdown-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: rotate(-90deg); filter: drop-shadow(0 0 25px rgba(255,255,255,0.4)); }
         @media (min-width: 1024px) { .countdown-svg { filter: drop-shadow(0 0 35px rgba(251,191,36,0.6)); } }
-        
         .circle-bg { fill: none; stroke: var(--glass-border); stroke-width: 8; opacity: 0.2; }
-        .circle-progress {
-            fill: none; stroke: #ffffff; stroke-width: 12; stroke-linecap: round;
-            stroke-dasharray: 879; stroke-dashoffset: 0; transition: stroke-dashoffset 1s linear;
-        }
+        .circle-progress { fill: none; stroke: #ffffff; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 879; stroke-dashoffset: 0; transition: stroke-dashoffset 1s linear; }
         @media (min-width: 1024px) { .circle-progress { stroke: var(--theme-text-accent); } }
+        .countdown-text { font-size: clamp(4rem, 15vw, 8rem); font-weight: 900; font-family: var(--theme-font-secondary); text-shadow: var(--theme-text-shadow); z-index: 2; font-variant-numeric: tabular-nums; }
 
-        .countdown-text {
-            font-size: clamp(4rem, 15vw, 8rem); font-weight: 900; font-family: var(--theme-font-secondary);
-            text-shadow: var(--theme-text-shadow); z-index: 2; font-variant-numeric: tabular-nums;
-        }
-
-        .qr-wrapper {
-            background: #ffffff; padding: 1.5rem; border-radius: 24px;
-            border: 6px solid var(--theme-text-accent); box-shadow: 0 25px 60px rgba(0,0,0,0.8);
-            display: inline-block; transform: scale(1); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
+        .qr-wrapper { background: #ffffff; padding: 1.5rem; border-radius: 24px; border: 6px solid var(--theme-text-accent); box-shadow: 0 25px 60px rgba(0,0,0,0.8); display: inline-block; transform: scale(1); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .qr-wrapper:hover { transform: scale(1.05) rotate(-2deg); }
         .qr-wrapper img { display: block; border-radius: 12px; }
-        .qr-label {
-            color: #000; font-family: var(--theme-font-secondary); font-weight: 900;
-            font-size: 1.2rem; text-align: center; margin-top: 1rem; letter-spacing: 1px; text-shadow: none;
-        }
+        .qr-label { color: #000; font-family: var(--theme-font-secondary); font-weight: 900; font-size: 1.2rem; text-align: center; margin-top: 1rem; letter-spacing: 1px; text-shadow: none; }
 
-        .magic-gift {
-            font-size: clamp(8rem, 20vw, 12rem); cursor: pointer;
-            filter: drop-shadow(0 25px 40px rgba(0,0,0,0.5));
-            animation: giftLevitate 3s infinite cubic-bezier(0.45, 0, 0.55, 1);
-            transition: transform 0.2s;
-        }
-        .magic-gift:active { transform: scale(0.85); }
-        @keyframes giftLevitate {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-30px); }
-        }
+        .cake-wrapper { position: relative; margin-top: 4rem; cursor: pointer; transition: transform 0.3s; }
+        .cake-wrapper:active { transform: scale(0.95); }
+        .cake { width: 160px; height: 100px; background: #fff; border-radius: 10px; position: relative; border: 4px solid var(--theme-text-accent); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .cake::before { content: ''; position: absolute; top: -10px; left: 0; width: 100%; height: 20px; background: var(--theme-text-accent); border-radius: 50%; }
+        .cake-frosting { position: absolute; top: 10px; left: -5px; width: 162px; height: 30px; background: #fff; border-radius: 20px; }
+        .candles-container { position: absolute; top: -50px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 5; }
+        .candle { width: 12px; height: 40px; background: repeating-linear-gradient(45deg, #fff, #fff 5px, #f472b6 5px, #f472b6 10px); border-radius: 4px; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .flame { position: absolute; top: -25px; left: -4px; width: 20px; height: 30px; background: #facc15; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 20px #facc15, 0 0 40px #fb923c; animation: flicker 0.1s infinite alternate; transition: opacity 0.3s; }
+        .flame.blown-out { opacity: 0; }
+        
+        @keyframes flicker { 0% { transform: scale(1) rotate(-2deg); opacity: 0.9; } 100% { transform: scale(1.1) rotate(2deg); opacity: 1; } }
 
-        .revealed-box {
-            background: rgba(0,0,0,0.5); backdrop-filter: blur(15px);
-            border: 3px solid var(--theme-text-accent); padding: 2.5rem 3.5rem;
-            border-radius: 32px; box-shadow: var(--glass-shadow); margin: 2rem 0; word-break: break-word;
-        }
-        .revealed-box span {
-            font-size: clamp(2rem, 7vw, 4.5rem); font-weight: 900;
-            color: var(--theme-text-accent); text-shadow: 2px 3px 0 #000, 0 0 30px rgba(251,191,36,0.5);
-        }
+        .revealed-box { background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); border: 3px solid var(--theme-text-accent); padding: 2.5rem 3.5rem; border-radius: 32px; box-shadow: var(--glass-shadow); margin: 2rem 0; word-break: break-word; text-align: center;}
+        .revealed-box span { font-size: clamp(2rem, 7vw, 4.5rem); font-weight: 900; color: var(--theme-text-accent); text-shadow: 2px 3px 0 #000, 0 0 30px rgba(251,191,36,0.5); }
 
-        /* ==========================================================================
-           7. GLOBAL UTILITIES (Audio Toggle, Dev Mode)
-           ========================================================================== */
-        .audio-toggle {
-            position: fixed; top: 2rem; right: 2rem; z-index: 9999;
-            width: 60px; height: 60px; border-radius: 50%;
-            background: var(--glass-bg); backdrop-filter: blur(15px);
-            border: 2px solid var(--glass-border);
-            display: flex; justify-content: center; align-items: center; cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
+        .audio-toggle { position: fixed; top: 2rem; right: 2rem; z-index: 9999; width: 60px; height: 60px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(15px); border: 2px solid var(--glass-border); display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .audio-toggle:hover { transform: scale(1.15) rotate(15deg); background: rgba(255,255,255,0.6); }
         .audio-toggle svg { width: 30px; height: 30px; fill: var(--theme-text-main); transition: fill 0.3s; }
         @media (min-width: 1024px) { .audio-toggle svg { fill: var(--theme-text-accent); } }
 
-        #dev-panel {
-            position: fixed; bottom: 2rem; left: 2rem; z-index: 10000;
-            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px);
-            border: 2px solid #ef4444; border-radius: 20px; padding: 2rem; width: 320px;
-            color: #fff; font-family: monospace; box-shadow: 0 0 50px rgba(239, 68, 68, 0.5);
-            transform: translateY(150%); transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
+        #dev-panel { position: fixed; bottom: 2rem; left: 2rem; z-index: 10000; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); border: 2px solid #ef4444; border-radius: 20px; padding: 2rem; width: 320px; color: #fff; font-family: monospace; box-shadow: 0 0 50px rgba(239, 68, 68, 0.5); transform: translateY(150%); transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
         #dev-panel.open { transform: translateY(0); }
         #dev-panel h3 { color: #ef4444; font-size: 1.2rem; text-align: left; text-shadow: none; border-bottom: 1px solid #ef4444; padding-bottom: 10px; margin-bottom: 15px; }
-        .dev-btn { width: 100%; padding: 0.8rem; margin-bottom: 0.5rem; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 8px; cursor: pointer; }
+        .dev-btn { width: 100%; padding: 0.8rem; margin-bottom: 0.5rem; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 8px; cursor: pointer; font-family: inherit;}
         .dev-btn:hover { background: #ef4444; border-color: #ef4444; }
+
+        .floating-message { position: fixed; top: 20%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #fff; padding: 1.5rem 2.5rem; border-radius: 50px; font-weight: 900; font-size: 1.5rem; border: 2px solid var(--theme-text-accent); z-index: 9999; animation: floatMessage 3s forwards; pointer-events: none; text-align: center; width: 80%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+        @keyframes floatMessage { 0% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); } 10% { opacity: 1; transform: translate(-50%, 0) scale(1); } 90% { opacity: 1; transform: translate(-50%, 0) scale(1); } 100% { opacity: 0; transform: translate(-50%, -50px) scale(1.1); } }
+        
+        .floating-bonus { position: absolute; pointer-events: none; font-size: 2.5rem; font-weight: 900; color: #10b981; text-shadow: 0px 3px 0px #fff, 0px 0px 15px rgba(16,185,129,0.8); animation: floatUpBonus 1s ease-out forwards; z-index: 50; }
+        @keyframes floatUpBonus { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-80px) scale(1.5); } }
     </style>
 </head>
 <body>
 
-    <!-- Ambient Physics Background -->
     <canvas id="physics-canvas"></canvas>
 
     <!-- Global Audio Control -->
-    <button class="audio-toggle" onclick="app.toggleAudio()" aria-label="Toggle Audio">
+    <button class="audio-toggle" id="btn-audio" aria-label="Toggle Audio">
         <svg id="icon-audio-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
         <svg id="icon-audio-off" viewBox="0 0 24 24" style="display:none;"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
     </button>
@@ -388,23 +251,19 @@
     <div id="app-container">
         
         <!-- SCREEN 1: SETUP -->
-        <div id="screen-setup" class="screen">
+        <div id="screen-setup" class="screen active">
             <div class="glass-panel stagger-1">
                 <h1 style="font-size: clamp(2rem, 5vw, 4rem);">Hunt Setup</h1>
                 <p>Configure the surprise. (Hide from Mom!)</p>
-                
                 <input type="number" id="input-time" class="premium-input stagger-2" value="10" min="1" placeholder="Countdown Seconds">
                 <input type="text" id="input-loc" class="premium-input stagger-3" placeholder="Secret Location (e.g., Living Room Couch)" autocomplete="off">
-                
-                <button class="primary-btn stagger-4" style="width: 100%; max-width: 450px; margin-top: 1rem;" onclick="app.commitSetup()">
-                    Lock & Ready
-                </button>
+                <button class="primary-btn" id="btn-lock" style="width: 100%; max-width: 450px; margin-top: 1rem;">Lock & Ready</button>
             </div>
         </div>
 
         <!-- SCREEN 2: COUNTDOWN -->
         <div id="screen-countdown" class="screen">
-            <h2 class="stagger-1 text-uppercase" style="letter-spacing: 4px; opacity: 0.8;">Surprise Unlocks In</h2>
+            <h2 class="stagger-1" style="letter-spacing: 4px; opacity: 0.9; text-transform: uppercase;">Surprise Unlocks In</h2>
             <div class="countdown-container stagger-2">
                 <svg class="countdown-svg" viewBox="0 0 300 300">
                     <circle class="circle-bg" cx="150" cy="150" r="140"></circle>
@@ -418,17 +277,16 @@
         <div id="screen-welcome" class="screen">
             <h1 class="stagger-1">Happy<br>Birthday,<br>Mom!</h1>
             <p class="stagger-2" style="margin: 2rem 0 3rem 0; max-width: 600px;">A very special gift has been hidden nearby.<br>Prove your memory skills to reveal its location!</p>
-            <button class="primary-btn stagger-3" onclick="app.startGame()">Start Challenge</button>
+            <button class="primary-btn stagger-3" id="btn-start-game">Start Challenge</button>
         </div>
 
         <!-- SCREEN 4: MEMORY GAME -->
         <div id="screen-game" class="screen" style="justify-content: flex-start; padding-top: 4vh;">
             <div class="game-wrapper stagger-1">
-                <!-- Top HUD -->
                 <div class="game-hud">
                     <div class="hud-stat">
                         <span class="hud-label">Multiplier</span>
-                        <span class="hud-value" id="hud-combo">x0</span>
+                        <span class="hud-value" id="hud-combo">x1</span>
                     </div>
                     <div class="progress-container">
                         <div class="progress-fill" id="hud-time-bar"></div>
@@ -438,39 +296,52 @@
                         <span class="hud-value" id="hud-time-text">60s</span>
                     </div>
                 </div>
-
-                <!-- Grid -->
                 <div class="glass-panel" style="padding: 1.5rem; width: 100%;">
                     <div class="memory-grid" id="game-grid"></div>
                 </div>
             </div>
         </div>
 
-        <!-- SCREEN 5: TV WIN (QR Code Magic Link) -->
+        <!-- SCREEN 5: TV WIN (QR Code) -->
         <div id="screen-tv-win" class="screen">
             <h1 class="stagger-1">You Did It!</h1>
             <p class="stagger-2" style="font-size: clamp(1.5rem, 3vw, 2.5rem); margin-bottom: 3rem;">Open your phone's camera and scan below<br>to instantly reveal the secret location!</p>
-            
             <div class="qr-wrapper stagger-3">
                 <img id="qr-img" src="" alt="Magic QR Code" width="280" height="280">
                 <div class="qr-label">Scan to reveal 🎁</div>
             </div>
         </div>
 
-        <!-- SCREEN 6: MOBILE REVEAL (Accessed via QR scan) -->
+        <!-- SCREEN 6: MOBILE REVEAL (Candles) -->
         <div id="screen-mobile-reveal" class="screen">
-            <div class="stagger-1 magic-gift" onclick="app.triggerFinalReveal()">🎁</div>
-            <h2 class="stagger-2" style="margin-top: 3rem;">Tap to Open!</h2>
+            <h1 class="stagger-1" style="font-size: clamp(2.5rem, 8vw, 4rem);">Make a Wish!</h1>
+            <div id="candle-trigger-btn" class="stagger-2" style="margin-top: 2rem;">
+                <button class="primary-btn" id="btn-light-candles">Light The Candles</button>
+                <p style="font-size: 1rem; opacity: 0.8; margin-top: 10px;">(Requires Microphone access)</p>
+            </div>
+            <div id="cake-interactive" class="stagger-3" style="display: none; flex-direction: column; align-items: center;">
+                <p style="margin-bottom: 3rem; margin-top: 1rem;">Blow into your phone to make a wish,<br>or simply tap the cake!</p>
+                <div class="cake-wrapper" id="cake-wrapper">
+                    <div class="candles-container">
+                        <div class="candle"><div class="flame flame-el"></div></div>
+                        <div class="candle" style="top: -10px;"><div class="flame flame-el"></div></div>
+                        <div class="candle"><div class="flame flame-el"></div></div>
+                    </div>
+                    <div class="cake">
+                        <div class="cake-frosting"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- SCREEN 7: THE FINAL GIFT LOCATION -->
+        <!-- SCREEN 7: THE FINAL GIFT -->
         <div id="screen-final-gift" class="screen">
             <h1 class="stagger-1">Surprise!</h1>
             <p class="stagger-2">Your gift is waiting for you at:</p>
             <div class="revealed-box stagger-3">
                 <span id="final-location-text">Location...</span>
             </div>
-            <p class="stagger-4" style="margin-top: 2rem;">We love you! Happy Birthday! ❤️</p>
+            <p class="stagger-4" style="margin-top: 2rem; font-size: 2rem;">We love you! ❤️</p>
         </div>
 
     </div>
@@ -478,24 +349,17 @@
     <!-- Hidden Dev Panel -->
     <div id="dev-panel">
         <h3>Command Center</h3>
-        <button class="dev-btn" onclick="app.forceWin()">🏆 Force Win Game</button>
-        <button class="dev-btn" onclick="app.triggerFinalReveal()">🎁 Force Final Reveal</button>
+        <button class="dev-btn" id="btn-dev-win">🏆 Force Win Game</button>
+        <button class="dev-btn" id="btn-dev-reveal">🎁 Force Final Reveal</button>
         <button class="dev-btn" onclick="location.href = window.location.pathname">🔄 Hard Reset</button>
         <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 10px;">Press Ctrl+Shift+D to toggle.</div>
     </div>
 
     <script>
-        /**
-         * ==========================================================================
-         * 1. CORE UTILITIES
-         * ==========================================================================
-         */
         const Utils = {
-            // Unicode-safe Base64 encoding/decoding for Emoji support in Location Text
             encodeBase64: (str) => btoa(unescape(encodeURIComponent(str))),
             decodeBase64: (str) => decodeURIComponent(escape(atob(str))),
-            // Generate Unsplash Image URLs for the game
-            getPhotos: () => [
+            photos: [
                 "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=400&q=80",
                 "https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=400&q=80",
                 "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80",
@@ -504,538 +368,435 @@
                 "https://images.unsplash.com/photo-1585506942812-e72e4d78b0d1?auto=format&fit=crop&w=400&q=80",
                 "https://images.unsplash.com/photo-1599577180572-881c62b66236?auto=format&fit=crop&w=400&q=80",
                 "https://images.unsplash.com/photo-1587573089734-09cb69c0f2b4?auto=format&fit=crop&w=400&q=80"
-            ]
+            ],
+            showFloatingMessage: (msg) => {
+                const el = document.createElement('div');
+                el.className = 'floating-message';
+                el.innerText = msg;
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 3000);
+            },
+            showFloatBonus: (text, x, y) => {
+                const el = document.createElement('div');
+                el.className = 'floating-bonus';
+                el.innerText = text;
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 1000);
+            }
         };
 
-        /**
-         * ==========================================================================
-         * 2. AUDIO ENGINE (Web Audio API Synthesizer)
-         * ==========================================================================
-         */
+        const Config = {
+            time: 10,
+            location: "The Living Room",
+            gameDuration: 60,
+            isTV: window.innerWidth >= 1024
+        };
+
         class AudioEngine {
             constructor() {
                 this.ctx = new (window.AudioContext || window.webkitAudioContext)();
                 this.masterGain = this.ctx.createGain();
                 this.masterGain.connect(this.ctx.destination);
-                this.masterGain.gain.value = 1.0;
+                this.masterGain.gain.value = 0.5; // Start half volume
                 this.isMuted = false;
+                this.ambientInterval = null;
+                this.ambientNotes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99]; // C Major Pentatonic
             }
 
             unlock() { if (this.ctx.state === 'suspended') this.ctx.resume(); }
 
             toggleMute() {
                 this.isMuted = !this.isMuted;
-                this.masterGain.gain.setTargetAtTime(this.isMuted ? 0 : 1.0, this.ctx.currentTime, 0.05);
+                this.masterGain.gain.setTargetAtTime(this.isMuted ? 0 : 0.5, this.ctx.currentTime, 0.05);
+                document.getElementById('icon-audio-on').style.display = this.isMuted ? 'none' : 'block';
+                document.getElementById('icon-audio-off').style.display = this.isMuted ? 'block' : 'none';
                 return this.isMuted;
             }
 
-            playADSR(freq, type = 'sine', attack = 0.05, decay = 0.1, sustain = 0.5, release = 0.5, vol = 0.3) {
+            playTone(freq, type = 'sine', attack = 0.05, decay = 0.1, sustain = 0.5, release = 0.5, vol = 0.3) {
                 if (this.isMuted) return;
                 this.unlock();
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
                 const now = this.ctx.currentTime;
-
                 osc.type = type;
                 osc.frequency.setValueAtTime(freq, now);
-
                 gain.gain.setValueAtTime(0, now);
                 gain.gain.linearRampToValueAtTime(vol, now + attack);
                 gain.gain.exponentialRampToValueAtTime(vol * sustain, now + attack + decay);
                 gain.gain.setValueAtTime(vol * sustain, now + attack + decay + 0.1);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + attack + decay + 0.1 + release);
-
                 osc.connect(gain);
                 gain.connect(this.masterGain);
                 osc.start(now);
                 osc.stop(now + attack + decay + 0.1 + release);
             }
 
-            playTick() { this.playADSR(800, 'sine', 0.01, 0.05, 0.1, 0.05, 0.1); }
-            playPop() { this.playADSR(350, 'sine', 0.02, 0.1, 0, 0.1, 0.15); }
-            playError() { this.playADSR(150, 'sawtooth', 0.05, 0.1, 0.5, 0.3, 0.1); }
-            
-            playChime() {
-                const now = this.ctx.currentTime;
-                [523.25, 659.25, 783.99].forEach((freq, i) => {
-                    setTimeout(() => this.playADSR(freq, 'sine', 0.05, 0.1, 0.3, 0.5, 0.15), i * 70);
-                });
+            startAmbient() {
+                if (this.ambientInterval) return;
+                this.ambientInterval = setInterval(() => {
+                    if (this.isMuted) return;
+                    const freq = this.ambientNotes[Math.floor(Math.random() * this.ambientNotes.length)];
+                    this.playTone(freq / 2, 'sine', 2.0, 1.0, 0.5, 3.0, 0.05);
+                }, 3000);
             }
 
-            playFanfare() {
-                if(this.isMuted) return;
-                const notes = [{f: 523.25, d: 0}, {f: 659.25, d: 200}, {f: 783.99, d: 400}, {f: 1046.50, d: 600}];
-                notes.forEach(n => {
-                    setTimeout(() => {
-                        this.playADSR(n.f, 'square', 0.05, 0.2, 0.4, 0.6, 0.1);
-                        this.playADSR(n.f, 'triangle', 0.05, 0.2, 0.4, 0.6, 0.15);
-                    }, n.d);
-                });
+            stopAmbient() { clearInterval(this.ambientInterval); this.ambientInterval = null; }
+
+            sfxTick() { this.playTone(800, 'sine', 0.01, 0.05, 0, 0.1, 0.1); }
+            sfxPop() { this.playTone(400, 'sine', 0.05, 0.1, 0, 0.2, 0.2); }
+            sfxMatch() {
+                this.playTone(523.25, 'sine', 0.1, 0.1, 0.5, 0.5, 0.2);
+                setTimeout(() => this.playTone(659.25, 'sine', 0.1, 0.1, 0.5, 0.5, 0.2), 100);
+                setTimeout(() => this.playTone(783.99, 'sine', 0.1, 0.1, 0.5, 0.5, 0.2), 200);
+            }
+            sfxError() { this.playTone(150, 'sawtooth', 0.1, 0.2, 0.1, 0.3, 0.1); }
+            sfxWin() {
+                this.stopAmbient();
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, i) => setTimeout(() => this.playTone(freq, 'square', 0.1, 0.2, 0.5, 1.0, 0.15), i * 150));
                 setTimeout(() => {
-                    [523.25, 659.25, 1046.50].forEach(f => {
-                        this.playADSR(f, 'square', 0.1, 0.5, 0.5, 2.0, 0.15);
-                    });
-                }, 1000);
+                    this.playTone(523.25, 'square', 0.2, 0.2, 0.8, 1.5, 0.2);
+                    this.playTone(659.25, 'square', 0.2, 0.2, 0.8, 1.5, 0.2);
+                    this.playTone(1046.50, 'square', 0.2, 0.2, 0.8, 1.5, 0.2);
+                }, 600);
             }
         }
+        const audio = new AudioEngine();
+        document.getElementById('btn-audio').onclick = () => audio.toggleMute();
 
-        /**
-         * ==========================================================================
-         * 3. CALM PARALLAX PARTICLE ENGINE
-         * ==========================================================================
-         */
-        class Particle {
-            constructor(w, h, rgbBase) {
-                this.w = w; this.h = h;
-                this.rgbBase = rgbBase;
-                this.reset(true);
-            }
-
-            reset(initial = false) {
-                // 3 Layers for Parallax: 0=Bg (slow, faint), 1=Mid, 2=Fg (fast, large, blurry)
-                this.layer = Math.floor(Math.random() * 3);
-                
-                this.x = Math.random() * this.w;
-                this.y = initial ? Math.random() * this.h : this.h + 50;
-                
-                this.baseX = this.x;
-                this.angle = Math.random() * Math.PI * 2;
-                this.angleSpeed = Math.random() * 0.01 + 0.005;
-                
-                // Speed depends on layer (Fg is fastest)
-                this.vy = - (Math.random() * 0.2 + (this.layer * 0.2) + 0.1);
-                
-                // Size depends on layer
-                this.size = Math.random() * 2 + (this.layer * 2);
-                
-                // Alpha/Glow depends on layer
-                this.maxAlpha = Math.random() * 0.4 + (this.layer * 0.1);
-                this.alpha = 0;
-                
-                this.isFirework = false;
-            }
-
-            setupFirework(x, y, vx, vy, color) {
-                this.isFirework = true;
-                this.x = x; this.y = y; this.vx = vx; this.vy = vy;
-                this.size = Math.random() * 10 + 5;
-                this.color = color;
-                this.alpha = 1.0;
-                this.decay = Math.random() * 0.01 + 0.005;
-                this.angle = Math.random() * Math.PI * 2;
-                this.spin = (Math.random() - 0.5) * 0.2;
-            }
-
-            update() {
-                if (this.isFirework) {
-                    this.vy += 0.3; // Gravity
-                    this.vx *= 0.98; // Friction
-                    this.vy *= 0.98;
-                    this.x += this.vx; this.y += this.vy;
-                    this.angle += this.spin;
-                    this.alpha -= this.decay;
-                } else {
-                    this.y += this.vy;
-                    this.angle += this.angleSpeed;
-                    // Gentle sine wave drifting
-                    this.x = this.baseX + Math.sin(this.angle) * (20 + this.layer * 10);
-                    
-                    // Fade in/out
-                    if (this.y < 100) this.alpha = Math.max(0, this.alpha - 0.01);
-                    else if (this.alpha < this.maxAlpha) this.alpha += 0.01;
-
-                    // Wrap around
-                    if (this.y < -50) this.reset();
-                }
-            }
-
-            draw(ctx) {
-                if (this.alpha <= 0) return;
-                
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                
-                if (this.isFirework) {
-                    ctx.rotate(this.angle);
-                    ctx.scale(Math.cos(this.angle * 2), 1); // 3D flip effect
-                    ctx.globalAlpha = Math.max(0, this.alpha);
-                    ctx.fillStyle = this.color;
-                    ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
-                } else {
-                    ctx.globalAlpha = this.alpha;
-                    ctx.fillStyle = `rgb(${this.rgbBase})`;
-                    
-                    // Add luxury glow (bokeh) to foreground particles
-                    if (this.layer === 2) {
-                        ctx.shadowBlur = 15;
-                        ctx.shadowColor = `rgb(${this.rgbBase})`;
-                    }
-                    
-                    ctx.beginPath();
-                    ctx.arc(0, 0, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                ctx.restore();
-            }
-        }
-
-        class ParticleSystem {
+        class GraphicsEngine {
             constructor() {
-                this.canvas = document.getElementById('physics-canvas');
-                this.ctx = this.canvas.getContext('2d');
+                this.cvs = document.getElementById('physics-canvas');
+                this.ctx = this.cvs.getContext('2d');
                 this.particles = [];
-                this.fireworkColors = ['#fbbf24', '#f472b6', '#38bdf8', '#4ade80', '#c084fc', '#ffffff'];
-                
+                this.mode = 'ambient';
                 this.resize();
                 window.addEventListener('resize', () => this.resize());
-                
                 this.initAmbient();
-                requestAnimationFrame(() => this.animate());
+                this.animate();
             }
 
             resize() {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-            }
-
-            getThemeRGB() {
-                return getComputedStyle(document.documentElement).getPropertyValue('--particle-ambient-base').trim();
+                this.cvs.width = window.innerWidth;
+                this.cvs.height = window.innerHeight;
+                Config.isTV = window.innerWidth >= 1024;
             }
 
             initAmbient() {
-                this.particles = this.particles.filter(p => p.isFirework);
-                const rgb = this.getThemeRGB();
-                const count = window.innerWidth >= 1024 ? 150 : 60; // Density
-                for(let i=0; i<count; i++) this.particles.push(new Particle(this.canvas.width, this.canvas.height, rgb));
-            }
-
-            refreshTheme() { this.initAmbient(); }
-
-            explodeFirework(x, y, amount=80) {
-                for(let i=0; i<amount; i++) {
-                    let p = new Particle(this.canvas.width, this.canvas.height, '');
-                    const angle = Math.random() * Math.PI * 2;
-                    const speed = Math.random() * 20 + 5;
-                    p.setupFirework(x, y, Math.cos(angle)*speed, Math.sin(angle)*speed - 8, this.fireworkColors[Math.floor(Math.random() * this.fireworkColors.length)]);
-                    this.particles.push(p);
+                this.particles = [];
+                const count = Config.isTV ? 120 : 50;
+                for (let i = 0; i < count; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.cvs.width,
+                        y: Math.random() * this.cvs.height,
+                        r: Math.random() * (Config.isTV ? 3 : 15) + 2,
+                        dx: Math.random() * 1 - 0.5,
+                        dy: Math.random() * -1 - 0.5,
+                        phase: Math.random() * Math.PI * 2,
+                        opacity: Math.random() * 0.5 + 0.1
+                    });
                 }
             }
 
-            startFinale() {
-                let frame = 0;
-                const fire = () => {
-                    if(frame > 120) return;
-                    if(frame % 20 === 0) {
-                        this.explodeFirework(this.canvas.width * 0.15, this.canvas.height);
-                        this.explodeFirework(this.canvas.width * 0.85, this.canvas.height);
-                    }
-                    frame++;
-                    requestAnimationFrame(fire);
-                };
-                fire();
+            startConfetti() {
+                this.mode = 'confetti';
+                this.particles = [];
+                const colors = ['#f472b6', '#fbbf24', '#10b981', '#38bdf8', '#ffffff'];
+                for (let i = 0; i < 200; i++) {
+                    this.particles.push({
+                        x: this.cvs.width / 2, y: this.cvs.height,
+                        vx: (Math.random() - 0.5) * 25,
+                        vy: (Math.random() - 1) * 30 - 10,
+                        size: Math.random() * 10 + 5,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        rot: Math.random() * 360,
+                        rotSpeed: (Math.random() - 0.5) * 10
+                    });
+                }
             }
 
             animate() {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                for(let i = this.particles.length - 1; i >= 0; i--) {
-                    let p = this.particles[i];
-                    p.update();
-                    p.draw(this.ctx);
-                    if(p.isFirework && p.alpha <= 0) this.particles.splice(i, 1);
+                this.ctx.clearRect(0, 0, this.cvs.width, this.cvs.height);
+                if (this.mode === 'ambient') {
+                    this.particles.forEach(p => {
+                        p.x += p.dx + Math.sin(p.phase) * 0.5;
+                        p.y += p.dy;
+                        p.phase += 0.02;
+                        if (p.y < -20) { p.y = this.cvs.height + 20; p.x = Math.random() * this.cvs.width; }
+                        
+                        this.ctx.beginPath();
+                        this.ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                        const c = Config.isTV ? '251,191,36' : '255,255,255';
+                        this.ctx.fillStyle = `rgba(${c}, ${p.opacity})`;
+                        this.ctx.fill();
+                    });
+                } else if (this.mode === 'confetti') {
+                    for (let i = this.particles.length - 1; i >= 0; i--) {
+                        let p = this.particles[i];
+                        p.vy += 0.5; // gravity
+                        p.x += p.vx; p.y += p.vy; p.rot += p.rotSpeed;
+                        
+                        this.ctx.save();
+                        this.ctx.translate(p.x, p.y);
+                        this.ctx.rotate(p.rot * Math.PI / 180);
+                        this.ctx.fillStyle = p.color;
+                        this.ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+                        this.ctx.restore();
+                        
+                        if (p.y > this.cvs.height) this.particles.splice(i, 1);
+                    }
+                    if(this.particles.length === 0) this.initAmbient(); // reset after confetti
                 }
                 requestAnimationFrame(() => this.animate());
             }
         }
+        const gfx = new GraphicsEngine();
 
-        /**
-         * ==========================================================================
-         * 4. GAME ENGINE LOGIC
-         * ==========================================================================
-         */
-        class GameEngine {
-            constructor(app) {
-                this.app = app;
-                this.gridEl = document.getElementById('game-grid');
-                this.timeTextEl = document.getElementById('hud-time-text');
-                this.timeBarEl = document.getElementById('hud-time-bar');
-                this.comboEl = document.getElementById('hud-combo');
-                this.photos = Utils.getPhotos();
-                this.resetState();
-            }
-
-            resetState() {
-                this.flipped = [];
-                this.matches = 0;
-                this.combo = 0;
+        class BirthdayApp {
+            constructor() {
+                this.gameTimer = null;
                 this.timeLeft = 60;
-                this.isLocked = false;
-                this.timer = null;
-            }
-
-            start() {
-                this.resetState();
-                this.buildGrid();
-                this.updateHUD();
+                this.combo = 1;
+                this.matches = 0;
+                this.cardsLocked = false;
+                this.flippedCards = [];
+                this.micStream = null;
                 
-                this.timer = setInterval(() => {
-                    this.timeLeft--;
-                    this.updateHUD();
-                    if(this.timeLeft <= 0) this.handleTimeOut();
-                }, 1000);
+                this.bindEvents();
+                this.checkRouting();
             }
 
-            buildGrid() {
-                this.gridEl.innerHTML = '';
-                const deck = [...this.photos, ...this.photos].sort(() => Math.random() - 0.5);
-                const svgIcon = `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--card-icon-color); filter: drop-shadow(0 2px 5px rgba(0,0,0,0.4));"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+            switchScreen(id) {
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                setTimeout(() => document.getElementById(id).classList.add('active'), 100);
+            }
 
-                deck.forEach((url, i) => {
-                    const card = document.createElement('div');
-                    card.className = 'card stagger-2';
-                    card.style.animationDelay = `${i * 0.04}s`; // Waterfall intro
-                    card.dataset.val = url;
-                    card.innerHTML = `
-                        <div class="card-face card-front">${svgIcon}</div>
-                        <div class="card-face card-back"><img src="${url}" alt="Memory"></div>
-                    `;
-                    card.onclick = (e) => this.flip(card, e);
-                    this.gridEl.appendChild(card);
+            bindEvents() {
+                document.getElementById('btn-lock').onclick = () => this.startCountdown();
+                document.getElementById('btn-start-game').onclick = () => this.startGame();
+                document.getElementById('btn-light-candles').onclick = () => this.requestMic();
+                document.getElementById('cake-wrapper').onclick = () => this.blowOutCandles(); // Fallback
+                
+                document.getElementById('btn-dev-win').onclick = () => this.forceWin();
+                document.getElementById('btn-dev-reveal').onclick = () => { Config.location = "Dev Secret Loc"; this.triggerFinalReveal(); };
+                
+                // Dev Panel Toggle
+                document.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
+                        document.getElementById('dev-panel').classList.toggle('open');
+                    }
                 });
             }
 
-            updateHUD() {
-                this.timeTextEl.innerText = `${this.timeLeft}s`;
-                this.timeBarEl.style.width = `${Math.min((this.timeLeft/60)*100, 100)}%`;
-                
-                if(this.timeLeft > 15) {
-                    this.timeBarEl.style.background = 'var(--progress-safe)';
-                    this.timeTextEl.style.color = 'inherit';
-                } else if(this.timeLeft > 5) {
-                    this.timeBarEl.style.background = 'var(--progress-warn)';
-                } else {
-                    this.timeBarEl.style.background = 'var(--progress-crit)';
-                    this.timeTextEl.style.color = 'var(--progress-crit)';
-                }
-
-                this.comboEl.innerText = `x${this.combo}`;
-                if(this.combo >= 2) {
-                    this.comboEl.style.color = 'var(--progress-safe)';
-                    this.comboEl.style.transform = `scale(${1 + (this.combo * 0.15)})`;
-                } else {
-                    this.comboEl.style.color = 'inherit';
-                    this.comboEl.style.transform = 'scale(1)';
-                }
-            }
-
-            spawnFloatText(txt, x, y) {
-                const el = document.createElement('div');
-                el.className = 'float-text'; el.innerText = txt;
-                el.style.left = `${x}px`; el.style.top = `${y}px`;
-                document.body.appendChild(el);
-                setTimeout(() => el.remove(), 1200);
-            }
-
-            flip(card, e) {
-                if(this.isLocked || card.classList.contains('flipped') || card.classList.contains('matched')) return;
-                
-                this.app.audio.playPop();
-                card.classList.add('flipped');
-                this.flipped.push(card);
-
-                if(this.flipped.length === 2) {
-                    this.isLocked = true;
-                    this.checkMatch(e.clientX, e.clientY);
-                }
-            }
-
-            checkMatch(x, y) {
-                const [c1, c2] = this.flipped;
-                if(c1.dataset.val === c2.dataset.val) {
-                    this.app.audio.playChime();
-                    this.app.particles.explodeFirework(x, y, 25);
-                    
-                    this.matches++;
-                    this.combo++;
-                    
-                    const bonus = 3 + (this.combo * 2);
-                    this.timeLeft = Math.min(60, this.timeLeft + bonus);
-                    this.spawnFloatText(`+${bonus}s`, x, y);
-                    
-                    c1.classList.add('matched'); c2.classList.add('matched');
-                    this.flipped = []; this.isLocked = false;
-                    this.updateHUD();
-                    
-                    if(this.matches === 8) {
-                        clearInterval(this.timer);
-                        setTimeout(() => this.app.triggerWin(), 1000);
-                    }
-                } else {
-                    this.combo = 0; this.updateHUD();
-                    this.app.audio.playError();
-                    
-                    const wrap = document.querySelector('.game-wrapper');
-                    wrap.classList.add('shake-active');
-                    
-                    setTimeout(() => {
-                        c1.classList.remove('flipped'); c2.classList.remove('flipped');
-                        wrap.classList.remove('shake-active');
-                        this.flipped = []; this.isLocked = false;
-                    }, 800);
-                }
-            }
-
-            handleTimeOut() {
-                clearInterval(this.timer);
-                this.isLocked = true;
-                this.app.audio.playError();
-                // Forgive and add time (it's a birthday gift!)
-                setTimeout(() => {
-                    alert("Time's up! But since it's your special day, here is 30 extra seconds!");
-                    this.timeLeft += 30;
-                    this.start(); // Resumes interval
-                    this.isLocked = false;
-                }, 500);
-            }
-        }
-
-        /**
-         * ==========================================================================
-         * 5. APPLICATION MANAGER
-         * ==========================================================================
-         */
-        class AppManager {
-            constructor() {
-                this.audio = new AudioEngine();
-                this.particles = new ParticleSystem();
-                this.game = new GameEngine(this);
-                
-                this.config = { time: 5, location: "The Kitchen Cabinet" };
-                this.activeScreen = null;
-                
-                window.addEventListener('keydown', (e) => this.handleDevMode(e));
-                window.matchMedia('(min-width: 1024px)').addEventListener('change', () => this.particles.refreshTheme());
-                
-                this.init();
-            }
-
-            init() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const revealData = urlParams.get('reveal');
-                
-                if (revealData) {
+            checkRouting() {
+                const params = new URLSearchParams(window.location.search);
+                const payload = params.get('reveal');
+                if (payload) {
                     try {
-                        this.config.location = Utils.decodeBase64(revealData);
-                        this.showScreen('screen-mobile-reveal');
-                    } catch(e) {
-                        console.error("QR Error:", e);
-                        alert("Invalid Secret Link.");
-                        this.showScreen('screen-setup');
+                        Config.location = Utils.decodeBase64(payload);
+                        this.switchScreen('screen-mobile-reveal');
+                    } catch (e) {
+                        Utils.showFloatingMessage("Invalid QR Data.");
                     }
-                } else {
-                    this.showScreen('screen-setup');
                 }
             }
 
-            showScreen(id) {
-                if(this.activeScreen) document.getElementById(this.activeScreen).classList.remove('active');
-                this.activeScreen = id;
-                setTimeout(() => document.getElementById(id).classList.add('active'), 50);
-            }
-
-            toggleAudio() {
-                const muted = this.audio.toggleMute();
-                document.getElementById('icon-audio-on').style.display = muted ? 'none' : 'block';
-                document.getElementById('icon-audio-off').style.display = muted ? 'block' : 'none';
-            }
-
-            commitSetup() {
-                this.audio.unlock(); // Vital bypass for browser autoplay rules
+            startCountdown() {
+                audio.unlock();
+                audio.startAmbient();
+                const locInput = document.getElementById('input-loc').value.trim();
+                if (locInput) Config.location = locInput;
+                Config.time = parseInt(document.getElementById('input-time').value) || 10;
                 
-                const t = parseInt(document.getElementById('input-time').value);
-                const l = document.getElementById('input-loc').value.trim();
-                if(t) this.config.time = t;
-                if(l) this.config.location = l;
+                this.switchScreen('screen-countdown');
+                let left = Config.time;
+                const numEl = document.getElementById('countdown-num');
+                const ringEl = document.getElementById('countdown-ring');
                 
-                this.runCountdown();
-            }
-
-            runCountdown() {
-                this.showScreen('screen-countdown');
-                let left = this.config.time;
-                const num = document.getElementById('countdown-num');
-                const ring = document.getElementById('countdown-ring');
+                numEl.innerText = left;
+                ringEl.style.transition = 'none';
+                ringEl.style.strokeDashoffset = '0';
                 
-                num.innerText = left;
-                ring.style.transition = 'none'; ring.style.strokeDashoffset = '0';
-                
-                requestAnimationFrame(() => requestAnimationFrame(() => {
-                    ring.style.transition = 'stroke-dashoffset 1s linear';
-                    
-                    const int = setInterval(() => {
+                setTimeout(() => {
+                    ringEl.style.transition = 'stroke-dashoffset 1s linear';
+                    const interval = setInterval(() => {
                         left--;
-                        this.audio.playTick();
-                        num.innerText = left;
+                        audio.sfxTick();
+                        numEl.innerText = left;
+                        ringEl.style.strokeDashoffset = 879 - (left / Config.time) * 879;
                         
-                        ring.style.strokeDashoffset = 879 - (left/this.config.time) * 879;
-                        
-                        num.style.transform = 'scale(1.2)';
-                        setTimeout(() => num.style.transform = 'scale(1)', 150);
-                        
-                        if(left <= 0) {
-                            clearInterval(int);
-                            this.showScreen('screen-welcome');
+                        if (left <= 0) {
+                            clearInterval(interval);
+                            this.switchScreen('screen-welcome');
                         }
                     }, 1000);
-                }));
+                }, 50);
             }
 
             startGame() {
-                this.audio.unlock();
-                this.showScreen('screen-game');
-                this.game.start();
+                this.switchScreen('screen-game');
+                this.timeLeft = Config.gameDuration;
+                this.matches = 0;
+                this.combo = 1;
+                this.flippedCards = [];
+                this.cardsLocked = false;
+                this.updateHUD();
+
+                const grid = document.getElementById('game-grid');
+                grid.innerHTML = '';
+                let deck = [...Utils.photos, ...Utils.photos].sort(() => Math.random() - 0.5);
+
+                deck.forEach((url) => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.dataset.val = url;
+                    card.innerHTML = `<div class="card-face card-front"></div><div class="card-face card-back"><img src="${url}"></div>`;
+                    card.onclick = () => this.flipCard(card);
+                    grid.appendChild(card);
+                });
+
+                this.gameTimer = setInterval(() => {
+                    this.timeLeft--;
+                    this.updateHUD();
+                    if (this.timeLeft <= 0) {
+                        clearInterval(this.gameTimer);
+                        Utils.showFloatingMessage("Time added! Keep going!");
+                        this.timeLeft += 30; // Graceful fallback instead of alert
+                        this.gameTimer = setInterval(() => { /* resume */ this.timeLeft--; this.updateHUD(); }, 1000);
+                    }
+                }, 1000);
             }
 
-            triggerWin() {
-                const isTV = window.innerWidth >= 1024;
+            updateHUD() {
+                document.getElementById('hud-time-text').innerText = this.timeLeft + 's';
+                document.getElementById('hud-combo').innerText = 'x' + this.combo;
+                const fill = document.getElementById('hud-time-bar');
+                const pct = (this.timeLeft / Config.gameDuration) * 100;
+                fill.style.width = Math.min(pct, 100) + '%';
                 
-                if(isTV) {
-                    // Magic QR Logic
-                    const payload = Utils.encodeBase64(this.config.location);
-                    const url = `${window.location.origin}${window.location.pathname}?reveal=${payload}`;
-                    document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=10&data=${encodeURIComponent(url)}`;
-                    
-                    this.showScreen('screen-tv-win');
-                    this.audio.playFanfare();
-                    this.particles.startFinale();
-                } else {
-                    this.triggerFinalReveal();
+                fill.className = 'progress-fill';
+                if (this.timeLeft <= 15) fill.classList.add('progress-danger');
+                else if (this.timeLeft <= 30) fill.classList.add('progress-warning');
+            }
+
+            flipCard(card) {
+                if (this.cardsLocked || card.classList.contains('flipped')) return;
+                audio.sfxPop();
+                card.classList.add('flipped');
+                this.flippedCards.push(card);
+
+                if (this.flippedCards.length === 2) {
+                    this.cardsLocked = true;
+                    if (this.flippedCards[0].dataset.val === this.flippedCards[1].dataset.val) {
+                        // Match
+                        audio.sfxMatch();
+                        this.matches++;
+                        this.timeLeft = Math.min(Config.gameDuration, this.timeLeft + (5 * this.combo));
+                        
+                        const rect = card.getBoundingClientRect();
+                        Utils.showFloatBonus(`+${5 * this.combo}s`, rect.left, rect.top);
+                        
+                        this.combo++;
+                        this.flippedCards.forEach(c => c.classList.add('matched'));
+                        this.flippedCards = [];
+                        this.updateHUD();
+                        this.cardsLocked = false;
+                        
+                        if (this.matches === 8) {
+                            clearInterval(this.gameTimer);
+                            setTimeout(() => this.winGame(), 1000);
+                        }
+                    } else {
+                        // Error
+                        audio.sfxError();
+                        this.combo = 1;
+                        this.updateHUD();
+                        this.flippedCards.forEach(c => c.classList.add('shake-active'));
+                        setTimeout(() => {
+                            this.flippedCards.forEach(c => c.classList.remove('flipped', 'shake-active'));
+                            this.flippedCards = [];
+                            this.cardsLocked = false;
+                        }, 800);
+                    }
                 }
+            }
+
+            forceWin() {
+                if(this.gameTimer) clearInterval(this.gameTimer);
+                this.winGame();
+            }
+
+            winGame() {
+                if (Config.isTV) {
+                    const encodedURL = window.location.origin + window.location.pathname + '?reveal=' + Utils.encodeBase64(Config.location);
+                    document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(encodedURL)}`;
+                    this.switchScreen('screen-tv-win');
+                    gfx.startConfetti();
+                    audio.sfxWin();
+                } else {
+                    this.switchScreen('screen-mobile-reveal');
+                }
+            }
+
+            async requestMic() {
+                audio.unlock(); // Ensure audio context is ready
+                document.getElementById('candle-trigger-btn').style.display = 'none';
+                document.getElementById('cake-interactive').style.display = 'flex';
+                
+                try {
+                    this.micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    const actx = audio.ctx;
+                    const source = actx.createMediaStreamSource(this.micStream);
+                    const analyzer = actx.createAnalyser();
+                    analyzer.fftSize = 256;
+                    source.connect(analyzer);
+                    const dataArray = new Uint8Array(analyzer.frequencyBinCount);
+
+                    const checkAudio = () => {
+                        if(!this.micStream) return;
+                        analyzer.getByteFrequencyData(dataArray);
+                        let sum = 0;
+                        for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+                        let avg = sum / dataArray.length;
+                        
+                        if (avg > 60) { // Threshold for blowing air
+                            this.blowOutCandles();
+                        } else {
+                            requestAnimationFrame(checkAudio);
+                        }
+                    };
+                    checkAudio();
+                } catch (e) {
+                    Utils.showFloatingMessage("Mic denied. Just tap the cake!");
+                }
+            }
+
+            blowOutCandles() {
+                if (this.micStream) {
+                    this.micStream.getTracks().forEach(t => t.stop());
+                    this.micStream = null;
+                }
+                
+                document.querySelectorAll('.flame-el').forEach(f => f.classList.add('blown-out'));
+                audio.playTone(200, 'noise', 0.1, 0.5, 0, 0.5, 0.3); // blow sound approx
+                
+                setTimeout(() => this.triggerFinalReveal(), 1500);
             }
 
             triggerFinalReveal() {
-                this.audio.unlock();
-                document.getElementById('final-location-text').innerText = this.config.location;
-                this.showScreen('screen-final-gift');
-                this.audio.playFanfare();
-                this.particles.startFinale();
-            }
-
-            handleDevMode(e) {
-                if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
-                    e.preventDefault();
-                    document.getElementById('dev-panel').classList.toggle('open');
-                }
-            }
-            
-            forceWin() {
-                clearInterval(this.game.timer);
-                document.getElementById('dev-panel').classList.remove('open');
-                this.triggerWin();
+                audio.sfxWin();
+                gfx.startConfetti();
+                document.getElementById('final-location-text').innerText = Config.location;
+                this.switchScreen('screen-final-gift');
             }
         }
 
-        // Boot
-        const app = new AppManager();
+        // Initialize App
+        const app = new BirthdayApp();
+
     </script>
 </body>
 </html>
