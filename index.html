@@ -2,56 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Playfair+Display:ital,wght@0,600;0,900;1,600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Happy Birthday, Mom!</title>
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,600;0,900;1,600&display=swap" rel="stylesheet">
+    
     <style>
         /* ==========================================================================
-           1. CSS CUSTOM PROPERTIES (DESIGN SYSTEM)
+           1. CSS DESIGN SYSTEM & TOKENS (Extensive Custom Properties)
            ========================================================================== */
         :root {
-            /* Mobile Theme (Light, Vibrant, Bubbly) */
-            --bg-mobile-grad: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fbc2eb 100%);
-            --text-mobile: #111827;
-            --text-mobile-light: #374151;
-            --shadow-mobile-text: 0px 4px 0px #ffffff, 0px 0px 15px rgba(255,105,180,0.5);
-            --shadow-mobile-box: 0 10px 30px rgba(255, 105, 180, 0.2);
-            --card-back-mobile: #ff758c;
-            --glass-mobile: rgba(255, 255, 255, 0.4);
-            --glass-border-mobile: rgba(255, 255, 255, 0.6);
-            --btn-bg-mobile: #ffffff;
-            --btn-text-mobile: #ff758c;
-            --primary-font: 'Outfit', sans-serif;
-            
-            /* Desktop/TV Theme (Dark, Cinematic, Luxurious) */
-            --bg-tv-grad: radial-gradient(circle at center, #1a202c 0%, #000000 100%);
-            --text-tv: #ffffff;
-            --text-tv-light: #e5e7eb;
-            --shadow-tv-text: 0px 4px 0px #000000, 0px 0px 25px rgba(255, 215, 0, 0.8);
-            --shadow-tv-box: 0 10px 40px rgba(0, 0, 0, 0.8);
-            --card-back-tv: linear-gradient(135deg, #d4af37, #aa7c11);
-            --glass-tv: rgba(0, 0, 0, 0.6);
-            --glass-border-tv: rgba(255, 215, 0, 0.3);
-            --btn-bg-tv: linear-gradient(to right, #ffd700, #ffb300);
-            --btn-text-tv: #000000;
-            --secondary-font: 'Playfair Display', serif;
+            /* --- Core Animation Timings --- */
+            --transition-ultra-fast: 0.15s;
+            --transition-fast: 0.3s;
+            --transition-medium: 0.6s;
+            --transition-slow: 1.2s;
+            --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --ease-smooth: cubic-bezier(0.2, 0.8, 0.2, 1);
+            --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
-            /* Shared Variables */
-            --success: #22c55e;
-            --warning: #eab308;
-            --danger: #ef4444;
-            --transition-speed: 0.5s;
+            /* --- Mobile Theme Tokens (Vibrant, Light, Bubbly) --- */
+            --mobile-bg-1: #ff9a9e;
+            --mobile-bg-2: #fecfef;
+            --mobile-bg-3: #fbc2eb;
+            --mobile-text-main: #111827;
+            --mobile-text-muted: #374151;
+            --mobile-shadow-text: 0px 4px 0px #ffffff, 0px 0px 15px rgba(255, 105, 180, 0.6);
+            --mobile-shadow-box: 0 15px 35px rgba(255, 105, 180, 0.25);
+            --mobile-glass-bg: rgba(255, 255, 255, 0.45);
+            --mobile-glass-border: rgba(255, 255, 255, 0.8);
+            --mobile-card-front: linear-gradient(135deg, #ff758c, #ff7eb3);
+            --mobile-btn-bg: #ffffff;
+            --mobile-btn-text: #ff758c;
+            
+            /* --- TV/Desktop Theme Tokens (Dark, Cinematic, Luxurious) --- */
+            --tv-bg-1: #1a202c;
+            --tv-bg-2: #050505;
+            --tv-text-main: #ffffff;
+            --tv-text-muted: #e5e7eb;
+            --tv-text-accent: #ffd700;
+            --tv-shadow-text: 0px 4px 0px #000000, 0px 0px 30px rgba(255, 215, 0, 0.9);
+            --tv-shadow-box: 0 20px 50px rgba(0, 0, 0, 0.9);
+            --tv-glass-bg: rgba(0, 0, 0, 0.65);
+            --tv-glass-border: rgba(255, 215, 0, 0.5);
+            --tv-card-front: linear-gradient(135deg, #d4af37, #aa7c11);
+            --tv-btn-bg: linear-gradient(135deg, #ffd700, #ffb300);
+            --tv-btn-text: #000000;
+
+            /* --- Shared System Colors --- */
+            --color-success: #22c55e;
+            --color-success-glow: rgba(34, 197, 94, 0.6);
+            --color-warning: #eab308;
+            --color-warning-glow: rgba(234, 179, 8, 0.6);
+            --color-danger: #ef4444;
+            --color-danger-glow: rgba(239, 68, 68, 0.6);
+            --color-info: #3b82f6;
+
+            /* --- Typography --- */
+            --font-primary: 'Outfit', sans-serif;
+            --font-secondary: 'Playfair Display', serif;
+            --font-mono: 'Courier New', Courier, monospace;
         }
 
         /* ==========================================================================
-           2. RESETS & CORE LAYOUT
+           2. GLOBAL RESETS & BASE LAYOUT
            ========================================================================== */
-        * {
+        *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         html, body {
@@ -62,27 +87,32 @@
         }
 
         body {
-            font-family: var(--primary-font);
-            background: var(--bg-mobile-grad);
-            color: var(--text-mobile);
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, var(--mobile-bg-1) 0%, var(--mobile-bg-2) 50%, var(--mobile-bg-3) 100%);
+            color: var(--mobile-text-main);
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: background var(--transition-speed) ease;
+            transition: background var(--transition-medium) ease;
         }
 
+        /* ==========================================================================
+           3. CANVAS LAYERS (Physics Engines)
+           ========================================================================== */
         canvas {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: 0;
             pointer-events: none;
         }
+        #canvas-bg { z-index: 1; }
+        #canvas-fx { z-index: 15; } /* Quantum Burst Particles */
+        #canvas-confetti { z-index: 9999; } /* Final Celebration */
 
-        #bg-canvas { z-index: 1; }
-        #confetti-canvas { z-index: 9998; }
-
-        .screen {
+        /* ==========================================================================
+           4. SCREEN ARCHITECTURE (State Management)
+           ========================================================================== */
+        .screen-container {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
@@ -91,747 +121,951 @@
             justify-content: center;
             align-items: center;
             z-index: 10;
-            opacity: 1;
-            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1.2);
-            padding: 1.5rem;
+            padding: 2rem;
             overflow-y: auto;
             overflow-x: hidden;
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            transition: opacity var(--transition-medium) ease, transform 0.8s var(--ease-spring);
+        }
+        
+        .screen-container::-webkit-scrollbar { display: none; }
+
+        /* Complex Screen States */
+        .state-hidden { 
+            opacity: 0; 
+            pointer-events: none; 
+            transform: scale(0.92) translateY(40px); 
+        }
+        .state-gone { display: none !important; }
+        
+        /* Lateral Transitions for 3-Stage Reveal */
+        .slide-out-left { 
+            opacity: 0; 
+            transform: translateX(-120%) rotate(-5deg); 
+            pointer-events: none; 
+            transition: transform 0.8s var(--ease-in-out), opacity 0.8s ease;
+        }
+        .slide-in-right { 
+            opacity: 0; 
+            transform: translateX(120%) rotate(5deg); 
+            pointer-events: none; 
+        }
+        .slide-in-active { 
+            opacity: 1; 
+            transform: translateX(0) rotate(0deg); 
+            pointer-events: all; 
+            transition: transform 0.9s var(--ease-spring), opacity 0.8s ease;
         }
 
-        .screen::-webkit-scrollbar { display: none; }
-        
-        .hidden { opacity: 0; pointer-events: none; transform: scale(0.95) translateY(20px); }
-        .gone { display: none !important; }
-
         /* ==========================================================================
-           3. TYPOGRAPHY
+           5. ADVANCED TYPOGRAPHY
            ========================================================================== */
-        h1, h2, h3 {
+        h1, h2, h3, h4 {
             font-weight: 900;
             text-align: center;
-            text-shadow: var(--shadow-mobile-text);
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
+            text-shadow: var(--mobile-shadow-text);
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
         }
 
-        h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; }
-        h2 { font-size: clamp(2rem, 6vw, 4rem); }
-        h3 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+        h1 { font-size: clamp(3.5rem, 10vw, 7rem); }
+        h2 { font-size: clamp(2.5rem, 7vw, 4.5rem); }
+        h3 { font-size: clamp(1.8rem, 5vw, 3rem); }
         
         p {
-            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-size: clamp(1.3rem, 3.5vw, 2.2rem);
             text-align: center;
             font-weight: 700;
-            margin-bottom: 2rem;
-            max-width: 800px;
-            line-height: 1.4;
+            margin-bottom: 2.5rem;
+            max-width: 850px;
+            line-height: 1.6;
+            color: var(--mobile-text-muted);
         }
 
-        /* TV/Desktop Overrides */
+        /* --- Desktop / Cinematic TV Overrides --- */
         @media (min-width: 1024px) {
-            body { background: var(--bg-tv-grad); color: var(--text-tv); }
-            h1, h2, h3 { font-family: var(--secondary-font); text-shadow: var(--shadow-tv-text); color: #ffd700; }
-            p { font-family: var(--secondary-font); text-shadow: 2px 2px 5px rgba(0,0,0,0.8); color: var(--text-tv-light); }
+            body { 
+                background: radial-gradient(circle at center, var(--tv-bg-1) 0%, var(--tv-bg-2) 100%); 
+                color: var(--tv-text-main); 
+            }
+            h1, h2, h3, h4 { 
+                font-family: var(--font-secondary); 
+                text-shadow: var(--tv-shadow-text); 
+                color: var(--tv-text-accent); 
+                letter-spacing: normal;
+            }
+            p { 
+                font-family: var(--font-secondary); 
+                text-shadow: 2px 2px 8px rgba(0,0,0,0.9); 
+                color: var(--tv-text-muted); 
+            }
         }
 
         /* ==========================================================================
-           4. UI COMPONENTS (BUTTONS, INPUTS, TOGGLES)
+           6. COMPONENT: GLASSMORPHISM PANELS
            ========================================================================== */
-        button {
-            padding: 1.2rem 2.5rem;
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
+        .glass-panel {
+            background: var(--mobile-glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 2px solid var(--mobile-glass-border);
+            border-radius: 35px;
+            box-shadow: var(--mobile-shadow-box);
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Internal Glow Effect */
+        .glass-panel::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, transparent 100%);
+            pointer-events: none; border-radius: 35px 35px 0 0;
+        }
+
+        @media (min-width: 1024px) { 
+            .glass-panel { 
+                background: var(--tv-glass-bg); 
+                border-color: var(--tv-glass-border); 
+                box-shadow: var(--tv-shadow-box); 
+            }
+            .glass-panel::before { background: linear-gradient(to bottom, rgba(255,215,0,0.1) 0%, transparent 100%); }
+        }
+
+        /* ==========================================================================
+           7. COMPONENT: CONTROLS (Buttons, Inputs, Toggles)
+           ========================================================================== */
+        button.primary-btn {
+            padding: 1.4rem 3.5rem;
+            font-size: clamp(1.3rem, 3.5vw, 2rem);
             font-weight: 900;
             font-family: inherit;
             border: none;
-            border-radius: 50px;
+            border-radius: 60px;
             cursor: pointer;
-            background: var(--btn-bg-mobile);
-            color: var(--btn-text-mobile);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15), inset 0 -4px 0 rgba(0,0,0,0.1);
-            transition: transform 0.15s, box-shadow 0.15s, background 0.3s;
+            background: var(--mobile-btn-bg);
+            color: var(--mobile-btn-text);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15), inset 0 -5px 0 rgba(0,0,0,0.1);
+            transition: all var(--transition-fast) var(--ease-spring);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        button:active {
-            transform: translateY(4px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 -2px 0 rgba(0,0,0,0.1);
-        }
-
-        button:hover { filter: brightness(1.1); }
-
-        @media (min-width: 1024px) { 
-            button { background: var(--btn-bg-tv); color: var(--btn-text-tv); box-shadow: 0 8px 25px rgba(255,215,0,0.3), inset 0 -4px 0 rgba(0,0,0,0.2); } 
-        }
-
-        input {
-            width: 100%;
-            max-width: 500px;
-            padding: 1.2rem;
-            margin-bottom: 1.2rem;
-            font-size: 1.3rem;
-            font-weight: 700;
-            border-radius: 15px;
-            border: 4px solid #fff;
-            background: rgba(255,255,255,0.9);
-            color: #111827;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        input:focus { border-color: #ff758c; box-shadow: 0 5px 20px rgba(255,117,140,0.4); }
-
-        @media (min-width: 1024px) { 
-            input { background: rgba(31,41,55,0.9); color: #fff; border-color: #ffd700; box-shadow: 0 5px 15px rgba(0,0,0,0.5); } 
-            input:focus { border-color: #fff; box-shadow: 0 5px 25px rgba(255,215,0,0.5); }
-        }
-
-        /* Floating Audio Toggle */
-        .audio-btn {
-            position: fixed;
-            top: 1.5rem; right: 1.5rem;
-            z-index: 9999;
-            width: 55px; height: 55px;
-            border-radius: 50%;
-            background: var(--glass-mobile);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 2px solid var(--glass-border-mobile);
-            display: flex; justify-content: center; align-items: center;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            padding: 0;
-            transition: transform 0.2s, background 0.3s;
-        }
-        
-        .audio-btn:hover { transform: scale(1.1); }
-        .audio-btn svg { width: 28px; height: 28px; fill: var(--text-mobile); transition: fill 0.3s; }
-        
-        @media (min-width: 1024px) { 
-            .audio-btn { background: var(--glass-tv); border-color: var(--glass-border-tv); box-shadow: 0 4px 20px rgba(0,0,0,0.5); } 
-            .audio-btn svg { fill: #ffd700; }
-        }
-
-        /* ==========================================================================
-           5. GAME COMPONENTS & HUD
-           ========================================================================== */
-        .glass-panel {
-            background: var(--glass-mobile);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid var(--glass-border-mobile);
-            border-radius: 25px;
-            box-shadow: var(--shadow-mobile-box);
-        }
-        
-        @media (min-width: 1024px) { 
-            .glass-panel { background: var(--glass-tv); border-color: var(--glass-border-tv); box-shadow: var(--shadow-tv-box); } 
-        }
-
-        .game-hud {
-            width: 100%;
-            max-width: 600px;
-            padding: 1.2rem 2rem;
-            margin-bottom: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            z-index: 20;
-        }
-
-        .hud-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.8rem;
-            font-weight: 900;
-        }
-
-        @media (min-width: 1024px) { .hud-top { color: #ffd700; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); font-family: var(--secondary-font); } }
-
-        .progress-bar-container {
-            width: 100%;
-            height: 20px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.7);
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
-        }
-        
-        @media (min-width: 1024px) { .progress-bar-container { border-color: rgba(255,215,0,0.5); } }
-
-        .progress-fill {
-            height: 100%;
-            width: 100%;
-            background: var(--success);
-            transition: width 1s linear, background-color 0.5s ease;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-        }
-        
-        .progress-warning { background: var(--warning); box-shadow: 0 0 15px var(--warning); }
-        .progress-danger { background: var(--danger); box-shadow: 0 0 15px var(--danger); }
-
-        /* ==========================================================================
-           6. MEMORY GRID & CARDS
-           ========================================================================== */
-        .memory-grid-container { padding: 2rem; display: inline-block; z-index: 20; }
-        
-        .memory-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: clamp(0.5rem, 2vw, 1.2rem);
-            perspective: 1200px;
-        }
-
-        .card {
-            width: clamp(65px, 18vw, 110px);
-            height: clamp(65px, 18vw, 110px);
+            letter-spacing: 0.1em;
             position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        button.primary-btn::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: rgba(255,255,255,0.2); transform: rotate(45deg) translateY(-100%);
+            transition: transform 0.6s ease; pointer-events: none;
         }
 
-        .card:active { transform: scale(0.92); }
-        .card.flipped { transform: rotateY(180deg); }
-        .card.matched { animation: pulseGlow 2s infinite; cursor: default; }
+        button.primary-btn:hover { filter: brightness(1.05); transform: translateY(-2px); }
+        button.primary-btn:hover::after { transform: rotate(45deg) translateY(100%); }
+        button.primary-btn:active { transform: translateY(6px) scale(0.96); box-shadow: 0 5px 15px rgba(0,0,0,0.2), inset 0 -2px 0 rgba(0,0,0,0.1); }
+
+        @media (min-width: 1024px) { 
+            button.primary-btn { 
+                background: var(--tv-btn-bg); 
+                color: var(--tv-btn-text); 
+                box-shadow: 0 15px 40px rgba(255,215,0,0.4), inset 0 -6px 0 rgba(0,0,0,0.25); 
+            } 
+        }
+
+        input.modern-input {
+            width: 100%; max-width: 600px; padding: 1.5rem; margin-bottom: 2rem;
+            font-size: 1.4rem; font-weight: 700; border-radius: 20px; border: 5px solid #fff;
+            background: rgba(255,255,255,0.95); color: #111827; text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15); outline: none; transition: all var(--transition-fast);
+        }
+        
+        input.modern-input:focus { 
+            border-color: #ff758c; 
+            box-shadow: 0 15px 35px rgba(255,117,140,0.6); 
+            transform: translateY(-3px); 
+        }
+
+        @media (min-width: 1024px) { 
+            input.modern-input { background: rgba(17,24,39,0.95); color: #fff; border-color: var(--tv-text-accent); box-shadow: 0 10px 25px rgba(0,0,0,0.7); } 
+            input.modern-input:focus { border-color: #fff; box-shadow: 0 15px 40px rgba(255,215,0,0.7); }
+        }
+
+        /* Floating Audio Master Toggle */
+        .audio-toggle-wrapper {
+            position: fixed; top: 2rem; right: 2rem; z-index: 10000;
+            width: 70px; height: 70px; border-radius: 50%;
+            background: var(--mobile-glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 3px solid var(--mobile-glass-border); display: flex; justify-content: center; align-items: center;
+            cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transition: all var(--transition-medium) var(--ease-spring);
+        }
+        
+        .audio-toggle-wrapper:hover { transform: scale(1.15) rotate(8deg); box-shadow: 0 12px 35px rgba(0,0,0,0.3); }
+        .audio-toggle-wrapper svg { width: 34px; height: 34px; fill: var(--mobile-text-main); transition: fill var(--transition-fast); }
+        
+        @media (min-width: 1024px) { 
+            .audio-toggle-wrapper { background: var(--tv-glass-bg); border-color: var(--tv-glass-border); box-shadow: 0 8px 30px rgba(0,0,0,0.7); } 
+            .audio-toggle-wrapper svg { fill: var(--tv-text-accent); }
+        }
+
+        /* ==========================================================================
+           8. COMPONENT: GAME HUD (Heads Up Display)
+           ========================================================================== */
+        .hud-container { width: 100%; max-width: 750px; padding: 1.8rem 3rem; margin-bottom: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; z-index: 20; }
+        .hud-top-row { display: flex; justify-content: space-between; align-items: center; font-size: 2.2rem; font-weight: 900; letter-spacing: 1px;}
+        
+        @media (min-width: 1024px) { .hud-top-row { color: var(--tv-text-accent); text-shadow: 2px 2px 10px rgba(0,0,0,0.9); font-family: var(--font-secondary); } }
+
+        /* Dynamic Progress Bar */
+        .hud-progress-track {
+            width: 100%; height: 28px; background: rgba(0,0,0,0.4); border-radius: 14px;
+            overflow: hidden; border: 3px solid rgba(255,255,255,0.8); box-shadow: inset 0 4px 10px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        @media (min-width: 1024px) { .hud-progress-track { border-color: rgba(255,215,0,0.7); } }
+        
+        .hud-progress-fill {
+            height: 100%; width: 100%; background: var(--color-success);
+            transition: width 1s linear, background-color 0.5s ease, box-shadow 0.5s ease;
+            box-shadow: 0 0 20px var(--color-success-glow);
+            position: relative; overflow: hidden;
+        }
+        
+        /* Shimmer effect on progress bar */
+        .hud-progress-fill::after {
+            content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 50px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmerBar 2s infinite linear;
+        }
+
+        .fill-warning { background: var(--color-warning); box-shadow: 0 0 25px var(--color-warning-glow); }
+        .fill-danger { background: var(--color-danger); box-shadow: 0 0 30px var(--color-danger-glow); }
+
+        /* Streak Multiplier UI */
+        .combo-multiplier {
+            position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+            background: var(--color-warning); color: #000; padding: 4px 12px; border-radius: 20px;
+            font-size: 1.2rem; font-weight: 900; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            opacity: 0; transition: opacity 0.3s, transform 0.3s var(--ease-spring);
+        }
+        .combo-active { opacity: 1; transform: translateX(-50%) translateY(-10px) scale(1.2); }
+
+        /* ==========================================================================
+           9. COMPONENT: MEMORY GRID & 3D CARDS
+           ========================================================================== */
+        .grid-wrapper { padding: 3rem; display: inline-block; z-index: 20; }
+        .memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.8rem, 2.8vw, 1.8rem); perspective: 1500px; }
+
+        .memory-card {
+            width: clamp(75px, 19vw, 130px); height: clamp(75px, 19vw, 130px);
+            position: relative; transform-style: preserve-3d;
+            transition: transform 0.7s var(--ease-spring);
+            cursor: pointer; border-radius: 20px;
+        }
+        
+        .memory-card:active { transform: scale(0.85); }
+        .memory-card.is-flipped { transform: rotateY(180deg); }
+        .memory-card.is-matched { animation: auraGlow 2.5s infinite; cursor: default; }
         
         .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            border: 3px solid #fff;
-            overflow: hidden;
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            border-radius: 20px; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3); border: 4px solid #fff; overflow: hidden;
         }
-
-        @media (min-width: 1024px) { .card-face { border-color: #ffd700; box-shadow: 0 10px 25px rgba(0,0,0,0.5); } }
         
-        .card-front {
-            background: var(--card-back-mobile);
-            font-size: clamp(2rem, 8vw, 4rem);
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        @media (min-width: 1024px) { .card-face { border-color: var(--tv-text-accent); box-shadow: 0 15px 40px rgba(0,0,0,0.7); } }
+        
+        .card-front { 
+            background: var(--mobile-card-front); font-size: clamp(3rem, 9vw, 5rem); 
+            font-weight: 900; color: #fff; text-shadow: 4px 4px 0 rgba(0,0,0,0.25); 
         }
-
+        
         @media (min-width: 1024px) { 
-            .card-front { background: var(--card-back-tv); color: #000; text-shadow: none; font-family: var(--secondary-font); } 
+            .card-front { background: var(--tv-card-front); color: #000; text-shadow: none; font-family: var(--font-secondary); } 
+            .card-front::after { content: 'M'; font-size: 5rem; opacity: 0.2; position: absolute; }
         }
         
         .card-back { background: #fff; transform: rotateY(180deg); }
-        .card-back img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+        .card-back img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; border-radius: 14px;}
 
-        /* Floating Score Text */
-        .floating-text {
-            position: absolute;
-            pointer-events: none;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #22c55e;
-            text-shadow: 0px 4px 0px #fff, 0px 0px 15px rgba(34,197,94,0.9);
-            animation: floatUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-            z-index: 50;
+        /* Floating Score Text (e.g. "+5s") */
+        .fx-floating-text {
+            position: absolute; pointer-events: none; font-size: 3.5rem; font-weight: 900;
+            color: var(--color-success); text-shadow: 0px 4px 0px #fff, 0px 0px 25px rgba(34,197,94,1);
+            animation: floatAndFade 1.5s var(--ease-smooth) forwards; z-index: 50;
         }
 
         /* ==========================================================================
-           7. SVG COUNTDOWN
+           10. COMPONENT: QUANTUM COUNTDOWN HUD
            ========================================================================== */
-        .countdown-wrapper {
-            position: relative;
-            width: clamp(200px, 40vw, 350px);
-            height: clamp(200px, 40vw, 350px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 3rem;
+        .quantum-cd-container {
+            position: relative; width: clamp(280px, 55vw, 450px); height: clamp(280px, 55vw, 450px);
+            display: flex; justify-content: center; align-items: center; margin: 0 auto 4rem;
+            filter: drop-shadow(0 0 30px rgba(255,255,255,0.5));
         }
+        @media (min-width: 1024px) { .quantum-cd-container { filter: drop-shadow(0 0 40px rgba(255,215,0,0.5)); } }
 
-        .countdown-svg {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            transform: rotate(-90deg);
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.5));
-        }
-
-        .countdown-circle-bg { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 8; }
-        .countdown-circle {
-            fill: none;
-            stroke: #fff;
-            stroke-width: 12;
-            stroke-dasharray: 628;
-            stroke-dashoffset: 0;
-            transition: stroke-dashoffset 1s linear;
-            stroke-linecap: round;
+        .quantum-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+        
+        /* Inner Counter-Rotating Cog */
+        .q-ring-inner { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 4; stroke-dasharray: 4 8; transform-origin: 50% 50%; animation: spinFastReverse 10s linear infinite; }
+        /* Outer Dashed Ring */
+        .q-ring-outer { fill: none; stroke: rgba(255,255,255,0.5); stroke-width: 3; stroke-dasharray: 15 20; transform-origin: 50% 50%; animation: spinSlow 25s linear infinite; }
+        /* Track Background */
+        .q-ring-bg { fill: none; stroke: rgba(255,255,255,0.15); stroke-width: 18; }
+        /* Solid Progress Ring */
+        .q-ring-progress {
+            fill: none; stroke: #fff; stroke-width: 18; stroke-dasharray: 628; stroke-dashoffset: 0;
+            transition: stroke-dashoffset 1s linear; stroke-linecap: round; filter: drop-shadow(0 0 15px #fff);
         }
 
         @media (min-width: 1024px) { 
-            .countdown-circle { stroke: #ffd700; filter: drop-shadow(0 0 20px #ffd700); } 
-            .countdown-circle-bg { stroke: rgba(255,215,0,0.15); } 
+            .q-ring-inner { stroke: rgba(255,215,0,0.3); }
+            .q-ring-outer { stroke: rgba(255,215,0,0.6); }
+            .q-ring-bg { stroke: rgba(255,215,0,0.15); }
+            .q-ring-progress { stroke: var(--tv-text-accent); filter: drop-shadow(0 0 20px var(--tv-text-accent)); }
         }
 
-        #countdown-number {
-            font-size: clamp(6rem, 15vw, 10rem);
-            font-weight: 900;
-            font-variant-numeric: tabular-nums;
-            text-shadow: var(--shadow-mobile-text);
-            z-index: 2;
+        .quantum-number {
+            font-size: clamp(9rem, 25vw, 16rem); font-weight: 900; font-variant-numeric: tabular-nums;
+            text-shadow: var(--mobile-shadow-text); z-index: 2;
+            transition: transform 0.1s var(--ease-spring), opacity 0.1s;
         }
+        .quantum-beat { transform: scale(1.35); opacity: 0.85; filter: brightness(1.5); }
 
-        @media (min-width: 1024px) { 
-            #countdown-number { text-shadow: var(--shadow-tv-text); color: #ffd700; font-family: var(--secondary-font); } 
-        }
-
-        /* ==========================================================================
-           8. QR CODE DISPLAY
-           ========================================================================== */
-        .qr-wrapper {
-            background: rgba(255,255,255,0.95);
-            padding: 1.5rem;
-            border-radius: 20px;
-            border: 5px solid #ffd700;
-            display: inline-block;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-            transform: scale(0.9);
-            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        .qr-wrapper img {
-            display: block;
-            margin: 0 auto;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .qr-label {
-            margin-top: 1rem;
-            color: #000;
-            font-weight: 900;
-            font-size: 1.2rem;
-            text-align: center;
-            font-family: var(--primary-font);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+        @media (min-width: 1024px) { .quantum-number { text-shadow: var(--tv-shadow-text); color: var(--tv-text-accent); font-family: var(--font-secondary); } }
 
         /* ==========================================================================
-           9. MOBILE REVEAL & CANDLE BLOWOUT
+           11. COMPONENT: MAGIC QR CODE DISPLAY
            ========================================================================== */
-        .cake-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 0 auto 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
+        .qr-display-box {
+            background: rgba(255,255,255,0.98); padding: 2.5rem; border-radius: 30px;
+            border: 8px solid var(--tv-text-accent); display: inline-block; box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+            transform: scale(0.85); animation: scalePopIn 1.2s var(--ease-spring) forwards;
+            position: relative; overflow: hidden;
         }
-
-        .cake-svg { width: 100%; height: auto; filter: drop-shadow(0 20px 20px rgba(0,0,0,0.3)); }
         
-        .candle-flames {
-            position: absolute;
-            top: 25%;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .flame {
-            width: 15px;
-            height: 30px;
-            background: linear-gradient(to top, #ff9d00, #ffed4a);
-            border-radius: 50% 50% 20% 20%;
-            box-shadow: 0 0 20px #ffed4a, 0 0 40px #ff9d00;
-            animation: flicker 0.1s infinite alternate;
-            transform-origin: bottom center;
-            transition: opacity 0.5s, transform 0.5s;
-        }
-
-        .flame.blown-out {
-            opacity: 0;
-            transform: scale(0) translateY(-20px);
-            box-shadow: none;
-            animation: none;
-        }
-
-        .smoke {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: rgba(255,255,255,0.5);
-            border-radius: 50%;
-            opacity: 0;
-            filter: blur(3px);
-        }
-
-        .flame.blown-out + .smoke { animation: smokeRise 2s ease-out forwards; }
-
-        .blow-instruction {
-            font-size: 1.5rem;
-            background: rgba(0,0,0,0.5);
-            color: #fff;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            margin-top: 1rem;
-            border: 2px solid #fff;
-            backdrop-filter: blur(10px);
-            animation: pulseSubtle 2s infinite;
-        }
-
-        .revealed-location-box {
-            background: rgba(0,0,0,0.8);
-            border: 3px solid #ffd700;
-            border-radius: 25px;
-            padding: 2rem;
-            margin-top: 2rem;
-            box-shadow: 0 10px 30px rgba(255,215,0,0.3);
-            max-width: 90vw;
-            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        .revealed-location-text {
-            font-size: clamp(2rem, 6vw, 4rem);
-            color: #ffd700;
-            font-weight: 900;
-            text-align: center;
-            word-break: break-word;
-            font-family: var(--secondary-font);
-        }
-
-        /* ==========================================================================
-           10. CUSTOM MODAL SYSTEM (No Alerts)
-           ========================================================================== */
-        #modal-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 100000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
-        #modal-overlay.active { opacity: 1; pointer-events: all; }
-
-        .modal-box {
-            background: var(--glass-mobile);
-            border: 2px solid #fff;
-            border-radius: 25px;
-            padding: 3rem 2rem;
-            max-width: 90vw;
-            width: 400px;
-            text-align: center;
-            transform: translateY(50px) scale(0.9);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-
-        @media (min-width: 1024px) { .modal-box { background: #1f2937; border-color: #ffd700; } }
+        .qr-display-box img { display: block; margin: 0 auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .qr-display-label { margin-top: 1.8rem; color: #000; font-weight: 900; font-size: 1.6rem; text-align: center; text-transform: uppercase; letter-spacing: 4px; }
         
-        #modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
-        .modal-title { font-size: 2.5rem; margin-bottom: 1rem; color: #fff; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
-        .modal-body { font-size: 1.5rem; margin-bottom: 2rem; color: #fff; }
-        .modal-btn { width: 100%; }
+        /* Scanning Laser Effect */
+        .qr-display-box::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: rgba(255, 0, 0, 0.6); box-shadow: 0 0 20px rgba(255,0,0,1);
+            animation: scanLaser 3s ease-in-out infinite alternate; pointer-events: none;
+        }
 
         /* ==========================================================================
-           11. DEV COMMAND CENTER
+           12. COMPONENT: 3-STAGE MOBILE REVEAL (Cake -> Gift Box)
            ========================================================================== */
-        #dev-panel {
-            position: fixed;
-            bottom: 20px; left: 20px;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
-            color: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px solid #ef4444;
-            z-index: 10000;
-            font-family: monospace;
-            display: none;
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
-            max-width: 300px;
+        .reveal-stage-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center; position: relative; }
+
+        /* Stage A: The Birthday Cake & Mic System */
+        .cake-platform { position: relative; width: 350px; height: 350px; margin: 0 auto 2.5rem; display: flex; justify-content: center; align-items: flex-end; }
+        .svg-cake-master { width: 100%; height: auto; filter: drop-shadow(0 30px 35px rgba(0,0,0,0.45)); }
+        
+        /* Candle Physics */
+        .candle-rig { position: absolute; top: 22%; left: 0; width: 100%; height: 60px; display: flex; justify-content: center; gap: 24px; }
+        .flame-element {
+            width: 20px; height: 40px; background: linear-gradient(to top, #ff9d00, #ffed4a);
+            border-radius: 50% 50% 20% 20%; box-shadow: 0 0 30px #ffed4a, 0 0 60px #ff9d00;
+            animation: flameFlicker 0.08s infinite alternate; transform-origin: bottom center;
+            transition: opacity 0.6s, transform 0.6s var(--ease-spring);
+        }
+        .flame-blown { opacity: 0; transform: scale(0) translateY(-40px); box-shadow: none; animation: none; }
+        
+        /* Particle Smoke */
+        .smoke-puff { position: absolute; width: 18px; height: 18px; background: rgba(255,255,255,0.7); border-radius: 50%; opacity: 0; filter: blur(5px); }
+        .flame-blown + .smoke-puff { animation: smokeDissipate 3s ease-out forwards; }
+
+        /* Microphone Decibel Meter (Visualizer) */
+        .mic-visualizer {
+            width: 250px; height: 20px; background: rgba(0,0,0,0.5); border-radius: 10px;
+            border: 2px solid rgba(255,255,255,0.5); margin: 1rem auto; overflow: hidden;
+            display: none; /* Shown via JS */
+        }
+        .mic-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--color-info), var(--color-success)); transition: width 0.1s linear; }
+
+        .blow-hint-badge {
+            font-size: 1.8rem; background: rgba(0,0,0,0.7); color: #fff; padding: 1.4rem 3rem;
+            border-radius: 60px; margin-top: 2rem; border: 2px solid #fff; backdrop-filter: blur(15px);
+            animation: pulseSubtle 2.5s infinite; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        #dev-panel h3 { color: #ef4444; font-size: 1.2rem; text-shadow: none; text-align: left; margin-bottom: 15px; font-family: monospace; }
-        #dev-panel button {
-            padding: 0.8rem; font-size: 0.9rem; margin-right: 5px; margin-bottom: 5px;
-            background: #374151; color: #fff; border-radius: 8px; box-shadow: none;
-            width: calc(50% - 5px); letter-spacing: 0;
+        /* Stage B: Gift Box Unboxing */
+        .gift-interactive-rig {
+            width: 300px; height: 300px; position: relative; margin: 3rem auto;
+            cursor: pointer; display: none; /* Shown via JS */
+            animation: floatBox 3.5s ease-in-out infinite;
         }
-        #dev-panel button:hover { background: #ef4444; }
+        .svg-gift-master { width: 100%; height: 100%; filter: drop-shadow(0 25px 40px rgba(0,0,0,0.6)); overflow: visible; }
+        .gift-lid-group { transform-origin: center bottom; transition: transform 0.9s var(--ease-spring), opacity 0.5s; }
+        
+        .gift-interactive-rig:active { transform: scale(0.92); animation: none; }
+        .gift-interactive-rig.is-opened .gift-lid-group { transform: translateY(-150px) rotate(30deg); opacity: 0; }
+        .gift-interactive-rig.is-opened { animation: boxRattle 0.6s cubic-bezier(.36,.07,.19,.97) both; cursor: default; }
+
+        /* Final Location Board */
+        .location-reveal-board {
+            background: rgba(0,0,0,0.9); border: 5px solid var(--tv-text-accent); border-radius: 40px;
+            padding: 3.5rem; margin-top: 2.5rem; box-shadow: 0 20px 50px rgba(255,215,0,0.5);
+            max-width: 95vw; animation: scalePopIn 1.2s var(--ease-spring) forwards;
+        }
+        .location-text-data { 
+            font-size: clamp(3rem, 8vw, 5.5rem); color: var(--tv-text-accent); 
+            font-weight: 900; text-align: center; word-break: break-word; font-family: var(--font-secondary); 
+        }
 
         /* ==========================================================================
-           12. ANIMATIONS (KEYFRAMES)
+           13. COMPONENT: CUSTOM MODAL SYSTEM (No Alerts Allowed)
            ========================================================================== */
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(255,255,255, 0.8); transform: rotateY(180deg) scale(1); }
-            50% { box-shadow: 0 0 25px 15px rgba(255,255,255, 0); transform: rotateY(180deg) scale(1.05); }
-            100% { box-shadow: 0 0 0 0 rgba(255,255,255, 0); transform: rotateY(180deg) scale(1); }
+        .modal-backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; justify-content: center; align-items: center; z-index: 100000;
+            opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
         }
-
-        @keyframes shakeError {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-12px) rotate(-5deg); }
-            40% { transform: translateX(12px) rotate(5deg); }
-            60% { transform: translateX(-12px) rotate(-5deg); }
-            80% { transform: translateX(12px) rotate(5deg); }
+        .modal-backdrop.is-active { opacity: 1; pointer-events: all; }
+        
+        .modal-dialog {
+            background: var(--mobile-glass-bg); border: 3px solid #fff; border-radius: 40px;
+            padding: 4rem 3rem; max-width: 90vw; width: 500px; text-align: center;
+            transform: translateY(80px) scale(0.85); transition: transform 0.6s var(--ease-spring);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.7);
         }
+        @media (min-width: 1024px) { .modal-dialog { background: #1f2937; border-color: var(--tv-text-accent); } }
+        
+        .modal-backdrop.is-active .modal-dialog { transform: translateY(0) scale(1); }
+        .modal-title-text { font-size: 3.2rem; margin-bottom: 1.8rem; color: #fff; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
+        .modal-body-text { font-size: 1.8rem; margin-bottom: 3rem; color: #fff; line-height: 1.6;}
+        .modal-action-btn { width: 100%; }
 
-        @keyframes floatUp {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-80px) scale(1.5); }
+        /* ==========================================================================
+           14. COMPONENT: DEVELOPER COMMAND CENTER
+           ========================================================================== */
+        .dev-console {
+            position: fixed; bottom: 25px; left: 25px; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
+            color: #fff; padding: 30px; border-radius: 25px; border: 2px solid var(--color-danger); z-index: 10000;
+            font-family: var(--font-mono); display: none; box-shadow: 0 0 40px rgba(239, 68, 68, 0.7); max-width: 350px;
         }
-
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1); }
+        .dev-console h3 { color: var(--color-danger); font-size: 1.5rem; text-shadow: none; text-align: left; margin-bottom: 20px; font-family: var(--font-mono); }
+        .dev-console button { 
+            padding: 1.2rem; font-size: 1.1rem; margin-right: 6px; margin-bottom: 6px; 
+            background: #374151; color: #fff; border-radius: 12px; width: calc(50% - 6px); letter-spacing: 0; box-shadow: none; border: none; cursor: pointer; transition: background 0.2s;
         }
+        .dev-console button:hover { background: var(--color-danger); }
+        .dev-console-footer { margin-top:15px; font-size:0.9rem; color:#888; text-align: center; border-top: 1px solid #333; padding-top: 10px;}
 
-        @keyframes flicker {
-            0% { transform: scale(1) rotate(-1deg); opacity: 0.9; }
-            50% { transform: scale(1.1) rotate(2deg); opacity: 1; }
-            100% { transform: scale(0.9) rotate(-2deg); opacity: 0.8; }
+        /* ==========================================================================
+           15. ANIMATION KEYFRAMES LIBRARY
+           ========================================================================== */
+        @keyframes auraGlow { 
+            0% { box-shadow: 0 0 0 0 rgba(255,255,255, 0.95); transform: rotateY(180deg) scale(1); } 
+            50% { box-shadow: 0 0 35px 25px rgba(255,255,255, 0); transform: rotateY(180deg) scale(1.08); } 
+            100% { box-shadow: 0 0 0 0 rgba(255,255,255, 0); transform: rotateY(180deg) scale(1); } 
         }
-
-        @keyframes smokeRise {
-            0% { opacity: 0.8; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-100px) scale(3); }
-        }
-
-        @keyframes pulseSubtle {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
+        @keyframes floatAndFade { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-120px) scale(1.8); } }
+        @keyframes scalePopIn { 0% { opacity: 0; transform: scale(0.3); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes flameFlicker { 0% { transform: scale(1) rotate(-2deg); opacity: 0.9; } 50% { transform: scale(1.2) rotate(4deg); opacity: 1; } 100% { transform: scale(0.9) rotate(-4deg); opacity: 0.8; } }
+        @keyframes smokeDissipate { 0% { opacity: 0.9; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-150px) scale(5); } }
+        @keyframes pulseSubtle { 0%, 100% { transform: scale(1); opacity: 0.85; } 50% { transform: scale(1.08); opacity: 1; } }
+        @keyframes spinSlow { 100% { transform: rotate(360deg); } }
+        @keyframes spinFastReverse { 100% { transform: rotate(-360deg); } }
+        @keyframes floatBox { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-25px); } }
+        @keyframes scanLaser { 0% { top: 10%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 90%; opacity: 0; } }
+        @keyframes shimmerBar { 0% { transform: translateX(-100%); } 100% { transform: translateX(500%); } }
+        @keyframes boxRattle { 
+            10%, 90% { transform: translate3d(-2px, 0, 0) rotate(-2deg); }
+            20%, 80% { transform: translate3d(4px, 0, 0) rotate(2deg); }
+            30%, 50%, 70% { transform: translate3d(-8px, -5px, 0) rotate(-4deg); }
+            40%, 60% { transform: translate3d(8px, 5px, 0) rotate(4deg); }
         }
     </style>
 </head>
 <body>
 
-    <!-- BACKGROUND CANVASES -->
-    <canvas id="bg-canvas"></canvas>
-    <canvas id="confetti-canvas" class="gone"></canvas>
+    <!-- ==========================================================================
+         SVG ASSET REPOSITORY (Inline Vectors for Maximum Quality)
+         ========================================================================== -->
+    <svg width="0" height="0" style="position:absolute; display:none;" aria-hidden="true">
+        <defs>
+            <!-- UI Icons -->
+            <g id="icon-sound-on">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </g>
+            <g id="icon-sound-off">
+                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+            </g>
 
-    <!-- FLOATING AUDIO TOGGLE -->
-    <button id="btn-audio" class="audio-btn" onclick="app.toggleAudio()" aria-label="Toggle Audio">
-        <svg id="icon-sound-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-        <svg id="icon-sound-off" viewBox="0 0 24 24" class="gone"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+            <!-- Complex 3-Tier Birthday Cake SVG -->
+            <g id="master-cake">
+                <!-- Plate -->
+                <ellipse cx="100" cy="140" rx="90" ry="15" fill="#e2e8f0"/>
+                <ellipse cx="100" cy="143" rx="90" ry="15" fill="#cbd5e1" opacity="0.5"/>
+                
+                <!-- Bottom Tier -->
+                <path d="M 20 100 Q 100 120 180 100 L 180 135 Q 100 155 20 135 Z" fill="#ff758c"/>
+                <path d="M 20 100 Q 100 120 180 100 Q 100 80 20 100" fill="#ff4d6d"/>
+                <!-- Bottom Drip -->
+                <path d="M 20 100 Q 30 115 40 100 Q 50 115 60 100 Q 70 120 80 100 Q 90 115 100 100 Q 110 120 120 100 Q 130 115 140 100 Q 150 115 160 100 Q 170 115 180 100" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+
+                <!-- Middle Tier -->
+                <path d="M 35 70 Q 100 90 165 70 L 165 100 Q 100 120 35 100 Z" fill="#fecfef"/>
+                <path d="M 35 70 Q 100 90 165 70 Q 100 50 35 70" fill="#fbc2eb"/>
+                <!-- Middle Drip -->
+                <path d="M 35 70 Q 45 80 55 70 Q 65 85 75 70 Q 85 80 95 70 Q 105 85 115 70 Q 125 80 135 70 Q 145 85 155 70 Q 160 75 165 70" fill="none" stroke="#ff758c" stroke-width="4" stroke-linecap="round"/>
+
+                <!-- Top Tier -->
+                <path d="M 50 40 Q 100 55 150 40 L 150 70 Q 100 85 50 70 Z" fill="#ffffff"/>
+                <path d="M 50 40 Q 100 55 150 40 Q 100 25 50 40" fill="#f8fafc"/>
+                
+                <!-- Sprinkles on Top -->
+                <rect x="70" y="35" width="6" height="2" fill="#ff758c" transform="rotate(25 70 35)"/>
+                <rect x="90" y="42" width="6" height="2" fill="#3b82f6" transform="rotate(-15 90 42)"/>
+                <rect x="110" y="38" width="6" height="2" fill="#22c55e" transform="rotate(45 110 38)"/>
+                <rect x="130" y="45" width="6" height="2" fill="#eab308" transform="rotate(-30 130 45)"/>
+                <rect x="85" y="30" width="6" height="2" fill="#ef4444" transform="rotate(10 85 30)"/>
+                <rect x="120" y="32" width="6" height="2" fill="#9333ea" transform="rotate(-60 120 32)"/>
+
+                <!-- Candles Bases (Flames handled in DOM for animation) -->
+                <rect x="72" y="10" width="10" height="35" fill="#ffd700" rx="3"/>
+                <path d="M 72 15 L 82 20 L 82 25 L 72 20 Z" fill="#eab308"/>
+                <path d="M 72 25 L 82 30 L 82 35 L 72 30 Z" fill="#eab308"/>
+
+                <rect x="95" y="5" width="10" height="40" fill="#22c55e" rx="3"/>
+                <path d="M 95 10 L 105 15 L 105 20 L 95 15 Z" fill="#16a34a"/>
+                <path d="M 95 20 L 105 25 L 105 30 L 95 25 Z" fill="#16a34a"/>
+                <path d="M 95 30 L 105 35 L 105 40 L 95 35 Z" fill="#16a34a"/>
+
+                <rect x="118" y="10" width="10" height="35" fill="#3b82f6" rx="3"/>
+                <path d="M 118 15 L 128 20 L 128 25 L 118 20 Z" fill="#2563eb"/>
+                <path d="M 118 25 L 128 30 L 128 35 L 118 30 Z" fill="#2563eb"/>
+            </g>
+
+            <!-- Complex 3D Gift Box SVG -->
+            <g id="master-gift">
+                <!-- Main Box Body -->
+                <path d="M 20 80 L 180 80 L 170 190 L 30 190 Z" fill="#3b82f6"/>
+                <!-- Box Inner Shadow/Depth -->
+                <path d="M 20 80 L 40 80 L 50 190 L 30 190 Z" fill="#2563eb" opacity="0.5"/>
+                <path d="M 160 80 L 180 80 L 170 190 L 150 190 Z" fill="#1d4ed8" opacity="0.3"/>
+                
+                <!-- Vertical Gold Ribbon (Body) -->
+                <polygon points="85,80 115,80 110,190 90,190" fill="#ffd700"/>
+                <polygon points="85,80 95,80 95,190 90,190" fill="#eab308" opacity="0.6"/>
+
+                <!-- Lid Group (Separate for animation) -->
+                <g id="gift-lid-rig">
+                    <!-- Lid Base -->
+                    <rect x="10" y="50" width="180" height="35" fill="#2563eb" rx="4"/>
+                    <!-- Lid Shadow -->
+                    <rect x="10" y="80" width="180" height="5" fill="#1d4ed8"/>
+                    
+                    <!-- Vertical Gold Ribbon (Lid) -->
+                    <rect x="85" y="50" width="30" height="35" fill="#ffd700"/>
+                    <rect x="85" y="50" width="10" height="35" fill="#eab308" opacity="0.6"/>
+
+                    <!-- Massive Gold Bow -->
+                    <!-- Left Loop -->
+                    <path d="M 100 50 C 60 -10 10 20 85 50 Z" fill="#ffd700"/>
+                    <path d="M 90 45 C 65 10 30 25 80 48 Z" fill="#eab308"/>
+                    <!-- Right Loop -->
+                    <path d="M 100 50 C 140 -10 190 20 115 50 Z" fill="#ffd700"/>
+                    <path d="M 110 45 C 135 10 170 25 120 48 Z" fill="#eab308"/>
+                    <!-- Center Knot -->
+                    <ellipse cx="100" cy="50" rx="15" ry="10" fill="#facc15"/>
+                    <ellipse cx="100" cy="52" rx="15" ry="8" fill="#ca8a04" opacity="0.5"/>
+                </g>
+            </g>
+        </defs>
+    </svg>
+
+    <!-- ==========================================================================
+         CANVAS DOM ELEMENTS
+         ========================================================================== -->
+    <canvas id="canvas-bg"></canvas>
+    <canvas id="canvas-fx"></canvas>
+    <canvas id="canvas-confetti" class="state-gone"></canvas>
+
+    <!-- ==========================================================================
+         GLOBAL UI: AUDIO TOGGLE
+         ========================================================================== -->
+    <button id="btn-master-audio" class="audio-toggle-wrapper" aria-label="Toggle Master Sound">
+        <svg id="icon-sound-on-view" viewBox="0 0 24 24"><use href="#icon-sound-on"></use></svg>
+        <svg id="icon-sound-off-view" viewBox="0 0 24 24" class="state-gone"><use href="#icon-sound-off"></use></svg>
     </button>
 
-    <!-- CUSTOM UI MODAL -->
-    <div id="modal-overlay">
-        <div class="modal-box">
-            <h2 class="modal-title" id="modal-title">Notice</h2>
-            <p class="modal-body" id="modal-body">Message goes here.</p>
-            <button class="modal-btn" onclick="ui.closeModal()">Continue</button>
+    <!-- ==========================================================================
+         GLOBAL UI: CUSTOM MODAL SYSTEM (Overrides native window.alert)
+         ========================================================================== -->
+    <div id="sys-modal" class="modal-backdrop">
+        <div class="modal-dialog">
+            <h2 class="modal-title-text" id="sys-modal-title">System Notice</h2>
+            <p class="modal-body-text" id="sys-modal-body">Message body content.</p>
+            <button class="primary-btn modal-action-btn" id="sys-modal-btn">Acknowledge</button>
         </div>
     </div>
 
-    <!-- SCREEN 1: SETUP (For the Creator) -->
-    <div id="screen-setup" class="screen">
-        <div class="glass-panel" style="padding: 3rem; text-align: center; max-width: 600px; width: 95%;">
-            <h1>Setup The Hunt</h1>
-            <p>Configure the surprise. This screen is just for you.</p>
-            <input type="number" id="input-time" value="5" placeholder="Countdown Seconds" min="1">
-            <input type="text" id="input-loc" placeholder="Gift Location (e.g. Master Bedroom Closet)" autocomplete="off">
-            <button onclick="app.startCountdownSequence()">Lock & Prepare</button>
+    <!-- ==========================================================================
+         SCREEN 1: CREATOR SETUP (The Command Station)
+         ========================================================================== -->
+    <div id="view-setup" class="screen-container">
+        <div class="glass-panel" style="text-align: center; max-width: 700px; width: 95%;">
+            <h1>Mission Control</h1>
+            <p>Configure the parameters for Mom's birthday hunt. This screen is highly classified.</p>
+            
+            <input type="number" id="cfg-time" class="modern-input" value="10" placeholder="Countdown Duration (Seconds)" min="3" max="60">
+            <input type="text" id="cfg-loc" class="modern-input" placeholder="Target Location (e.g. Master Bedroom Closet)" autocomplete="off">
+            
+            <button class="primary-btn" id="btn-lock-setup" style="margin-top: 1rem; width: 100%;">Initialize Sequence</button>
         </div>
     </div>
 
-    <!-- SCREEN 2: COUNTDOWN (Cinematic SVG) -->
-    <div id="screen-countdown" class="screen hidden">
-        <div class="countdown-wrapper">
-            <svg class="countdown-svg" viewBox="0 0 220 220">
-                <circle class="countdown-circle-bg" cx="110" cy="110" r="100"></circle>
-                <circle class="countdown-circle" id="svg-circle" cx="110" cy="110" r="100"></circle>
+    <!-- ==========================================================================
+         SCREEN 2: QUANTUM COUNTDOWN HUD
+         ========================================================================== -->
+    <div id="view-countdown" class="screen-container state-hidden">
+        <div class="quantum-cd-container" id="cd-physics-wrapper">
+            <svg class="quantum-svg" viewBox="0 0 220 220">
+                <!-- Intricate HUD Rings -->
+                <circle class="q-ring-outer" cx="110" cy="110" r="105"></circle>
+                <circle class="q-ring-inner" cx="110" cy="110" r="75"></circle>
+                <circle class="q-ring-bg" cx="110" cy="110" r="90"></circle>
+                <circle class="q-ring-progress" id="cd-svg-fill" cx="110" cy="110" r="90"></circle>
             </svg>
-            <div id="countdown-number">5</div>
+            <div class="quantum-number" id="cd-digital-readout">10</div>
         </div>
-        <h2>Get Ready...</h2>
+        <h2>Systems Initiating...</h2>
     </div>
 
-    <!-- SCREEN 3: WELCOME (For Mom) -->
-    <div id="screen-welcome" class="screen hidden">
+    <!-- ==========================================================================
+         SCREEN 3: PLAYER WELCOME
+         ========================================================================== -->
+    <div id="view-welcome" class="screen-container state-hidden">
         <h1>Happy Birthday,<br>Mom!</h1>
-        <p>Your gift is hidden somewhere special.<br>Solve the puzzle to unlock the location!</p>
-        <button onclick="app.startGame()">Begin Challenge</button>
+        <p>A high-value package has been hidden in the perimeter.<br>You must bypass the security grid to unlock its exact coordinates.</p>
+        <button class="primary-btn" id="btn-start-game">Bypass Security</button>
     </div>
 
-    <!-- SCREEN 4: GAME -->
-    <div id="screen-game" class="screen hidden">
-        <div class="game-hud glass-panel">
-            <div class="hud-top">
-                <span id="time-text">60s</span>
-                <span>Matches: <span id="matches-count">0</span>/8</span>
+    <!-- ==========================================================================
+         SCREEN 4: THE MEMORY GRID (Core Gameplay)
+         ========================================================================== -->
+    <div id="view-game" class="screen-container state-hidden">
+        <!-- HUD -->
+        <div class="hud-container glass-panel">
+            <div class="hud-top-row">
+                <span id="game-clock">60.0s</span>
+                <span style="position:relative;">
+                    Matches: <span id="game-score">0</span>/8
+                    <div id="combo-badge" class="combo-multiplier">2x STREAK!</div>
+                </span>
             </div>
-            <div class="progress-bar-container">
-                <div class="progress-fill" id="progress-fill"></div>
-            </div>
-        </div>
-        <div class="memory-grid-container glass-panel">
-            <div class="memory-grid" id="grid"></div>
-        </div>
-    </div>
-
-    <!-- SCREEN 5: TV WIN (QR CODE REVEAL) -->
-    <div id="screen-tv-win" class="screen hidden">
-        <h1>You Did It!</h1>
-        <p>Grab your phone, open the camera, and scan this code to reveal your gift's location.</p>
-        <div class="qr-wrapper">
-            <img id="qr-image" src="" alt="QR Code" width="280" height="280">
-            <div class="qr-label">Scan to Unlock</div>
-        </div>
-    </div>
-
-    <!-- SCREEN 6: MOBILE GATEWAY (Needs Interaction to Unlock Audio/Mic) -->
-    <div id="screen-mobile-gateway" class="screen hidden">
-        <div class="glass-panel" style="padding: 3rem; text-align: center; max-width: 500px; width: 95%;">
-            <h1>You Made It!</h1>
-            <p>Your digital birthday cake is ready.</p>
-            <button onclick="app.initMobileReveal()">Light the Candles</button>
-        </div>
-    </div>
-
-    <!-- SCREEN 7: MOBILE REVEAL (Candle Blowout) -->
-    <div id="screen-mobile-reveal" class="screen hidden">
-        <h1>Make a Wish!</h1>
-        <p>Blow into your phone to blow out the candles and reveal your gift!</p>
-        
-        <div class="cake-container" id="cake-container" onclick="app.forceBlowOut()">
-            <!-- Intricate SVG Cake -->
-            <svg class="cake-svg" viewBox="0 0 200 150">
-                <path d="M 20 100 Q 100 120 180 100 L 180 140 Q 100 160 20 140 Z" fill="#ff758c"/>
-                <path d="M 20 100 Q 100 120 180 100 Q 100 80 20 100" fill="#fecfef"/>
-                <path d="M 40 70 Q 100 90 160 70 L 160 100 Q 100 120 40 100 Z" fill="#ff9a9e"/>
-                <path d="M 40 70 Q 100 90 160 70 Q 100 50 40 70" fill="#ffffff"/>
-                <!-- Icing Details -->
-                <path d="M 20 100 Q 30 110 40 100 Q 50 110 60 100 Q 70 110 80 100 Q 90 110 100 100 Q 110 110 120 100 Q 130 110 140 100 Q 150 110 160 100 Q 170 110 180 100" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
-                <path d="M 40 70 Q 50 80 60 70 Q 70 80 80 70 Q 90 80 100 70 Q 110 80 120 70 Q 130 80 140 70 Q 150 80 160 70" fill="none" stroke="#ff758c" stroke-width="3" stroke-linecap="round"/>
-                <!-- Candles bases -->
-                <rect x="75" y="40" width="8" height="25" fill="#ffd700" rx="2"/>
-                <rect x="95" y="35" width="8" height="30" fill="#22c55e" rx="2"/>
-                <rect x="115" y="40" width="8" height="25" fill="#3b82f6" rx="2"/>
-            </svg>
-
-            <!-- CSS Flames overlaying the SVG bases -->
-            <div class="candle-flames" id="candle-flames">
-                <div style="position: absolute; left: 71px; top: 10px;">
-                    <div class="flame"></div><div class="smoke"></div>
-                </div>
-                <div style="position: absolute; left: 91px; top: 5px;">
-                    <div class="flame"></div><div class="smoke"></div>
-                </div>
-                <div style="position: absolute; left: 111px; top: 10px;">
-                    <div class="flame"></div><div class="smoke"></div>
-                </div>
+            <div class="hud-progress-track">
+                <div class="hud-progress-fill" id="game-progress-bar"></div>
             </div>
         </div>
         
-        <div class="blow-instruction" id="blow-hint">Listening for breath... (Or tap cake to skip)</div>
+        <!-- Interactive Grid -->
+        <div class="grid-wrapper glass-panel">
+            <div class="memory-grid" id="memory-board">
+                <!-- Cards injected dynamically via JS Engine -->
+            </div>
+        </div>
     </div>
 
-    <!-- SCREEN 8: THE FINAL GIFT REVEAL -->
-    <div id="screen-final-gift" class="screen hidden">
+    <!-- ==========================================================================
+         SCREEN 5: TV WIN STATE (Magic QR Generation)
+         ========================================================================== -->
+    <div id="view-tv-win" class="screen-container state-hidden">
+        <h1>Grid Bypassed!</h1>
+        <p>Security cleared. Extract your phone, open the camera app, and scan this encrypted code to download the coordinates.</p>
+        
+        <div class="qr-display-box">
+            <img id="qr-target-img" src="" alt="Encrypted QR Payload" width="320" height="320">
+            <div class="qr-display-label">Scan to Download</div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         SCREEN 6: MOBILE GATEWAY (Post-Scan Handshake)
+         ========================================================================== -->
+    <div id="view-mobile-gateway" class="screen-container state-hidden">
+        <div class="glass-panel" style="text-align: center; max-width: 600px; width: 95%;">
+            <h1>Coordinates<br>Acquired</h1>
+            <p>Connection secure. The digital care package is ready for extraction.</p>
+            <button class="primary-btn" id="btn-mobile-init">Extract Package</button>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         SCREEN 7: MOBILE 3-STAGE REVEAL THEATER
+         ========================================================================== -->
+    <div id="view-mobile-reveal" class="screen-container state-hidden">
+        
+        <!-- ACT 1: The Birthday Cake & Microphone Sensor -->
+        <div id="reveal-act-cake" class="reveal-stage-wrapper">
+            <h1>Make a Wish!</h1>
+            <p>Blow into your device's microphone to extinguish the candles and proceed.</p>
+            
+            <div class="cake-platform" id="interactive-cake">
+                <svg class="svg-cake-master" viewBox="0 0 200 160"><use href="#master-cake"></use></svg>
+                
+                <!-- Dynamic CSS Flames Overlay -->
+                <div class="candle-rig" id="flame-rig">
+                    <div style="position: absolute; left: 74px; top: 12px;"><div class="flame-element"></div><div class="smoke-puff"></div></div>
+                    <div style="position: absolute; left: 96px; top: 7px;"><div class="flame-element"></div><div class="smoke-puff"></div></div>
+                    <div style="position: absolute; left: 120px; top: 12px;"><div class="flame-element"></div><div class="smoke-puff"></div></div>
+                </div>
+            </div>
+
+            <!-- Visual Equalizer for Mic -->
+            <div class="mic-visualizer" id="mic-eq-display">
+                <div class="mic-bar" id="mic-eq-bar"></div>
+            </div>
+            
+            <div class="blow-hint-badge" id="sensor-hint-text">Calibrating sensors... (Tap cake to override)</div>
+        </div>
+
+        <!-- ACT 2: The Gift Box Unboxing -->
+        <div id="reveal-act-gift" class="reveal-stage-wrapper state-gone slide-in-right">
+            <h1>Incoming!</h1>
+            <p>Tap the crate to crack the seal.</p>
+            
+            <div class="gift-interactive-rig" id="interactive-gift">
+                <svg class="svg-gift-master" viewBox="0 0 200 200">
+                    <!-- Base body cloned from defs -->
+                    <path d="M 20 80 L 180 80 L 170 190 L 30 190 Z" fill="#3b82f6"/>
+                    <path d="M 20 80 L 40 80 L 50 190 L 30 190 Z" fill="#2563eb" opacity="0.5"/>
+                    <path d="M 160 80 L 180 80 L 170 190 L 150 190 Z" fill="#1d4ed8" opacity="0.3"/>
+                    <polygon points="85,80 115,80 110,190 90,190" fill="#ffd700"/>
+                    <polygon points="85,80 95,80 95,190 90,190" fill="#eab308" opacity="0.6"/>
+                    <!-- Animated Lid Group -->
+                    <use href="#gift-lid-rig" class="gift-lid-group"></use>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         SCREEN 8: FINAL COORDINATE REVEAL
+         ========================================================================== -->
+    <div id="view-final-gift" class="screen-container state-hidden">
         <h1>Surprise!</h1>
-        <p>Your birthday gift is waiting for you at:</p>
-        <div class="revealed-location-box">
-            <div class="revealed-location-text" id="final-loc-text">Location</div>
+        <p>Your birthday gift has been successfully deployed to:</p>
+        
+        <div class="location-reveal-board">
+            <div class="location-text-data" id="final-loc-output">ERROR_404</div>
         </div>
+        
         <br><br>
         <h2>Happy Birthday! Love, Kunal ❤️</h2>
     </div>
 
-    <!-- SECRET DEV PANEL -->
-    <div id="dev-panel">
-        <h3>Command Center</h3>
-        <button onclick="app.game.forceWin()">Force Win</button>
-        <button onclick="location.reload()">Reset App</button>
-        <button onclick="app.startMobileSimulation()">Simulate Phone</button>
-        <button onclick="ui.closeDevPanel()">Close Panel</button>
-        <div style="margin-top:10px; font-size:0.8rem; color:#aaa;">Shortcut: Ctrl+Shift+D</div>
+    <!-- ==========================================================================
+         DEVELOPER COMMAND CENTER (Hidden Admin Panel)
+         ========================================================================== -->
+    <div id="dev-admin-console" class="dev-console">
+        <h3>Admin Command</h3>
+        <button id="dev-btn-win">Force Win</button>
+        <button id="dev-btn-reset">Hard Reset</button>
+        <button id="dev-btn-sim-phone">Simulate Mobile</button>
+        <button id="dev-btn-close">Close Panel</button>
+        <div class="dev-console-footer">Shortcut: Ctrl + Shift + D</div>
     </div>
 
+    <!-- ==========================================================================
+         JAVASCRIPT ENGINE ARCHITECTURE
+         Over 1000 lines of robust ES6 Class-based logic.
+         ========================================================================== -->
     <script>
+        'use strict';
+
         /**
          * ==========================================================================
-         * CORE UTILITIES & ENCRYPTION
+         * CORE UTILITIES, MATH & CRYPTOGRAPHY
+         * Singleton utility class for global helper methods.
          * ==========================================================================
          */
-        class Utils {
-            // Safe Base64 for handling spaces, emojis, and special chars in URLs
-            static encodeBase64(str) { return btoa(encodeURIComponent(str)); }
-            static decodeBase64(str) { return decodeURIComponent(atob(str)); }
-            
-            static clamp(val, min, max) { return Math.min(Math.max(val, min), max); }
-            static random(min, max) { return Math.random() * (max - min) + min; }
+        class AppUtils {
+            /**
+             * Safely encodes a string into Base64, supporting Unicode (emojis).
+             * @param {string} str - Raw input string.
+             * @returns {string} Base64 encoded string.
+             */
+            static encodeBase64(str) {
+                try {
+                    return btoa(encodeURIComponent(str));
+                } catch(e) {
+                    console.error("Base64 Encoding Failed", e);
+                    return "";
+                }
+            }
+
+            /**
+             * Decodes a Base64 string back to Unicode.
+             * @param {string} str - Base64 input.
+             * @returns {string} Decoded string.
+             */
+            static decodeBase64(str) {
+                try {
+                    return decodeURIComponent(atob(str));
+                } catch(e) {
+                    console.error("Base64 Decoding Failed", e);
+                    throw new Error("Invalid Payload");
+                }
+            }
+
+            /**
+             * Clamps a value between a minimum and maximum.
+             */
+            static clamp(val, min, max) {
+                return Math.min(Math.max(val, min), max);
+            }
+
+            /**
+             * Generates a random float between min and max.
+             */
+            static randomFloat(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            /**
+             * Fisher-Yates array shuffling algorithm.
+             * Mutates the original array and returns it.
+             */
+            static shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            /**
+             * Determines if the current device has a screen wider than 1024px.
+             */
+            static isDesktopView() {
+                return window.innerWidth >= 1024;
+            }
         }
 
         /**
          * ==========================================================================
-         * AUDIO ENGINE (WEB AUDIO API)
-         * Natively synthesizes all sounds and procedural ambient background music.
+         * HAPTIC ENGINE (Device Vibration API)
+         * Manages physical feedback for compatible mobile devices.
          * ==========================================================================
          */
-        class AudioEngine {
+        class HapticEngine {
             constructor() {
-                this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                this.isSupported = 'vibrate' in navigator;
+            }
+
+            /** Fire a specific vibration pattern safely. */
+            _fire(pattern) {
+                if (this.isSupported) {
+                    try { navigator.vibrate(pattern); } 
+                    catch(e) { /* Silent fail on restricted browsers */ }
+                }
+            }
+
+            /** Micro-tap for UI clicks or timer ticks. */
+            tick() { this._fire(15); }
+            
+            /** Standard tap for card flips. */
+            pop() { this._fire(30); }
+            
+            /** Error buzz. */
+            error() { this._fire([50, 60, 50]); }
+            
+            /** Success chord. */
+            success() { this._fire([30, 40, 60]); }
+            
+            /** Massive celebration sequence. */
+            win() { this._fire([100, 50, 100, 50, 200, 50, 400]); }
+            
+            /** Heavy thud for gift box opening. */
+            boxOpen() { this._fire([200, 100, 500]); }
+        }
+
+        /**
+         * ==========================================================================
+         * ADVANCED SYNTHESIZER (Web Audio API)
+         * Procedurally generates all sound effects and polyphonic ambient music.
+         * ==========================================================================
+         */
+        class SynthEngine {
+            constructor() {
+                // Initialize context only on user interaction later
+                this.ctx = null;
+                this.masterGain = null;
+                this.ambientGain = null;
+                this.convolver = null; // For Reverb
+                
                 this.isMuted = false;
-                this.masterGain = this.ctx.createGain();
-                this.masterGain.connect(this.ctx.destination);
-                this.masterGain.gain.value = 1.0;
-
-                this.ambientGain = this.ctx.createGain();
-                this.ambientGain.connect(this.masterGain);
-                this.ambientGain.gain.value = 0.15; // Soft volume for music
-                
                 this.ambientInterval = null;
-                // Pentatonic scale frequencies (C Major Pentatonic) for soothing music
-                this.scale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25]; 
+                
+                // Musical Scale for generative ambient music (C Major Pentatonic)
+                this.pentatonicScale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25]; 
+                
+                this.initialized = false;
             }
 
-            unlock() {
-                if (this.ctx.state === 'suspended') {
-                    this.ctx.resume();
+            /**
+             * Bootstraps the audio context and routing graph.
+             * Must be called after a user gesture (click/tap).
+             */
+            init() {
+                if (this.initialized) {
+                    if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+                    return;
+                }
+
+                try {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioContext();
+                    
+                    this.masterGain = this.ctx.createGain();
+                    this.masterGain.connect(this.ctx.destination);
+                    
+                    this.ambientGain = this.ctx.createGain();
+                    this.ambientGain.connect(this.masterGain);
+                    this.ambientGain.gain.value = 0.12; // Soft background volume
+                    
+                    this.initialized = true;
+                    if (this.ctx.state === 'suspended') this.ctx.resume();
+                } catch(e) {
+                    console.error("Web Audio API not supported", e);
                 }
             }
 
+            /**
+             * Toggles the master mute state and handles ambient music playback.
+             */
             toggleMute(forceState = null) {
-                if (forceState !== null) {
-                    this.isMuted = forceState;
-                } else {
-                    this.isMuted = !this.isMuted;
+                this.isMuted = forceState !== null ? forceState : !this.isMuted;
+                
+                if (this.masterGain) {
+                    // Smooth volume fade to prevent speaker popping
+                    this.masterGain.gain.setTargetAtTime(this.isMuted ? 0 : 1, this.ctx.currentTime, 0.05);
                 }
                 
-                this.masterGain.gain.setTargetAtTime(this.isMuted ? 0 : 1, this.ctx.currentTime, 0.1);
-                
-                if (!this.isMuted && !this.ambientInterval) {
+                if (!this.isMuted && !this.ambientInterval && this.initialized) {
                     this.startAmbient();
                 }
+                
                 return this.isMuted;
             }
 
-            // Synthesize a generic tone with an ADSR envelope
-            playTone(freq, type, duration, vol=0.2) {
-                if (this.isMuted) return;
-                this.unlock();
+            /**
+             * Core Synthesizer function using an ADSR (Attack, Decay, Sustain, Release) envelope.
+             * @param {number} freq - Frequency in Hz.
+             * @param {string} type - Oscillator type (sine, square, sawtooth, triangle).
+             * @param {number} duration - Total duration in seconds.
+             * @param {number} peakVol - Peak volume.
+             */
+            _playTone(freq, type, duration, peakVol = 0.2) {
+                if (this.isMuted || !this.initialized) return;
                 
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
@@ -839,744 +1073,1192 @@
                 osc.type = type;
                 osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
                 
-                // Envelope
+                // Envelope Generation
                 gain.gain.setValueAtTime(0, this.ctx.currentTime);
-                gain.gain.linearRampToValueAtTime(vol, this.ctx.currentTime + 0.05); // Attack
-                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration); // Decay/Release
+                // Fast Attack
+                gain.gain.linearRampToValueAtTime(peakVol, this.ctx.currentTime + 0.03); 
+                // Exponential Release
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration); 
                 
                 osc.connect(gain);
                 gain.connect(this.masterGain);
                 
                 osc.start(this.ctx.currentTime);
                 osc.stop(this.ctx.currentTime + duration);
+                
+                // Cleanup
+                osc.onended = () => { osc.disconnect(); gain.disconnect(); };
             }
 
-            // Specific Sound Effects
-            tick() { this.playTone(800, 'sine', 0.1, 0.05); }
-            pop() { this.playTone(400, 'sine', 0.1, 0.15); }
-            puff() { 
-                // Noise burst for blowing out candles
-                if (this.isMuted) return;
-                const bufferSize = this.ctx.sampleRate * 0.5; 
-                const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-                const data = buffer.getChannelData(0);
-                for (let i = 0; i < bufferSize; i++) { data[i] = Math.random() * 2 - 1; }
-                
-                const noise = this.ctx.createBufferSource();
-                noise.buffer = buffer;
-                
-                const filter = this.ctx.createBiquadFilter();
-                filter.type = 'lowpass';
-                filter.frequency.value = 1000;
-
-                const gain = this.ctx.createGain();
-                gain.gain.setValueAtTime(0.5, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.5);
-                
-                noise.connect(filter);
-                filter.connect(gain);
-                gain.connect(this.masterGain);
-                
-                noise.start();
-            }
-
-            match() {
-                if (this.isMuted) return;
-                this.playTone(523.25, 'sine', 0.4, 0.1); // C5
-                setTimeout(() => this.playTone(659.25, 'sine', 0.5, 0.1), 100); // E5
-                setTimeout(() => this.playTone(783.99, 'sine', 0.8, 0.15), 200); // G5
-            }
-
-            error() { this.playTone(150, 'sawtooth', 0.4, 0.1); }
+            // ----------------------------------------------------------------------
+            // SOUND EFFECT CATALOG
+            // ----------------------------------------------------------------------
             
-            winFanfare() {
-                if (this.isMuted) return;
-                const notes = [523.25, 659.25, 783.99, 1046.50]; // Arpeggio C E G C
-                notes.forEach((freq, i) => {
-                    setTimeout(() => this.playTone(freq, 'square', 0.6, 0.15), i * 150);
+            /** Countdown / UI Tick */
+            tick() { this._playTone(800, 'sine', 0.1, 0.05); }
+            
+            /** Card Flip */
+            pop() { this._playTone(450, 'sine', 0.12, 0.15); }
+            
+            /** Successful Match (Major Chord) */
+            match() {
+                if (this.isMuted || !this.initialized) return;
+                this._playTone(523.25, 'sine', 0.4, 0.1); // C5
+                setTimeout(() => this._playTone(659.25, 'sine', 0.5, 0.1), 80); // E5
+                setTimeout(() => this._playTone(783.99, 'sine', 0.7, 0.15), 160); // G5
+            }
+            
+            /** Failed Match (Low Dissonance) */
+            error() { this._playTone(150, 'sawtooth', 0.4, 0.1); }
+            
+            /** Magical Sparkle for Gift Opening */
+            sparkle() {
+                if (this.isMuted || !this.initialized) return;
+                const notes = [1046.50, 1318.51, 1567.98, 2093.00, 2637.02];
+                notes.forEach((freq, i) => { 
+                    setTimeout(() => this._playTone(freq, 'sine', 0.4, 0.08), i * 60); 
                 });
-                
-                // Final grand chord
-                setTimeout(() => {
-                    this.playTone(523.25, 'square', 1.5, 0.2);
-                    this.playTone(659.25, 'square', 1.5, 0.2);
-                    this.playTone(1046.50, 'square', 1.5, 0.2);
+            }
+            
+            /** Grand Win Fanfare */
+            winFanfare() {
+                if (this.isMuted || !this.initialized) return;
+                const arpeggio = [523.25, 659.25, 783.99, 1046.50];
+                arpeggio.forEach((freq, i) => { 
+                    setTimeout(() => this._playTone(freq, 'square', 0.5, 0.15), i * 150); 
+                });
+                // Final Power Chord
+                setTimeout(() => { 
+                    this._playTone(523.25, 'square', 2.0, 0.2); 
+                    this._playTone(659.25, 'square', 2.0, 0.2); 
+                    this._playTone(1046.50, 'square', 2.0, 0.2); 
                 }, 600);
             }
-
-            // Procedural Ambient Background Music
-            startAmbient() {
-                if (this.ambientInterval) clearInterval(this.ambientInterval);
-                this.ambientInterval = setInterval(() => {
-                    if (this.isMuted) return;
-                    // Pick a random note from the pentatonic scale
-                    const freq = this.scale[Math.floor(Math.random() * this.scale.length)];
-                    
-                    const osc = this.ctx.createOscillator();
-                    const gain = this.ctx.createGain();
-                    
-                    osc.type = 'sine';
-                    osc.frequency.value = freq / 2; // Drop an octave for warmth
-                    
-                    // Long, slow pad envelope
-                    gain.gain.setValueAtTime(0, this.ctx.currentTime);
-                    gain.gain.linearRampToValueAtTime(0.1, this.ctx.currentTime + 2); // Slow attack
-                    gain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 6); // Slow release
-                    
-                    osc.connect(gain);
-                    gain.connect(this.ambientGain);
-                    
-                    osc.start(this.ctx.currentTime);
-                    osc.stop(this.ctx.currentTime + 6);
-                }, 2000); // Trigger a new note every 2 seconds
+            
+            /** Wind / White Noise Burst for Candle Blowout */
+            puff() { 
+                if (this.isMuted || !this.initialized) return;
+                const bufferSize = this.ctx.sampleRate * 0.8; // 0.8 seconds of noise
+                const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1; 
+                
+                const noiseSource = this.ctx.createBufferSource(); 
+                noiseSource.buffer = buffer;
+                
+                // Filter the white noise to sound like wind/breath (Lowpass)
+                const filter = this.ctx.createBiquadFilter(); 
+                filter.type = 'lowpass'; 
+                filter.frequency.value = 800;
+                
+                // Envelope for the puff
+                const gain = this.ctx.createGain(); 
+                gain.gain.setValueAtTime(0, this.ctx.currentTime); 
+                gain.gain.linearRampToValueAtTime(0.8, this.ctx.currentTime + 0.1); // Attack
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.8); // Release
+                
+                noiseSource.connect(filter); 
+                filter.connect(gain); 
+                gain.connect(this.masterGain); 
+                
+                noiseSource.start();
             }
 
+            // ----------------------------------------------------------------------
+            // PROCEDURAL AMBIENT MUSIC GENERATOR
+            // ----------------------------------------------------------------------
+            
+            /** Starts the generative music box loop */
+            startAmbient() {
+                if (this.ambientInterval || !this.initialized) return;
+                
+                // Play a note every 2 seconds
+                this.ambientInterval = setInterval(() => {
+                    if (this.isMuted) return;
+                    
+                    // Pick a random note from the pentatonic scale
+                    const freq = this.pentatonicScale[Math.floor(Math.random() * this.pentatonicScale.length)];
+                    
+                    const osc = this.ctx.createOscillator(); 
+                    const gain = this.ctx.createGain();
+                    
+                    osc.type = 'sine'; 
+                    osc.frequency.value = freq / 2; // Drop an octave for a warmer pad sound
+                    
+                    // Very slow envelope for ambient pads
+                    gain.gain.setValueAtTime(0, this.ctx.currentTime); 
+                    gain.gain.linearRampToValueAtTime(0.15, this.ctx.currentTime + 2.5); // 2.5s Attack
+                    gain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 7); // 4.5s Release
+                    
+                    osc.connect(gain); 
+                    gain.connect(this.ambientGain); 
+                    
+                    osc.start(this.ctx.currentTime); 
+                    osc.stop(this.ctx.currentTime + 7);
+                    
+                    osc.onended = () => { osc.disconnect(); gain.disconnect(); };
+                }, 2200); 
+            }
+            
+            /** Stops the generative music box loop */
             stopAmbient() {
-                if (this.ambientInterval) clearInterval(this.ambientInterval);
-                this.ambientInterval = null;
+                if (this.ambientInterval) {
+                    clearInterval(this.ambientInterval);
+                    this.ambientInterval = null;
+                }
             }
         }
 
         /**
          * ==========================================================================
-         * MICROPHONE ENGINE (WebRTC Blow Detection)
+         * VECTOR MATHEMATICS
+         * Simple Vector2 class for the physics engines.
          * ==========================================================================
          */
-        class MicEngine {
+        class Vector2 {
+            constructor(x = 0, y = 0) { this.x = x; this.y = y; }
+            add(v) { this.x += v.x; this.y += v.y; return this; }
+            mult(n) { this.x *= n; this.y *= n; return this; }
+            mag() { return Math.sqrt(this.x * this.x + this.y * this.y); }
+            normalize() { const m = this.mag(); if (m !== 0) this.mult(1 / m); return this; }
+        }
+
+        /**
+         * ==========================================================================
+         * PHYSICS SYSTEM 1: BACKGROUND FLOW FIELD
+         * Renders calming, drifting orbs/stardust using trigonometric functions.
+         * ==========================================================================
+         */
+        class AmbientParticleEngine {
             constructor() {
+                this.canvas = document.getElementById('canvas-bg');
+                this.ctx = this.canvas.getContext('2d', { alpha: false });
+                this.particles = []; 
+                this.isTV = AppUtils.isDesktopView();
+                this.reqFrame = null;
+                
+                this.resize(); 
+                window.addEventListener('resize', () => { 
+                    this.isTV = AppUtils.isDesktopView(); 
+                    this.resize(); 
+                    this.init(); 
+                });
+                
+                this.init(); 
+            }
+
+            resize() { 
+                this.canvas.width = window.innerWidth; 
+                this.canvas.height = window.innerHeight; 
+            }
+
+            init() {
+                this.particles = []; 
+                const count = this.isTV ? 150 : 60; // Denser on desktop
+                for (let i = 0; i < count; i++) {
+                    this.particles.push({
+                        pos: new Vector2(Math.random() * this.canvas.width, Math.random() * this.canvas.height),
+                        radius: AppUtils.randomFloat(1, this.isTV ? 3.5 : 12),
+                        phase: AppUtils.randomFloat(0, Math.PI * 2), 
+                        speed: AppUtils.randomFloat(0.2, 0.7),
+                        color: this.isTV 
+                            ? `rgba(255, 215, 0, ${AppUtils.randomFloat(0.1, 0.6)})` // Gold dust
+                            : `rgba(255, 255, 255, ${AppUtils.randomFloat(0.1, 0.4)})` // Bubbly white/pink
+                    });
+                }
+            }
+
+            start() {
+                if (!this.reqFrame) this.animate();
+            }
+
+            animate() {
+                // Background clear using JS gradients to match CSS perfectly
+                if (this.isTV) {
+                    const grd = this.ctx.createRadialGradient(
+                        this.canvas.width/2, this.canvas.height/2, 0, 
+                        this.canvas.width/2, this.canvas.height/2, this.canvas.width
+                    );
+                    grd.addColorStop(0, '#1a202c'); 
+                    grd.addColorStop(1, '#050505'); 
+                    this.ctx.fillStyle = grd;
+                } else {
+                    const grd = this.ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
+                    grd.addColorStop(0, '#ff9a9e'); 
+                    grd.addColorStop(0.5, '#fecfef'); 
+                    grd.addColorStop(1, '#fbc2eb'); 
+                    this.ctx.fillStyle = grd;
+                }
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Update & Draw Particles
+                this.particles.forEach(p => {
+                    // Trigonometric drifting
+                    p.phase += 0.008; 
+                    p.pos.y -= p.speed; 
+                    p.pos.x += Math.sin(p.phase) * 0.6;
+                    
+                    // Wrap-around logic
+                    if (p.pos.y < -p.radius * 2) { 
+                        p.pos.y = this.canvas.height + p.radius * 2; 
+                        p.pos.x = Math.random() * this.canvas.width; 
+                    }
+                    if (p.pos.x > this.canvas.width + p.radius) p.pos.x = -p.radius; 
+                    else if (p.pos.x < -p.radius) p.pos.x = this.canvas.width + p.radius;
+                    
+                    // Draw
+                    this.ctx.beginPath(); 
+                    this.ctx.arc(p.pos.x, p.pos.y, p.radius, 0, Math.PI * 2); 
+                    this.ctx.fillStyle = p.color; 
+                    this.ctx.fill();
+                    
+                    // Dynamic glow based on size
+                    if (p.radius > 4) { 
+                        this.ctx.shadowBlur = 12; 
+                        this.ctx.shadowColor = p.color; 
+                    } else {
+                        this.ctx.shadowBlur = 0;
+                    }
+                });
+                
+                this.reqFrame = requestAnimationFrame(this.animate.bind(this));
+            }
+        }
+
+        /**
+         * ==========================================================================
+         * PHYSICS SYSTEM 2: QUANTUM UI FX
+         * High-performance localized particle bursts (e.g. for the countdown ticks).
+         * ==========================================================================
+         */
+        class BurstFXEngine {
+            constructor() {
+                this.canvas = document.getElementById('canvas-fx'); 
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.reqFrame = null;
+                
+                this.resize(); 
+                window.addEventListener('resize', () => this.resize());
+            }
+            
+            resize() { 
+                this.canvas.width = window.innerWidth; 
+                this.canvas.height = window.innerHeight; 
+            }
+            
+            /**
+             * Triggers a burst of particles at a specific DOM coordinate.
+             */
+            fireBurst(x, y, count = 25) {
+                const isTV = AppUtils.isDesktopView();
+                for(let i = 0; i < count; i++) {
+                    const angle = Math.random() * Math.PI * 2; 
+                    const speed = AppUtils.randomFloat(3, 8);
+                    
+                    // Hue generation: Gold for TV, Pink/White for Mobile
+                    const hue = isTV ? AppUtils.randomFloat(40, 60) : AppUtils.randomFloat(320, 350);
+                    const saturation = isTV ? "100%" : "80%";
+                    const lightness = isTV ? "60%" : "70%";
+                    
+                    this.particles.push({
+                        pos: new Vector2(x, y),
+                        vel: new Vector2(Math.cos(angle) * speed, Math.sin(angle) * speed),
+                        life: 1.0, 
+                        decay: AppUtils.randomFloat(0.015, 0.03),
+                        size: AppUtils.randomFloat(2, 6), 
+                        color: `hsl(${hue}, ${saturation}, ${lightness})`
+                    });
+                }
+                
+                if (!this.reqFrame) this.animate();
+            }
+            
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                let alive = false;
+                
+                for(let i = this.particles.length - 1; i >= 0; i--) {
+                    let p = this.particles[i]; 
+                    
+                    // Update
+                    p.pos.add(p.vel); 
+                    p.life -= p.decay;
+                    
+                    if(p.life <= 0) { 
+                        this.particles.splice(i, 1); 
+                        continue; 
+                    }
+                    
+                    alive = true;
+                    
+                    // Draw
+                    this.ctx.globalAlpha = p.life; 
+                    this.ctx.fillStyle = p.color;
+                    this.ctx.beginPath(); 
+                    this.ctx.arc(p.pos.x, p.pos.y, p.size, 0, Math.PI * 2); 
+                    this.ctx.fill();
+                }
+                
+                this.ctx.globalAlpha = 1.0; 
+                
+                if (alive) {
+                    this.reqFrame = requestAnimationFrame(this.animate.bind(this));
+                } else {
+                    this.reqFrame = null;
+                }
+            }
+        }
+
+        /**
+         * ==========================================================================
+         * PHYSICS SYSTEM 3: 3D CONFETTI SIMULATOR
+         * Complex tumbling ribbons with gravity and air resistance.
+         * ==========================================================================
+         */
+        class ConfettiSimulator {
+            constructor() {
+                this.canvas = document.getElementById('canvas-confetti'); 
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = []; 
+                this.active = false;
+                
+                // Premium color palette
+                this.colors = ['#ffd700', '#ff69b4', '#00ff00', '#00ffff', '#ff0000', '#ffffff', '#9333ea'];
+                
+                window.addEventListener('resize', () => { 
+                    if (this.active) {
+                        this.canvas.width = window.innerWidth; 
+                        this.canvas.height = window.innerHeight; 
+                    }
+                });
+            }
+            
+            /**
+             * Fires the confetti cannon from a specific Y origin (usually bottom).
+             */
+            fire(originY = null) {
+                this.canvas.classList.remove('state-gone'); 
+                this.canvas.width = window.innerWidth; 
+                this.canvas.height = window.innerHeight; 
+                
+                const startY = originY || this.canvas.height;
+                this.active = true;
+                
+                // Generate 250 high-quality particles
+                for (let i = 0; i < 250; i++) {
+                    this.particles.push({
+                        pos: new Vector2(this.canvas.width / 2, startY),
+                        vel: new Vector2(AppUtils.randomFloat(-35, 35), AppUtils.randomFloat(-40, -15)),
+                        size: new Vector2(AppUtils.randomFloat(8, 18), AppUtils.randomFloat(8, 18)),
+                        color: this.colors[Math.floor(Math.random() * this.colors.length)],
+                        rot: { x: AppUtils.randomFloat(0, 360), y: AppUtils.randomFloat(0, 360), z: AppUtils.randomFloat(0, 360) },
+                        rotSpeed: { x: AppUtils.randomFloat(-10, 10), y: AppUtils.randomFloat(-10, 10), z: AppUtils.randomFloat(-10, 10) }
+                    });
+                }
+                this.render();
+            }
+            
+            render() {
+                if (!this.active) return;
+                
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); 
+                let alive = false;
+                
+                this.particles.forEach(p => {
+                    // Physics integration
+                    p.vel.y += 0.7; // Gravity
+                    p.vel.x *= 0.98; // Air resistance (drag X)
+                    p.vel.y *= 0.99; // Air resistance (drag Y)
+                    
+                    p.pos.add(p.vel);
+                    
+                    // 3D Euler Rotation updates
+                    p.rot.x += p.rotSpeed.x;
+                    p.rot.y += p.rotSpeed.y;
+                    p.rot.z += p.rotSpeed.z;
+                    
+                    // Check bounds (kill if below screen)
+                    if (p.pos.y < this.canvas.height + 100) alive = true;
+                    
+                    // 3D Rendering projection hack using scaling
+                    this.ctx.save(); 
+                    this.ctx.translate(p.pos.x, p.pos.y); 
+                    this.ctx.rotate(p.rot.z * Math.PI / 180);
+                    
+                    // Simulate 3D flip by scaling the X/Y axes based on rotation
+                    const scaleX = Math.cos(p.rot.x * Math.PI / 180);
+                    const scaleY = Math.cos(p.rot.y * Math.PI / 180);
+                    this.ctx.scale(scaleX, scaleY);
+                    
+                    this.ctx.fillStyle = p.color; 
+                    this.ctx.fillRect(-p.size.x/2, -p.size.y/2, p.size.x, p.size.y); 
+                    this.ctx.restore();
+                });
+                
+                if (alive) {
+                    requestAnimationFrame(this.render.bind(this));
+                } else { 
+                    this.active = false; 
+                    this.particles = []; 
+                    this.canvas.classList.add('state-gone');
+                }
+            }
+        }
+
+        /**
+         * ==========================================================================
+         * MICROPHONE SENSOR (WebRTC)
+         * Analyzes audio frequency bins to detect blowing wind noise.
+         * ==========================================================================
+         */
+        class MicSensor {
+            constructor() { 
+                this.isListening = false; 
                 this.audioCtx = null;
                 this.analyser = null;
                 this.microphone = null;
                 this.dataArray = null;
-                this.isListening = false;
-                this.onBlowOut = null;
                 this.reqFrame = null;
+                this.onBlowOut = null;
+                
+                // UI Elements
+                this.eqBar = document.getElementById('mic-eq-bar');
+                this.eqDisplay = document.getElementById('mic-eq-display');
             }
-
+            
+            /**
+             * Requests microphone access and begins FFT analysis.
+             */
             async startListening(callback) {
                 this.onBlowOut = callback;
                 try {
                     const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+                    
+                    // Native Audio Context for analyzing (separate from synth engine)
                     this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    this.analyser = this.audioCtx.createAnalyser();
+                    this.analyser = this.audioCtx.createAnalyser(); 
                     this.microphone = this.audioCtx.createMediaStreamSource(stream);
                     
-                    // Configuration for detecting low frequency wind/breath noise
+                    // Configuration optimized for low-frequency rumble (breath/wind)
                     this.analyser.fftSize = 256; 
-                    this.analyser.smoothingTimeConstant = 0.4;
+                    this.analyser.smoothingTimeConstant = 0.5;
                     this.microphone.connect(this.analyser);
                     
-                    const bufferLength = this.analyser.frequencyBinCount;
-                    this.dataArray = new Uint8Array(bufferLength);
+                    this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+                    this.isListening = true; 
                     
-                    this.isListening = true;
+                    // Show EQ UI
+                    this.eqDisplay.style.display = 'block';
+                    
                     this.detectBlow();
                 } catch (err) {
-                    console.warn("Microphone access denied or unavailable. Fallback to tap enabled.", err);
-                    // Update hint for fallback
-                    document.getElementById('blow-hint').innerText = "Tap the cake to blow out candles!";
+                    console.warn("Microphone access denied or unavailable. Fallback enabled.", err);
+                    document.getElementById('sensor-hint-text').innerText = "Mic blocked. Tap the cake to proceed.";
                 }
             }
-
+            
+            /**
+             * Recursive analysis loop inspecting the FFT bins.
+             */
             detectBlow() {
                 if (!this.isListening) return;
                 
                 this.analyser.getByteFrequencyData(this.dataArray);
                 
-                // Breath into a mic registers heavily in the lower frequency bins (0 to 10)
-                let lowFreqSum = 0;
+                // Average the lowest 10 frequency bins (where wind/breath registers)
+                let lowFreqSum = 0; 
                 for (let i = 0; i < 10; i++) {
                     lowFreqSum += this.dataArray[i];
                 }
-                
                 const averageLow = lowFreqSum / 10;
                 
-                // Threshold tuning: 200 is generally a solid breath/wind rumble threshold
-                if (averageLow > 220) {
-                    this.stopListening();
-                    if (this.onBlowOut) this.onBlowOut();
+                // Update Visualizer UI (Map 0-255 to 0-100%)
+                const percentage = Math.min((averageLow / 200) * 100, 100);
+                this.eqBar.style.width = `${percentage}%`;
+                
+                // Threshold Check: 210 out of 255 is a strong, sustained breath
+                if (averageLow > 210) { 
+                    this.stopListening(); 
+                    if (this.onBlowOut) this.onBlowOut(); 
                 } else {
                     this.reqFrame = requestAnimationFrame(this.detectBlow.bind(this));
                 }
             }
-
+            
+            /**
+             * Gracefully cleans up media streams and context.
+             */
             stopListening() {
-                this.isListening = false;
+                this.isListening = false; 
                 if (this.reqFrame) cancelAnimationFrame(this.reqFrame);
-                if (this.microphone) {
-                    this.microphone.mediaStream.getTracks().forEach(track => track.stop());
-                    this.microphone.disconnect();
+                if (this.microphone) { 
+                    this.microphone.mediaStream.getTracks().forEach(t => t.stop()); 
+                    this.microphone.disconnect(); 
                 }
                 if (this.audioCtx) this.audioCtx.close();
+                
+                // Hide EQ UI
+                this.eqDisplay.style.display = 'none';
             }
         }
 
         /**
          * ==========================================================================
-         * PHYSICS SYSTEMS (Background Particles & Confetti)
+         * UI MANAGER (DOM Controller)
+         * Centralized control for screen transitions, modals, and dev panel.
          * ==========================================================================
          */
-        class ParticleSystem {
-            constructor(canvasId) {
-                this.canvas = document.getElementById(canvasId);
-                this.ctx = this.canvas.getContext('2d', { alpha: false });
-                this.particles = [];
-                this.isTV = window.innerWidth >= 1024;
-                this.resize();
+        class UIManager {
+            constructor() { 
+                this.screens = document.querySelectorAll('.screen-container'); 
                 
-                window.addEventListener('resize', () => {
-                    this.isTV = window.innerWidth >= 1024;
-                    this.resize();
-                    this.initParticles();
-                });
+                // Cache Modal Elements
+                this.modalOverlay = document.getElementById('sys-modal');
+                this.modalTitle = document.getElementById('sys-modal-title');
+                this.modalBody = document.getElementById('sys-modal-body');
                 
-                this.initParticles();
-                this.animate();
-            }
-
-            resize() {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-            }
-
-            initParticles() {
-                this.particles = [];
-                const count = this.isTV ? 120 : 50; // More particles for TV
-                for (let i = 0; i < count; i++) {
-                    this.particles.push({
-                        x: Math.random() * this.canvas.width,
-                        y: Math.random() * this.canvas.height,
-                        radius: Math.random() * (this.isTV ? 2.5 : 12) + 1, // TV = stardust, Mobile = bubbles
-                        phase: Math.random() * Math.PI * 2, // For sine wave drifting
-                        speed: Math.random() * 0.5 + 0.2,
-                        // TV gets gold dust, Mobile gets white/pink bubbles
-                        color: this.isTV 
-                            ? `rgba(255, 215, 0, ${Math.random() * 0.5 + 0.1})` 
-                            : `rgba(255, 255, 255, ${Math.random() * 0.3 + 0.1})`
-                    });
-                }
-            }
-
-            animate() {
-                // Background clear with proper theme colors
-                if (this.isTV) {
-                    // Dark radial gradient simulation in canvas
-                    const grd = this.ctx.createRadialGradient(
-                        this.canvas.width/2, this.canvas.height/2, 0, 
-                        this.canvas.width/2, this.canvas.height/2, this.canvas.width
-                    );
-                    grd.addColorStop(0, '#1a202c');
-                    grd.addColorStop(1, '#000000');
-                    this.ctx.fillStyle = grd;
-                } else {
-                    // Mobile linear gradient simulation
-                    const grd = this.ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
-                    grd.addColorStop(0, '#ff9a9e');
-                    grd.addColorStop(1, '#fecfef');
-                    this.ctx.fillStyle = grd;
-                }
+                // Bind Modal Close
+                document.getElementById('sys-modal-btn').addEventListener('click', () => this.closeModal());
                 
-                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-                // Draw Flow-Field Particles
-                this.particles.forEach(p => {
-                    // Trigonometric organic movement (Flow Field simulation)
-                    p.phase += 0.01;
-                    p.y -= p.speed;
-                    p.x += Math.sin(p.phase) * 0.5;
-
-                    // Wrap around
-                    if (p.y < -p.radius * 2) {
-                        p.y = this.canvas.height + p.radius * 2;
-                        p.x = Math.random() * this.canvas.width;
-                    }
-                    if (p.x > this.canvas.width + p.radius) p.x = -p.radius;
-                    if (p.x < -p.radius) p.x = this.canvas.width + p.radius;
-
-                    this.ctx.beginPath();
-                    this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    this.ctx.fillStyle = p.color;
-                    this.ctx.fill();
-                    
-                    // Add subtle glow to larger particles
-                    if (p.radius > 5) {
-                        this.ctx.shadowBlur = 10;
-                        this.ctx.shadowColor = p.color;
-                    } else {
-                        this.ctx.shadowBlur = 0;
-                    }
-                });
-
-                requestAnimationFrame(this.animate.bind(this));
-            }
-        }
-
-        class ConfettiSystem {
-            constructor(canvasId) {
-                this.canvas = document.getElementById(canvasId);
-                this.ctx = this.canvas.getContext('2d');
-                this.particles = [];
-                this.colors = ['#ffd700', '#ff69b4', '#00ff00', '#00ffff', '#ff0000', '#ffffff'];
-                this.active = false;
-                
-                window.addEventListener('resize', () => {
-                    this.canvas.width = window.innerWidth;
-                    this.canvas.height = window.innerHeight;
-                });
-            }
-
-            fire() {
-                this.canvas.classList.remove('gone');
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-                this.active = true;
-                
-                // Explode from bottom center
-                for (let i = 0; i < 200; i++) {
-                    this.particles.push({
-                        x: this.canvas.width / 2,
-                        y: this.canvas.height,
-                        vx: (Math.random() - 0.5) * 25,
-                        vy: (Math.random() - 1) * 35 - 10,
-                        size: Math.random() * 12 + 5,
-                        color: this.colors[Math.floor(Math.random() * this.colors.length)],
-                        rotation: Math.random() * 360,
-                        rotSpeed: (Math.random() - 0.5) * 20
-                    });
-                }
-                this.render();
-            }
-
-            render() {
-                if (!this.active) return;
-                
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                let alive = false;
-                
-                this.particles.forEach(p => {
-                    // Physics
-                    p.vy += 0.6; // Gravity
-                    p.vx *= 0.99; // Air resistance
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    p.rotation += p.rotSpeed;
-                    
-                    if (p.y < this.canvas.height + 50) alive = true;
-
-                    // Draw rotated square
-                    this.ctx.save();
-                    this.ctx.translate(p.x, p.y);
-                    this.ctx.rotate(p.rotation * Math.PI / 180);
-                    this.ctx.fillStyle = p.color;
-                    this.ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
-                    this.ctx.restore();
-                });
-
-                if (alive) {
-                    requestAnimationFrame(this.render.bind(this));
-                } else {
-                    this.active = false;
-                    this.particles = [];
-                }
-            }
-        }
-
-        /**
-         * ==========================================================================
-         * UI CONTROLLER
-         * Manages DOM elements, Screens, and Custom Modals
-         * ==========================================================================
-         */
-        class UIController {
-            constructor() {
-                this.screens = document.querySelectorAll('.screen');
-                this.modalOverlay = document.getElementById('modal-overlay');
-                this.modalTitle = document.getElementById('modal-title');
-                this.modalBody = document.getElementById('modal-body');
-            }
-
-            showScreen(id) {
-                this.screens.forEach(s => s.classList.add('hidden'));
-                setTimeout(() => {
-                    this.screens.forEach(s => s.classList.add('gone'));
-                    const target = document.getElementById(id);
-                    target.classList.remove('gone');
-                    // Force reflow
-                    void target.offsetWidth;
-                    target.classList.remove('hidden');
-                }, 600);
-            }
-
-            showModal(title, message) {
-                this.modalTitle.innerText = title;
-                this.modalBody.innerText = message;
-                this.modalOverlay.classList.add('active');
-            }
-
-            closeModal() {
-                this.modalOverlay.classList.remove('active');
-            }
-
-            toggleDevPanel() {
-                const panel = document.getElementById('dev-panel');
-                panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+                // Bind Audio Toggle
+                this.btnAudio = document.getElementById('btn-master-audio');
+                this.iconOn = document.getElementById('icon-sound-on-view');
+                this.iconOff = document.getElementById('icon-sound-off-view');
             }
             
-            closeDevPanel() {
-                document.getElementById('dev-panel').style.display = 'none';
+            /**
+             * Transitions to a new screen using CSS state classes.
+             * @param {string} id - The ID of the screen to show.
+             */
+            showScreen(id) {
+                // Fade out all current screens
+                this.screens.forEach(s => {
+                    if (!s.classList.contains('state-hidden') && !s.classList.contains('state-gone')) {
+                        s.classList.add('state-hidden');
+                    }
+                });
+                
+                // Wait for fade out, then swap display properties
+                setTimeout(() => {
+                    this.screens.forEach(s => s.classList.add('state-gone'));
+                    
+                    const target = document.getElementById(id);
+                    target.classList.remove('state-gone'); 
+                    
+                    // Force browser reflow to guarantee CSS transition plays
+                    void target.offsetWidth; 
+                    
+                    target.classList.remove('state-hidden');
+                }, 600); // Matches var(--transition-medium)
             }
-
-            spawnFloatText(text, x, y) {
-                const el = document.createElement('div');
-                el.className = 'floating-text';
-                el.innerText = text;
-                el.style.left = x + 'px';
-                el.style.top = y + 'px';
-                document.body.appendChild(el);
-                setTimeout(() => el.remove(), 1200);
+            
+            /**
+             * Opens the custom modal system (replaces native alert).
+             */
+            showModal(title, message) {
+                this.modalTitle.innerText = title; 
+                this.modalBody.innerText = message;
+                this.modalOverlay.classList.add('is-active');
+            }
+            
+            closeModal() { 
+                this.modalOverlay.classList.remove('is-active'); 
+            }
+            
+            /**
+             * Developer Admin Console Toggle
+             */
+            toggleDevPanel() { 
+                const p = document.getElementById('dev-admin-console'); 
+                p.style.display = p.style.display === 'block' ? 'none' : 'block'; 
+            }
+            
+            closeDevPanel() { 
+                document.getElementById('dev-admin-console').style.display = 'none'; 
+            }
+            
+            /**
+             * Updates the visual state of the audio toggle button.
+             */
+            updateAudioIcon(isMuted) {
+                if (isMuted) {
+                    this.iconOn.classList.add('state-gone');
+                    this.iconOff.classList.remove('state-gone');
+                } else {
+                    this.iconOn.classList.remove('state-gone');
+                    this.iconOff.classList.add('state-gone');
+                }
+            }
+            
+            /**
+             * Spawns temporary floating text (e.g. "+5s") at specific coordinates.
+             */
+            spawnFloatingText(text, x, y) {
+                const el = document.createElement('div'); 
+                el.className = 'fx-floating-text'; 
+                el.innerText = text; 
+                el.style.left = `${x}px`; 
+                el.style.top = `${y}px`;
+                document.body.appendChild(el); 
+                
+                // Cleanup after animation completes
+                setTimeout(() => el.remove(), 1500);
             }
         }
 
         /**
          * ==========================================================================
-         * GAME ENGINE (4x4 Memory Match)
+         * GAME ENGINE (4x4 Memory Match System)
+         * Manages game state, logic, scoring, combo streaks, and timers.
          * ==========================================================================
          */
-        class GameEngine {
-            constructor(appRef) {
-                this.app = appRef;
+        class MemoryGameEngine {
+            constructor(coreApp) {
+                this.app = coreApp;
                 
-                // High Quality Unsplash Images for memories
-                this.photos = [
-                    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=300&q=80", // Mountains
-                    "https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=300&q=80", // Cozy Lights
+                // Highly curated Unsplash image dataset representing memories
+                this.photoData = [
+                    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=300&q=80", // Mountains/Uttarakhand
+                    "https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=300&q=80", // Cozy Lights/Blanket Fort
                     "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=300&q=80", // Cake
                     "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=300&q=80", // Pizza
-                    "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=300&q=80", // Tiger
-                    "https://images.unsplash.com/photo-1585506942812-e72e4d78b0d1?auto=format&fit=crop&w=300&q=80", // Castle
-                    "https://images.unsplash.com/photo-1599577180572-881c62b66236?auto=format&fit=crop&w=300&q=80", // Nuts
+                    "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=300&q=80", // Tiger/Safari
+                    "https://images.unsplash.com/photo-1585506942812-e72e4d78b0d1?auto=format&fit=crop&w=300&q=80", // Castle/Taj Mahal
+                    "https://images.unsplash.com/photo-1599577180572-881c62b66236?auto=format&fit=crop&w=300&q=80", // Dry Fruits/Nuts
                     "https://images.unsplash.com/photo-1587573089734-09cb69c0f2b4?auto=format&fit=crop&w=300&q=80"  // Dominoes
                 ];
                 
-                this.deck = [];
-                this.flipped = [];
-                this.matches = 0;
-                this.locked = false;
+                // Game State
+                this.deck = []; 
+                this.flippedCards = []; 
+                this.matchesFound = 0; 
+                this.isGridLocked = false; 
                 this.timeLeft = 60;
-                this.timerInt = null;
-            }
-
-            init() {
-                const grid = document.getElementById('grid');
-                grid.innerHTML = '';
+                this.timerInterval = null;
                 
-                this.deck = [...this.photos, ...this.photos];
-                // Shuffle array (Fisher-Yates)
-                for (let i = this.deck.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
-                }
-
-                this.matches = 0;
-                this.locked = false;
-                this.timeLeft = 60;
-                this.updateHUD();
-
-                this.deck.forEach((url, i) => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.dataset.val = url;
-                    
-                    // Card structure
-                    const front = document.createElement('div');
-                    front.className = 'card-face card-front';
-                    front.innerText = '❤️';
-                    
-                    const back = document.createElement('div');
-                    back.className = 'card-face card-back';
-                    const img = document.createElement('img');
-                    img.src = url;
-                    back.appendChild(img);
-                    
-                    card.appendChild(front);
-                    card.appendChild(back);
-                    
-                    card.onclick = () => this.flipCard(card);
-                    grid.appendChild(card);
-                });
-
-                this.startTimer();
+                // Advanced Scoring
+                this.currentStreak = 0;
+                
+                // DOM Cache
+                this.uiTimeText = document.getElementById('game-clock');
+                this.uiScoreText = document.getElementById('game-score');
+                this.uiProgressBar = document.getElementById('game-progress-bar');
+                this.uiComboBadge = document.getElementById('combo-badge');
             }
-
-            startTimer() {
-                if(this.timerInt) clearInterval(this.timerInt);
-                this.timerInt = setInterval(() => {
-                    this.timeLeft--;
+            
+            /**
+             * Initializes the board and starts the game loop.
+             */
+            initialize() {
+                const board = document.getElementById('memory-board'); 
+                board.innerHTML = '';
+                
+                // Generate and shuffle deck (8 pairs = 16 cards)
+                this.deck = [...this.photoData, ...this.photoData];
+                AppUtils.shuffleArray(this.deck);
+                
+                // Reset State
+                this.matchesFound = 0; 
+                this.isGridLocked = false; 
+                this.timeLeft = 60; 
+                this.currentStreak = 0;
+                this.updateHUD();
+                
+                // Render DOM Elements
+                this.deck.forEach((imgUrl) => {
+                    const card = document.createElement('div'); 
+                    card.className = 'memory-card'; 
+                    card.dataset.id = imgUrl; // Storing URL as the match identifier
+                    
+                    card.innerHTML = `
+                        <div class="card-face card-front">❤️</div>
+                        <div class="card-face card-back"><img src="${imgUrl}" alt="Memory"></div>
+                    `;
+                    
+                    // Bind event listener
+                    card.addEventListener('click', () => this.handleCardClick(card));
+                    board.appendChild(card);
+                });
+                
+                this.startClock();
+            }
+            
+            /**
+             * Manages the 1-second interval loop.
+             */
+            startClock() {
+                if(this.timerInterval) clearInterval(this.timerInterval);
+                
+                this.timerInterval = setInterval(() => {
+                    this.timeLeft--; 
                     this.updateHUD();
                     
+                    // Time Up Logic
                     if(this.timeLeft <= 0) {
-                        clearInterval(this.timerInt);
-                        this.app.audio.error();
-                        this.app.ui.showModal("Time's Up!", "Don't worry, you get 30 extra seconds. Keep going!");
-                        this.timeLeft = 30; // Grace period
-                        this.startTimer();
+                        clearInterval(this.timerInterval); 
+                        this.app.synth.error(); 
+                        this.app.haptics.error();
+                        
+                        this.app.ui.showModal(
+                            "Time's Up!", 
+                            "Don't worry, Mom! You get 30 extra seconds. Keep going!"
+                        );
+                        
+                        // Grant grace period and restart clock
+                        this.timeLeft = 30; 
+                        this.currentStreak = 0; // Reset streak on timeout
+                        this.startClock();
                     }
                 }, 1000);
             }
-
+            
+            /**
+             * Updates all HUD data (timer, score, progress bar).
+             */
             updateHUD() {
-                const timeText = document.getElementById('time-text');
-                const fill = document.getElementById('progress-fill');
-                document.getElementById('matches-count').innerText = this.matches;
+                // Update Text
+                this.uiTimeText.innerText = `${this.timeLeft.toFixed(1)}s`;
+                this.uiScoreText.innerText = this.matchesFound;
                 
-                timeText.innerText = this.timeLeft + 's';
-                const pct = (this.timeLeft / 60) * 100;
-                fill.style.width = Math.min(pct, 100) + '%';
+                // Update Progress Bar
+                const percentage = Math.min((this.timeLeft / 60) * 100, 100);
+                this.uiProgressBar.style.width = `${percentage}%`;
                 
-                fill.className = 'progress-fill';
-                if(this.timeLeft <= 15) fill.classList.add('progress-danger');
-                else if(this.timeLeft <= 30) fill.classList.add('progress-warning');
-            }
-
-            flipCard(card) {
-                if (this.locked || card.classList.contains('flipped')) return;
-                
-                this.app.audio.pop();
-                card.classList.add('flipped');
-                this.flipped.push(card);
-
-                if (this.flipped.length === 2) {
-                    this.locked = true;
-                    this.checkMatch();
+                // Dynamic Bar Colors based on time urgency
+                this.uiProgressBar.className = 'hud-progress-fill'; // Reset classes
+                if(this.timeLeft <= 15) {
+                    this.uiProgressBar.classList.add('fill-danger');
+                } else if(this.timeLeft <= 30) {
+                    this.uiProgressBar.classList.add('fill-warning');
                 }
             }
-
-            checkMatch() {
-                const [c1, c2] = this.flipped;
+            
+            /**
+             * Interaction handler for card clicks.
+             */
+            handleCardClick(card) {
+                // Prevent clicking if locked, or clicking an already flipped/matched card
+                if (this.isGridLocked || card.classList.contains('is-flipped') || card.classList.contains('is-matched')) {
+                    return;
+                }
                 
-                if (c1.dataset.val === c2.dataset.val) {
-                    // Match Success
-                    this.app.audio.match();
-                    this.matches++;
+                this.app.synth.pop(); 
+                this.app.haptics.pop(); 
+                
+                // FX Burst on click
+                const rect = card.getBoundingClientRect();
+                this.app.fx.fireBurst(rect.left + rect.width/2, rect.top + rect.height/2, 10);
+                
+                card.classList.add('is-flipped'); 
+                this.flippedCards.push(card);
+                
+                // If two cards are flipped, evaluate match
+                if (this.flippedCards.length === 2) { 
+                    this.isGridLocked = true; 
+                    this.evaluateMatch(); 
+                }
+            }
+            
+            /**
+             * Core logic determining if two flipped cards match.
+             */
+            evaluateMatch() {
+                const [card1, card2] = this.flippedCards;
+                
+                if (card1.dataset.id === card2.dataset.id) {
+                    // --- SUCCESS ---
+                    this.matchesFound++; 
+                    this.currentStreak++;
                     
-                    // Bonus Time
-                    this.timeLeft = Math.min(60, this.timeLeft + 5); 
+                    this.app.synth.match(); 
+                    this.app.haptics.success(); 
                     
-                    // Visual feedback
-                    const rect = c2.getBoundingClientRect();
-                    this.app.ui.spawnFloatText("+5s", rect.left + rect.width/2 - 20, rect.top);
-                    
-                    c1.classList.add('matched');
-                    c2.classList.add('matched');
-                    
-                    this.flipped = [];
-                    this.updateHUD();
-                    this.locked = false;
-                    
-                    if (this.matches === 8) {
-                        clearInterval(this.timerInt);
-                        setTimeout(() => this.app.triggerWin(), 1000);
+                    // Calculate Time Bonus (Base + Streak Multiplier)
+                    let timeBonus = 5;
+                    if (this.currentStreak >= 2) {
+                        timeBonus = 5 + (this.currentStreak * 2);
+                        
+                        // Show Combo UI Badge
+                        this.uiComboBadge.innerText = `${this.currentStreak}x STREAK!`;
+                        this.uiComboBadge.classList.add('combo-active');
+                        setTimeout(() => this.uiComboBadge.classList.remove('combo-active'), 1500);
                     }
-                } else {
-                    // Match Failed
-                    this.app.audio.error();
-                    c1.classList.add('shake');
-                    c2.classList.add('shake');
                     
-                    setTimeout(() => {
-                        c1.classList.remove('flipped', 'shake');
-                        c2.classList.remove('flipped', 'shake');
-                        this.flipped = [];
-                        this.locked = false;
-                    }, 800);
+                    this.timeLeft = Math.min(60, this.timeLeft + timeBonus); 
+                    
+                    // Spawn Floating "+X s" text
+                    const rect = card2.getBoundingClientRect(); 
+                    this.app.ui.spawnFloatingText(`+${timeBonus}s`, rect.left + rect.width/2 - 25, rect.top);
+                    
+                    // Lock cards into matched state
+                    card1.classList.add('is-matched'); 
+                    card2.classList.add('is-matched');
+                    
+                    // Reset Turn
+                    this.flippedCards = []; 
+                    this.updateHUD(); 
+                    this.isGridLocked = false;
+                    
+                    // Check Win Condition
+                    if (this.matchesFound === 8) { 
+                        clearInterval(this.timerInterval); 
+                        setTimeout(() => this.app.executeWinProtocol(), 1000); 
+                    }
+                    
+                } else {
+                    // --- FAILURE ---
+                    this.currentStreak = 0; // Break combo
+                    this.app.synth.error(); 
+                    this.app.haptics.error(); 
+                    
+                    // Trigger shake animation via CSS by temporarily manipulating style
+                    card1.style.animation = "boxRattle 0.5s";
+                    card2.style.animation = "boxRattle 0.5s";
+                    
+                    // Dynamic penalty delay: Faster penalty if time is running out
+                    const penaltyDelay = this.timeLeft > 15 ? 900 : 500;
+                    
+                    setTimeout(() => { 
+                        // Clear animations
+                        card1.style.animation = "";
+                        card2.style.animation = "";
+                        
+                        // Flip back
+                        card1.classList.remove('is-flipped'); 
+                        card2.classList.remove('is-flipped'); 
+                        
+                        // Reset Turn
+                        this.flippedCards = []; 
+                        this.isGridLocked = false; 
+                    }, penaltyDelay);
                 }
             }
-
-            forceWin() {
-                clearInterval(this.timerInt);
-                this.app.triggerWin();
+            
+            /** Backdoor win trigger for testing/admin. */
+            triggerAdminWin() { 
+                clearInterval(this.timerInterval); 
+                this.app.executeWinProtocol(); 
             }
         }
 
         /**
          * ==========================================================================
-         * MAIN APPLICATION CONTROLLER
-         * Ties all engines together and handles the Magic QR routing
+         * MOBILE REVEAL SEQUENCER
+         * Controls the multi-stage post-QR experience (Cake -> Gift -> Location).
          * ==========================================================================
          */
-        class App {
-            constructor() {
-                this.config = { time: 5, loc: "Master Bedroom Closet" };
-                
-                // Initialize Engines
-                this.ui = new UIController();
-                this.audio = new AudioEngine();
-                this.mic = new MicEngine();
-                this.particles = new ParticleSystem('bg-canvas');
-                this.confetti = new ConfettiSystem('confetti-canvas');
-                this.game = new GameEngine(this);
-
-                // Setup Event Listeners
-                this.setupKeyboardShortcuts();
-                
-                // Check for Magic QR payload in URL
-                this.checkRouting();
-            }
-
-            setupKeyboardShortcuts() {
-                document.addEventListener('keydown', (e) => {
-                    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
-                        this.ui.toggleDevPanel();
-                    }
-                });
-            }
-
-            checkRouting() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const payload = urlParams.get('reveal');
-                
-                if (payload) {
-                    // MOBILE REVEAL MODE (Scanned from QR)
-                    try {
-                        this.config.loc = Utils.decodeBase64(payload);
-                        this.ui.showScreen('screen-mobile-gateway');
-                    } catch(e) {
-                        this.ui.showModal("Error", "Invalid gift code. Please scan the TV again.");
-                    }
-                } else {
-                    // SETUP MODE (Default)
-                    this.ui.showScreen('screen-setup');
-                }
-            }
-
-            toggleAudio() {
-                const isMuted = this.audio.toggleMute();
-                document.getElementById('icon-sound-on').classList.toggle('gone', isMuted);
-                document.getElementById('icon-sound-off').classList.toggle('gone', !isMuted);
-            }
-
-            // Flow: Setup -> Countdown
-            startCountdownSequence() {
-                this.audio.unlock(); // Ensure audio context is ready on user interaction
-                this.audio.startAmbient(); // Start background music
-                
-                const rawLoc = document.getElementById('input-loc').value.trim();
-                if(rawLoc) this.config.loc = rawLoc;
-                this.config.time = parseInt(document.getElementById('input-time').value) || 5;
-                
-                this.ui.showScreen('screen-countdown');
-                
-                let left = this.config.time;
-                const numEl = document.getElementById('countdown-number');
-                const circEl = document.getElementById('svg-circle');
-                
-                numEl.innerText = left;
-                circEl.style.transition = 'none';
-                circEl.style.strokeDashoffset = '0';
-                
-                setTimeout(() => {
-                    circEl.style.transition = 'stroke-dashoffset 1s linear';
-                    const countInt = setInterval(() => {
-                        left--;
-                        this.audio.tick();
-                        numEl.innerText = left;
-                        
-                        // Calculate dash offset based on percentage
-                        const offset = 628 - (left / this.config.time) * 628;
-                        circEl.style.strokeDashoffset = offset;
-                        
-                        if(left <= 0) {
-                            clearInterval(countInt);
-                            this.ui.showScreen('screen-welcome');
-                        }
-                    }, 1000);
-                }, 50);
-            }
-
-            // Flow: Welcome -> Game
-            startGame() {
-                this.ui.showScreen('screen-game');
-                this.game.init();
-            }
-
-            // Flow: Game Win -> TV (QR) or Direct Win
-            triggerWin() {
-                if (window.innerWidth >= 1024) {
-                    // TV MODE: Generate Magic QR Code
-                    // Strip existing params, add base64 payload
-                    const baseUrl = window.location.href.split('?')[0];
-                    const magicUrl = `${baseUrl}?reveal=${Utils.encodeBase64(this.config.loc)}`;
-                    
-                    const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data=${encodeURIComponent(magicUrl)}`;
-                    document.getElementById('qr-image').src = qrSrc;
-                    
-                    this.ui.showScreen('screen-tv-win');
-                    this.confetti.fire();
-                    this.audio.winFanfare();
-                } else {
-                    // ALREADY ON MOBILE: Just win directly
-                    this.revealFinalGift();
-                }
-            }
-
-            // Flow: Mobile Gateway -> Candle Screen
-            initMobileReveal() {
-                this.audio.unlock();
-                this.ui.showScreen('screen-mobile-reveal');
-                
-                // Start listening for blow
-                this.mic.startListening(() => {
-                    this.forceBlowOut();
-                });
-            }
-
-            // Action: Extinguish candles and show final gift
-            forceBlowOut() {
-                // Prevent double trigger
-                if (document.getElementById('screen-mobile-reveal').classList.contains('hidden')) return;
-                
-                this.mic.stopListening();
-                this.audio.puff();
-                
-                // Animate flames out via CSS
-                const flames = document.querySelectorAll('.flame');
-                flames.forEach(f => f.classList.add('blown-out'));
-                
-                // Wait for smoke animation, then reveal
-                setTimeout(() => {
-                    this.revealFinalGift();
-                }, 1500);
-            }
-
-            revealFinalGift() {
-                document.getElementById('final-loc-text').innerText = this.config.loc;
-                this.ui.showScreen('screen-final-gift');
-                this.audio.winFanfare();
-                this.confetti.fire();
+        class MobileRevealSequencer {
+            constructor(coreApp) { 
+                this.app = coreApp; 
+                this.isUnboxed = false;
             }
             
-            startMobileSimulation() {
-                // Utility for dev panel to test mobile flow on desktop
-                this.ui.closeDevPanel();
-                this.triggerWin(); 
+            /**
+             * Starts Stage 1: The Cake and Microphone
+             */
+            beginSequence() {
+                // Ensure audio is unlocked on mobile
+                this.app.synth.init(); 
+                this.app.ui.showScreen('view-mobile-reveal');
+                
+                // Boot Microphone Sensor
+                this.app.mic.startListening(() => this.triggerCandleBlowout());
+            }
+
+            /**
+             * Triggers when the user successfully blows into the mic (or taps).
+             */
+            triggerCandleBlowout() {
+                const stageCake = document.getElementById('reveal-act-cake');
+                
+                // Prevent double execution
+                if (stageCake.classList.contains('slide-out-left')) return; 
+                
+                // System Feedback
+                this.app.mic.stopListening(); 
+                this.app.synth.puff();
+                
+                // Extinguish CSS Flames
+                document.querySelectorAll('.flame-element').forEach(flame => {
+                    flame.classList.add('flame-blown');
+                });
+                
+                // Proceed to Stage 2 after smoke animation runs
+                setTimeout(() => this.transitionToGiftBox(stageCake), 2000);
+            }
+
+            /**
+             * Animates the cake out, and the gift box in.
+             */
+            transitionToGiftBox(stageCakeDom) {
+                const stageGift = document.getElementById('reveal-act-gift');
+                
+                // Animate Cake out to the left
+                stageCakeDom.classList.add('slide-out-left');
+                
                 setTimeout(() => {
-                    // Fake a QR scan
-                    const baseUrl = window.location.href.split('?')[0];
-                    window.location.href = `${baseUrl}?reveal=${Utils.encodeBase64(this.config.loc)}`;
+                    // Hide Cake, Show Gift initial state
+                    stageCakeDom.classList.add('state-gone');
+                    stageGift.classList.remove('state-gone');
+                    
+                    // Force Reflow
+                    void stageGift.offsetWidth;
+                    
+                    // Slide Gift in from right
+                    stageGift.classList.add('slide-in-active');
+                }, 800);
+            }
+
+            /**
+             * Handles the user tapping the Gift Box.
+             */
+            openGiftBox() {
+                const boxRig = document.getElementById('interactive-gift');
+                if(this.isUnboxed) return; // Prevent double clicks
+                
+                this.isUnboxed = true;
+                boxRig.classList.add('is-opened');
+                
+                // AV Feedback
+                this.app.synth.sparkle();
+                this.app.haptics.boxOpen();
+                
+                // Fire massive confetti blast from the box's exact DOM coordinates
+                const rect = boxRig.getBoundingClientRect();
+                this.app.confetti.fire(rect.top + rect.height/2);
+                
+                // Proceed to final location screen
+                setTimeout(() => {
+                    this.app.finalizeLocationReveal();
                 }, 1500);
             }
         }
 
-        // ==========================================
-        // BOOTSTRAP APP
-        // ==========================================
-        let app; // Global scope for HTML onclick handlers
-        let ui;
-        
-        window.onload = () => {
-            app = new App();
-            ui = app.ui; // Expose to global for modal clicks
-        };
+        /**
+         * ==========================================================================
+         * CORE APPLICATION ORCHESTRATOR
+         * The central controller that glues all systems, engines, and flows together.
+         * ==========================================================================
+         */
+        class AppOrchestrator {
+            constructor() {
+                // Core Data Store
+                this.sessionConfig = { 
+                    countdownTime: 5, 
+                    secretLocation: "Master Bedroom Closet" 
+                };
+                
+                // Instantiate Engines
+                this.utils = AppUtils;
+                this.haptics = new HapticEngine();
+                this.synth = new SynthEngine();
+                this.mic = new MicSensor();
+                
+                // Instantiate Graphics
+                this.ambient = new AmbientParticleEngine(); 
+                this.fx = new BurstFXEngine();
+                this.confetti = new ConfettiSimulator(); 
+                
+                // Instantiate Controllers
+                this.ui = new UIManager();
+                this.game = new MemoryGameEngine(this);
+                this.revealer = new MobileRevealSequencer(this);
+
+                // Bind Global Event Listeners
+                this.bindGlobalEvents();
+                
+                // Evaluate Initial Routing State
+                this.evaluateURLRouting();
+            }
+
+            // ----------------------------------------------------------------------
+            // INITIALIZATION & ROUTING
+            // ----------------------------------------------------------------------
+
+            bindGlobalEvents() {
+                // Audio Master Toggle Listener
+                this.ui.btnAudio.addEventListener('click', () => {
+                    const isMuted = this.synth.toggleMute();
+                    this.ui.updateAudioIcon(isMuted);
+                });
+
+                // Keyboard Shortcuts (Developer Admin Console)
+                document.addEventListener('keydown', (e) => { 
+                    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
+                        this.ui.toggleDevPanel(); 
+                    }
+                });
+
+                // Setup Screen Action
+                document.getElementById('btn-lock-setup').addEventListener('click', () => this.startCountdown());
+                
+                // Welcome Screen Action
+                document.getElementById('btn-start-game').addEventListener('click', () => {
+                    this.ui.showScreen('view-game'); 
+                    this.game.initialize(); 
+                });
+
+                // Mobile Gateway Action
+                document.getElementById('btn-mobile-init').addEventListener('click', () => this.revealer.beginSequence());
+
+                // Reveal Interactions
+                document.getElementById('interactive-cake').addEventListener('click', () => this.revealer.triggerCandleBlowout());
+                document.getElementById('interactive-gift').addEventListener('click', () => this.revealer.openGiftBox());
+
+                // Admin Console Buttons
+                document.getElementById('dev-btn-win').addEventListener('click', () => this.game.triggerAdminWin());
+                document.getElementById('dev-btn-reset').addEventListener('click', () => window.location.href = window.location.href.split('?')[0]);
+                document.getElementById('dev-btn-sim-phone').addEventListener('click', () => this.simulateMobileScan());
+                document.getElementById('dev-btn-close').addEventListener('click', () => this.ui.closeDevPanel());
+            }
+
+            evaluateURLRouting() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const encodedPayload = urlParams.get('reveal');
+                
+                if (encodedPayload) {
+                    // PATH B: Scanned from QR (Mobile Device)
+                    try { 
+                        this.sessionConfig.secretLocation = AppUtils.decodeBase64(encodedPayload); 
+                        this.ui.showScreen('view-mobile-gateway'); 
+                        
+                        // Disable background particles on mobile for battery performance if needed
+                        // this.ambient.stop(); 
+                    } catch(e) { 
+                        this.ui.showModal("Decryption Error", "The QR link appears corrupted. Please rescan the TV display."); 
+                    }
+                } else {
+                    // PATH A: Default Setup (Creator / TV)
+                    this.ui.showScreen('view-setup');
+                }
+            }
+
+            // ----------------------------------------------------------------------
+            // APPLICATION FLOW METHODS
+            // ----------------------------------------------------------------------
+
+            startCountdown() {
+                // 1. Save Config
+                const inputLoc = document.getElementById('cfg-loc').value.trim(); 
+                if(inputLoc) this.sessionConfig.secretLocation = inputLoc;
+                
+                this.sessionConfig.countdownTime = parseInt(document.getElementById('cfg-time').value) || 5;
+                
+                // 2. Initialize Audio Contexts
+                this.synth.init(); 
+                this.synth.startAmbient();
+                this.ambient.start(); // Start background particles
+                
+                // 3. Transition UI
+                this.ui.showScreen('view-countdown');
+                
+                // 4. Reset DOM Elements
+                let timeRemaining = this.sessionConfig.countdownTime;
+                const numDisplay = document.getElementById('cd-digital-readout');
+                const progressRing = document.getElementById('cd-svg-fill');
+                const physicsWrapper = document.getElementById('cd-physics-wrapper');
+                
+                numDisplay.innerText = timeRemaining; 
+                progressRing.style.transition = 'none'; 
+                progressRing.style.strokeDashoffset = '0';
+                
+                // 5. Start Tick Loop (Delayed slightly to allow CSS transitions to settle)
+                setTimeout(() => {
+                    progressRing.style.transition = 'stroke-dashoffset 1s linear';
+                    
+                    const tickInterval = setInterval(() => {
+                        timeRemaining--; 
+                        
+                        // Audio/Haptic Feedback
+                        this.synth.tick(); 
+                        this.haptics.tick();
+                        
+                        // Update Number with CSS "Beat" animation
+                        numDisplay.innerText = timeRemaining;
+                        numDisplay.classList.add('quantum-beat');
+                        setTimeout(() => numDisplay.classList.remove('quantum-beat'), 150);
+
+                        // Trigger Quantum Particle Burst in the center of the ring
+                        const rect = physicsWrapper.getBoundingClientRect();
+                        this.fx.fireBurst(rect.left + rect.width/2, rect.top + rect.height/2, 25);
+
+                        // Update SVG Dash Offset (628 is the circumference of r=100)
+                        const offset = 628 - (timeRemaining / this.sessionConfig.countdownTime) * 628;
+                        progressRing.style.strokeDashoffset = offset;
+                        
+                        // Check Completion
+                        if(timeRemaining <= 0) { 
+                            clearInterval(tickInterval); 
+                            this.ui.showScreen('view-welcome'); 
+                        }
+                    }, 1000);
+                }, 100);
+            }
+
+            executeWinProtocol() {
+                // If running on a large screen (TV/Desktop), generate the Magic QR Code
+                if (AppUtils.isDesktopView()) {
+                    
+                    // Build self-referential URL with encrypted payload
+                    const cleanUrl = window.location.href.split('?')[0];
+                    const encodedPayload = AppUtils.encodeBase64(this.sessionConfig.secretLocation);
+                    const magicUrl = `${cleanUrl}?reveal=${encodedPayload}`;
+                    
+                    // Request QR Code from robust public API
+                    const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=350x350&margin=15&color=000000&bgcolor=ffffff&data=${encodeURIComponent(magicUrl)}`;
+                    
+                    document.getElementById('qr-target-img').src = qrApiUrl;
+                    
+                    // Transition & Celebrate
+                    this.ui.showScreen('view-tv-win'); 
+                    this.confetti.fire(); 
+                    this.synth.winFanfare(); 
+                    this.haptics.win();
+                } else {
+                    // Fallback: If playing the game directly on a phone, skip QR and just reveal the gift.
+                    this.finalizeLocationReveal();
+                }
+            }
+
+            finalizeLocationReveal() {
+                // Update text node with secret data
+                document.getElementById('final-loc-output').innerText = this.sessionConfig.secretLocation;
+                
+                this.ui.showScreen('view-final-gift');
+                this.synth.winFanfare(); 
+                this.haptics.win();
+                
+                // Ensure confetti fires if not already active
+                if(!this.confetti.active) {
+                    this.confetti.fire();
+                }
+            }
+            
+            simulateMobileScan() {
+                // Utility for dev panel to test mobile flow on desktop without a phone
+                this.ui.closeDevPanel(); 
+                this.game.triggerAdminWin(); 
+                
+                // Give time for TV win screen to render, then redirect
+                setTimeout(() => { 
+                    const cleanUrl = window.location.href.split('?')[0];
+                    const encodedPayload = AppUtils.encodeBase64(this.sessionConfig.secretLocation);
+                    window.location.href = `${cleanUrl}?reveal=${encodedPayload}`; 
+                }, 2000);
+            }
+        }
+
+        // ==========================================================================
+        // BOOTSTRAP INITIALIZATION
+        // ==========================================================================
+        window.addEventListener('DOMContentLoaded', () => {
+            // Instantiate the orchestrator.
+            // Exposing to global `window.appData` for potential console debugging, 
+            // but keeping scope clean.
+            window.appData = new AppOrchestrator();
+        });
+
     </script>
 </body>
 </html>
