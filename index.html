@@ -2,92 +2,92 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Viewport configured for perfect mobile safe-area scaling, preventing zoom -->
+    <!-- Viewport configured for perfect fluid responsive scaling and safe-area calculation -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Happy Birthday, Mom!</title>
     
     <!-- Premium Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,600;0,900;1,600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,600;0,900;1,600&family=JetBrains+Mono:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         /* ==========================================================================
-           1. CSS DESIGN SYSTEM & TOKENS (Scaled exactly to 50% of original)
+           1. CORE DESIGN SYSTEM & CSS VARIABLES
            ========================================================================== */
         :root {
-            /* --- Core Animation Timings --- */
-            --transition-ultra-fast: 0.075s;
-            --transition-fast: 0.15s;
-            --transition-medium: 0.3s;
-            --transition-slow: 0.6s;
-            --transition-ultra-slow: 1.2s;
+            /* --- Animation Timings --- */
+            --time-instant: 0.05s;
+            --time-fast: 0.15s;
+            --time-medium: 0.3s;
+            --time-slow: 0.6s;
+            --time-epic: 1.2s;
+            
+            /* --- Easing Curves --- */
             --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --ease-smooth: cubic-bezier(0.2, 0.8, 0.2, 1);
             --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
             --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-            /* --- Mobile Theme Tokens (Vibrant, Light, Bubbly) --- */
-            --mobile-bg-1: #ff9a9e;
-            --mobile-bg-2: #fecfef;
-            --mobile-bg-3: #fbc2eb;
-            --mobile-text-main: #111827;
-            --mobile-text-muted: #374151;
-            /* Shadows scaled down 50% for 8px root size */
-            --mobile-shadow-text: 0px 2px 0px #ffffff, 0px 0px 7.5px rgba(255, 105, 180, 0.6);
-            --mobile-shadow-box: 0 7.5px 17.5px rgba(255, 105, 180, 0.25);
-            --mobile-glass-bg: rgba(255, 255, 255, 0.45);
-            --mobile-glass-border: rgba(255, 255, 255, 0.8);
-            --mobile-card-front: linear-gradient(135deg, #ff758c, #ff7eb3);
-            --mobile-btn-bg: #ffffff;
-            --mobile-btn-text: #ff758c;
+            /* --- Theme: Mobile (Light, Vibrant, Bubbly) --- */
+            --theme-m-bg-1: #ff9a9e;
+            --theme-m-bg-2: #fecfef;
+            --theme-m-bg-3: #fbc2eb;
+            --theme-m-text: #111827;
+            --theme-m-text-muted: #374151;
+            --theme-m-shadow-txt: 0px 0.25rem 0px #ffffff, 0px 0px 1rem rgba(255, 105, 180, 0.6);
+            --theme-m-shadow-box: 0 1rem 2.5rem rgba(255, 105, 180, 0.25);
+            --theme-m-glass: rgba(255, 255, 255, 0.45);
+            --theme-m-border: rgba(255, 255, 255, 0.8);
+            --theme-m-card: linear-gradient(135deg, #ff758c, #ff7eb3);
+            --theme-m-btn-bg: #ffffff;
+            --theme-m-btn-txt: #ff758c;
             
-            /* --- TV/Desktop Theme Tokens (Dark, Cinematic, Luxurious) --- */
-            --tv-bg-1: #1a202c;
-            --tv-bg-2: #050505;
-            --tv-text-main: #ffffff;
-            --tv-text-muted: #e5e7eb;
-            --tv-text-accent: #ffd700;
-            /* Shadows scaled down 50% for 8px root size */
-            --tv-shadow-text: 0px 2px 0px #000000, 0px 0px 15px rgba(255, 215, 0, 0.9);
-            --tv-shadow-box: 0 10px 25px rgba(0, 0, 0, 0.9);
-            --tv-glass-bg: rgba(0, 0, 0, 0.65);
-            --tv-glass-border: rgba(255, 215, 0, 0.5);
-            --tv-card-front: linear-gradient(135deg, #d4af37, #aa7c11);
-            --tv-btn-bg: linear-gradient(135deg, #ffd700, #ffb300);
-            --tv-btn-text: #000000;
+            /* --- Theme: TV/Desktop (Dark, Cinematic, Luxurious) --- */
+            --theme-tv-bg-1: #1a202c;
+            --theme-tv-bg-2: #050505;
+            --theme-tv-text: #ffffff;
+            --theme-tv-text-muted: #e5e7eb;
+            --theme-tv-accent: #ffd700;
+            --theme-tv-shadow-txt: 0px 0.25rem 0px #000000, 0px 0px 2rem rgba(255, 215, 0, 0.9);
+            --theme-tv-shadow-box: 0 1.5rem 3.5rem rgba(0, 0, 0, 0.9);
+            --theme-tv-glass: rgba(0, 0, 0, 0.65);
+            --theme-tv-border: rgba(255, 215, 0, 0.5);
+            --theme-tv-card: linear-gradient(135deg, #d4af37, #aa7c11);
+            --theme-tv-btn-bg: linear-gradient(135deg, #ffd700, #ffb300);
+            --theme-tv-btn-txt: #000000;
 
-            /* --- Shared System Colors --- */
-            --color-success: #22c55e;
-            --color-success-glow: rgba(34, 197, 94, 0.6);
-            --color-warning: #eab308;
-            --color-warning-glow: rgba(234, 179, 8, 0.6);
-            --color-danger: #ef4444;
-            --color-danger-glow: rgba(239, 68, 68, 0.6);
-            --color-info: #3b82f6;
-            --color-info-glow: rgba(59, 130, 246, 0.6);
+            /* --- System Status Colors --- */
+            --sys-success: #22c55e;
+            --sys-success-glow: rgba(34, 197, 94, 0.6);
+            --sys-warning: #eab308;
+            --sys-warning-glow: rgba(234, 179, 8, 0.6);
+            --sys-danger: #ef4444;
+            --sys-danger-glow: rgba(239, 68, 68, 0.6);
+            --sys-info: #3b82f6;
 
             /* --- Typography --- */
             --font-primary: 'Outfit', sans-serif;
             --font-secondary: 'Playfair Display', serif;
-            --font-mono: 'JetBrains Mono', 'Courier New', Courier, monospace;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         /* ==========================================================================
-           2. GLOBAL RESETS & BASE LAYOUT (Mobile Centering Fixed)
+           2. GLOBAL RESETS & THE 50% SCALING ENGINE
            ========================================================================== */
         *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box; margin: 0; padding: 0;
+            user-select: none; -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
         }
 
-        /* 50% Scale implemented globally via base font-size */
-        html { font-size: 8px; } /* 1rem = 8px (halved from standard 16px) */
+        /* 
+           THE 50% SCALE ENGINE
+           By locking the root font-size to 8px (instead of 16px), 1rem = 8px.
+           This universally scales all padding, margins, borders, and typography 
+           by exactly 50% across the entire application, fulfilling the size requirement perfectly.
+        */
+        html { font-size: 8px; }
 
         html, body {
             width: 100vw;
@@ -98,55 +98,64 @@
 
         body {
             font-family: var(--font-primary);
-            background: linear-gradient(135deg, var(--mobile-bg-1) 0%, var(--mobile-bg-2) 50%, var(--mobile-bg-3) 100%);
-            color: var(--mobile-text-main);
+            background: linear-gradient(135deg, var(--theme-m-bg-1) 0%, var(--theme-m-bg-2) 50%, var(--theme-m-bg-3) 100%);
+            color: var(--theme-m-text);
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: background var(--transition-medium) ease;
+            transition: background var(--time-medium) ease;
             position: relative;
         }
 
+        /* Responsive Desktop Breakpoint Adjustment */
+        @media (min-width: 1024px) {
+            /* On massive screens, we bump the scale slightly so it isn't microscopically small */
+            html { font-size: 10px; } 
+            
+            body { 
+                background: radial-gradient(circle at center, var(--theme-tv-bg-1) 0%, var(--theme-tv-bg-2) 100%); 
+                color: var(--theme-tv-text); 
+            }
+        }
+
+        @media (min-width: 1600px) {
+            /* 4K+ scaling */
+            html { font-size: 12px; } 
+        }
+
         /* ==========================================================================
-           3. CANVAS LAYERS (Physics Engines)
+           3. CANVAS PHYSICS LAYERS
            ========================================================================== */
         canvas {
-            position: absolute;
-            top: 0; left: 0;
+            position: absolute; top: 0; left: 0;
             width: 100vw; height: 100vh;
             pointer-events: none;
         }
-        #canvas-bg { z-index: 1; }
-        #canvas-fx { z-index: 15; }
-        #canvas-confetti { z-index: 9999; }
+        #layer-ambient { z-index: 1; }
+        #layer-burst { z-index: 15; }
+        #layer-confetti { z-index: 9999; }
 
         /* ==========================================================================
-           4. SCREEN ARCHITECTURE (Flawless Mobile Centering)
+           4. SCREEN ROUTING ARCHITECTURE
            ========================================================================== */
-        .screen-container {
-            position: absolute;
-            top: 0; left: 0;
+        .app-screen {
+            position: absolute; top: 0; left: 0;
             width: 100vw; height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-            padding: 2rem;
-            overflow-y: auto;
-            overflow-x: hidden;
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            transition: opacity var(--transition-medium) ease, transform 0.8s var(--ease-spring);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 10; padding: 2rem;
+            overflow-y: auto; overflow-x: hidden;
+            opacity: 1; transform: scale(1) translateY(0);
+            transition: opacity var(--time-medium) ease, transform 0.8s var(--ease-spring);
         }
         
-        .screen-container::-webkit-scrollbar { display: none; }
+        .app-screen::-webkit-scrollbar { display: none; }
 
-        /* Complex Screen States */
-        .state-hidden { opacity: 0; pointer-events: none; transform: scale(0.92) translateY(20px); }
+        /* Routing States */
+        .state-hidden { opacity: 0; pointer-events: none; transform: scale(0.92) translateY(3rem); }
         .state-gone { display: none !important; }
         
-        /* Lateral Transitions for 3-Stage Reveal */
+        /* Lateral Cinematic Transitions */
         .slide-out-left { 
             opacity: 0; transform: translateX(-60%) rotate(-5deg); 
             pointer-events: none; transition: transform 0.8s var(--ease-in-out), opacity 0.8s ease;
@@ -158,646 +167,611 @@
         }
 
         /* ==========================================================================
-           5. ADVANCED TYPOGRAPHY (Values Halved for 50% scale)
+           5. FLUID TYPOGRAPHY (Uses rem for scaling, clamp for responsiveness)
            ========================================================================== */
         h1, h2, h3, h4 {
-            font-weight: 900;
-            text-align: center;
-            text-shadow: var(--mobile-shadow-text);
-            margin-bottom: 0.6rem;
-            letter-spacing: -0.04em;
-            line-height: 1.1;
-            width: 100%;
+            font-weight: 900; text-align: center; width: 100%;
+            text-shadow: var(--theme-m-shadow-txt);
+            margin-bottom: 1rem; letter-spacing: -0.04em; line-height: 1.1;
         }
 
-        h1 { font-size: clamp(1.75rem, 5vw, 3.5rem); }
-        h2 { font-size: clamp(1.25rem, 3.5vw, 2.25rem); }
-        h3 { font-size: clamp(0.9rem, 2.5vw, 1.5rem); }
+        h1 { font-size: clamp(3.5rem, 8vw, 7rem); }
+        h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+        h3 { font-size: clamp(1.8rem, 3.5vw, 3rem); }
         
         p {
-            font-size: clamp(0.65rem, 1.75vw, 1.1rem);
-            text-align: center;
-            font-weight: 700;
-            margin-bottom: 1.25rem;
-            max-width: 425px;
-            line-height: 1.6;
-            color: var(--mobile-text-muted);
-            width: 100%;
+            font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+            text-align: center; font-weight: 700; width: 100%;
+            margin-bottom: 2.5rem; max-width: 60rem; line-height: 1.6;
+            color: var(--theme-m-text-muted);
         }
 
-        /* TV/Desktop Cinematic Overrides */
         @media (min-width: 1024px) {
-            body { background: radial-gradient(circle at center, var(--tv-bg-1) 0%, var(--tv-bg-2) 100%); color: var(--tv-text-main); }
-            h1, h2, h3, h4 { font-family: var(--font-secondary); text-shadow: var(--tv-shadow-text); color: var(--tv-text-accent); letter-spacing: normal; }
-            p { font-family: var(--font-secondary); text-shadow: 1px 1px 4px rgba(0,0,0,0.9); color: var(--tv-text-muted); }
+            h1, h2, h3, h4 { 
+                font-family: var(--font-secondary); 
+                text-shadow: var(--theme-tv-shadow-txt); 
+                color: var(--theme-tv-accent); 
+                letter-spacing: normal; 
+            }
+            p { 
+                font-family: var(--font-secondary); 
+                text-shadow: 0.2rem 0.2rem 0.8rem rgba(0,0,0,0.9); 
+                color: var(--theme-tv-text-muted); 
+            }
         }
 
         /* ==========================================================================
-           6. COMPONENT: GLASSMORPHISM PANELS (Centered & Scaled)
+           6. COMPONENT: RESPONSIVE GLASS PANELS
            ========================================================================== */
         .glass-panel {
-            background: var(--mobile-glass-bg);
-            backdrop-filter: blur(12.5px);
-            -webkit-backdrop-filter: blur(12.5px);
-            border: 1px solid var(--mobile-glass-border);
-            border-radius: 17.5px;
-            box-shadow: var(--mobile-shadow-box);
-            padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 90vw;
-            max-width: 350px;
-            margin: 0 auto;
+            background: var(--theme-m-glass);
+            backdrop-filter: blur(2rem); -webkit-backdrop-filter: blur(2rem);
+            border: 0.2rem solid var(--theme-m-border);
+            border-radius: 3.5rem;
+            box-shadow: var(--theme-m-shadow-box);
+            padding: 3rem; margin: 0 auto;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 92vw; /* Safe fluid width for mobile */
+            max-width: 50rem; /* Responsive upper bound */
             text-align: center;
         }
 
+        /* Internal Lighting Reflection */
         .glass-panel::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 50%;
             background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, transparent 100%);
-            pointer-events: none; border-radius: 17.5px 17.5px 0 0;
+            pointer-events: none; border-radius: 3.5rem 3.5rem 0 0;
         }
 
+        /* Tablet scaling */
+        @media (min-width: 768px) { .glass-panel { max-width: 65rem; padding: 4rem; } }
+
+        /* Desktop/TV scaling */
         @media (min-width: 1024px) { 
-            .glass-panel { background: var(--tv-glass-bg); border-color: var(--tv-glass-border); box-shadow: var(--tv-shadow-box); }
-            .glass-panel::before { background: linear-gradient(to bottom, rgba(255,215,0,0.1) 0%, transparent 100%); }
+            .glass-panel { 
+                max-width: 80rem; 
+                background: var(--theme-tv-glass); 
+                border-color: var(--theme-tv-border); 
+                box-shadow: var(--theme-tv-shadow-box); 
+            }
+            .glass-panel::before { background: linear-gradient(to bottom, rgba(255,215,0,0.15) 0%, transparent 100%); }
         }
 
         /* ==========================================================================
-           7. COMPONENT: CONTROLS (Buttons, Inputs, Toggles)
+           7. COMPONENT: UI CONTROLS & FORMS
            ========================================================================== */
-        button.primary-btn {
-            padding: 0.7rem 1.75rem;
-            font-size: clamp(0.65rem, 1.75vw, 1rem);
-            font-weight: 900;
-            font-family: inherit;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            background: var(--mobile-btn-bg);
-            color: var(--mobile-btn-text);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15), inset 0 -2.5px 0 rgba(0,0,0,0.1);
-            transition: all var(--transition-fast) var(--ease-spring);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            position: relative;
-            overflow: hidden;
-            width: auto;
-            max-width: 100%;
+        button.btn-primary {
+            padding: 1.5rem 3.5rem;
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 900; font-family: inherit;
+            border: none; border-radius: 6rem; cursor: pointer;
+            background: var(--theme-m-btn-bg); color: var(--theme-m-btn-txt);
+            box-shadow: 0 1.2rem 3rem rgba(0,0,0,0.15), inset 0 -0.5rem 0 rgba(0,0,0,0.1);
+            transition: all var(--time-fast) var(--ease-spring);
+            text-transform: uppercase; letter-spacing: 0.15em;
+            position: relative; overflow: hidden; width: auto; max-width: 100%;
         }
         
-        button.primary-btn::after {
+        /* Button Shimmer Effect */
+        button.btn-primary::after {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: rgba(255,255,255,0.2); transform: rotate(45deg) translateY(-100%);
+            background: rgba(255,255,255,0.25); transform: rotate(45deg) translateY(-100%);
             transition: transform 0.6s ease; pointer-events: none;
         }
 
-        button.primary-btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
-        button.primary-btn:hover::after { transform: rotate(45deg) translateY(100%); }
-        button.primary-btn:active { transform: translateY(3px) scale(0.96); box-shadow: 0 2.5px 7.5px rgba(0,0,0,0.2), inset 0 -1px 0 rgba(0,0,0,0.1); }
+        button.btn-primary:hover { filter: brightness(1.08); transform: translateY(-0.2rem); }
+        button.btn-primary:hover::after { transform: rotate(45deg) translateY(100%); }
+        button.btn-primary:active { transform: translateY(0.6rem) scale(0.96); box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.2), inset 0 -0.2rem 0 rgba(0,0,0,0.1); }
 
         @media (min-width: 1024px) { 
-            button.primary-btn { background: var(--tv-btn-bg); color: var(--tv-btn-text); box-shadow: 0 7.5px 20px rgba(255,215,0,0.4), inset 0 -3px 0 rgba(0,0,0,0.25); } 
+            button.btn-primary { 
+                background: var(--theme-tv-btn-bg); 
+                color: var(--theme-tv-btn-txt); 
+                box-shadow: 0 1.5rem 4rem rgba(255,215,0,0.4), inset 0 -0.6rem 0 rgba(0,0,0,0.25); 
+            } 
         }
 
-        input.modern-input {
-            width: 100%; max-width: 300px;
-            padding: 0.75rem; margin-bottom: 1rem;
-            font-size: 0.7rem; font-weight: 700; border-radius: 10px; border: 2.5px solid #fff;
+        input.input-text {
+            width: 100%; max-width: 50rem;
+            padding: 1.5rem; margin-bottom: 2rem;
+            font-size: 1.6rem; font-weight: 700; border-radius: 2rem; border: 0.5rem solid #fff;
             background: rgba(255,255,255,0.95); color: #111827; text-align: center;
-            box-shadow: 0 5px 12.5px rgba(0,0,0,0.15); outline: none; transition: all var(--transition-fast);
+            box-shadow: 0 1rem 2.5rem rgba(0,0,0,0.15); outline: none; transition: all var(--time-fast);
         }
         
-        input.modern-input:focus { border-color: #ff758c; box-shadow: 0 7.5px 17.5px rgba(255,117,140,0.6); transform: translateY(-1.5px); }
+        input.input-text:focus { 
+            border-color: #ff758c; 
+            box-shadow: 0 1.5rem 3.5rem rgba(255,117,140,0.6); 
+            transform: translateY(-0.3rem); 
+        }
 
         @media (min-width: 1024px) { 
-            input.modern-input { background: rgba(17,24,39,0.95); color: #fff; border-color: var(--tv-text-accent); box-shadow: 0 5px 12.5px rgba(0,0,0,0.7); } 
-            input.modern-input:focus { border-color: #fff; box-shadow: 0 7.5px 20px rgba(255,215,0,0.7); }
+            input.input-text { 
+                background: rgba(17,24,39,0.95); color: #fff; 
+                border-color: var(--theme-tv-accent); 
+                box-shadow: 0 1rem 2.5rem rgba(0,0,0,0.7); 
+            } 
+            input.input-text:focus { border-color: #fff; box-shadow: 0 1.5rem 4rem rgba(255,215,0,0.7); }
         }
 
         /* Floating Audio Master Toggle */
-        .audio-toggle-wrapper {
-            position: fixed; top: 1rem; right: 1rem; z-index: 10000;
-            width: 35px; height: 35px; border-radius: 50%;
-            background: var(--mobile-glass-bg); backdrop-filter: blur(12.5px); -webkit-backdrop-filter: blur(12.5px);
-            border: 1.5px solid var(--mobile-glass-border); display: flex; justify-content: center; align-items: center;
-            cursor: pointer; box-shadow: 0 4px 12.5px rgba(0,0,0,0.2);
-            transition: all var(--transition-medium) var(--ease-spring);
+        .btn-audio-toggle {
+            position: fixed; top: 2rem; right: 2rem; z-index: 10000;
+            width: 6rem; height: 6rem; border-radius: 50%;
+            background: var(--theme-m-glass); backdrop-filter: blur(2rem); -webkit-backdrop-filter: blur(2rem);
+            border: 0.3rem solid var(--theme-m-border); display: flex; justify-content: center; align-items: center;
+            cursor: pointer; box-shadow: 0 0.8rem 2.5rem rgba(0,0,0,0.2);
+            transition: all var(--time-medium) var(--ease-spring);
         }
         
-        .audio-toggle-wrapper:hover { transform: scale(1.15) rotate(8deg); box-shadow: 0 6px 17.5px rgba(0,0,0,0.3); }
-        .audio-toggle-wrapper svg { width: 17px; height: 17px; fill: var(--mobile-text-main); transition: fill var(--transition-fast); }
+        .btn-audio-toggle:hover { transform: scale(1.15) rotate(8deg); box-shadow: 0 1.2rem 3.5rem rgba(0,0,0,0.3); }
+        .btn-audio-toggle svg { width: 3rem; height: 3rem; fill: var(--theme-m-text); transition: fill var(--time-fast); }
         
         @media (min-width: 1024px) { 
-            .audio-toggle-wrapper { background: var(--tv-glass-bg); border-color: var(--tv-glass-border); box-shadow: 0 4px 15px rgba(0,0,0,0.7); } 
-            .audio-toggle-wrapper svg { fill: var(--tv-text-accent); }
+            .btn-audio-toggle { background: var(--theme-tv-glass); border-color: var(--theme-tv-border); box-shadow: 0 0.8rem 3rem rgba(0,0,0,0.7); } 
+            .btn-audio-toggle svg { fill: var(--theme-tv-accent); }
         }
 
         /* ==========================================================================
            8. COMPONENT: GAME HUD (Heads Up Display)
            ========================================================================== */
-        .hud-container { width: 90vw; max-width: 375px; padding: 0.9rem 1.5rem; margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; z-index: 20; }
-        .hud-top-row { display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; font-weight: 900; letter-spacing: 0.5px; width: 100%;}
+        .hud-wrapper { 
+            width: 92vw; max-width: 65rem; padding: 1.8rem 3rem; margin-bottom: 2.5rem; 
+            display: flex; flex-direction: column; gap: 1.5rem; z-index: 20; 
+        }
         
-        @media (min-width: 1024px) { .hud-top-row { color: var(--tv-text-accent); text-shadow: 1px 1px 5px rgba(0,0,0,0.9); font-family: var(--font-secondary); } }
+        .hud-header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            font-size: 2.2rem; font-weight: 900; letter-spacing: 0.1rem; width: 100%;
+        }
+        
+        @media (min-width: 1024px) { .hud-header { color: var(--theme-tv-accent); text-shadow: 0.2rem 0.2rem 1rem rgba(0,0,0,0.9); font-family: var(--font-secondary); } }
 
-        .hud-progress-track {
-            width: 100%; height: 14px; background: rgba(0,0,0,0.4); border-radius: 7px;
-            overflow: hidden; border: 1.5px solid rgba(255,255,255,0.8); box-shadow: inset 0 2px 5px rgba(0,0,0,0.4);
+        /* Dynamic Progress Bar */
+        .hud-track {
+            width: 100%; height: 2.8rem; background: rgba(0,0,0,0.4); border-radius: 1.4rem;
+            overflow: hidden; border: 0.3rem solid rgba(255,255,255,0.8); box-shadow: inset 0 0.4rem 1rem rgba(0,0,0,0.4);
             position: relative;
         }
-        @media (min-width: 1024px) { .hud-progress-track { border-color: rgba(255,215,0,0.7); } }
+        @media (min-width: 1024px) { .hud-track { border-color: rgba(255,215,0,0.7); } }
         
-        .hud-progress-fill {
-            height: 100%; width: 100%; background: var(--color-success);
+        .hud-fill {
+            height: 100%; width: 100%; background: var(--sys-success);
             transition: width 1s linear, background-color 0.5s ease, box-shadow 0.5s ease;
-            box-shadow: 0 0 10px var(--color-success-glow);
+            box-shadow: 0 0 2rem var(--sys-success-glow);
             position: relative; overflow: hidden;
         }
         
-        .hud-progress-fill::after {
-            content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 25px;
+        /* Liquid Shimmer effect */
+        .hud-fill::after {
+            content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 5rem;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: shimmerBar 2s infinite linear;
+            animation: fxShimmer 2s infinite linear;
         }
 
-        .fill-warning { background: var(--color-warning); box-shadow: 0 0 12.5px var(--color-warning-glow); }
-        .fill-danger { background: var(--color-danger); box-shadow: 0 0 15px var(--color-danger-glow); }
+        .status-warn { background: var(--sys-warning); box-shadow: 0 0 2.5rem var(--sys-warning-glow); }
+        .status-crit { background: var(--sys-danger); box-shadow: 0 0 3rem var(--sys-danger-glow); }
 
-        .combo-multiplier {
-            position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-            background: var(--color-warning); color: #000; padding: 2px 6px; border-radius: 10px;
-            font-size: 0.6rem; font-weight: 900; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        /* Streak Multiplier UI */
+        .hud-combo {
+            position: absolute; top: -2rem; left: 50%; transform: translateX(-50%);
+            background: var(--sys-warning); color: #000; padding: 0.4rem 1.2rem; border-radius: 2rem;
+            font-size: 1.2rem; font-weight: 900; box-shadow: 0 0.4rem 1rem rgba(0,0,0,0.3);
             opacity: 0; transition: opacity 0.3s, transform 0.3s var(--ease-spring);
-            white-space: nowrap;
+            white-space: nowrap; pointer-events: none;
         }
-        .combo-active { opacity: 1; transform: translateX(-50%) translateY(-5px) scale(1.2); }
+        .combo-is-active { opacity: 1; transform: translateX(-50%) translateY(-1rem) scale(1.2); }
 
         /* ==========================================================================
-           9. COMPONENT: MEMORY GRID & 3D CARDS
+           9. COMPONENT: RESPONSIVE MEMORY GRID & 3D CARDS
            ========================================================================== */
-        .grid-wrapper { padding: 1.5rem; display: flex; justify-content: center; align-items: center; z-index: 20; width: 90vw; max-width: 375px; margin: 0 auto; }
-        .memory-grid { 
+        .grid-container { 
+            padding: 3rem; display: flex; justify-content: center; align-items: center; 
+            z-index: 20; width: 92vw; max-width: 65rem; margin: 0 auto; 
+        }
+        
+        .game-grid { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
-            gap: clamp(0.4rem, 1.4vw, 0.9rem); 
-            perspective: 750px; 
+            gap: clamp(0.8rem, 2.5vw, 1.8rem); 
+            perspective: 150rem; 
             width: 100%;
         }
 
-        .memory-card {
-            width: 100%; aspect-ratio: 1 / 1; max-width: 65px; 
+        /* Responsive Card Aspect Ratio */
+        .game-card {
+            width: 100%; 
+            aspect-ratio: 1 / 1; 
             position: relative; transform-style: preserve-3d;
             transition: transform 0.7s var(--ease-spring);
-            cursor: pointer; border-radius: 10px; margin: 0 auto;
+            cursor: pointer; border-radius: 2rem; margin: 0 auto;
         }
         
-        .memory-card:active { transform: scale(0.85); }
-        .memory-card.is-flipped { transform: rotateY(180deg); }
-        .memory-card.is-matched { animation: auraGlow 2.5s infinite; cursor: default; }
+        .game-card:active { transform: scale(0.85); }
+        .game-card.flip-active { transform: rotateY(180deg); }
+        .game-card.match-active { animation: fxAuraGlow 2.5s infinite; cursor: default; }
         
-        .card-face {
+        .card-surface {
             position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
-            border-radius: 10px; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3); border: 2px solid #fff; overflow: hidden;
+            border-radius: 2rem; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 1.2rem 3rem rgba(0,0,0,0.3); border: 0.4rem solid #fff; overflow: hidden;
         }
         
-        @media (min-width: 1024px) { .card-face { border-color: var(--tv-text-accent); box-shadow: 0 7.5px 20px rgba(0,0,0,0.7); } }
+        @media (min-width: 1024px) { .card-surface { border-color: var(--theme-tv-accent); box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.7); } }
         
-        .card-front { 
-            background: var(--mobile-card-front); font-size: clamp(1.5rem, 4.5vw, 2.5rem); 
-            font-weight: 900; color: #fff; text-shadow: 2px 2px 0 rgba(0,0,0,0.25); 
+        .surface-front { 
+            background: var(--theme-m-card); font-size: clamp(3rem, 8vw, 5rem); 
+            font-weight: 900; color: #fff; text-shadow: 0.4rem 0.4rem 0 rgba(0,0,0,0.25); 
         }
         
         @media (min-width: 1024px) { 
-            .card-front { background: var(--tv-card-front); color: #000; text-shadow: none; font-family: var(--font-secondary); } 
-            .card-front::after { content: 'M'; font-size: 2.5rem; opacity: 0.2; position: absolute; }
+            .surface-front { background: var(--theme-tv-card); color: #000; text-shadow: none; font-family: var(--font-secondary); } 
+            .surface-front::after { content: 'M'; font-size: 5rem; opacity: 0.2; position: absolute; }
         }
         
-        .card-back { background: #fff; transform: rotateY(180deg); }
-        .card-back img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; border-radius: 7px;}
+        .surface-back { background: #fff; transform: rotateY(180deg); }
+        .surface-back img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; border-radius: 1.4rem;}
 
-        .fx-floating-text {
-            position: absolute; pointer-events: none; font-size: 1.75rem; font-weight: 900;
-            color: var(--color-success); text-shadow: 0px 2px 0px #fff, 0px 0px 12.5px rgba(34,197,94,1);
-            animation: floatAndFade 1.5s var(--ease-smooth) forwards; z-index: 50;
+        /* Floating Score Text Event (e.g. "+5s") */
+        .fx-float-score {
+            position: absolute; pointer-events: none; font-size: 3.5rem; font-weight: 900;
+            color: var(--sys-success); text-shadow: 0px 0.4rem 0px #fff, 0px 0px 2.5rem rgba(34,197,94,1);
+            animation: fxFloatUp 1.5s var(--ease-smooth) forwards; z-index: 50;
         }
 
         /* ==========================================================================
-           10. COMPONENT: QUANTUM COUNTDOWN HUD 2.0 (Massive upgrades)
+           10. COMPONENT: QUANTUM COUNTDOWN HUD 2.0
            ========================================================================== */
-        .quantum-cd-container {
-            position: relative; width: clamp(200px, 35vw, 300px); height: clamp(200px, 35vw, 300px);
-            display: flex; justify-content: center; align-items: center; margin: 0 auto 2rem;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.5));
-            container-type: inline-size; /* Enables container-based scaling */
+        .quantum-rig {
+            position: relative; width: clamp(28rem, 55vw, 45rem); height: clamp(28rem, 55vw, 45rem);
+            display: flex; justify-content: center; align-items: center; margin: 0 auto 4rem;
+            filter: drop-shadow(0 0 3rem rgba(255,255,255,0.5));
+            container-type: inline-size; /* For Container Query scaling */
         }
-        @media (min-width: 1024px) { .quantum-cd-container { filter: drop-shadow(0 0 20px rgba(255,215,0,0.5)); } }
+        @media (min-width: 1024px) { .quantum-rig { filter: drop-shadow(0 0 4rem rgba(255,215,0,0.5)); } }
 
-        .quantum-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+        .quantum-vector { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
         
-        /* 4 Independent Rings */
-        .q-ring-outermost { fill: none; stroke: rgba(255,255,255,0.15); stroke-width: 0.5; stroke-dasharray: 1 2; transform-origin: 50% 50%; animation: spinSlow 40s linear infinite; }
-        .q-ring-inner { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 2; stroke-dasharray: 2 4; transform-origin: 50% 50%; animation: spinFastReverse 10s linear infinite; }
-        .q-ring-outer { fill: none; stroke: rgba(255,255,255,0.5); stroke-width: 1.5; stroke-dasharray: 7.5 10; transform-origin: 50% 50%; animation: spinSlow 25s linear infinite; }
-        .q-ring-bg { fill: none; stroke: rgba(255,255,255,0.15); stroke-width: 9; }
-        .q-ring-progress {
-            fill: none; stroke: #fff; stroke-width: 9; stroke-dasharray: 628; stroke-dashoffset: 0;
-            transition: stroke-dashoffset 0.1s linear; stroke-linecap: round; filter: drop-shadow(0 0 7.5px #fff);
+        /* 4 Independent Rotational Ring Layers */
+        .q-layer-1 { fill: none; stroke: rgba(255,255,255,0.15); stroke-width: 0.1rem; stroke-dasharray: 0.2rem 0.4rem; transform-origin: 50% 50%; animation: fxSpinSlow 40s linear infinite; }
+        .q-layer-2 { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 0.4rem; stroke-dasharray: 0.4rem 0.8rem; transform-origin: 50% 50%; animation: fxSpinFastRev 10s linear infinite; }
+        .q-layer-3 { fill: none; stroke: rgba(255,255,255,0.5); stroke-width: 0.3rem; stroke-dasharray: 1.5rem 2rem; transform-origin: 50% 50%; animation: fxSpinSlow 25s linear infinite; }
+        .q-layer-bg { fill: none; stroke: rgba(255,255,255,0.15); stroke-width: 1.8rem; }
+        .q-layer-fill {
+            fill: none; stroke: #fff; stroke-width: 1.8rem; stroke-dasharray: 628; stroke-dashoffset: 0;
+            transition: stroke-dashoffset 0.1s linear; stroke-linecap: round; filter: drop-shadow(0 0 1.5rem #fff);
         }
 
         @media (min-width: 1024px) { 
-            .q-ring-outermost { stroke: rgba(255,215,0,0.2); }
-            .q-ring-inner { stroke: rgba(255,215,0,0.3); }
-            .q-ring-outer { stroke: rgba(255,215,0,0.6); }
-            .q-ring-bg { stroke: rgba(255,215,0,0.15); }
-            .q-ring-progress { stroke: var(--tv-text-accent); filter: drop-shadow(0 0 10px var(--tv-text-accent)); }
+            .q-layer-1 { stroke: rgba(255,215,0,0.2); }
+            .q-layer-2 { stroke: rgba(255,215,0,0.3); }
+            .q-layer-3 { stroke: rgba(255,215,0,0.6); }
+            .q-layer-bg { stroke: rgba(255,215,0,0.15); }
+            .q-layer-fill { stroke: var(--theme-tv-accent); filter: drop-shadow(0 0 2rem var(--theme-tv-accent)); }
         }
 
-        .quantum-number-wrapper {
+        .quantum-data-core {
             display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2;
         }
 
-        .quantum-number {
-            font-size: clamp(3rem, 25cqw, 7rem); /* Scales dynamically based on the box container width */
-            font-weight: 900; 
+        /* CQW scales font size relative to the width of .quantum-rig container perfectly */
+        .q-digit-main {
+            font-size: clamp(6rem, 25cqw, 14rem); font-weight: 900; 
             font-variant-numeric: tabular-nums;
-            text-shadow: var(--mobile-shadow-text); 
-            line-height: 1; 
-            min-height: 1em; 
-            margin-bottom: 0.2rem; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-shadow: var(--theme-m-shadow-txt); 
+            line-height: 1; min-height: 1em; margin-bottom: 0.5rem;
+            display: flex; align-items: center; justify-content: center;
             transition: transform 0.1s var(--ease-spring), opacity 0.1s;
         }
-        .quantum-ms { 
-            font-size: clamp(0.75rem, 2vw, 1.5rem); 
-            font-weight: 700; 
-            color: rgba(255,255,255,0.8); 
-            font-variant-numeric: tabular-nums; 
-            font-family: var(--font-mono); 
-            letter-spacing: 2px; 
+        
+        .q-digit-sub { 
+            font-size: clamp(1.5rem, 5cqw, 3rem); font-weight: 700; color: rgba(255,255,255,0.8); 
+            font-variant-numeric: tabular-nums; font-family: var(--font-mono); letter-spacing: 0.4rem; 
         }
 
-        .quantum-beat { transform: scale(1.35); opacity: 0.85; filter: brightness(1.5); }
+        .q-beat-active { transform: scale(1.35); opacity: 0.85; filter: brightness(1.5); }
 
         @media (min-width: 1024px) { 
-            .quantum-number { text-shadow: var(--tv-shadow-text); color: var(--tv-text-accent); font-family: var(--font-secondary); } 
-            .quantum-ms { color: rgba(255,215,0,0.8); }
+            .q-digit-main { text-shadow: var(--theme-tv-shadow-txt); color: var(--theme-tv-accent); font-family: var(--font-secondary); } 
+            .q-digit-sub { color: rgba(255,215,0,0.8); }
         }
 
         /* ==========================================================================
-           11. COMPONENT: MAGIC QR CODE DISPLAY
+           11. COMPONENT: MAGIC QR CODE DATA DISPLAY
            ========================================================================== */
-        .qr-display-box {
-            background: rgba(255,255,255,0.98); padding: 1.25rem; border-radius: 15px;
-            border: 4px solid var(--tv-text-accent); display: flex; flex-direction: column; align-items: center; box-shadow: 0 12.5px 30px rgba(0,0,0,0.9);
-            transform: scale(0.85); animation: scalePopIn 1.2s var(--ease-spring) forwards;
+        .qr-module {
+            background: rgba(255,255,255,0.98); padding: 2.5rem; border-radius: 3rem;
+            border: 0.8rem solid var(--theme-tv-accent); display: flex; flex-direction: column; align-items: center; 
+            box-shadow: 0 2.5rem 6rem rgba(0,0,0,0.9);
+            transform: scale(0.85); animation: fxScalePop 1.2s var(--ease-spring) forwards;
             position: relative; overflow: hidden; width: auto; max-width: 90vw; margin: 0 auto;
         }
         
-        .qr-display-box img { display: block; margin: 0 auto; border-radius: 7.5px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); max-width: 100%; height: auto;}
-        .qr-display-label { margin-top: 0.9rem; color: #000; font-weight: 900; font-size: 0.8rem; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
+        .qr-module img { display: block; margin: 0 auto; border-radius: 1.5rem; box-shadow: 0 1rem 3rem rgba(0,0,0,0.4); max-width: 100%; height: auto;}
+        .qr-module-text { margin-top: 1.8rem; color: #000; font-weight: 900; font-size: 1.6rem; text-align: center; text-transform: uppercase; letter-spacing: 0.4rem; }
         
-        .qr-display-box::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2.5px;
-            background: rgba(255, 0, 0, 0.6); box-shadow: 0 0 10px rgba(255,0,0,1);
-            animation: scanLaser 3s ease-in-out infinite alternate; pointer-events: none;
+        /* Security Scanning Laser Effect */
+        .qr-module::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 0.5rem;
+            background: rgba(255, 0, 0, 0.6); box-shadow: 0 0 2rem rgba(255,0,0,1);
+            animation: fxLaserScan 3s ease-in-out infinite alternate; pointer-events: none;
         }
 
         /* ==========================================================================
-           12. COMPONENT: 3-STAGE MOBILE REVEAL (Cake -> Gift Box)
+           12. COMPONENT: MOBILE 3-STAGE REVEAL THEATER
            ========================================================================== */
-        .reveal-stage-wrapper { width: 100vw; display: flex; flex-direction: column; align-items: center; justify-content: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 1rem;}
+        .theater-stage { width: 100vw; display: flex; flex-direction: column; align-items: center; justify-content: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 2rem;}
 
-        /* Stage A: The Birthday Cake & Mic System */
-        .cake-platform { position: relative; width: 175px; height: 175px; margin: 0 auto 1.25rem; display: flex; justify-content: center; align-items: flex-end; }
-        .svg-cake-master { width: 100%; height: auto; filter: drop-shadow(0 15px 17.5px rgba(0,0,0,0.45)); }
+        /* --- STAGE A: Birthday Cake & Mic Sensor --- */
+        .cake-rig { position: relative; width: clamp(25rem, 45vw, 35rem); height: clamp(25rem, 45vw, 35rem); margin: 0 auto 2.5rem; display: flex; justify-content: center; align-items: flex-end; }
+        .cake-vector { width: 100%; height: auto; filter: drop-shadow(0 3rem 3.5rem rgba(0,0,0,0.45)); }
         
-        .candle-rig { position: absolute; top: 20%; left: 0; width: 100%; height: 30px; display: flex; justify-content: center; align-items: flex-end;}
+        /* Candle Physics Container using absolute percentages for perfect scaling */
+        .candle-layer { position: absolute; top: 20%; left: 0; width: 100%; height: 6rem; display: flex; justify-content: center; align-items: flex-end;}
         
-        .flame-element {
-            width: 10px; height: 20px; background: linear-gradient(to top, #ff9d00, #ffed4a);
-            border-radius: 50% 50% 20% 20%; box-shadow: 0 0 15px #ffed4a, 0 0 30px #ff9d00;
-            animation: flameFlicker 0.08s infinite alternate; transform-origin: bottom center;
+        .flame-node {
+            width: 2rem; height: 4rem; background: linear-gradient(to top, #ff9d00, #ffed4a);
+            border-radius: 50% 50% 20% 20%; box-shadow: 0 0 3rem #ffed4a, 0 0 6rem #ff9d00;
+            animation: fxFlicker 0.08s infinite alternate; transform-origin: bottom center;
             transition: opacity 0.6s, transform 0.6s var(--ease-spring);
         }
-        .flame-blown { opacity: 0; transform: scale(0) translateY(-20px); box-shadow: none; animation: none; }
+        .flame-dead { opacity: 0; transform: scale(0) translateY(-4rem); box-shadow: none; animation: none; }
         
-        .smoke-puff { position: absolute; width: 9px; height: 9px; background: rgba(255,255,255,0.7); border-radius: 50%; opacity: 0; filter: blur(2.5px); }
-        .flame-blown + .smoke-puff { animation: smokeDissipate 3s ease-out forwards; }
+        .smoke-node { position: absolute; width: 1.8rem; height: 1.8rem; background: rgba(255,255,255,0.7); border-radius: 50%; opacity: 0; filter: blur(0.5rem); }
+        .flame-dead + .smoke-node { animation: fxSmokeOut 3s ease-out forwards; }
 
-        .flame-1 { position: absolute; left: 35.5%; top: -10%; }
-        .flame-2 { position: absolute; left: 47%; top: -20%; }
-        .flame-3 { position: absolute; left: 58.5%; top: -10%; }
+        /* Absolute positioning aligned with the SVG bases */
+        .flame-pos-1 { position: absolute; left: 35.5%; top: -10%; }
+        .flame-pos-2 { position: absolute; left: 47%; top: -20%; }
+        .flame-pos-3 { position: absolute; left: 58.5%; top: -10%; }
 
-        .mic-visualizer {
-            width: 125px; height: 10px; background: rgba(0,0,0,0.5); border-radius: 5px;
-            border: 1px solid rgba(255,255,255,0.5); margin: 0.5rem auto; overflow: hidden;
+        /* Microphone Decibel Visualizer */
+        .mic-eq-panel {
+            width: 25rem; height: 2rem; background: rgba(0,0,0,0.5); border-radius: 1rem;
+            border: 0.2rem solid rgba(255,255,255,0.5); margin: 1rem auto; overflow: hidden;
             display: none;
         }
-        .mic-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--color-info), var(--color-success)); transition: width 0.1s linear; }
+        .mic-eq-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--sys-info), var(--sys-success)); transition: width 0.1s linear; }
 
-        .blow-hint-badge {
-            font-size: 0.9rem; background: rgba(0,0,0,0.7); color: #fff; padding: 0.7rem 1.5rem;
-            border-radius: 30px; margin-top: 1rem; border: 1px solid #fff; backdrop-filter: blur(7.5px);
-            animation: pulseSubtle 2.5s infinite; text-align: center; box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        .hint-badge {
+            font-size: 1.8rem; background: rgba(0,0,0,0.7); color: #fff; padding: 1.4rem 3rem;
+            border-radius: 6rem; margin-top: 2rem; border: 0.2rem solid #fff; backdrop-filter: blur(1.5rem);
+            animation: fxPulseSoft 2.5s infinite; text-align: center; box-shadow: 0 1rem 2rem rgba(0,0,0,0.3);
         }
 
-        /* Stage B: Gift Box Unboxing */
-        .gift-interactive-rig {
-            width: 150px; height: 150px; position: relative; margin: 1.5rem auto;
+        /* --- STAGE B: 3D Gift Box Unboxing --- */
+        .gift-rig {
+            width: clamp(25rem, 45vw, 35rem); height: clamp(25rem, 45vw, 35rem); position: relative; margin: 3rem auto;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
-            animation: floatBox 3.5s ease-in-out infinite;
+            animation: fxFloat 3.5s ease-in-out infinite;
         }
-        .svg-gift-master { width: 100%; height: 100%; filter: drop-shadow(0 12.5px 20px rgba(0,0,0,0.6)); overflow: visible; }
+        .gift-vector { width: 100%; height: 100%; filter: drop-shadow(0 2.5rem 4rem rgba(0,0,0,0.6)); overflow: visible; }
         .gift-lid-group { transform-origin: center bottom; transition: transform 0.9s var(--ease-spring), opacity 0.5s; }
         
-        .gift-interactive-rig:active { transform: scale(0.92); animation: none; }
-        .gift-interactive-rig.is-opened .gift-lid-group { transform: translateY(-75px) rotate(30deg); opacity: 0; }
-        .gift-interactive-rig.is-opened { animation: boxRattle 0.6s cubic-bezier(.36,.07,.19,.97) both; cursor: default; }
+        .gift-rig:active { transform: scale(0.92); animation: none; }
+        .gift-rig.is-popped .gift-lid-group { transform: translateY(-15rem) rotate(30deg); opacity: 0; }
+        .gift-rig.is-popped { animation: fxRattle 0.6s cubic-bezier(.36,.07,.19,.97) both; cursor: default; }
 
-        /* Final Location Board */
-        .location-reveal-board {
-            background: rgba(0,0,0,0.9); border: 2.5px solid var(--tv-text-accent); border-radius: 20px;
-            padding: 1.75rem; margin-top: 1.25rem; box-shadow: 0 10px 25px rgba(255,215,0,0.5);
-            max-width: 90vw; width: auto; animation: scalePopIn 1.2s var(--ease-spring) forwards; display: flex; justify-content: center; align-items: center;
+        /* --- STAGE C: Final Coordinates --- */
+        .location-board {
+            background: rgba(0,0,0,0.9); border: 0.5rem solid var(--theme-tv-accent); border-radius: 4rem;
+            padding: 3.5rem; margin-top: 2.5rem; box-shadow: 0 2rem 5rem rgba(255,215,0,0.5);
+            max-width: 90vw; width: auto; animation: fxScalePop 1.2s var(--ease-spring) forwards; 
+            display: flex; justify-content: center; align-items: center;
         }
-        .location-text-data { 
-            font-size: clamp(1.5rem, 4vw, 2.75rem); color: var(--tv-text-accent); 
+        .location-data { 
+            font-size: clamp(3rem, 8vw, 5.5rem); color: var(--theme-tv-accent); 
             font-weight: 900; text-align: center; word-break: break-word; font-family: var(--font-secondary); 
         }
 
         /* ==========================================================================
-           13. COMPONENT: CUSTOM MODAL SYSTEM (Safe Mic Requests)
+           13. COMPONENT: CUSTOM SECURE MODAL SYSTEM (For Mic Permissions)
            ========================================================================== */
-        .modal-backdrop {
+        .modal-shield {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(2rem); -webkit-backdrop-filter: blur(2rem);
             display: flex; justify-content: center; align-items: center; z-index: 100000;
-            opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+            opacity: 0; pointer-events: none; transition: opacity var(--time-medium) ease;
         }
-        .modal-backdrop.is-active { opacity: 1; pointer-events: all; }
+        .modal-shield.is-active { opacity: 1; pointer-events: all; }
         
-        .modal-dialog {
-            background: var(--mobile-glass-bg); border: 1.5px solid #fff; border-radius: 20px;
-            padding: 2rem 1.5rem; max-width: 90vw; width: 300px; text-align: center;
-            transform: translateY(40px) scale(0.85); transition: transform 0.6s var(--ease-spring);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.7); display: flex; flex-direction: column; align-items: center;
+        .modal-card {
+            background: var(--theme-m-glass); border: 0.3rem solid #fff; border-radius: 4rem;
+            padding: 4rem 3rem; max-width: 90vw; width: 50rem; text-align: center;
+            transform: translateY(8rem) scale(0.85); transition: transform 0.6s var(--ease-spring);
+            box-shadow: 0 3rem 8rem rgba(0,0,0,0.7); display: flex; flex-direction: column; align-items: center;
         }
-        @media (min-width: 1024px) { .modal-dialog { background: #1f2937; border-color: var(--tv-text-accent); } }
+        @media (min-width: 1024px) { .modal-card { background: #1f2937; border-color: var(--theme-tv-accent); } }
         
-        .modal-backdrop.is-active .modal-dialog { transform: translateY(0) scale(1); }
-        .modal-title-text { font-size: 1.8rem; margin-bottom: 0.9rem; color: #fff; text-shadow: 1px 1px 5px rgba(0,0,0,0.7); width: 100%;}
-        .modal-body-text { font-size: 0.9rem; margin-bottom: 1.5rem; color: #fff; line-height: 1.6; width: 100%;}
+        .modal-shield.is-active .modal-card { transform: translateY(0) scale(1); }
+        .modal-hdr { font-size: 3.2rem; margin-bottom: 1.8rem; color: #fff; text-shadow: 0.2rem 0.2rem 1rem rgba(0,0,0,0.7); width: 100%;}
+        .modal-txt { font-size: 1.8rem; margin-bottom: 3rem; color: #fff; line-height: 1.6; width: 100%;}
         
-        .modal-actions { display: flex; gap: 0.5rem; width: 100%; }
-        .modal-btn { flex: 1; }
-        .modal-btn-secondary { background: #4b5563; color: #fff; box-shadow: none; }
-        .modal-btn-secondary:hover { filter: brightness(1.2); }
+        .modal-btn-group { display: flex; gap: 1rem; width: 100%; }
+        .btn-modal { flex: 1; padding: 1.5rem; font-size: 1.6rem; }
+        .btn-modal-alt { background: #4b5563; color: #fff; box-shadow: none; border: 0.2rem solid #9ca3af; }
+        .btn-modal-alt:hover { filter: brightness(1.2); }
 
         /* ==========================================================================
            14. COMPONENT: MASSIVE DEVELOPER COMMAND CENTER
            ========================================================================== */
-        .dev-console {
+        .dev-terminal {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9);
-            background: rgba(17, 24, 39, 0.95); backdrop-filter: blur(15px);
-            color: #fff; padding: 20px; border-radius: 15px; border: 2px solid var(--color-danger); 
+            background: rgba(17, 24, 39, 0.95); backdrop-filter: blur(3rem);
+            color: #fff; padding: 3rem; border-radius: 2.5rem; border: 0.2rem solid var(--sys-danger); 
             z-index: 1000000; font-family: var(--font-mono); display: none; 
-            box-shadow: 0 0 50px rgba(239, 68, 68, 0.5), 0 0 100px rgba(0,0,0,0.9);
-            width: 90vw; max-width: 500px; max-height: 90vh; overflow-y: auto;
+            box-shadow: 0 0 10rem rgba(239, 68, 68, 0.5), 0 0 20rem rgba(0,0,0,0.9);
+            width: 95vw; max-width: 70rem; max-height: 90vh; overflow-y: auto;
             opacity: 0; transition: opacity 0.3s, transform 0.3s var(--ease-spring);
         }
-        .dev-console.is-open { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .dev-terminal.is-open { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
         
-        .dev-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #374151; padding-bottom: 10px; margin-bottom: 15px;}
-        .dev-header h3 { color: var(--color-danger); font-size: 1.2rem; margin: 0; text-align: left; }
-        .dev-close-x { cursor: pointer; color: #9ca3af; font-size: 1.5rem; font-weight: bold; background: none; border: none; padding: 5px; }
+        .dev-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 0.2rem solid #374151; padding-bottom: 2rem; margin-bottom: 3rem;}
+        .dev-header h3 { color: var(--sys-danger); font-size: 2rem; margin: 0; text-align: left; }
+        .dev-close-x { cursor: pointer; color: #9ca3af; font-size: 3rem; font-weight: bold; background: none; border: none; padding: 1rem; }
         .dev-close-x:hover { color: #fff; }
 
-        .dev-section { margin-bottom: 20px; }
-        .dev-section h4 { color: var(--color-info); font-size: 0.9rem; margin-bottom: 10px; text-align: left; border-left: 3px solid var(--color-info); padding-left: 8px;}
+        .dev-block { margin-bottom: 3rem; }
+        .dev-block h4 { color: var(--sys-info); font-size: 1.6rem; margin-bottom: 1.5rem; text-align: left; border-left: 0.6rem solid var(--sys-info); padding-left: 1.5rem;}
         
-        .dev-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-        .dev-btn { 
-            padding: 0.8rem; font-size: 0.75rem; background: #374151; color: #e5e7eb; 
-            border-radius: 8px; border: 1px solid #4b5563; cursor: pointer; transition: all 0.2s;
+        .dev-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .dev-action-btn { 
+            padding: 1.6rem; font-size: 1.4rem; background: #374151; color: #e5e7eb; 
+            border-radius: 1.2rem; border: 0.2rem solid #4b5563; cursor: pointer; transition: all 0.2s;
             font-family: inherit; font-weight: bold;
         }
-        .dev-btn:hover { background: var(--color-info); color: #fff; border-color: var(--color-info); transform: translateY(-2px);}
-        .dev-btn.danger:hover { background: var(--color-danger); border-color: var(--color-danger); }
-        .dev-btn.warning:hover { background: var(--color-warning); color: #000; border-color: var(--color-warning); }
-        .dev-btn.success:hover { background: var(--color-success); border-color: var(--color-success); }
+        .dev-action-btn:hover { background: var(--sys-info); color: #fff; border-color: var(--sys-info); transform: translateY(-0.4rem);}
+        .dev-action-btn.c-danger:hover { background: var(--sys-danger); border-color: var(--sys-danger); }
+        .dev-action-btn.c-warn:hover { background: var(--sys-warning); color: #000; border-color: var(--sys-warning); }
+        .dev-action-btn.c-success:hover { background: var(--sys-success); border-color: var(--sys-success); }
         
-        .dev-console-footer { margin-top: 10px; font-size: 0.6rem; color: #6b7280; text-align: center; border-top: 1px solid #374151; padding-top: 10px; }
+        .dev-footer { margin-top: 3rem; font-size: 1.2rem; color: #6b7280; text-align: center; border-top: 0.2rem solid #374151; padding-top: 2rem; }
 
         /* ==========================================================================
-           15. ANIMATION KEYFRAMES LIBRARY (Offsets Halved)
+           15. ANIMATION KEYFRAMES LIBRARY
            ========================================================================== */
-        @keyframes auraGlow { 
+        @keyframes fxAuraGlow { 
             0% { box-shadow: 0 0 0 0 rgba(255,255,255, 0.95); transform: rotateY(180deg) scale(1); } 
-            50% { box-shadow: 0 0 17.5px 12.5px rgba(255,255,255, 0); transform: rotateY(180deg) scale(1.08); } 
+            50% { box-shadow: 0 0 3.5rem 2.5rem rgba(255,255,255, 0); transform: rotateY(180deg) scale(1.08); } 
             100% { box-shadow: 0 0 0 0 rgba(255,255,255, 0); transform: rotateY(180deg) scale(1); } 
         }
-        @keyframes floatAndFade { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-60px) scale(1.8); } }
-        @keyframes scalePopIn { 0% { opacity: 0; transform: scale(0.3); } 100% { opacity: 1; transform: scale(1); } }
-        @keyframes flameFlicker { 0% { transform: scale(1) rotate(-2deg); opacity: 0.9; } 50% { transform: scale(1.2) rotate(4deg); opacity: 1; } 100% { transform: scale(0.9) rotate(-4deg); opacity: 0.8; } }
-        @keyframes smokeDissipate { 0% { opacity: 0.9; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-75px) scale(5); } }
-        @keyframes pulseSubtle { 0%, 100% { transform: scale(1); opacity: 0.85; } 50% { transform: scale(1.08); opacity: 1; } }
-        @keyframes spinSlow { 100% { transform: rotate(360deg); } }
-        @keyframes spinFastReverse { 100% { transform: rotate(-360deg); } }
-        @keyframes floatBox { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12.5px); } }
-        @keyframes scanLaser { 0% { top: 10%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 90%; opacity: 0; } }
-        @keyframes shimmerBar { 0% { transform: translateX(-100%); } 100% { transform: translateX(500%); } }
-        @keyframes boxRattle { 
-            10%, 90% { transform: translate3d(-1px, 0, 0) rotate(-2deg); }
-            20%, 80% { transform: translate3d(2px, 0, 0) rotate(2deg); }
-            30%, 50%, 70% { transform: translate3d(-4px, -2.5px, 0) rotate(-4deg); }
-            40%, 60% { transform: translate3d(4px, 2.5px, 0) rotate(4deg); }
+        @keyframes fxFloatUp { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-12rem) scale(1.8); } }
+        @keyframes fxScalePop { 0% { opacity: 0; transform: scale(0.3); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes fxFlicker { 0% { transform: scale(1) rotate(-2deg); opacity: 0.9; } 50% { transform: scale(1.2) rotate(4deg); opacity: 1; } 100% { transform: scale(0.9) rotate(-4deg); opacity: 0.8; } }
+        @keyframes fxSmokeOut { 0% { opacity: 0.9; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-15rem) scale(5); } }
+        @keyframes fxPulseSoft { 0%, 100% { transform: scale(1); opacity: 0.85; } 50% { transform: scale(1.08); opacity: 1; } }
+        @keyframes fxSpinSlow { 100% { transform: rotate(360deg); } }
+        @keyframes fxSpinFastRev { 100% { transform: rotate(-360deg); } }
+        @keyframes fxFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.5rem); } }
+        @keyframes fxLaserScan { 0% { top: 10%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 90%; opacity: 0; } }
+        @keyframes fxShimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(500%); } }
+        @keyframes fxRattle { 
+            10%, 90% { transform: translate3d(-0.2rem, 0, 0) rotate(-2deg); }
+            20%, 80% { transform: translate3d(0.4rem, 0, 0) rotate(2deg); }
+            30%, 50%, 70% { transform: translate3d(-0.8rem, -0.5rem, 0) rotate(-4deg); }
+            40%, 60% { transform: translate3d(0.8rem, 0.5rem, 0) rotate(4deg); }
         }
     </style>
 </head>
 <body>
 
     <!-- ==========================================================================
-         SVG ASSET REPOSITORY (Inline Vectors for Maximum Quality)
-         Massively expanded vector math for the cake and gift box.
+         SVG ASSET REPOSITORY (Inline Vectors for Maximum Scalable Quality)
          ========================================================================== -->
     <svg width="0" height="0" style="position:absolute; display:none;" aria-hidden="true">
         <defs>
-            <!-- UI Icons -->
-            <g id="icon-sound-on">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-            </g>
-            <g id="icon-sound-off">
-                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-            </g>
-            
-            <g id="icon-mic">
-                <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
-            </g>
+            <!-- UI Graphics -->
+            <g id="svg-sound-on"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></g>
+            <g id="svg-sound-off"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></g>
+            <g id="svg-mic"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></g>
+            <g id="svg-lock"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></g>
 
-            <!-- Ultra-Detailed 3-Tier Birthday Cake SVG -->
-            <g id="master-cake">
-                <!-- Plate Base -->
+            <!-- Ultra-Detailed Cake Vector -->
+            <g id="model-cake">
                 <ellipse cx="100" cy="140" rx="90" ry="15" fill="#e2e8f0"/>
                 <ellipse cx="100" cy="143" rx="90" ry="15" fill="#cbd5e1" opacity="0.5"/>
-                
-                <!-- Bottom Tier: Deep Pink Base -->
+                <!-- Bottom Tier -->
                 <path d="M 20 100 Q 100 120 180 100 L 180 135 Q 100 155 20 135 Z" fill="#ff758c"/>
                 <path d="M 20 100 Q 100 120 180 100 Q 100 80 20 100" fill="#ff4d6d"/>
-                <!-- Bottom Icing Drips -->
                 <path d="M 20 100 Q 30 115 40 100 Q 50 115 60 100 Q 70 120 80 100 Q 90 115 100 100 Q 110 120 120 100 Q 130 115 140 100 Q 150 115 160 100 Q 170 115 180 100" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
-
-                <!-- Middle Tier: Light Peach Base -->
+                <!-- Middle Tier -->
                 <path d="M 35 70 Q 100 90 165 70 L 165 100 Q 100 120 35 100 Z" fill="#fecfef"/>
                 <path d="M 35 70 Q 100 90 165 70 Q 100 50 35 70" fill="#fbc2eb"/>
-                <!-- Middle Icing Drips -->
                 <path d="M 35 70 Q 45 80 55 70 Q 65 85 75 70 Q 85 80 95 70 Q 105 85 115 70 Q 125 80 135 70 Q 145 85 155 70 Q 160 75 165 70" fill="none" stroke="#ff758c" stroke-width="4" stroke-linecap="round"/>
-
-                <!-- Top Tier: Vanilla White -->
+                <!-- Top Tier -->
                 <path d="M 50 40 Q 100 55 150 40 L 150 70 Q 100 85 50 70 Z" fill="#ffffff"/>
                 <path d="M 50 40 Q 100 55 150 40 Q 100 25 50 40" fill="#f8fafc"/>
-                
-                <!-- Macro Sprinkles Layer (Vector generated coordinates) -->
-                <rect x="70" y="35" width="6" height="2" fill="#ff758c" transform="rotate(25 70 35)"/>
-                <rect x="90" y="42" width="6" height="2" fill="#3b82f6" transform="rotate(-15 90 42)"/>
-                <rect x="110" y="38" width="6" height="2" fill="#22c55e" transform="rotate(45 110 38)"/>
-                <rect x="130" y="45" width="6" height="2" fill="#eab308" transform="rotate(-30 130 45)"/>
-                <rect x="85" y="30" width="6" height="2" fill="#ef4444" transform="rotate(10 85 30)"/>
-                <rect x="120" y="32" width="6" height="2" fill="#9333ea" transform="rotate(-60 120 32)"/>
-                <rect x="65" y="45" width="6" height="2" fill="#facc15" transform="rotate(80 65 45)"/>
-                <rect x="140" y="38" width="6" height="2" fill="#14b8a6" transform="rotate(-40 140 38)"/>
-
-                <!-- 3D Candle Bases (Flames are dynamically injected HTML) -->
-                <g id="candle-1" transform="translate(68, 8)">
-                    <rect x="0" y="0" width="10" height="35" fill="#ffd700" rx="3"/>
-                    <path d="M 0 5 L 10 10 L 10 15 L 0 10 Z" fill="#eab308"/>
-                    <path d="M 0 15 L 10 20 L 10 25 L 0 20 Z" fill="#eab308"/>
-                </g>
-                <g id="candle-2" transform="translate(95, 3)">
-                    <rect x="0" y="0" width="10" height="40" fill="#22c55e" rx="3"/>
-                    <path d="M 0 5 L 10 10 L 10 15 L 0 10 Z" fill="#16a34a"/>
-                    <path d="M 0 15 L 10 20 L 10 25 L 0 20 Z" fill="#16a34a"/>
-                    <path d="M 0 25 L 10 30 L 10 35 L 0 30 Z" fill="#16a34a"/>
-                </g>
-                <g id="candle-3" transform="translate(122, 8)">
-                    <rect x="0" y="0" width="10" height="35" fill="#3b82f6" rx="3"/>
-                    <path d="M 0 5 L 10 10 L 10 15 L 0 10 Z" fill="#2563eb"/>
-                    <path d="M 0 15 L 10 20 L 10 25 L 0 20 Z" fill="#2563eb"/>
-                </g>
+                <!-- Sprinkles -->
+                <rect x="70" y="35" width="6" height="2" fill="#ff758c" transform="rotate(25 70 35)"/><rect x="90" y="42" width="6" height="2" fill="#3b82f6" transform="rotate(-15 90 42)"/><rect x="110" y="38" width="6" height="2" fill="#22c55e" transform="rotate(45 110 38)"/><rect x="130" y="45" width="6" height="2" fill="#eab308" transform="rotate(-30 130 45)"/><rect x="85" y="30" width="6" height="2" fill="#ef4444" transform="rotate(10 85 30)"/><rect x="120" y="32" width="6" height="2" fill="#9333ea" transform="rotate(-60 120 32)"/><rect x="65" y="45" width="6" height="2" fill="#facc15" transform="rotate(80 65 45)"/><rect x="140" y="38" width="6" height="2" fill="#14b8a6" transform="rotate(-40 140 38)"/>
+                <!-- 3D Candle Bases -->
+                <g transform="translate(68, 8)"><rect x="0" y="0" width="10" height="35" fill="#ffd700" rx="3"/><path d="M 0 5 L 10 10 L 10 15 L 0 10 Z" fill="#eab308"/><path d="M 0 15 L 10 20 L 10 25 L 0 20 Z" fill="#eab308"/></g>
+                <g transform="translate(95, 3)"><rect x="0" y="0" width="10" height="40" fill="#22c55e" rx="3"/><path d="M 0 5 L 10 10 L 10 15 L 0 10 Z" fill="#16a34a"/><path d="M 0 15 L 10 20 L 10 25 L 0 20 Z" fill="#16a34a"/><path d="M 0 25 L 10 30 L 10 35 L 0 30 Z" fill="#16a34a"/></g>
+                <g transform="translate(122, 8)"><rect x="0" y="0" width="10" height="35" fill="#3b82f6" rx="3"/><path d="M 0 5 L 10 10 L 10 15 L 0 10 Z" fill="#2563eb"/><path d="M 0 15 L 10 20 L 10 25 L 0 20 Z" fill="#2563eb"/></g>
             </g>
 
-            <!-- Ultra-Detailed 3D Gift Box SVG -->
-            <g id="master-gift">
-                <!-- Main Box Body (Deep Blue) -->
+            <!-- Ultra-Detailed 3D Gift Box Vector -->
+            <g id="model-gift">
                 <path d="M 20 80 L 180 80 L 170 190 L 30 190 Z" fill="#3b82f6"/>
-                <!-- Box Inner Shadow/Depth for 3D illusion -->
                 <path d="M 20 80 L 40 80 L 50 190 L 30 190 Z" fill="#2563eb" opacity="0.5"/>
                 <path d="M 160 80 L 180 80 L 170 190 L 150 190 Z" fill="#1d4ed8" opacity="0.3"/>
-                
-                <!-- Vertical Gold Ribbon Wrap (Body) -->
                 <polygon points="85,80 115,80 110,190 90,190" fill="#ffd700"/>
                 <polygon points="85,80 95,80 95,190 90,190" fill="#eab308" opacity="0.6"/>
-
-                <!-- Lid Group (Separate for CSS unboxing animation) -->
-                <g id="gift-lid-rig">
-                    <!-- Lid Base Structure -->
+                <g id="model-gift-lid">
                     <rect x="10" y="50" width="180" height="35" fill="#2563eb" rx="4"/>
-                    <!-- Lid Shadow drop -->
                     <rect x="10" y="80" width="180" height="5" fill="#1d4ed8"/>
-                    
-                    <!-- Vertical Gold Ribbon (Lid Part) -->
                     <rect x="85" y="50" width="30" height="35" fill="#ffd700"/>
                     <rect x="85" y="50" width="10" height="35" fill="#eab308" opacity="0.6"/>
-
-                    <!-- Massive 3D Gold Bow Structure -->
-                    <!-- Left Loop Outer -->
-                    <path d="M 100 50 C 60 -10 10 20 85 50 Z" fill="#ffd700"/>
-                    <!-- Left Loop Inner Hole -->
-                    <path d="M 90 45 C 65 10 30 25 80 48 Z" fill="#eab308"/>
-                    <!-- Right Loop Outer -->
-                    <path d="M 100 50 C 140 -10 190 20 115 50 Z" fill="#ffd700"/>
-                    <!-- Right Loop Inner Hole -->
-                    <path d="M 110 45 C 135 10 170 25 120 48 Z" fill="#eab308"/>
-                    <!-- Center Ribbon Knot -->
-                    <ellipse cx="100" cy="50" rx="15" ry="10" fill="#facc15"/>
-                    <ellipse cx="100" cy="52" rx="15" ry="8" fill="#ca8a04" opacity="0.5"/>
-                    
-                    <!-- Trailing Ribbon Ends -->
-                    <path d="M 90 55 Q 70 80 60 110 Q 75 90 95 60 Z" fill="#eab308"/>
-                    <path d="M 110 55 Q 130 80 140 110 Q 125 90 105 60 Z" fill="#eab308"/>
+                    <path d="M 100 50 C 60 -10 10 20 85 50 Z" fill="#ffd700"/><path d="M 90 45 C 65 10 30 25 80 48 Z" fill="#eab308"/>
+                    <path d="M 100 50 C 140 -10 190 20 115 50 Z" fill="#ffd700"/><path d="M 110 45 C 135 10 170 25 120 48 Z" fill="#eab308"/>
+                    <ellipse cx="100" cy="50" rx="15" ry="10" fill="#facc15"/><ellipse cx="100" cy="52" rx="15" ry="8" fill="#ca8a04" opacity="0.5"/>
+                    <path d="M 90 55 Q 70 80 60 110 Q 75 90 95 60 Z" fill="#eab308"/><path d="M 110 55 Q 130 80 140 110 Q 125 90 105 60 Z" fill="#eab308"/>
                 </g>
             </g>
         </defs>
     </svg>
 
     <!-- ==========================================================================
-         CANVAS DOM ELEMENTS (Absolute Positioning)
+         CANVAS LAYERS
          ========================================================================== -->
-    <canvas id="canvas-bg"></canvas>
-    <canvas id="canvas-fx"></canvas>
-    <canvas id="canvas-confetti" class="state-gone"></canvas>
+    <canvas id="layer-ambient"></canvas>
+    <canvas id="layer-burst"></canvas>
+    <canvas id="layer-confetti" class="state-gone"></canvas>
 
     <!-- ==========================================================================
-         GLOBAL UI: AUDIO TOGGLE
+         GLOBAL UI: FLOATING AUDIO TOGGLE
          ========================================================================== -->
-    <button id="btn-master-audio" class="audio-toggle-wrapper" aria-label="Toggle Master Sound">
-        <svg id="icon-sound-on-view" viewBox="0 0 24 24"><use href="#icon-sound-on"></use></svg>
-        <svg id="icon-sound-off-view" viewBox="0 0 24 24" class="state-gone"><use href="#icon-sound-off"></use></svg>
+    <button id="btn-master-audio" class="btn-audio-toggle" aria-label="Toggle Audio">
+        <svg id="view-sound-on" viewBox="0 0 24 24"><use href="#svg-sound-on"></use></svg>
+        <svg id="view-sound-off" viewBox="0 0 24 24" class="state-gone"><use href="#svg-sound-off"></use></svg>
     </button>
 
     <!-- ==========================================================================
-         GLOBAL UI: CUSTOM MODAL SYSTEM (No Native Alerts)
+         GLOBAL UI: SECURE CUSTOM MODAL SYSTEM (Overrides window.alert)
          ========================================================================== -->
-    <div id="sys-modal" class="modal-backdrop">
-        <div class="modal-dialog">
-            <!-- Icon placeholder -->
-            <div id="sys-modal-icon" style="margin-bottom: 1rem;"></div>
-            <h2 class="modal-title-text" id="sys-modal-title">System Notice</h2>
-            <p class="modal-body-text" id="sys-modal-body">Message body content.</p>
-            
-            <div class="modal-actions" id="sys-modal-actions">
-                <button class="primary-btn modal-btn" id="sys-modal-btn">Acknowledge</button>
+    <div id="ui-modal" class="modal-shield">
+        <div class="modal-card">
+            <div id="ui-modal-icon" style="margin-bottom: 2rem;"></div>
+            <h2 class="modal-hdr" id="ui-modal-title">System Alert</h2>
+            <p class="modal-txt" id="ui-modal-body">Message Content</p>
+            <div class="modal-btn-group" id="ui-modal-actions">
+                <button class="btn-primary btn-modal" id="ui-modal-default-btn">Confirm</button>
             </div>
         </div>
     </div>
 
     <!-- ==========================================================================
-         SCREEN 1: CREATOR SETUP (The Command Station)
+         SCREEN 1: CREATOR SETUP TERMINAL
          ========================================================================== -->
-    <div id="view-setup" class="screen-container">
+    <div id="screen-setup" class="app-screen">
         <div class="glass-panel">
             <h1>Mission Control</h1>
-            <p>Configure the parameters for Mom's birthday hunt. This terminal is classified.</p>
+            <p>Configure the parameters for Mom's birthday hunt. This terminal is strictly classified.</p>
             
-            <input type="number" id="cfg-time" class="modern-input" value="10" placeholder="Countdown Duration (s)" min="3" max="60">
-            <input type="text" id="cfg-loc" class="modern-input" placeholder="Target Loc (e.g. Living Room)" autocomplete="off">
+            <input type="number" id="cfg-timer" class="input-text" value="10" placeholder="Countdown Secs" min="3" max="60">
+            <input type="text" id="cfg-location" class="input-text" placeholder="Target Loc (e.g. Living Room)" autocomplete="off">
             
-            <button class="primary-btn" id="btn-lock-setup" style="margin-top: 0.5rem; width: 100%;">Initialize Sequence</button>
+            <button class="btn-primary" id="btn-lock-in" style="margin-top: 1rem; width: 100%;">
+                Initialize Sequence
+            </button>
         </div>
     </div>
 
     <!-- ==========================================================================
          SCREEN 2: QUANTUM COUNTDOWN HUD 2.0
          ========================================================================== -->
-    <div id="view-countdown" class="screen-container state-hidden">
-        <div class="quantum-cd-container" id="cd-physics-wrapper">
-            <svg class="quantum-svg" viewBox="0 0 220 220">
-                <!-- 4 Independent Rotational Rings -->
-                <circle class="q-ring-outermost" cx="110" cy="110" r="110"></circle>
-                <circle class="q-ring-outer" cx="110" cy="110" r="100"></circle>
-                <circle class="q-ring-inner" cx="110" cy="110" r="80"></circle>
-                <circle class="q-ring-bg" cx="110" cy="110" r="90"></circle>
-                <circle class="q-ring-progress" id="cd-svg-fill" cx="110" cy="110" r="90"></circle>
+    <div id="screen-countdown" class="app-screen state-hidden">
+        <div class="quantum-rig" id="cd-physics-anchor">
+            <svg class="quantum-vector" viewBox="0 0 220 220">
+                <circle class="q-layer-1" cx="110" cy="110" r="110"></circle>
+                <circle class="q-layer-2" cx="110" cy="110" r="100"></circle>
+                <circle class="q-layer-3" cx="110" cy="110" r="80"></circle>
+                <circle class="q-layer-bg" cx="110" cy="110" r="90"></circle>
+                <circle class="q-layer-fill" id="cd-ring-fill" cx="110" cy="110" r="90"></circle>
             </svg>
-            <div class="quantum-number-wrapper">
-                <div class="quantum-number" id="cd-digital-readout">10</div>
-                <div class="quantum-ms" id="cd-ms-readout">.00</div>
+            <div class="quantum-data-core">
+                <div class="q-digit-main" id="cd-num-sec">10</div>
+                <div class="q-digit-sub" id="cd-num-ms">.00</div>
             </div>
         </div>
         <h2>Systems Initiating...</h2>
@@ -806,34 +780,34 @@
     <!-- ==========================================================================
          SCREEN 3: PLAYER WELCOME
          ========================================================================== -->
-    <div id="view-welcome" class="screen-container state-hidden">
+    <div id="screen-welcome" class="app-screen state-hidden">
         <h1>Happy Birthday,<br>Mom!</h1>
         <p>A high-value package has been hidden in the perimeter.<br>You must bypass the security grid to unlock its exact coordinates.</p>
-        <button class="primary-btn" id="btn-start-game">Bypass Security</button>
+        <button class="btn-primary" id="btn-start-grid">Bypass Security</button>
     </div>
 
     <!-- ==========================================================================
-         SCREEN 4: THE MEMORY GRID (Core Gameplay)
+         SCREEN 4: THE MEMORY GRID
          ========================================================================== -->
-    <div id="view-game" class="screen-container state-hidden">
-        <!-- HUD -->
-        <div class="hud-container glass-panel" style="background: var(--mobile-glass-bg);">
-            <div class="hud-top-row">
-                <span id="game-clock">60.0s</span>
+    <div id="screen-game" class="app-screen state-hidden">
+        <!-- HUD Dashboard -->
+        <div class="hud-wrapper glass-panel" style="background: var(--theme-m-glass);">
+            <div class="hud-header">
+                <span id="stat-clock">60.0s</span>
                 <span style="position:relative;">
-                    Matches: <span id="game-score">0</span>/8
-                    <div id="combo-badge" class="combo-multiplier">2x STREAK!</div>
+                    Matches: <span id="stat-score">0</span>/8
+                    <div id="stat-combo" class="hud-combo">2x STREAK!</div>
                 </span>
             </div>
-            <div class="hud-progress-track">
-                <div class="hud-progress-fill" id="game-progress-bar"></div>
+            <div class="hud-track">
+                <div class="hud-fill" id="stat-progress"></div>
             </div>
         </div>
         
-        <!-- Interactive Grid -->
-        <div class="grid-wrapper glass-panel" style="background: var(--mobile-glass-bg);">
-            <div class="memory-grid" id="memory-board">
-                <!-- Cards injected dynamically via JS Engine -->
+        <!-- Active Matrix Grid -->
+        <div class="grid-container glass-panel" style="background: var(--theme-m-glass);">
+            <div class="game-grid" id="matrix-board">
+                <!-- JavaScript Injected Cards -->
             </div>
         </div>
     </div>
@@ -841,63 +815,63 @@
     <!-- ==========================================================================
          SCREEN 5: TV WIN STATE (Magic QR Generation)
          ========================================================================== -->
-    <div id="view-tv-win" class="screen-container state-hidden">
+    <div id="screen-tv-win" class="app-screen state-hidden">
         <h1>Grid Bypassed!</h1>
         <p>Security cleared. Extract your phone, open the camera app, and scan this encrypted code to download the coordinates.</p>
         
-        <div class="qr-display-box">
-            <img id="qr-target-img" src="" alt="Encrypted QR Payload" width="160" height="160">
-            <div class="qr-display-label">Scan to Download</div>
+        <div class="qr-module">
+            <img id="qr-target-img" src="" alt="Encrypted QR Payload" width="320" height="320">
+            <div class="qr-module-text">Scan to Download</div>
         </div>
     </div>
 
     <!-- ==========================================================================
-         SCREEN 6: MOBILE GATEWAY (Post-Scan Handshake & Mic Permission Flow)
+         SCREEN 6: MOBILE GATEWAY (Post-Scan Handshake)
          ========================================================================== -->
-    <div id="view-mobile-gateway" class="screen-container state-hidden">
+    <div id="screen-mobile-gateway" class="app-screen state-hidden">
         <div class="glass-panel">
             <h1>Coordinates<br>Acquired</h1>
             <p>Connection secure. The digital care package is ready for extraction.</p>
-            <button class="primary-btn" id="btn-mobile-init">Extract Package</button>
+            <button class="btn-primary" id="btn-mobile-proceed">Extract Package</button>
         </div>
     </div>
 
     <!-- ==========================================================================
          SCREEN 7: MOBILE 3-STAGE REVEAL THEATER
          ========================================================================== -->
-    <div id="view-mobile-reveal" class="screen-container state-hidden">
+    <div id="screen-mobile-reveal" class="app-screen state-hidden">
         
-        <!-- ACT 1: The Birthday Cake & Microphone Sensor -->
-        <div id="reveal-act-cake" class="reveal-stage-wrapper">
+        <!-- ACT 1: The Birthday Cake & Mic Sensor -->
+        <div id="stage-act-cake" class="theater-stage">
             <h1>Make a Wish!</h1>
             <p>Blow into your device's microphone to extinguish the candles and proceed.</p>
             
-            <div class="cake-platform" id="interactive-cake">
-                <svg class="svg-cake-master" viewBox="0 0 200 160"><use href="#master-cake"></use></svg>
+            <div class="cake-rig" id="cake-interactive-hitbox">
+                <svg class="cake-vector" viewBox="0 0 200 160"><use href="#model-cake"></use></svg>
                 
-                <!-- Dynamic CSS Flames Overlay (using relative percentage positioning for perfect mobile scale) -->
-                <div class="candle-rig" id="flame-rig">
-                    <div class="flame-1"><div class="flame-element"></div><div class="smoke-puff"></div></div>
-                    <div class="flame-2"><div class="flame-element"></div><div class="smoke-puff"></div></div>
-                    <div class="flame-3"><div class="flame-element"></div><div class="smoke-puff"></div></div>
+                <!-- Dynamic CSS Flames (Uses relative % constraints for absolute precision scaling) -->
+                <div class="candle-layer" id="flame-layer">
+                    <div class="flame-pos-1"><div class="flame-node"></div><div class="smoke-node"></div></div>
+                    <div class="flame-pos-2"><div class="flame-node"></div><div class="smoke-node"></div></div>
+                    <div class="flame-pos-3"><div class="flame-node"></div><div class="smoke-node"></div></div>
                 </div>
             </div>
 
-            <!-- Visual Equalizer for Mic -->
-            <div class="mic-visualizer" id="mic-eq-display">
-                <div class="mic-bar" id="mic-eq-bar"></div>
+            <!-- Realtime Audio Visualizer -->
+            <div class="mic-eq-panel" id="mic-eq-display">
+                <div class="mic-eq-bar" id="mic-eq-bar"></div>
             </div>
             
-            <div class="blow-hint-badge" id="sensor-hint-text">Calibrating sensors... (Tap cake to override)</div>
+            <div class="hint-badge" id="mic-hint-text">Calibrating sensors... (Tap cake to override)</div>
         </div>
 
         <!-- ACT 2: The Gift Box Unboxing -->
-        <div id="reveal-act-gift" class="reveal-stage-wrapper state-gone slide-in-right">
+        <div id="stage-act-gift" class="theater-stage state-gone slide-in-right">
             <h1>Incoming!</h1>
             <p>Tap the crate to crack the seal.</p>
             
-            <div class="gift-interactive-rig" id="interactive-gift">
-                <svg class="svg-gift-master" viewBox="0 0 200 200"><use href="#master-gift"></use></svg>
+            <div class="gift-rig" id="gift-interactive-hitbox">
+                <svg class="gift-vector" viewBox="0 0 200 200"><use href="#model-gift"></use></svg>
             </div>
         </div>
     </div>
@@ -905,55 +879,56 @@
     <!-- ==========================================================================
          SCREEN 8: FINAL COORDINATE REVEAL
          ========================================================================== -->
-    <div id="view-final-gift" class="screen-container state-hidden">
+    <div id="screen-final-gift" class="app-screen state-hidden">
         <h1>Surprise!</h1>
         <p>Your birthday gift has been successfully deployed to:</p>
         
-        <div class="location-reveal-board">
-            <div class="location-text-data" id="final-loc-output">ERROR_404</div>
+        <div class="location-board">
+            <div class="location-data" id="final-loc-string">ERROR_404</div>
         </div>
         
-        <br><br>
+        <br><br><br>
         <h2>Happy Birthday! Love, Kunal ❤️</h2>
     </div>
 
     <!-- ==========================================================================
          DEVELOPER COMMAND CENTER (Massive Hidden Admin Panel)
+         Triggered strictly via Ctrl + Shift + D
          ========================================================================== -->
-    <div id="dev-admin-console" class="dev-console">
+    <div id="dev-terminal" class="dev-terminal">
         <div class="dev-header">
             <h3>Admin Command Center</h3>
-            <button class="dev-close-x" id="dev-btn-close">&times;</button>
+            <button class="dev-close-x" id="dev-close-btn">&times;</button>
         </div>
         
-        <div class="dev-section">
-            <h4>Application Flow</h4>
+        <div class="dev-block">
+            <h4>Application Flow Control</h4>
             <div class="dev-grid">
-                <button class="dev-btn warning" id="dev-btn-win">Force Game Win</button>
-                <button class="dev-btn success" id="dev-btn-sim-phone">Simulate Mobile Scan</button>
-                <button class="dev-btn danger" id="dev-btn-reset" style="grid-column: span 2;">Hard Reset App</button>
+                <button class="dev-action-btn c-warn" id="dev-cmd-win">Force Game Win</button>
+                <button class="dev-action-btn c-success" id="dev-cmd-sim">Simulate Mobile Scan</button>
+                <button class="dev-action-btn c-danger" id="dev-cmd-reset" style="grid-column: span 2;">Hard Reset Architecture</button>
             </div>
         </div>
         
-        <div class="dev-section">
+        <div class="dev-block">
             <h4>Physics Engines</h4>
             <div class="dev-grid">
-                <button class="dev-btn" id="dev-btn-confetti">Test Confetti</button>
-                <button class="dev-btn" id="dev-btn-burst">Test FX Burst</button>
+                <button class="dev-action-btn" id="dev-cmd-confetti">Test 3D Confetti</button>
+                <button class="dev-action-btn" id="dev-cmd-burst">Test FX Burst</button>
             </div>
         </div>
 
-        <div class="dev-section">
-            <h4>Audio Synthesizer</h4>
+        <div class="dev-block">
+            <h4>Audio Synthesizer Core</h4>
             <div class="dev-grid">
-                <button class="dev-btn" id="dev-btn-snd-pop">Play Pop</button>
-                <button class="dev-btn" id="dev-btn-snd-err">Play Error</button>
-                <button class="dev-btn" id="dev-btn-snd-win" style="grid-column: span 2;">Play Win Sequence</button>
+                <button class="dev-action-btn" id="dev-cmd-snd-pop">Trigger Pop</button>
+                <button class="dev-action-btn" id="dev-cmd-snd-err">Trigger Error</button>
+                <button class="dev-action-btn" id="dev-cmd-snd-win" style="grid-column: span 2;">Trigger Win Sequence</button>
             </div>
         </div>
         
-        <div class="dev-console-footer">
-            No Bookmark Popup! | Shortcut: Ctrl + Shift + D
+        <div class="dev-footer">
+            Browser Defaults Blocked | Shortcut: Ctrl + Shift + D
         </div>
     </div>
 
@@ -971,11 +946,7 @@
          * ==========================================================================
          */
         class AppUtils {
-            /**
-             * Safely encodes a string into Base64, supporting Unicode (emojis).
-             * @param {string} str - Raw input string.
-             * @returns {string} Base64 encoded string.
-             */
+            /** Safely encodes a string into Base64, supporting Unicode (emojis). */
             static encodeBase64(str) {
                 try {
                     return btoa(encodeURIComponent(str));
@@ -985,11 +956,7 @@
                 }
             }
 
-            /**
-             * Decodes a Base64 string back to Unicode.
-             * @param {string} str - Base64 input.
-             * @returns {string} Decoded string.
-             */
+            /** Decodes a Base64 string back to Unicode. */
             static decodeBase64(str) {
                 try {
                     return decodeURIComponent(atob(str));
@@ -999,24 +966,17 @@
                 }
             }
 
-            /**
-             * Clamps a value between a minimum and maximum.
-             */
+            /** Clamps a value between a minimum and maximum. */
             static clamp(val, min, max) {
                 return Math.min(Math.max(val, min), max);
             }
 
-            /**
-             * Generates a random float between min and max.
-             */
+            /** Generates a random float between min and max. */
             static randomFloat(min, max) {
                 return Math.random() * (max - min) + min;
             }
 
-            /**
-             * Fisher-Yates array shuffling algorithm.
-             * Mutates the original array and returns it.
-             */
+            /** Fisher-Yates array shuffling algorithm. Mutates the original array. */
             static shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -1025,9 +985,7 @@
                 return array;
             }
 
-            /**
-             * Determines if the current device has a screen wider than 1024px.
-             */
+            /** Determines if the current device has a screen wider than 1024px. */
             static isDesktopView() {
                 return window.innerWidth >= 1024;
             }
@@ -1068,8 +1026,7 @@
             
             /** 
              * Creates a rotation matrix around X, Y, Z axes (Euler angles in radians).
-             * This allows us to mathematically calculate true 3D rotation and map it
-             * to a 2D canvas context transformation matrix.
+             * This maps mathematically true 3D rotation to a 2D canvas context transformation matrix.
              */
             makeRotationFromEuler(x, y, z) {
                 const cx = Math.cos(x), sx = Math.sin(x);
@@ -1375,7 +1332,7 @@
          */
         class AmbientParticleEngine {
             constructor() {
-                this.canvas = document.getElementById('canvas-bg');
+                this.canvas = document.getElementById('layer-ambient');
                 this.ctx = this.canvas.getContext('2d', { alpha: false });
                 this.particles = []; 
                 this.isTV = AppUtils.isDesktopView();
@@ -1482,7 +1439,7 @@
          */
         class BurstFXEngine {
             constructor() {
-                this.canvas = document.getElementById('canvas-fx'); 
+                this.canvas = document.getElementById('layer-burst'); 
                 this.ctx = this.canvas.getContext('2d');
                 this.particles = [];
                 this.reqFrame = null;
@@ -1562,7 +1519,7 @@
          */
         class ConfettiSimulator {
             constructor() {
-                this.canvas = document.getElementById('canvas-confetti'); 
+                this.canvas = document.getElementById('layer-confetti'); 
                 this.ctx = this.canvas.getContext('2d');
                 this.particles = []; 
                 this.active = false;
@@ -1701,7 +1658,7 @@
                     this.detectBlow();
                 } catch (err) {
                     console.warn("[MicSensor] Microphone access denied or unavailable.", err);
-                    document.getElementById('sensor-hint-text').innerText = "Mic blocked. Tap the cake to proceed.";
+                    document.getElementById('mic-hint-text').innerText = "Mic blocked. Tap the cake to proceed.";
                 }
             }
             
@@ -1760,23 +1717,23 @@
          */
         class UIManager {
             constructor() { 
-                this.screens = document.querySelectorAll('.screen-container'); 
+                this.screens = document.querySelectorAll('.app-screen'); 
                 
                 // Cache Modal Elements
-                this.modalOverlay = document.getElementById('sys-modal');
-                this.modalTitle = document.getElementById('sys-modal-title');
-                this.modalBody = document.getElementById('sys-modal-body');
-                this.modalIcon = document.getElementById('sys-modal-icon');
-                this.modalActions = document.getElementById('sys-modal-actions');
+                this.modalOverlay = document.getElementById('ui-modal');
+                this.modalTitle = document.getElementById('ui-modal-title');
+                this.modalBody = document.getElementById('ui-modal-body');
+                this.modalIcon = document.getElementById('ui-modal-icon');
+                this.modalActions = document.getElementById('ui-modal-actions');
                 
                 // Bind Modal Close to default button
-                this.defaultModalBtn = document.getElementById('sys-modal-btn');
+                this.defaultModalBtn = document.getElementById('ui-modal-default-btn');
                 this.defaultModalBtn.addEventListener('click', () => this.closeModal());
                 
                 // Bind Audio Toggle
                 this.btnAudio = document.getElementById('btn-master-audio');
-                this.iconOn = document.getElementById('icon-sound-on-view');
-                this.iconOff = document.getElementById('icon-sound-off-view');
+                this.iconOn = document.getElementById('view-sound-on');
+                this.iconOff = document.getElementById('view-sound-off');
             }
             
             /**
@@ -1802,7 +1759,7 @@
                     void target.offsetWidth; 
                     
                     target.classList.remove('state-hidden');
-                }, 300); // Matches transition duration
+                }, 300); // Matches var(--time-medium)
             }
             
             /**
@@ -1821,7 +1778,7 @@
                     this.modalActions.innerHTML = '';
                     customButtons.forEach(btnConfig => {
                         const btn = document.createElement('button');
-                        btn.className = `primary-btn modal-btn ${btnConfig.class || ''}`;
+                        btn.className = `btn-primary btn-modal ${btnConfig.class || ''}`;
                         btn.innerText = btnConfig.text;
                         btn.onclick = () => {
                             if(btnConfig.onClick) btnConfig.onClick();
@@ -1844,7 +1801,7 @@
             
             /** Developer Admin Console Toggle */
             toggleDevPanel() { 
-                const p = document.getElementById('dev-admin-console');
+                const p = document.getElementById('dev-terminal');
                 if (p.classList.contains('is-open')) {
                     p.classList.remove('is-open');
                     setTimeout(() => p.style.display = 'none', 300);
@@ -1855,7 +1812,7 @@
                 }
             }
             closeDevPanel() { 
-                const p = document.getElementById('dev-admin-console');
+                const p = document.getElementById('dev-terminal');
                 p.classList.remove('is-open');
                 setTimeout(() => p.style.display = 'none', 300);
             }
@@ -1874,7 +1831,7 @@
             /** Spawns temporary floating text (e.g. "+5s") at specific absolute coordinates. */
             spawnFloatingText(text, x, y) {
                 const el = document.createElement('div'); 
-                el.className = 'fx-floating-text'; 
+                el.className = 'fx-float-score'; 
                 el.innerText = text; 
                 el.style.left = `${x}px`; 
                 el.style.top = `${y}px`;
@@ -1919,17 +1876,17 @@
                 this.currentStreak = 0;
                 
                 // DOM Node Cache
-                this.uiTimeText = document.getElementById('game-clock');
-                this.uiScoreText = document.getElementById('game-score');
-                this.uiProgressBar = document.getElementById('game-progress-bar');
-                this.uiComboBadge = document.getElementById('combo-badge');
+                this.uiTimeText = document.getElementById('stat-clock');
+                this.uiScoreText = document.getElementById('stat-score');
+                this.uiProgressBar = document.getElementById('stat-progress');
+                this.uiComboBadge = document.getElementById('stat-combo');
             }
             
             /**
              * Initializes the 4x4 board and starts the game loop.
              */
             initialize() {
-                const board = document.getElementById('memory-board'); 
+                const board = document.getElementById('matrix-board'); 
                 board.innerHTML = '';
                 
                 // Generate and shuffle deck (8 pairs = 16 cards)
@@ -1946,12 +1903,12 @@
                 // Render DOM Elements
                 this.deck.forEach((imgUrl) => {
                     const card = document.createElement('div'); 
-                    card.className = 'memory-card'; 
+                    card.className = 'game-card'; 
                     card.dataset.id = imgUrl; // Storing URL as the match identifier
                     
                     card.innerHTML = `
-                        <div class="card-face card-front">❤️</div>
-                        <div class="card-face card-back"><img src="${imgUrl}" alt="Memory"></div>
+                        <div class="card-surface surface-front">❤️</div>
+                        <div class="card-surface surface-back"><img src="${imgUrl}" alt="Memory"></div>
                     `;
                     
                     // Bind event listener
@@ -2004,11 +1961,11 @@
                 this.uiProgressBar.style.width = `${percentage}%`;
                 
                 // Dynamic Bar Colors based on time urgency
-                this.uiProgressBar.className = 'hud-progress-fill'; // Reset classes
+                this.uiProgressBar.className = 'hud-fill'; // Reset classes
                 if(this.timeLeft <= 15) {
-                    this.uiProgressBar.classList.add('fill-danger');
+                    this.uiProgressBar.classList.add('status-crit');
                 } else if(this.timeLeft <= 30) {
-                    this.uiProgressBar.classList.add('fill-warning');
+                    this.uiProgressBar.classList.add('status-warn');
                 }
             }
             
@@ -2017,7 +1974,7 @@
              */
             handleCardClick(card) {
                 // Prevent clicking if locked, or clicking an already flipped/matched card
-                if (this.isGridLocked || card.classList.contains('is-flipped') || card.classList.contains('is-matched')) {
+                if (this.isGridLocked || card.classList.contains('flip-active') || card.classList.contains('match-active')) {
                     return;
                 }
                 
@@ -2028,7 +1985,7 @@
                 const rect = card.getBoundingClientRect();
                 this.app.fx.fireBurst(rect.left + rect.width/2, rect.top + rect.height/2, 10);
                 
-                card.classList.add('is-flipped'); 
+                card.classList.add('flip-active'); 
                 this.flippedCards.push(card);
                 
                 // If two cards are flipped, evaluate match
@@ -2059,8 +2016,8 @@
                         
                         // Show Combo UI Badge
                         this.uiComboBadge.innerText = `${this.currentStreak}x STREAK!`;
-                        this.uiComboBadge.classList.add('combo-active');
-                        setTimeout(() => this.uiComboBadge.classList.remove('combo-active'), 1500);
+                        this.uiComboBadge.classList.add('combo-is-active');
+                        setTimeout(() => this.uiComboBadge.classList.remove('combo-is-active'), 1500);
                     }
                     
                     this.timeLeft = Math.min(60, this.timeLeft + timeBonus); 
@@ -2070,8 +2027,8 @@
                     this.app.ui.spawnFloatingText(`+${timeBonus}s`, rect.left + rect.width/2 - 25, rect.top);
                     
                     // Lock cards into matched state
-                    card1.classList.add('is-matched'); 
-                    card2.classList.add('is-matched');
+                    card1.classList.add('match-active'); 
+                    card2.classList.add('match-active');
                     
                     // Reset Turn
                     this.flippedCards = []; 
@@ -2091,8 +2048,8 @@
                     this.app.haptics.error(); 
                     
                     // Trigger shake animation via CSS by temporarily manipulating style
-                    card1.style.animation = "boxRattle 0.5s";
-                    card2.style.animation = "boxRattle 0.5s";
+                    card1.style.animation = "fxRattle 0.5s";
+                    card2.style.animation = "fxRattle 0.5s";
                     
                     // Dynamic penalty delay: Faster flip-back penalty if time is running out
                     const penaltyDelay = this.timeLeft > 15 ? 900 : 500;
@@ -2103,8 +2060,8 @@
                         card2.style.animation = "";
                         
                         // Flip back
-                        card1.classList.remove('is-flipped'); 
-                        card2.classList.remove('is-flipped'); 
+                        card1.classList.remove('flip-active'); 
+                        card2.classList.remove('flip-active'); 
                         
                         // Reset Turn
                         this.flippedCards = []; 
@@ -2141,7 +2098,7 @@
                 this.app.synth.init(); 
                 
                 // Explicit Permission Modal (Prevents browser auto-blocking)
-                const micIconSVG = `<svg viewBox="0 0 24 24" width="40" height="40" fill="#fff"><use href="#icon-mic"></use></svg>`;
+                const micIconSVG = `<svg viewBox="0 0 24 24" width="60" height="60" fill="#fff"><use href="#svg-mic"></use></svg>`;
                 
                 this.app.ui.showModal(
                     "Sensor Calibration",
@@ -2160,7 +2117,7 @@
              * Internal routing based on Mic Permission outcome.
              */
             requestMicAndProceed() {
-                this.app.ui.showScreen('view-mobile-reveal');
+                this.app.ui.showScreen('screen-mobile-reveal');
                 
                 // Boot Microphone Sensor
                 this.app.mic.startListening(() => this.triggerCandleBlowout());
@@ -2170,7 +2127,7 @@
              * Triggers when the user successfully blows into the mic (or taps).
              */
             triggerCandleBlowout() {
-                const stageCake = document.getElementById('reveal-act-cake');
+                const stageCake = document.getElementById('stage-act-cake');
                 
                 // Prevent double execution
                 if (stageCake.classList.contains('slide-out-left')) return; 
@@ -2180,8 +2137,8 @@
                 this.app.synth.puff();
                 
                 // Extinguish CSS Flames mathematically
-                document.querySelectorAll('.flame-element').forEach(flame => {
-                    flame.classList.add('flame-blown');
+                document.querySelectorAll('.flame-node').forEach(flame => {
+                    flame.classList.add('flame-dead');
                 });
                 
                 // Proceed to Stage 2 after smoke animation runs (2 seconds)
@@ -2192,7 +2149,7 @@
              * Animates the cake out laterally, and the gift box in.
              */
             transitionToGiftBox(stageCakeDom) {
-                const stageGift = document.getElementById('reveal-act-gift');
+                const stageGift = document.getElementById('stage-act-gift');
                 
                 // Animate Cake out to the left
                 stageCakeDom.classList.add('slide-out-left');
@@ -2214,11 +2171,11 @@
              * Handles the user tapping the 3D Gift Box.
              */
             openGiftBox() {
-                const boxRig = document.getElementById('interactive-gift');
+                const boxRig = document.getElementById('gift-interactive-hitbox');
                 if(this.isUnboxed) return; // Prevent double clicks
                 
                 this.isUnboxed = true;
-                boxRig.classList.add('is-opened');
+                boxRig.classList.add('is-popped');
                 
                 // AV Feedback Sync
                 this.app.synth.sparkle();
@@ -2285,7 +2242,7 @@
                 });
 
                 // STRICT KEYBOARD SHORTCUTS (Admin Console)
-                // Overrides the default Ctrl+Shift+D bookmark all tabs behavior
+                // Overrides the default Ctrl+Shift+D bookmark all tabs behavior entirely
                 document.addEventListener('keydown', (e) => { 
                     if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
                         e.preventDefault();
@@ -2295,41 +2252,41 @@
                 }, { capture: true }); // Use capture phase to guarantee interception
 
                 // Setup Screen Button
-                document.getElementById('btn-lock-setup').addEventListener('click', () => this.startCountdown());
+                document.getElementById('btn-lock-in').addEventListener('click', () => this.startCountdown());
                 
                 // Welcome Screen Button
-                document.getElementById('btn-start-game').addEventListener('click', () => {
-                    this.ui.showScreen('view-game'); 
+                document.getElementById('btn-start-grid').addEventListener('click', () => {
+                    this.ui.showScreen('screen-game'); 
                     this.game.initialize(); 
                 });
 
                 // Mobile Gateway Flow
-                document.getElementById('btn-mobile-init').addEventListener('click', () => this.revealer.beginSequence());
+                document.getElementById('btn-mobile-proceed').addEventListener('click', () => this.revealer.beginSequence());
 
                 // Reveal Interactions
-                document.getElementById('interactive-cake').addEventListener('click', () => this.revealer.triggerCandleBlowout());
-                document.getElementById('interactive-gift').addEventListener('click', () => this.revealer.openGiftBox());
+                document.getElementById('cake-interactive-hitbox').addEventListener('click', () => this.revealer.triggerCandleBlowout());
+                document.getElementById('gift-interactive-hitbox').addEventListener('click', () => this.revealer.openGiftBox());
 
                 // Admin Console Bound Buttons
-                document.getElementById('dev-btn-close').addEventListener('click', () => this.ui.closeDevPanel());
-                document.getElementById('dev-btn-win').addEventListener('click', () => this.game.triggerAdminWin());
-                document.getElementById('dev-btn-sim-phone').addEventListener('click', () => this.simulateMobileScan());
-                document.getElementById('dev-btn-reset').addEventListener('click', () => window.location.href = window.location.href.split('?')[0]);
+                document.getElementById('dev-close-btn').addEventListener('click', () => this.ui.closeDevPanel());
+                document.getElementById('dev-cmd-win').addEventListener('click', () => this.game.triggerAdminWin());
+                document.getElementById('dev-cmd-sim').addEventListener('click', () => this.simulateMobileScan());
+                document.getElementById('dev-cmd-reset').addEventListener('click', () => window.location.href = window.location.href.split('?')[0]);
                 
                 // Admin Physics Tests
-                document.getElementById('dev-btn-confetti').addEventListener('click', () => {
+                document.getElementById('dev-cmd-confetti').addEventListener('click', () => {
                     this.confetti.fire();
                     this.synth.sparkle();
                 });
-                document.getElementById('dev-btn-burst').addEventListener('click', () => {
+                document.getElementById('dev-cmd-burst').addEventListener('click', () => {
                     this.fx.fireBurst(window.innerWidth/2, window.innerHeight/2, 50);
                     this.synth.pop();
                 });
                 
                 // Admin Audio Tests
-                document.getElementById('dev-btn-snd-pop').addEventListener('click', () => { this.synth.init(); this.synth.pop(); });
-                document.getElementById('dev-btn-snd-err').addEventListener('click', () => { this.synth.init(); this.synth.error(); });
-                document.getElementById('dev-btn-snd-win').addEventListener('click', () => { this.synth.init(); this.synth.winSequence(); });
+                document.getElementById('dev-cmd-snd-pop').addEventListener('click', () => { this.synth.init(); this.synth.pop(); });
+                document.getElementById('dev-cmd-snd-err').addEventListener('click', () => { this.synth.init(); this.synth.error(); });
+                document.getElementById('dev-cmd-snd-win').addEventListener('click', () => { this.synth.init(); this.synth.winSequence(); });
             }
 
             /**
@@ -2344,7 +2301,7 @@
                     // PATH B: Scanned from QR (Mobile Device)
                     try { 
                         this.sessionConfig.secretLocation = AppUtils.decodeBase64(encodedPayload); 
-                        this.ui.showScreen('view-mobile-gateway'); 
+                        this.ui.showScreen('screen-mobile-gateway'); 
                         
                         // Disable heavy background particles on mobile for battery saving
                         this.ambient.isTV = false;
@@ -2354,7 +2311,7 @@
                     }
                 } else {
                     // PATH A: Default Setup (Creator / TV)
-                    this.ui.showScreen('view-setup');
+                    this.ui.showScreen('screen-setup');
                 }
             }
 
@@ -2367,10 +2324,10 @@
              */
             startCountdown() {
                 // 1. Save and Sanitize Config Data
-                const inputLoc = document.getElementById('cfg-loc').value.trim(); 
+                const inputLoc = document.getElementById('cfg-location').value.trim(); 
                 if(inputLoc) this.sessionConfig.secretLocation = inputLoc;
                 
-                this.sessionConfig.countdownTime = parseInt(document.getElementById('cfg-time').value) || 5;
+                this.sessionConfig.countdownTime = parseInt(document.getElementById('cfg-timer').value) || 5;
                 
                 // 2. Initialize Audio & Background Contexts
                 this.synth.init(); 
@@ -2378,16 +2335,16 @@
                 this.ambient.start(); // Boot Flow Field
                 
                 // 3. Transition UI
-                this.ui.showScreen('view-countdown');
+                this.ui.showScreen('screen-countdown');
                 
                 // 4. Reset DOM Elements
                 let timeRemaining = this.sessionConfig.countdownTime;
                 let msRemaining = 0;
                 
-                const numDisplay = document.getElementById('cd-digital-readout');
-                const msDisplay = document.getElementById('cd-ms-readout');
-                const progressRing = document.getElementById('cd-svg-fill');
-                const physicsWrapper = document.getElementById('cd-physics-wrapper');
+                const numDisplay = document.getElementById('cd-num-sec');
+                const msDisplay = document.getElementById('cd-num-ms');
+                const progressRing = document.getElementById('cd-ring-fill');
+                const physicsWrapper = document.getElementById('cd-physics-anchor');
                 
                 numDisplay.innerText = timeRemaining; 
                 msDisplay.innerText = ".00";
@@ -2417,8 +2374,8 @@
                         
                         // Update Number with CSS "Beat" animation
                         numDisplay.innerText = timeRemaining;
-                        numDisplay.classList.add('quantum-beat');
-                        setTimeout(() => numDisplay.classList.remove('quantum-beat'), 150);
+                        numDisplay.classList.add('q-beat-active');
+                        setTimeout(() => numDisplay.classList.remove('q-beat-active'), 150);
 
                         // Trigger Quantum Particle Burst in the center of the ring
                         const rect = physicsWrapper.getBoundingClientRect();
@@ -2438,7 +2395,7 @@
                             this.synth.pop();
                             
                             setTimeout(() => {
-                                this.ui.showScreen('view-welcome');
+                                this.ui.showScreen('screen-welcome');
                             }, 500); 
                         }
                     }, 1000);
@@ -2463,7 +2420,7 @@
                     document.getElementById('qr-target-img').src = qrApiUrl;
                     
                     // Transition & Celebrate
-                    this.ui.showScreen('view-tv-win'); 
+                    this.ui.showScreen('screen-tv-win'); 
                     this.confetti.fire(); 
                     this.synth.winSequence(); 
                     this.haptics.win();
@@ -2478,9 +2435,9 @@
              * Pushes the final encrypted location string to the DOM and celebrates.
              */
             finalizeLocationReveal() {
-                document.getElementById('final-loc-output').innerText = this.sessionConfig.secretLocation;
+                document.getElementById('final-loc-string').innerText = this.sessionConfig.secretLocation;
                 
-                this.ui.showScreen('view-final-gift');
+                this.ui.showScreen('screen-final-gift');
                 this.synth.winSequence(); 
                 this.haptics.win();
                 
