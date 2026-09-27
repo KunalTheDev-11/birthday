@@ -74,7 +74,6 @@
         }
 
         html { font-size: 16px; }
-
         html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #000; }
 
         body {
@@ -258,15 +257,56 @@
         @media (min-width: 1024px) { .q-digit-main { text-shadow: var(--theme-tv-shadow-txt); color: var(--theme-tv-accent); font-family: var(--font-secondary); } .q-digit-sub { color: rgba(255,215,0,0.8); } }
 
         /* ==========================================================================
-           11. COMPONENT: MAGIC QR CODE DATA DISPLAY
+           11. COMPONENT: MAGIC QR CODE DATA DISPLAY & LIVE DASHBOARD
            ========================================================================== */
-        .qr-module { background: rgba(255,255,255,0.98); padding: 2rem; border-radius: 25px; border: 6px solid var(--theme-tv-accent); display: flex; flex-direction: column; align-items: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9); transform: scale(0.85); animation: fxScalePop 1.2s var(--ease-spring) forwards; position: relative; overflow: hidden; width: auto; max-width: 90vw; margin: 0 auto; }
+        .dashboard-container {
+            display: flex; flex-direction: row; gap: 4rem; align-items: stretch; justify-content: center;
+            width: 90vw; max-width: 1200px;
+        }
+
+        .qr-module { 
+            background: rgba(255,255,255,0.98); padding: 2rem; border-radius: 25px; 
+            border: 6px solid var(--theme-tv-accent); display: flex; flex-direction: column; align-items: center; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9); transform: scale(0.85); animation: fxScalePop 1.2s var(--ease-spring) forwards; 
+            position: relative; overflow: hidden; width: auto; max-width: 400px; margin: 0; 
+            flex-shrink: 0;
+        }
         .qr-module img { display: block; margin: 0 auto; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); max-width: 100%; height: auto;}
         .qr-module-text { margin-top: 1.5rem; color: #000; font-weight: 900; font-size: clamp(1rem, 3vw, 1.4rem); text-align: center; text-transform: uppercase; letter-spacing: 3px; }
         .qr-module::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: rgba(255, 0, 0, 0.6); box-shadow: 0 0 15px rgba(255,0,0,1); animation: fxLaserScan 3s ease-in-out infinite alternate; pointer-events: none; }
 
+        /* Live Spectator Dashboard */
+        .live-dash {
+            background: rgba(17, 24, 39, 0.85); border: 2px solid var(--theme-tv-accent); border-radius: 25px;
+            padding: 3rem; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start;
+            flex-grow: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.9); backdrop-filter: blur(20px);
+            font-family: var(--font-mono); opacity: 0; animation: fxFloatUp 1.2s var(--ease-spring) forwards 0.5s;
+            animation-direction: reverse; /* Hack to slide in from bottom */
+            min-width: 400px;
+        }
+
+        .dash-header { display: flex; justify-content: space-between; width: 100%; border-bottom: 2px solid #374151; padding-bottom: 1rem; margin-bottom: 2rem; }
+        .dash-title { color: var(--theme-tv-accent); font-size: 1.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+        .dash-status { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; color: #9ca3af; }
+        .status-dot { width: 12px; height: 12px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 10px #ef4444; }
+        .status-dot.active { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
+
+        .dash-log { 
+            width: 100%; height: 250px; background: #000; border-radius: 10px; padding: 1.5rem;
+            overflow-y: auto; display: flex; flex-direction: column; gap: 10px; border: 1px solid #374151;
+            font-size: 1.2rem; color: #22c55e; text-shadow: 0 0 5px rgba(34,197,94,0.5);
+        }
+        .log-entry { opacity: 0; animation: fxFadeIn 0.3s forwards; }
+        .log-entry.warn { color: var(--sys-warning); text-shadow: 0 0 5px rgba(234,179,8,0.5); }
+        .log-entry.crit { color: var(--sys-danger); text-shadow: 0 0 5px rgba(239,68,68,0.5); }
+
+        .dash-metric { width: 100%; margin-top: 2rem; display: none; }
+        .metric-label { font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem; display: flex; justify-content: space-between;}
+        .metric-bar-bg { width: 100%; height: 20px; background: rgba(0,0,0,0.8); border: 2px solid #374151; border-radius: 10px; overflow: hidden; }
+        .metric-bar-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #3b82f6, #22c55e); transition: width 0.1s linear; }
+
         /* ==========================================================================
-           12. COMPONENT: MOBILE 3-STAGE REVEAL THEATER WITH CV & AR SIMULATION
+           12. COMPONENT: MOBILE 3-STAGE REVEAL THEATER WITH CV & GYRO
            ========================================================================== */
         .theater-stage { width: 100vw; display: flex; flex-direction: column; align-items: center; justify-content: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: clamp(1rem, 4vw, 3rem);}
 
@@ -281,6 +321,13 @@
         .flame-dead + .smoke-node { animation: fxSmokeOut 3s ease-out forwards; }
 
         .flame-pos-1 { position: absolute; left: 35.5%; top: -10%; } .flame-pos-2 { position: absolute; left: 47%; top: -20%; } .flame-pos-3 { position: absolute; left: 58.5%; top: -10%; }
+
+        .mic-eq-panel {
+            width: clamp(150px, 40vw, 250px); height: 12px; background: rgba(0,0,0,0.5); border-radius: 6px;
+            border: 2px solid rgba(255,255,255,0.5); margin: 1rem auto; overflow: hidden;
+            display: none;
+        }
+        .mic-eq-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--sys-info), var(--sys-success)); transition: width 0.1s linear; }
 
         .hint-badge { font-size: clamp(1rem, 3vw, 1.5rem); background: rgba(0,0,0,0.7); color: #fff; padding: 1rem 2rem; border-radius: 40px; margin-top: 1.5rem; border: 2px solid #fff; backdrop-filter: blur(10px); animation: fxPulseSoft 2.5s infinite; text-align: center; box-shadow: 0 8px 15px rgba(0,0,0,0.3); z-index: 5;}
 
@@ -366,6 +413,7 @@
         @keyframes fxLaserScan { 0% { top: 10%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 90%; opacity: 0; } }
         @keyframes fxShimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(500%); } }
         @keyframes fxRattle { 10%, 90% { transform: translate3d(-2px, 0, 0) rotate(-2deg); } 20%, 80% { transform: translate3d(4px, 0, 0) rotate(2deg); } 30%, 50%, 70% { transform: translate3d(-6px, -4px, 0) rotate(-4deg); } 40%, 60% { transform: translate3d(6px, 4px, 0) rotate(4deg); } }
+        @keyframes fxFadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -522,15 +570,35 @@
     </div>
 
     <!-- ==========================================================================
-         SCREEN 5: TV WIN STATE (Magic QR Generation)
+         SCREEN 5: TV WIN STATE (Magic QR Generation & Spectator Dashboard)
          ========================================================================== -->
     <div id="screen-tv-win" class="app-screen state-hidden">
         <h1>Grid Bypassed!</h1>
         <p>Security cleared. Extract your phone, open the camera app, and scan this encrypted code to download the coordinates.</p>
         
-        <div class="qr-module">
-            <img id="qr-target-img" src="" alt="Encrypted QR Payload" width="250" height="250">
-            <div class="qr-module-text">Scan to Download</div>
+        <div class="dashboard-container">
+            <!-- QR Module -->
+            <div class="qr-module">
+                <img id="qr-target-img" src="" alt="Encrypted QR Payload" width="250" height="250">
+                <div class="qr-module-text">Scan to Download</div>
+            </div>
+            
+            <!-- Live Spectator Dashboard (Only visible on large screens) -->
+            <div class="live-dash" id="spectator-dashboard">
+                <div class="dash-header">
+                    <div class="dash-title">Spectator Link</div>
+                    <div class="dash-status"><div class="status-dot" id="socket-status-dot"></div> <span id="socket-status-txt">DISCONNECTED</span></div>
+                </div>
+                
+                <div class="dash-log" id="spectator-log">
+                    <div class="log-entry">> WAITING FOR MOBILE HANDSHAKE...</div>
+                </div>
+                
+                <div class="dash-metric" id="spectator-metric-ui">
+                    <div class="metric-label"><span>BIOMETRIC SMILE SCAN</span> <span id="spectator-metric-txt">0%</span></div>
+                    <div class="metric-bar-bg"><div class="metric-bar-fill" id="spectator-metric-fill"></div></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -628,7 +696,7 @@
         
         <div class="dev-block">
             <h4>Application Flow Control</h4>
-            <div class="dev-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="dev-grid">
                 <button class="dev-action-btn c-warn" id="dev-cmd-win">Force Game Win</button>
                 <button class="dev-action-btn c-success" id="dev-cmd-sim">Simulate Mobile Scan</button>
                 <button class="dev-action-btn c-danger" id="dev-cmd-reset" style="grid-column: span 2;">Hard Reset Architecture</button>
@@ -637,7 +705,7 @@
         
         <div class="dev-block">
             <h4>Physics Engines</h4>
-            <div class="dev-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="dev-grid">
                 <button class="dev-action-btn" id="dev-cmd-confetti">Test 3D Confetti</button>
                 <button class="dev-action-btn" id="dev-cmd-burst">Test FX Burst</button>
             </div>
@@ -645,7 +713,7 @@
 
         <div class="dev-block">
             <h4>Audio Synthesizer Core</h4>
-            <div class="dev-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="dev-grid">
                 <button class="dev-action-btn" id="dev-cmd-snd-pop">Trigger Pop</button>
                 <button class="dev-action-btn" id="dev-cmd-snd-err">Trigger Error</button>
                 <button class="dev-action-btn" id="dev-cmd-snd-win" style="grid-column: span 2;">Trigger Win Sequence</button>
@@ -659,8 +727,8 @@
 
     <!-- ==========================================================================
          JAVASCRIPT ENGINE ARCHITECTURE
-         Over 2500 lines of robust ES6 Class-based logic.
-         Includes 3D Math, Physics, Gyroscope, Audio, Computer Vision, and Game logic.
+         Over 2700 lines of robust ES6 Class-based logic.
+         Includes WebSockets, 3D Math, Physics, Gyroscope, Audio, Computer Vision, and Game logic.
          ========================================================================== -->
     <script>
         'use strict';
@@ -668,29 +736,13 @@
         /**
          * ==========================================================================
          * CORE UTILITIES, MATH & CRYPTOGRAPHY
-         * Singleton utility class for global helper methods.
          * ==========================================================================
          */
         class AppUtils {
-            /** Safely encodes a string into Base64, supporting Unicode (emojis). */
-            static encodeBase64(str) {
-                try { return btoa(encodeURIComponent(str)); } 
-                catch(e) { console.error("[AppUtils] Base64 Encoding Failed", e); return ""; }
-            }
-
-            /** Decodes a Base64 string back to Unicode. */
-            static decodeBase64(str) {
-                try { return decodeURIComponent(atob(str)); } 
-                catch(e) { console.error("[AppUtils] Base64 Decoding Failed", e); throw new Error("Invalid Payload"); }
-            }
-
-            /** Clamps a value between a minimum and maximum. */
+            static encodeBase64(str) { try { return btoa(encodeURIComponent(str)); } catch(e) { return ""; } }
+            static decodeBase64(str) { try { return decodeURIComponent(atob(str)); } catch(e) { throw new Error("Invalid Payload"); } }
             static clamp(val, min, max) { return Math.min(Math.max(val, min), max); }
-
-            /** Generates a random float between min and max. */
             static randomFloat(min, max) { return Math.random() * (max - min) + min; }
-
-            /** Fisher-Yates array shuffling algorithm. Mutates the original array. */
             static shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -698,15 +750,163 @@
                 }
                 return array;
             }
-
-            /** Determines if the current device has a screen wider than 1024px. */
             static isDesktopView() { return window.innerWidth >= 1024; }
+            
+            /** Generates a pseudo-random 6-character session ID for WebSocket pairing */
+            static generateSessionId() {
+                return Math.random().toString(36).substring(2, 8).toUpperCase();
+            }
+        }
+
+        /**
+         * ==========================================================================
+         * WEBSOCKET NETWORKING ENGINE (Live Spectator Sync)
+         * Connects the TV and the Phone using a public echo server.
+         * ==========================================================================
+         */
+        class NetworkEngine {
+            constructor() {
+                // Using piehost free public websocket cluster for testing/demo purposes
+                // In production, replace with a dedicated Firebase or Node.js WS server.
+                this.socketUrl = 'wss://free.blr2.piesocket.com/v3/1?api_key=4O28F3G955B7q1PzP7sP0N6H3q6pX8&notify_self=0';
+                this.ws = null;
+                this.sessionId = null;
+                this.isHost = false; // TV is Host, Mobile is Client
+                
+                this.isConnected = false;
+                
+                // Callbacks
+                this.onClientConnected = null;
+                this.onActionReceived = null;
+                
+                // DOM Cache for TV Dashboard
+                this.domStatusTxt = document.getElementById('socket-status-txt');
+                this.domStatusDot = document.getElementById('socket-status-dot');
+                this.domLog = document.getElementById('spectator-log');
+                this.domMetricUI = document.getElementById('spectator-metric-ui');
+                this.domMetricFill = document.getElementById('spectator-metric-fill');
+                this.domMetricTxt = document.getElementById('spectator-metric-txt');
+            }
+            
+            /** 
+             * Initialize connection. 
+             * @param {string} sessionId - The shared secret ID.
+             * @param {boolean} isHost - Is this the TV (true) or Phone (false)?
+             */
+            connect(sessionId, isHost) {
+                this.sessionId = sessionId;
+                this.isHost = isHost;
+                
+                try {
+                    this.ws = new WebSocket(this.socketUrl);
+                    
+                    this.ws.onopen = () => {
+                        this.isConnected = true;
+                        if (this.isHost) {
+                            this.updateDashStatus("LISTENING", true);
+                            this.logEvent(`HOST SESSION [${this.sessionId}] SECURED.`, "success");
+                        } else {
+                            // Mobile just connected, announce presence to TV
+                            this.broadcastAction('CLIENT_JOINED');
+                        }
+                    };
+                    
+                    this.ws.onmessage = (event) => {
+                        try {
+                            const data = JSON.parse(event.data);
+                            // Only process messages matching our session ID
+                            if (data.sessionId === this.sessionId) {
+                                this.handleIncomingMessage(data.action, data.payload);
+                            }
+                        } catch(e) {
+                            // Ignore non-JSON echo garbage
+                        }
+                    };
+                    
+                    this.ws.onclose = () => {
+                        this.isConnected = false;
+                        if (this.isHost) this.updateDashStatus("DISCONNECTED", false);
+                    };
+                    
+                } catch(e) {
+                    console.warn("[NetworkEngine] WebSocket failed to initialize.");
+                }
+            }
+            
+            /** Send an action from Phone to TV */
+            broadcastAction(actionType, payload = null) {
+                if (this.ws && this.isConnected) {
+                    const packet = {
+                        sessionId: this.sessionId,
+                        action: actionType,
+                        payload: payload
+                    };
+                    this.ws.send(JSON.stringify(packet));
+                }
+            }
+            
+            /** Process incoming actions on the TV */
+            handleIncomingMessage(action, payload) {
+                if (!this.isHost) return; // Only TV processes incoming events for the dashboard
+                
+                switch(action) {
+                    case 'CLIENT_JOINED':
+                        this.logEvent("> MOBILE DEVICE CONNECTED.", "success");
+                        this.updateDashStatus("SYNCED", true);
+                        break;
+                    case 'MIC_CALIBRATING':
+                        this.logEvent("> INITIATING MICROPHONE CALIBRATION...", "warn");
+                        break;
+                    case 'CANDLES_BLOWN':
+                        this.logEvent("> ACOUSTIC TRIGGER DETECTED. CANDLES EXTINGUISHED.", "success");
+                        break;
+                    case 'CV_STARTING':
+                        this.logEvent("> INITIATING FACIAL BIOMETRIC SCAN...", "warn");
+                        this.domMetricUI.style.display = 'block'; // Show smile meter on TV
+                        break;
+                    case 'CV_UPDATE':
+                        // Live sync the smile meter
+                        this.domMetricFill.style.width = `${payload}%`;
+                        this.domMetricTxt.innerText = `${payload}%`;
+                        break;
+                    case 'CV_PASSED':
+                        this.logEvent("> BIOMETRIC MATCH CONFIRMED.", "success");
+                        this.domMetricFill.style.width = `100%`;
+                        this.domMetricTxt.innerText = `100%`;
+                        break;
+                    case 'GIFT_OPENED':
+                        this.logEvent("> CRATE SEAL BROKEN. DEPLOYING CONFETTI.", "crit");
+                        // Automatically fire confetti on TV to sync with phone!
+                        if (window.appData && window.appData.confetti) {
+                            window.appData.confetti.fire();
+                            window.appData.synth.winSequence();
+                        }
+                        break;
+                }
+            }
+            
+            // --- TV Dashboard UI Helpers ---
+            updateDashStatus(text, isActive) {
+                if(this.domStatusTxt) this.domStatusTxt.innerText = text;
+                if(this.domStatusDot) {
+                    if(isActive) this.domStatusDot.classList.add('active');
+                    else this.domStatusDot.classList.remove('active');
+                }
+            }
+            
+            logEvent(text, type = "normal") {
+                if(!this.domLog) return;
+                const el = document.createElement('div');
+                el.className = `log-entry ${type}`;
+                el.innerText = text;
+                this.domLog.appendChild(el);
+                this.domLog.scrollTop = this.domLog.scrollHeight; // Auto-scroll
+            }
         }
 
         /**
          * ==========================================================================
          * 3D MATHEMATICS LIBRARY (Vector3, Matrix4, Euler)
-         * Required for the advanced 3D Confetti Simulator tumbling physics.
          * ==========================================================================
          */
         class Vector3 {
@@ -721,24 +921,10 @@
 
         class Matrix4 {
             constructor() {
-                // Identity Matrix default (4x4 flattened to 16)
-                this.elements = new Float32Array([
-                    1, 0, 0, 0,
-                    0, 1, 0, 0,
-                    0, 0, 1, 0,
-                    0, 0, 0, 1
-                ]);
+                this.elements = new Float32Array([ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ]);
             }
-            
-            /** 
-             * Creates a rotation matrix around X, Y, Z axes (Euler angles in radians).
-             * This maps mathematically true 3D rotation to a 2D canvas context transformation matrix.
-             */
             makeRotationFromEuler(x, y, z) {
-                const cx = Math.cos(x), sx = Math.sin(x);
-                const cy = Math.cos(y), sy = Math.sin(y);
-                const cz = Math.cos(z), sz = Math.sin(z);
-                
+                const cx = Math.cos(x), sx = Math.sin(x); const cy = Math.cos(y), sy = Math.sin(y); const cz = Math.cos(z), sz = Math.sin(z);
                 const te = this.elements;
                 te[0] = cy * cz; te[4] = -cy * sz; te[8] = sy;
                 te[1] = cx * sz + sx * sy * cz; te[5] = cx * cz - sx * sy * sz; te[9] = -sx * cy;
@@ -750,8 +936,6 @@
         /**
          * ==========================================================================
          * HAPTIC ENGINE (Device Vibration API)
-         * Manages physical feedback for compatible mobile devices.
-         * Safe fallback for iOS (which blocks web vibration) or desktop.
          * ==========================================================================
          */
         class HapticEngine {
@@ -764,13 +948,12 @@
             success() { this._fire([30, 40, 60]); }
             win() { this._fire([100, 50, 100, 50, 200, 50, 400]); }
             boxOpen() { this._fire([200, 100, 500]); }
-            heartbeat() { this._fire([30, 100, 30, 800]); } // Used during CV scanning
+            heartbeat() { this._fire([30, 100, 30, 800]); } 
         }
 
         /**
          * ==========================================================================
          * ADVANCED SYNTHESIZER (Web Audio API DAW)
-         * Procedurally generates all sound effects and polyphonic ambient music.
          * ==========================================================================
          */
         class SynthEngine {
@@ -819,7 +1002,6 @@
 
             tick() { this._playTone(800, 'sine', 0.1, 0.05); }
             pop() { this._playTone(450, 'sine', 0.12, 0.15); }
-            
             match() {
                 if (this.isMuted || !this.initialized) return;
                 this._playTone(523.25, 'sine', 0.4, 0.1); 
@@ -827,12 +1009,10 @@
                 setTimeout(() => this._playTone(783.99, 'sine', 0.7, 0.15), 160); 
             }
             error() { this._playTone(150, 'sawtooth', 0.4, 0.1); }
-            
             sparkle() {
                 if (this.isMuted || !this.initialized) return;
                 [1046.50, 1318.51, 1567.98, 2093.00, 2637.02].forEach((freq, i) => { setTimeout(() => this._playTone(freq, 'sine', 0.4, 0.08), i * 60); });
             }
-            
             winSequence() {
                 if (this.isMuted || !this.initialized) return;
                 let timeOffset = 0; const tempo = 250; 
@@ -841,14 +1021,12 @@
                     timeOffset += noteData[1] * tempo;
                 });
             }
-            
             puff() { 
                 if (this.isMuted || !this.initialized) return;
                 const bufferSize = this.ctx.sampleRate * 0.8; 
                 const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
                 const data = buffer.getChannelData(0);
                 for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1; 
-                
                 const noiseSource = this.ctx.createBufferSource(); noiseSource.buffer = buffer;
                 const filter = this.ctx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 800; 
                 const gain = this.ctx.createGain(); 
@@ -878,7 +1056,6 @@
         /**
          * ==========================================================================
          * PHYSICS SYSTEM 1: PERLIN NOISE AMBIENT FLOW FIELD
-         * Renders calming, drifting orbs/stardust using complex vector math.
          * ==========================================================================
          */
         class AmbientParticleEngine {
@@ -997,14 +1174,12 @@
             enableGyroscopeGravity() {
                 if (window.DeviceOrientationEvent) {
                     window.addEventListener('deviceorientation', (event) => {
-                        // gamma is the left-to-right tilt in degrees, where right is positive
+                        // gamma is the left-to-right tilt in degrees
                         if (event.gamma !== null) {
-                            // Map -90 to 90 degrees to a gravity vector of -1.0 to 1.0
                             this.gravityX = AppUtils.clamp(event.gamma / 45, -1.5, 1.5);
                         }
                         // beta is the front-to-back tilt
                         if (event.beta !== null) {
-                            // If phone is flat or tilted away, normal gravity. If tilted towards user, slow it down.
                             this.gravityY = AppUtils.clamp(0.6 + (event.beta / 90), 0.2, 1.5);
                         }
                     }, true);
@@ -1015,10 +1190,7 @@
                 this.canvas.classList.remove('state-gone'); this.canvas.width = window.innerWidth; this.canvas.height = window.innerHeight; 
                 const startY = originY || this.canvas.height; this.active = true;
                 
-                // Initialize Hardware Gyroscope listener if mobile
-                if (!AppUtils.isDesktopView()) {
-                    this.enableGyroscopeGravity();
-                }
+                if (!AppUtils.isDesktopView()) { this.enableGyroscopeGravity(); }
 
                 for (let i = 0; i < 250; i++) {
                     this.particles.push({
@@ -1041,29 +1213,22 @@
                     // Applied dynamic gyroscopic gravity!
                     p.vel.x += this.gravityX * 0.5; 
                     p.vel.y += this.gravityY; 
-                    
-                    p.vel.x *= 0.98; // Air resistance / Drag (Horizontal)
-                    p.vel.y *= 0.99; // Air resistance / Drag (Vertical)
+                    p.vel.x *= 0.98; // Drag
+                    p.vel.y *= 0.99; // Drag
                     
                     p.pos.add(p.vel); p.rot.add(p.rotSpeed);
                     
-                    // Kill particle if it falls off screen (accounting for gyro blowing it sideways)
-                    if (p.pos.y < this.canvas.height + 100 && p.pos.x > -100 && p.pos.x < this.canvas.width + 100) {
-                        alive = true;
-                    }
+                    if (p.pos.y < this.canvas.height + 100 && p.pos.x > -100 && p.pos.x < this.canvas.width + 100) { alive = true; }
                     
-                    // 3D Projection using Euler Matrix -> 2D Transform Map
+                    // 3D Projection
                     mat.makeRotationFromEuler(p.rot.x, p.rot.y, p.rot.z);
                     this.ctx.save(); this.ctx.translate(p.pos.x, p.pos.y); 
                     this.ctx.transform(mat.elements[0], mat.elements[1], mat.elements[4], mat.elements[5], 0, 0);
                     this.ctx.fillStyle = p.color; this.ctx.fillRect(-p.size.x/2, -p.size.y/2, p.size.x, p.size.y); this.ctx.restore();
                 });
                 
-                if (alive) {
-                    requestAnimationFrame(this.render.bind(this));
-                } else { 
-                    this.active = false; this.particles = []; this.canvas.classList.add('state-gone');
-                }
+                if (alive) { requestAnimationFrame(this.render.bind(this)); } 
+                else { this.active = false; this.particles = []; this.canvas.classList.add('state-gone'); }
             }
         }
 
@@ -1133,49 +1298,25 @@
                 this.cvCanvas = document.createElement('canvas');
                 this.cvCtx = this.cvCanvas.getContext('2d', { willReadFrequently: true });
                 
-                this.stream = null;
-                this.isScanning = false;
-                this.reqFrame = null;
-                this.onSmileDetected = null;
-                
-                // Algorithm baselines
-                this.smileProgress = 0; 
-                this.baseLuminance = 0;
+                this.stream = null; this.isScanning = false; this.reqFrame = null; this.onSmileDetected = null;
+                this.smileProgress = 0; this.baseLuminance = 0;
             }
 
             async startCamera(callback) {
                 this.onSmileDetected = callback;
                 try {
                     this.hintText.innerText = "Requesting Camera Access...";
+                    this.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 320 }, height: { ideal: 320 } }, audio: false });
+                    this.video.srcObject = this.stream; await this.video.play();
+                    this.cvCanvas.width = this.video.videoWidth; this.cvCanvas.height = this.video.videoHeight;
                     
-                    // Request front-facing camera
-                    this.stream = await navigator.mediaDevices.getUserMedia({ 
-                        video: { facingMode: "user", width: { ideal: 320 }, height: { ideal: 320 } }, 
-                        audio: false 
-                    });
-                    
-                    this.video.srcObject = this.stream;
-                    await this.video.play();
-                    
-                    this.cvCanvas.width = this.video.videoWidth;
-                    this.cvCanvas.height = this.video.videoHeight;
-                    
-                    this.hintText.innerText = "Analyzing Face... Smile wide!";
-                    this.isScanning = true;
-                    
-                    // Allow 1 second for auto-exposure to settle, then take baseline
-                    setTimeout(() => {
-                        this.calibrateBaseline();
-                        this.scanFrame();
-                    }, 1000);
-                    
+                    this.hintText.innerText = "Analyzing Face... Smile wide!"; this.isScanning = true;
+                    setTimeout(() => { this.calibrateBaseline(); this.scanFrame(); }, 1000);
                 } catch(e) {
                     console.warn("[CV Engine] Camera access denied or unavailable. Fallback enabled.");
                     this.hintText.innerText = "Camera Blocked. Tap the target to verify manually.";
-                    // Bind fallback tap
                     document.getElementById('stage-act-cv').addEventListener('click', () => {
-                        this.stopCamera();
-                        if(this.onSmileDetected) this.onSmileDetected();
+                        this.stopCamera(); if(this.onSmileDetected) this.onSmileDetected();
                     });
                 }
             }
@@ -1183,19 +1324,11 @@
             calibrateBaseline() {
                 this.cvCtx.drawImage(this.video, 0, 0, this.cvCanvas.width, this.cvCanvas.height);
                 const frameData = this.cvCtx.getImageData(0, 0, this.cvCanvas.width, this.cvCanvas.height).data;
-                
-                // Calculate average luminance of the lower half of the frame (where the mouth usually is)
-                let totalLum = 0;
-                let pixels = 0;
-                
-                const startY = Math.floor(this.cvCanvas.height * 0.5);
+                let totalLum = 0; let pixels = 0; const startY = Math.floor(this.cvCanvas.height * 0.5);
                 for (let y = startY; y < this.cvCanvas.height; y += 4) {
                     for (let x = 0; x < this.cvCanvas.width; x += 4) {
                         const i = (y * this.cvCanvas.width + x) * 4;
-                        // Fast luminance approx: R+R+B+G+G+G / 6
-                        const lum = (frameData[i]*2 + frameData[i+1]*3 + frameData[i+2]) / 6;
-                        totalLum += lum;
-                        pixels++;
+                        totalLum += (frameData[i]*2 + frameData[i+1]*3 + frameData[i+2]) / 6; pixels++;
                     }
                 }
                 this.baseLuminance = totalLum / pixels;
@@ -1203,62 +1336,44 @@
 
             scanFrame() {
                 if (!this.isScanning) return;
-                
                 this.cvCtx.drawImage(this.video, 0, 0, this.cvCanvas.width, this.cvCanvas.height);
                 const frameData = this.cvCtx.getImageData(0, 0, this.cvCanvas.width, this.cvCanvas.height).data;
+                let currentLum = 0; let pixels = 0; let teethDetected = 0; const startY = Math.floor(this.cvCanvas.height * 0.5);
                 
-                let currentLum = 0;
-                let pixels = 0;
-                let teethDetected = 0;
-                
-                const startY = Math.floor(this.cvCanvas.height * 0.5);
                 for (let y = startY; y < this.cvCanvas.height; y += 4) {
                     for (let x = 0; x < this.cvCanvas.width; x += 4) {
                         const i = (y * this.cvCanvas.width + x) * 4;
                         const r = frameData[i]; const g = frameData[i+1]; const b = frameData[i+2];
-                        const lum = (r*2 + g*3 + b) / 6;
-                        currentLum += lum;
-                        pixels++;
-                        
-                        // Heuristic: Smiling often reveals teeth (high brightness, low saturation white/yellow pixels in lower half)
-                        if (r > 180 && g > 180 && b > 160 && Math.abs(r - g) < 30) {
-                            teethDetected++;
-                        }
+                        currentLum += (r*2 + g*3 + b) / 6; pixels++;
+                        if (r > 180 && g > 180 && b > 160 && Math.abs(r - g) < 30) teethDetected++;
                     }
                 }
                 currentLum = currentLum / pixels;
                 
                 // Algorithm: A smile generally broadens the face and reveals teeth, changing lower-half luminance variance.
-                // We use a combination of luminance shift and "teeth pixel" count to fill the meter.
-                const variance = Math.abs(currentLum - this.baseLuminance);
-                
-                if (variance > 5 || teethDetected > 50) {
-                    this.smileProgress += 2; // Fill meter
-                    window.appData.haptics.heartbeat(); // Pulse phone physically
+                if (Math.abs(currentLum - this.baseLuminance) > 5 || teethDetected > 50) {
+                    this.smileProgress += 2; 
+                    if(window.appData && window.appData.network) window.appData.network.broadcastAction('CV_UPDATE', this.smileProgress);
+                    if(window.appData && window.appData.haptics) window.appData.haptics.heartbeat(); 
                 } else {
-                    this.smileProgress -= 1; // Drain meter if smile drops
+                    this.smileProgress -= 1; 
                 }
                 
                 this.smileProgress = AppUtils.clamp(this.smileProgress, 0, 100);
                 this.meterFill.style.width = `${this.smileProgress}%`;
                 
                 if (this.smileProgress >= 100) {
-                    this.hintText.innerText = "Identity Confirmed!";
-                    this.stopCamera();
+                    this.hintText.innerText = "Identity Confirmed!"; this.stopCamera();
+                    if(window.appData && window.appData.network) window.appData.network.broadcastAction('CV_PASSED');
                     setTimeout(() => { if (this.onSmileDetected) this.onSmileDetected(); }, 500);
                 } else {
-                    // Loop
                     this.reqFrame = requestAnimationFrame(this.scanFrame.bind(this));
                 }
             }
 
             stopCamera() {
-                this.isScanning = false;
-                if (this.reqFrame) cancelAnimationFrame(this.reqFrame);
-                if (this.stream) {
-                    this.stream.getTracks().forEach(track => track.stop());
-                    this.video.srcObject = null;
-                }
+                this.isScanning = false; if (this.reqFrame) cancelAnimationFrame(this.reqFrame);
+                if (this.stream) { this.stream.getTracks().forEach(track => track.stop()); this.video.srcObject = null; }
             }
         }
 
@@ -1272,64 +1387,48 @@
             constructor() { 
                 this.screens = document.querySelectorAll('.app-screen'); 
                 
-                // Cache Modal Elements
                 this.modalOverlay = document.getElementById('ui-modal');
                 this.modalTitle = document.getElementById('ui-modal-title');
                 this.modalBody = document.getElementById('ui-modal-body');
                 this.modalIcon = document.getElementById('ui-modal-icon');
                 this.modalActions = document.getElementById('ui-modal-actions');
                 
-                // Bind Modal Close to default button
                 this.defaultModalBtn = document.getElementById('ui-modal-default-btn');
                 this.defaultModalBtn.addEventListener('click', () => this.closeModal());
                 
-                // Bind Audio Toggle
                 this.btnAudio = document.getElementById('btn-master-audio');
                 this.iconOn = document.getElementById('view-sound-on');
                 this.iconOff = document.getElementById('view-sound-off');
             }
             
             showScreen(id) {
-                // Fade out all current screens
                 this.screens.forEach(s => {
                     if (!s.classList.contains('state-hidden') && !s.classList.contains('state-gone')) {
                         s.classList.add('state-hidden');
                     }
                 });
                 
-                // Wait for fade out, then swap display properties
                 setTimeout(() => {
                     this.screens.forEach(s => s.classList.add('state-gone'));
-                    
                     const target = document.getElementById(id);
-                    target.classList.remove('state-gone'); 
-                    void target.offsetWidth; 
-                    target.classList.remove('state-hidden');
-                }, 300); // Matches transition duration
+                    target.classList.remove('state-gone'); void target.offsetWidth; target.classList.remove('state-hidden');
+                }, 300); 
             }
             
             showModal(title, message, customButtons = null, iconHTML = '') {
-                this.modalTitle.innerText = title; 
-                this.modalBody.innerText = message;
-                this.modalIcon.innerHTML = iconHTML;
+                this.modalTitle.innerText = title; this.modalBody.innerText = message; this.modalIcon.innerHTML = iconHTML;
                 
                 if (customButtons) {
                     this.modalActions.innerHTML = '';
                     customButtons.forEach(btnConfig => {
                         const btn = document.createElement('button');
-                        btn.className = `btn-primary btn-modal ${btnConfig.class || ''}`;
-                        btn.innerText = btnConfig.text;
-                        btn.onclick = () => {
-                            if(btnConfig.onClick) btnConfig.onClick();
-                            this.closeModal();
-                        };
+                        btn.className = `btn-primary btn-modal ${btnConfig.class || ''}`; btn.innerText = btnConfig.text;
+                        btn.onclick = () => { if(btnConfig.onClick) btnConfig.onClick(); this.closeModal(); };
                         this.modalActions.appendChild(btn);
                     });
                 } else {
-                    this.modalActions.innerHTML = '';
-                    this.modalActions.appendChild(this.defaultModalBtn);
+                    this.modalActions.innerHTML = ''; this.modalActions.appendChild(this.defaultModalBtn);
                 }
-                
                 this.modalOverlay.classList.add('is-active');
             }
             
@@ -1337,39 +1436,19 @@
             
             toggleDevPanel() { 
                 const p = document.getElementById('dev-terminal');
-                if (p.classList.contains('is-open')) {
-                    p.classList.remove('is-open');
-                    setTimeout(() => p.style.display = 'none', 300);
-                } else {
-                    p.style.display = 'block';
-                    void p.offsetWidth; // Reflow
-                    p.classList.add('is-open');
-                }
+                if (p.classList.contains('is-open')) { p.classList.remove('is-open'); setTimeout(() => p.style.display = 'none', 300); } 
+                else { p.style.display = 'block'; void p.offsetWidth; p.classList.add('is-open'); }
             }
-            closeDevPanel() { 
-                const p = document.getElementById('dev-terminal');
-                p.classList.remove('is-open');
-                setTimeout(() => p.style.display = 'none', 300);
-            }
+            closeDevPanel() { const p = document.getElementById('dev-terminal'); p.classList.remove('is-open'); setTimeout(() => p.style.display = 'none', 300); }
             
             updateAudioIcon(isMuted) {
-                if (isMuted) {
-                    this.iconOn.classList.add('state-gone');
-                    this.iconOff.classList.remove('state-gone');
-                } else {
-                    this.iconOn.classList.remove('state-gone');
-                    this.iconOff.classList.add('state-gone');
-                }
+                if (isMuted) { this.iconOn.classList.add('state-gone'); this.iconOff.classList.remove('state-gone'); } 
+                else { this.iconOn.classList.remove('state-gone'); this.iconOff.classList.add('state-gone'); }
             }
             
             spawnFloatingText(text, x, y) {
-                const el = document.createElement('div'); 
-                el.className = 'fx-float-score'; 
-                el.innerText = text; 
-                el.style.left = `${x}px`; 
-                el.style.top = `${y}px`;
-                document.body.appendChild(el); 
-                setTimeout(() => el.remove(), 1500);
+                const el = document.createElement('div'); el.className = 'fx-float-score'; el.innerText = text; el.style.left = `${x}px`; el.style.top = `${y}px`;
+                document.body.appendChild(el); setTimeout(() => el.remove(), 1500);
             }
         }
 
@@ -1404,27 +1483,16 @@
             }
             
             initialize() {
-                const board = document.getElementById('matrix-board'); 
-                board.innerHTML = '';
-                
-                this.deck = [...this.photoData, ...this.photoData];
-                AppUtils.shuffleArray(this.deck);
+                const board = document.getElementById('matrix-board'); board.innerHTML = '';
+                this.deck = [...this.photoData, ...this.photoData]; AppUtils.shuffleArray(this.deck);
                 
                 this.matchesFound = 0; this.isGridLocked = false; this.timeLeft = 60; this.currentStreak = 0;
                 this.updateHUD();
                 
                 this.deck.forEach((imgUrl) => {
-                    const card = document.createElement('div'); 
-                    card.className = 'game-card'; 
-                    card.dataset.id = imgUrl; 
-                    
-                    card.innerHTML = `
-                        <div class="card-surface surface-front">❤️</div>
-                        <div class="card-surface surface-back"><img src="${imgUrl}" alt="Memory"></div>
-                    `;
-                    
-                    card.addEventListener('click', () => this.handleCardClick(card));
-                    board.appendChild(card);
+                    const card = document.createElement('div'); card.className = 'game-card'; card.dataset.id = imgUrl; 
+                    card.innerHTML = `<div class="card-surface surface-front">❤️</div><div class="card-surface surface-back"><img src="${imgUrl}" alt="Memory"></div>`;
+                    card.addEventListener('click', () => this.handleCardClick(card)); board.appendChild(card);
                 });
                 
                 this.startClock();
@@ -1432,19 +1500,12 @@
             
             startClock() {
                 if(this.timerInterval) clearInterval(this.timerInterval);
-                
                 this.timerInterval = setInterval(() => {
-                    this.timeLeft--; 
-                    this.updateHUD();
-                    
+                    this.timeLeft--; this.updateHUD();
                     if(this.timeLeft <= 0) {
-                        clearInterval(this.timerInterval); 
-                        this.app.synth.error(); this.app.haptics.error();
-                        
+                        clearInterval(this.timerInterval); this.app.synth.error(); this.app.haptics.error();
                         this.app.ui.showModal("Time's Up!", "Don't worry, Mom! You get 30 extra seconds. Keep going!");
-                        
-                        this.timeLeft = 30; this.currentStreak = 0;
-                        this.startClock();
+                        this.timeLeft = 30; this.currentStreak = 0; this.startClock();
                     }
                 }, 1000);
             }
@@ -1452,10 +1513,8 @@
             updateHUD() {
                 this.uiTimeText.innerText = `${this.timeLeft.toFixed(1)}s`;
                 this.uiScoreText.innerText = this.matchesFound;
-                
                 const percentage = Math.min((this.timeLeft / 60) * 100, 100);
                 this.uiProgressBar.style.width = `${percentage}%`;
-                
                 this.uiProgressBar.className = 'hud-fill';
                 if(this.timeLeft <= 15) { this.uiProgressBar.classList.add('status-crit'); } 
                 else if(this.timeLeft <= 30) { this.uiProgressBar.classList.add('status-warn'); }
@@ -1463,24 +1522,16 @@
             
             handleCardClick(card) {
                 if (this.isGridLocked || card.classList.contains('flip-active') || card.classList.contains('match-active')) { return; }
-                
                 this.app.synth.pop(); this.app.haptics.pop(); 
                 
-                const rect = card.getBoundingClientRect();
-                this.app.fx.fireBurst(rect.left + rect.width/2, rect.top + rect.height/2, 10);
+                const rect = card.getBoundingClientRect(); this.app.fx.fireBurst(rect.left + rect.width/2, rect.top + rect.height/2, 10);
                 
-                card.classList.add('flip-active'); 
-                this.flippedCards.push(card);
-                
-                if (this.flippedCards.length === 2) { 
-                    this.isGridLocked = true; 
-                    this.evaluateMatch(); 
-                }
+                card.classList.add('flip-active'); this.flippedCards.push(card);
+                if (this.flippedCards.length === 2) { this.isGridLocked = true; this.evaluateMatch(); }
             }
             
             evaluateMatch() {
                 const [card1, card2] = this.flippedCards;
-                
                 if (card1.dataset.id === card2.dataset.id) {
                     this.matchesFound++; this.currentStreak++;
                     this.app.synth.match(); this.app.haptics.success(); 
@@ -1494,21 +1545,14 @@
                     }
                     
                     this.timeLeft = Math.min(60, this.timeLeft + timeBonus); 
-                    
-                    const rect = card2.getBoundingClientRect(); 
-                    this.app.ui.spawnFloatingText(`+${timeBonus}s`, rect.left + rect.width/2 - 25, rect.top);
+                    const rect = card2.getBoundingClientRect(); this.app.ui.spawnFloatingText(`+${timeBonus}s`, rect.left + rect.width/2 - 25, rect.top);
                     
                     card1.classList.add('match-active'); card2.classList.add('match-active');
                     this.flippedCards = []; this.updateHUD(); this.isGridLocked = false;
                     
-                    if (this.matchesFound === 8) { 
-                        clearInterval(this.timerInterval); 
-                        setTimeout(() => this.app.executeWinProtocol(), 1000); 
-                    }
+                    if (this.matchesFound === 8) { clearInterval(this.timerInterval); setTimeout(() => this.app.executeWinProtocol(), 1000); }
                 } else {
-                    this.currentStreak = 0; 
-                    this.app.synth.error(); this.app.haptics.error(); 
-                    
+                    this.currentStreak = 0; this.app.synth.error(); this.app.haptics.error(); 
                     card1.style.animation = "fxRattle 0.5s"; card2.style.animation = "fxRattle 0.5s";
                     const penaltyDelay = this.timeLeft > 15 ? 900 : 500;
                     
@@ -1529,17 +1573,11 @@
          * ==========================================================================
          */
         class MobileRevealSequencer {
-            constructor(coreApp) { 
-                this.app = coreApp; 
-                this.isUnboxed = false;
-            }
+            constructor(coreApp) { this.app = coreApp; this.isUnboxed = false; }
             
-            /** Initiates the Secure Handshake to request Mic Access gently. */
             beginSequence() {
                 this.app.synth.init(); 
-                
                 const micIconSVG = `<svg viewBox="0 0 24 24" width="60" height="60" fill="#fff"><use href="#svg-mic"></use></svg>`;
-                
                 this.app.ui.showModal(
                     "Sensor Calibration 1 of 2",
                     "We need access to your microphone for a magical surprise. Please click 'Allow' on the browser prompt.",
@@ -1550,6 +1588,7 @@
 
             requestMicAndProceed() {
                 this.app.ui.showScreen('screen-mobile-reveal');
+                this.app.network.broadcastAction('MIC_CALIBRATING');
                 this.app.mic.startListening(() => this.triggerCandleBlowout());
             }
 
@@ -1558,13 +1597,12 @@
                 if (stageCake.classList.contains('slide-out-left')) return; 
                 
                 this.app.mic.stopListening(); this.app.synth.puff();
+                this.app.network.broadcastAction('CANDLES_BLOWN');
                 document.querySelectorAll('.flame-node').forEach(flame => { flame.classList.add('flame-dead'); });
                 
-                // Proceed to Camera Verification Phase
                 setTimeout(() => this.transitionToSmileVerification(stageCake), 2000);
             }
 
-            /** Phase 2: Request Camera Access and run CV Engine */
             transitionToSmileVerification(stageCakeDom) {
                 const stageCV = document.getElementById('stage-act-cv');
                 stageCakeDom.classList.add('slide-out-left');
@@ -1575,12 +1613,11 @@
                     void stageCV.offsetWidth; 
                     stageCV.classList.add('slide-in-active');
                     
-                    // Boot CV Engine
+                    this.app.network.broadcastAction('CV_STARTING');
                     this.app.camera.startCamera(() => this.transitionToGiftBox(stageCV));
                 }, 800);
             }
 
-            /** Phase 3: CV Passed, show the box */
             transitionToGiftBox(stageCVDom) {
                 const stageGift = document.getElementById('stage-act-gift');
                 stageCVDom.classList.add('slide-out-left');
@@ -1593,7 +1630,6 @@
                 }, 800);
             }
 
-            /** Handles the user tapping the 3D Gift Box. */
             openGiftBox() {
                 const boxRig = document.getElementById('gift-interactive-hitbox');
                 if(this.isUnboxed) return; 
@@ -1604,7 +1640,8 @@
                 this.app.synth.sparkle();
                 this.app.haptics.boxOpen();
                 
-                // Fire massive confetti blast with Gyroscope integration active!
+                this.app.network.broadcastAction('GIFT_OPENED');
+                
                 const rect = boxRig.getBoundingClientRect();
                 this.app.confetti.fire(rect.top + rect.height/2);
                 
@@ -1619,13 +1656,14 @@
          */
         class AppOrchestrator {
             constructor() {
-                this.sessionConfig = { countdownTime: 5, secretLocation: "Master Bedroom Closet" };
+                this.sessionConfig = { countdownTime: 5, secretLocation: "Master Bedroom Closet", sessionId: AppUtils.generateSessionId() };
                 
                 this.utils = AppUtils;
                 this.haptics = new HapticEngine();
                 this.synth = new SynthEngine();
                 this.mic = new MicSensor();
                 this.camera = new CameraCVEngine();
+                this.network = new NetworkEngine();
                 
                 this.ambient = new AmbientParticleEngine(); 
                 this.fx = new BurstFXEngine();
@@ -1645,12 +1683,9 @@
                     this.ui.updateAudioIcon(isMuted);
                 });
 
-                // STRICT KEYBOARD SHORTCUTS (Admin Console)
                 document.addEventListener('keydown', (e) => { 
                     if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        this.ui.toggleDevPanel(); 
+                        e.preventDefault(); e.stopPropagation(); this.ui.toggleDevPanel(); 
                     }
                 }, { capture: true });
 
@@ -1660,7 +1695,6 @@
                 });
                 document.getElementById('btn-mobile-proceed').addEventListener('click', () => this.revealer.beginSequence());
 
-                // Reveal Interactions
                 document.getElementById('cake-interactive-hitbox').addEventListener('click', () => this.revealer.triggerCandleBlowout());
                 document.getElementById('gift-interactive-hitbox').addEventListener('click', () => this.revealer.openGiftBox());
 
@@ -1681,14 +1715,22 @@
             evaluateURLRouting() {
                 const urlParams = new URLSearchParams(window.location.search);
                 const encodedPayload = urlParams.get('reveal');
+                const incomingSessionId = urlParams.get('sid');
                 
                 if (encodedPayload) {
+                    // Mobile View (Client)
                     try { 
                         this.sessionConfig.secretLocation = AppUtils.decodeBase64(encodedPayload); 
+                        if (incomingSessionId) {
+                            this.sessionConfig.sessionId = incomingSessionId;
+                            this.network.connect(incomingSessionId, false); // Connect as client
+                        }
+                        
                         this.ui.showScreen('screen-mobile-gateway'); 
                         this.ambient.isTV = false; this.ambient.init();
                     } catch(e) { this.ui.showModal("Decryption Error", "The QR link appears corrupted. Please rescan the TV display."); }
                 } else {
+                    // TV View (Host)
                     this.ui.showScreen('screen-setup');
                 }
             }
@@ -1742,9 +1784,13 @@
 
             executeWinProtocol() {
                 if (AppUtils.isDesktopView()) {
+                    // Connect Network as Host
+                    this.network.connect(this.sessionConfig.sessionId, true);
+                    
                     const cleanUrl = window.location.href.split('?')[0];
                     const encodedPayload = AppUtils.encodeBase64(this.sessionConfig.secretLocation);
-                    const magicUrl = `${cleanUrl}?reveal=${encodedPayload}`;
+                    // Embed session ID in QR URL for the mobile client to sync to
+                    const magicUrl = `${cleanUrl}?reveal=${encodedPayload}&sid=${this.sessionConfig.sessionId}`;
                     const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=350x350&margin=15&color=000000&bgcolor=ffffff&data=${encodeURIComponent(magicUrl)}`;
                     
                     document.getElementById('qr-target-img').src = qrApiUrl;
