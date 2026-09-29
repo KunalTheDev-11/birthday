@@ -531,7 +531,7 @@
                 <div class="q-digit-sub" id="cd-num-ms">.00</div>
             </div>
         </div>
-        <h2>Systems Initiating...</h2>
+        <h2>...</h2>
     </div>
 
     <!-- ==========================================================================
@@ -539,8 +539,8 @@
          ========================================================================== -->
     <div id="screen-welcome" class="app-screen state-hidden">
         <h1>Happy Birthday,<br>Mom!</h1>
-        <p>A high-value package has been hidden in the perimeter.<br>You must bypass the security grid to unlock its exact coordinates.</p>
-        <button class="btn-primary" id="btn-start-grid">Bypass Security</button>
+        <p>A gift has been hidden in the house.<br>You must complete all tasks to unlock its exact loaction.</p>
+        <button class="btn-primary" id="btn-start-grid">Start Tasks</button>
     </div>
 
     <!-- ==========================================================================
@@ -573,14 +573,14 @@
          SCREEN 5: TV WIN STATE (Magic QR Generation & Spectator Dashboard)
          ========================================================================== -->
     <div id="screen-tv-win" class="app-screen state-hidden">
-        <h1>Grid Bypassed!</h1>
-        <p>Security cleared. Extract your phone, open the camera app, and scan this encrypted code to download the coordinates.</p>
+        <h1>Task Completed!</h1>
+        <p>Task cleared. Get your phone and scan this encrypted code to get the loccation.</p>
         
         <div class="dashboard-container">
             <!-- QR Module -->
             <div class="qr-module">
                 <img id="qr-target-img" src="" alt="Encrypted QR Payload" width="250" height="250">
-                <div class="qr-module-text">Scan to Download</div>
+                <div class="qr-module-text">Scan for Loaction</div>
             </div>
             
             <!-- Live Spectator Dashboard (Only visible on large screens) -->
@@ -608,8 +608,8 @@
     <div id="screen-mobile-gateway" class="app-screen state-hidden">
         <div class="glass-panel">
             <h1>Coordinates<br>Acquired</h1>
-            <p>Connection secure. The digital care package is ready for extraction.</p>
-            <button class="btn-primary" id="btn-mobile-proceed">Extract Package</button>
+            <p>Connection secure. The gift is ready for extraction.</p>
+            <button class="btn-primary" id="btn-mobile-proceed">Extract Gift</button>
         </div>
     </div>
 
@@ -620,7 +620,7 @@
         
         <!-- ACT 1: The Birthday Cake & Mic Sensor -->
         <div id="stage-act-cake" class="theater-stage">
-            <h1>Make a Wish!</h1>
+            <h1>...</h1>
             <p>Blow into your device's microphone to extinguish the candles and proceed.</p>
             
             <div class="cake-rig" id="cake-interactive-hitbox">
@@ -637,13 +637,13 @@
                 <div class="mic-eq-bar" id="mic-eq-bar"></div>
             </div>
             
-            <div class="hint-badge" id="mic-hint-text">Calibrating sensors... (Tap cake to override)</div>
+            <div class="hint-badge" id="mic-hint-text">Calibrating sensors... (Tap cake to skip)</div>
         </div>
 
         <!-- ACT 2: Computer Vision (Smile-to-Unlock) Target HUD -->
         <div id="stage-act-cv" class="theater-stage state-gone slide-in-right">
             <h1>Smile Scan</h1>
-            <p>Security protocol requires a massive smile to verify your identity.</p>
+            <p>Smile to get access to coordinates.</p>
             
             <div style="position:relative; margin-top:2rem;">
                 <video id="cv-video-feed" class="cv-camera-feed" autoplay playsinline muted></video>
@@ -661,7 +661,7 @@
         <!-- ACT 3: The Gift Box Unboxing -->
         <div id="stage-act-gift" class="theater-stage state-gone slide-in-right">
             <h1>Identity Verified!</h1>
-            <p>Tap the crate to crack the seal.</p>
+            <p>Tap the gift to crack the seal.</p>
             
             <div class="gift-rig" id="gift-interactive-hitbox">
                 <svg class="gift-vector" viewBox="0 0 200 200"><use href="#model-gift"></use></svg>
@@ -674,14 +674,14 @@
          ========================================================================== -->
     <div id="screen-final-gift" class="app-screen state-hidden">
         <h1>Surprise!</h1>
-        <p>Your birthday gift has been successfully deployed to:</p>
+        <p>Your birthday gift is in:</p>
         
         <div class="location-board">
             <div class="location-data" id="final-loc-string">ERROR_404</div>
         </div>
         
         <br><br><br>
-        <h2>Happy Birthday! Love, Kunal ❤️</h2>
+        <h2>Happy Birthday!</h2>
     </div>
 
     <!-- ==========================================================================
