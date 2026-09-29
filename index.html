@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Viewport configured for perfect fluid responsive scaling and safe-area calculation -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Happy Birthday, Mom!</title>
     
+    <!-- Premium Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,600;0,900;1,600&family=JetBrains+Mono:wght@400;700;900&display=swap" rel="stylesheet">
@@ -14,17 +16,20 @@
            1. CORE DESIGN SYSTEM & CSS VARIABLES
            ========================================================================== */
         :root {
+            /* --- Animation Timings --- */
             --time-instant: 0.05s;
             --time-fast: 0.15s;
             --time-medium: 0.3s;
             --time-slow: 0.6s;
             --time-epic: 1.2s;
             
+            /* --- Easing Curves --- */
             --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --ease-smooth: cubic-bezier(0.2, 0.8, 0.2, 1);
             --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
             --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
+            /* --- Theme: Mobile (Light, Vibrant, Bubbly) --- */
             --theme-m-bg-1: #ff9a9e;
             --theme-m-bg-2: #fecfef;
             --theme-m-bg-3: #fbc2eb;
@@ -38,6 +43,7 @@
             --theme-m-btn-bg: #ffffff;
             --theme-m-btn-txt: #ff758c;
             
+            /* --- Theme: TV/Desktop (Dark, Cinematic, Luxurious) --- */
             --theme-tv-bg-1: #1a202c;
             --theme-tv-bg-2: #050505;
             --theme-tv-text: #ffffff;
@@ -51,6 +57,7 @@
             --theme-tv-btn-bg: linear-gradient(135deg, #ffd700, #ffb300);
             --theme-tv-btn-txt: #000000;
 
+            /* --- System Status Colors --- */
             --sys-success: #22c55e;
             --sys-success-glow: rgba(34, 197, 94, 0.6);
             --sys-warning: #eab308;
@@ -59,6 +66,7 @@
             --sys-danger-glow: rgba(239, 68, 68, 0.6);
             --sys-info: #3b82f6;
 
+            /* --- Typography --- */
             --font-primary: 'Outfit', sans-serif;
             --font-secondary: 'Playfair Display', serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -74,6 +82,7 @@
         }
 
         html { font-size: 16px; }
+
         html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #000; }
 
         body {
@@ -259,9 +268,13 @@
         /* ==========================================================================
            11. COMPONENT: MAGIC QR CODE DATA DISPLAY & LIVE DASHBOARD
            ========================================================================== */
+        /* Fixed layout logic for proper side-by-side scaling on large screens */
         .dashboard-container {
-            display: flex; flex-direction: row; gap: 4rem; align-items: stretch; justify-content: center;
-            width: 90vw; max-width: 1200px;
+            display: flex; flex-direction: column; gap: 2rem; align-items: center; justify-content: center;
+            width: 100%; max-width: 1200px; margin: 0 auto;
+        }
+        @media (min-width: 1024px) {
+            .dashboard-container { flex-direction: row; gap: 4rem; align-items: stretch; }
         }
 
         .qr-module { 
@@ -278,25 +291,24 @@
         /* Live Spectator Dashboard */
         .live-dash {
             background: rgba(17, 24, 39, 0.85); border: 2px solid var(--theme-tv-accent); border-radius: 25px;
-            padding: 3rem; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start;
+            padding: 2.5rem; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start;
             flex-grow: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.9); backdrop-filter: blur(20px);
             font-family: var(--font-mono); opacity: 0; animation: fxFloatUp 1.2s var(--ease-spring) forwards 0.5s;
-            animation-direction: reverse; /* Hack to slide in from bottom */
-            min-width: 400px;
+            animation-direction: reverse; width: 100%; max-width: 600px;
         }
 
         .dash-header { display: flex; justify-content: space-between; width: 100%; border-bottom: 2px solid #374151; padding-bottom: 1rem; margin-bottom: 2rem; }
-        .dash-title { color: var(--theme-tv-accent); font-size: 1.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
-        .dash-status { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; color: #9ca3af; }
+        .dash-title { color: var(--theme-tv-accent); font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+        .dash-status { display: flex; align-items: center; gap: 10px; font-size: clamp(0.9rem, 1.5vw, 1.2rem); color: #9ca3af; }
         .status-dot { width: 12px; height: 12px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 10px #ef4444; }
         .status-dot.active { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
 
         .dash-log { 
             width: 100%; height: 250px; background: #000; border-radius: 10px; padding: 1.5rem;
             overflow-y: auto; display: flex; flex-direction: column; gap: 10px; border: 1px solid #374151;
-            font-size: 1.2rem; color: #22c55e; text-shadow: 0 0 5px rgba(34,197,94,0.5);
+            font-size: clamp(1rem, 2vw, 1.2rem); color: #22c55e; text-shadow: 0 0 5px rgba(34,197,94,0.5);
         }
-        .log-entry { opacity: 0; animation: fxFadeIn 0.3s forwards; }
+        .log-entry { opacity: 0; animation: fxFadeIn 0.3s forwards; text-align: left; }
         .log-entry.warn { color: var(--sys-warning); text-shadow: 0 0 5px rgba(234,179,8,0.5); }
         .log-entry.crit { color: var(--sys-danger); text-shadow: 0 0 5px rgba(239,68,68,0.5); }
 
@@ -306,7 +318,7 @@
         .metric-bar-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #3b82f6, #22c55e); transition: width 0.1s linear; }
 
         /* ==========================================================================
-           12. COMPONENT: MOBILE 3-STAGE REVEAL THEATER WITH CV & GYRO
+           12. COMPONENT: MOBILE 3-STAGE REVEAL THEATER
            ========================================================================== */
         .theater-stage { width: 100vw; display: flex; flex-direction: column; align-items: center; justify-content: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: clamp(1rem, 4vw, 3rem);}
 
@@ -322,30 +334,15 @@
 
         .flame-pos-1 { position: absolute; left: 35.5%; top: -10%; } .flame-pos-2 { position: absolute; left: 47%; top: -20%; } .flame-pos-3 { position: absolute; left: 58.5%; top: -10%; }
 
-        .mic-eq-panel {
-            width: clamp(150px, 40vw, 250px); height: 12px; background: rgba(0,0,0,0.5); border-radius: 6px;
-            border: 2px solid rgba(255,255,255,0.5); margin: 1rem auto; overflow: hidden;
-            display: none;
-        }
+        .mic-eq-panel { width: clamp(150px, 40vw, 250px); height: 12px; background: rgba(0,0,0,0.5); border-radius: 6px; border: 2px solid rgba(255,255,255,0.5); margin: 1rem auto; overflow: hidden; display: none; }
         .mic-eq-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--sys-info), var(--sys-success)); transition: width 0.1s linear; }
 
         .hint-badge { font-size: clamp(1rem, 3vw, 1.5rem); background: rgba(0,0,0,0.7); color: #fff; padding: 1rem 2rem; border-radius: 40px; margin-top: 1.5rem; border: 2px solid #fff; backdrop-filter: blur(10px); animation: fxPulseSoft 2.5s infinite; text-align: center; box-shadow: 0 8px 15px rgba(0,0,0,0.3); z-index: 5;}
 
-        /* --- STAGE B: Computer Vision (Smile-to-Unlock) Target HUD --- */
-        .cv-camera-feed {
-            width: clamp(200px, 60vw, 400px); height: clamp(200px, 60vw, 400px);
-            border-radius: 50%; object-fit: cover; border: 4px solid var(--sys-info);
-            box-shadow: 0 0 30px var(--sys-info-glow);
-            transform: scaleX(-1); /* Mirror */
-        }
-        .cv-target-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.8) 100%);
-            border-radius: 50%; pointer-events: none;
-            display: flex; justify-content: center; align-items: center;
-        }
+        /* --- STAGE B: Computer Vision Target HUD --- */
+        .cv-camera-feed { width: clamp(200px, 60vw, 400px); height: clamp(200px, 60vw, 400px); border-radius: 50%; object-fit: cover; border: 4px solid var(--sys-info); box-shadow: 0 0 30px var(--sys-info-glow); transform: scaleX(-1); }
+        .cv-target-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.8) 100%); border-radius: 50%; pointer-events: none; display: flex; justify-content: center; align-items: center; }
         .cv-reticle { width: 80%; height: 80%; border: 2px dashed rgba(255,255,255,0.5); border-radius: 50%; animation: fxSpinSlow 10s linear infinite; }
-        
         .cv-meter-container { width: clamp(200px, 60vw, 400px); height: 15px; background: rgba(0,0,0,0.6); border-radius: 10px; border: 2px solid #fff; margin-top: 2rem; overflow: hidden;}
         .cv-meter-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #ff9a9e, #22c55e); transition: width 0.3s ease; }
 
@@ -423,13 +420,11 @@
          ========================================================================== -->
     <svg width="0" height="0" style="position:absolute; display:none;" aria-hidden="true">
         <defs>
-            <!-- UI Graphics -->
             <g id="svg-sound-on"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></g>
             <g id="svg-sound-off"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></g>
             <g id="svg-mic"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></g>
             <g id="svg-camera"><path d="M14.12 4l1.83 2H20v12H4V6h4.05l1.83-2h4.24M15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm-3 7c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></g>
 
-            <!-- Ultra-Detailed Cake Vector -->
             <g id="model-cake">
                 <ellipse cx="100" cy="140" rx="90" ry="15" fill="#e2e8f0"/>
                 <ellipse cx="100" cy="143" rx="90" ry="15" fill="#cbd5e1" opacity="0.5"/>
@@ -447,7 +442,6 @@
                 <g transform="translate(122, 8)"><rect x="0" y="0" width="10" height="35" fill="#3b82f6" rx="3"/><path d="M 0 5 L 10 10 L 10 15 L 0 10 Z" fill="#2563eb"/><path d="M 0 15 L 10 20 L 10 25 L 0 20 Z" fill="#2563eb"/></g>
             </g>
 
-            <!-- Ultra-Detailed 3D Gift Box Vector -->
             <g id="model-gift">
                 <path d="M 20 80 L 180 80 L 170 190 L 30 190 Z" fill="#3b82f6"/>
                 <path d="M 20 80 L 40 80 L 50 190 L 30 190 Z" fill="#2563eb" opacity="0.5"/>
@@ -484,7 +478,7 @@
     </button>
 
     <!-- ==========================================================================
-         GLOBAL UI: SECURE CUSTOM MODAL SYSTEM (Overrides window.alert)
+         GLOBAL UI: SECURE CUSTOM MODAL SYSTEM
          ========================================================================== -->
     <div id="ui-modal" class="modal-shield">
         <div class="modal-card">
@@ -531,7 +525,7 @@
                 <div class="q-digit-sub" id="cd-num-ms">.00</div>
             </div>
         </div>
-        <h2>...</h2>
+        <h2>Systems Initiating...</h2>
     </div>
 
     <!-- ==========================================================================
@@ -539,15 +533,14 @@
          ========================================================================== -->
     <div id="screen-welcome" class="app-screen state-hidden">
         <h1>Happy Birthday,<br>Mom!</h1>
-        <p>A gift has been hidden in the house.<br>You must complete all tasks to unlock its exact loaction.</p>
-        <button class="btn-primary" id="btn-start-grid">Start Tasks</button>
+        <p>A high-value package has been hidden in the perimeter.<br>You must bypass the security grid to unlock its exact coordinates.</p>
+        <button class="btn-primary" id="btn-start-grid">Bypass Security</button>
     </div>
 
     <!-- ==========================================================================
          SCREEN 4: THE MEMORY GRID
          ========================================================================== -->
     <div id="screen-game" class="app-screen state-hidden">
-        <!-- HUD Dashboard -->
         <div class="hud-wrapper glass-panel" style="background: var(--theme-m-glass);">
             <div class="hud-header">
                 <span id="stat-clock">60.0s</span>
@@ -561,29 +554,26 @@
             </div>
         </div>
         
-        <!-- Active Matrix Grid -->
         <div class="grid-container glass-panel" style="background: var(--theme-m-glass);">
-            <div class="game-grid" id="matrix-board">
-                <!-- JavaScript Injected Cards -->
-            </div>
+            <div class="game-grid" id="matrix-board"></div>
         </div>
     </div>
 
     <!-- ==========================================================================
-         SCREEN 5: TV WIN STATE (Magic QR Generation & Spectator Dashboard)
+         SCREEN 5: TV WIN STATE (Magic QR Generation & Live Dashboard)
          ========================================================================== -->
     <div id="screen-tv-win" class="app-screen state-hidden">
-        <h1>Task Completed!</h1>
-        <p>Task cleared. Get your phone and scan this encrypted code to get the loccation.</p>
+        <h1>Grid Bypassed!</h1>
+        <p>Security cleared. Extract your phone, open the camera app, and scan this encrypted code to download the coordinates.</p>
         
         <div class="dashboard-container">
             <!-- QR Module -->
             <div class="qr-module">
                 <img id="qr-target-img" src="" alt="Encrypted QR Payload" width="250" height="250">
-                <div class="qr-module-text">Scan for Loaction</div>
+                <div class="qr-module-text">Scan to Download</div>
             </div>
             
-            <!-- Live Spectator Dashboard (Only visible on large screens) -->
+            <!-- Live Spectator Dashboard (Only visible on large screens due to flex wrap) -->
             <div class="live-dash" id="spectator-dashboard">
                 <div class="dash-header">
                     <div class="dash-title">Spectator Link</div>
@@ -603,29 +593,28 @@
     </div>
 
     <!-- ==========================================================================
-         SCREEN 6: MOBILE GATEWAY (Post-Scan Handshake)
+         SCREEN 6: MOBILE GATEWAY
          ========================================================================== -->
     <div id="screen-mobile-gateway" class="app-screen state-hidden">
         <div class="glass-panel">
             <h1>Coordinates<br>Acquired</h1>
-            <p>Connection secure. The gift is ready for extraction.</p>
-            <button class="btn-primary" id="btn-mobile-proceed">Extract Gift</button>
+            <p>Connection secure. The digital care package is ready for extraction.</p>
+            <button class="btn-primary" id="btn-mobile-proceed">Extract Package</button>
         </div>
     </div>
 
     <!-- ==========================================================================
-         SCREEN 7: MOBILE 3-STAGE REVEAL THEATER WITH CV & GYRO
+         SCREEN 7: MOBILE 3-STAGE REVEAL THEATER
          ========================================================================== -->
     <div id="screen-mobile-reveal" class="app-screen state-hidden">
         
-        <!-- ACT 1: The Birthday Cake & Mic Sensor -->
+        <!-- ACT 1: Cake & Mic -->
         <div id="stage-act-cake" class="theater-stage">
-            <h1>...</h1>
+            <h1>Make a Wish!</h1>
             <p>Blow into your device's microphone to extinguish the candles and proceed.</p>
             
             <div class="cake-rig" id="cake-interactive-hitbox">
                 <svg class="cake-vector" viewBox="0 0 200 160"><use href="#model-cake"></use></svg>
-                
                 <div class="candle-layer" id="flame-layer">
                     <div class="flame-pos-1"><div class="flame-node"></div><div class="smoke-node"></div></div>
                     <div class="flame-pos-2"><div class="flame-node"></div><div class="smoke-node"></div></div>
@@ -633,36 +622,28 @@
                 </div>
             </div>
 
-            <div class="mic-eq-panel" id="mic-eq-display">
-                <div class="mic-eq-bar" id="mic-eq-bar"></div>
-            </div>
-            
-            <div class="hint-badge" id="mic-hint-text">Calibrating sensors... (Tap cake to skip)</div>
+            <div class="mic-eq-panel" id="mic-eq-display"><div class="mic-eq-bar" id="mic-eq-bar"></div></div>
+            <div class="hint-badge" id="mic-hint-text">Calibrating sensors... (Tap cake to override)</div>
         </div>
 
-        <!-- ACT 2: Computer Vision (Smile-to-Unlock) Target HUD -->
+        <!-- ACT 2: Computer Vision -->
         <div id="stage-act-cv" class="theater-stage state-gone slide-in-right">
             <h1>Smile Scan</h1>
-            <p>Smile to get access to coordinates.</p>
+            <p>Security protocol requires a massive smile to verify your identity.</p>
             
             <div style="position:relative; margin-top:2rem;">
                 <video id="cv-video-feed" class="cv-camera-feed" autoplay playsinline muted></video>
-                <div class="cv-target-overlay">
-                    <div class="cv-reticle"></div>
-                </div>
+                <div class="cv-target-overlay"><div class="cv-reticle"></div></div>
             </div>
             
-            <div class="cv-meter-container">
-                <div class="cv-meter-fill" id="cv-smile-meter"></div>
-            </div>
+            <div class="cv-meter-container"><div class="cv-meter-fill" id="cv-smile-meter"></div></div>
             <div class="hint-badge" style="margin-top: 1rem;" id="cv-hint-text">Waiting for camera...</div>
         </div>
 
-        <!-- ACT 3: The Gift Box Unboxing -->
+        <!-- ACT 3: Gift Box -->
         <div id="stage-act-gift" class="theater-stage state-gone slide-in-right">
             <h1>Identity Verified!</h1>
-            <p>Tap the gift to crack the seal.</p>
-            
+            <p>Tap the crate to crack the seal.</p>
             <div class="gift-rig" id="gift-interactive-hitbox">
                 <svg class="gift-vector" viewBox="0 0 200 200"><use href="#model-gift"></use></svg>
             </div>
@@ -674,19 +655,18 @@
          ========================================================================== -->
     <div id="screen-final-gift" class="app-screen state-hidden">
         <h1>Surprise!</h1>
-        <p>Your birthday gift is in:</p>
+        <p>Your birthday gift has been successfully deployed to:</p>
         
         <div class="location-board">
             <div class="location-data" id="final-loc-string">ERROR_404</div>
         </div>
         
         <br><br><br>
-        <h2>Happy Birthday!</h2>
+        <h2>Happy Birthday! Love, Kunal ❤️</h2>
     </div>
 
     <!-- ==========================================================================
-         DEVELOPER COMMAND CENTER (Massive Hidden Admin Panel)
-         Triggered strictly via Ctrl + Shift + D
+         DEVELOPER COMMAND CENTER (Hidden Admin Panel)
          ========================================================================== -->
     <div id="dev-terminal" class="dev-terminal">
         <div class="dev-header">
@@ -720,15 +700,11 @@
             </div>
         </div>
         
-        <div class="dev-footer">
-            Browser Defaults Blocked | Shortcut: Ctrl + Shift + D
-        </div>
+        <div class="dev-footer">Browser Defaults Blocked | Shortcut: Ctrl + Shift + D</div>
     </div>
 
     <!-- ==========================================================================
          JAVASCRIPT ENGINE ARCHITECTURE
-         Over 2700 lines of robust ES6 Class-based logic.
-         Includes WebSockets, 3D Math, Physics, Gyroscope, Audio, Computer Vision, and Game logic.
          ========================================================================== -->
     <script>
         'use strict';
@@ -766,18 +742,13 @@
          */
         class NetworkEngine {
             constructor() {
-                // Using piehost free public websocket cluster for testing/demo purposes
-                // In production, replace with a dedicated Firebase or Node.js WS server.
-                this.socketUrl = 'wss://free.blr2.piesocket.com/v3/1?api_key=4O28F3G955B7q1PzP7sP0N6H3q6pX8&notify_self=0';
+                // Highly reliable, zero-config public WebSocket echo server
+                this.socketUrl = 'wss://ws.postman-echo.com/raw';
                 this.ws = null;
                 this.sessionId = null;
                 this.isHost = false; // TV is Host, Mobile is Client
                 
                 this.isConnected = false;
-                
-                // Callbacks
-                this.onClientConnected = null;
-                this.onActionReceived = null;
                 
                 // DOM Cache for TV Dashboard
                 this.domStatusTxt = document.getElementById('socket-status-txt');
@@ -814,7 +785,7 @@
                     this.ws.onmessage = (event) => {
                         try {
                             const data = JSON.parse(event.data);
-                            // Only process messages matching our session ID
+                            // Only process messages matching our session ID to prevent cross-talk on public echo server
                             if (data.sessionId === this.sessionId) {
                                 this.handleIncomingMessage(data.action, data.payload);
                             }
@@ -862,17 +833,17 @@
                         break;
                     case 'CV_STARTING':
                         this.logEvent("> INITIATING FACIAL BIOMETRIC SCAN...", "warn");
-                        this.domMetricUI.style.display = 'block'; // Show smile meter on TV
+                        if(this.domMetricUI) this.domMetricUI.style.display = 'block'; // Show smile meter on TV
                         break;
                     case 'CV_UPDATE':
                         // Live sync the smile meter
-                        this.domMetricFill.style.width = `${payload}%`;
-                        this.domMetricTxt.innerText = `${payload}%`;
+                        if(this.domMetricFill) this.domMetricFill.style.width = `${payload}%`;
+                        if(this.domMetricTxt) this.domMetricTxt.innerText = `${payload}%`;
                         break;
                     case 'CV_PASSED':
                         this.logEvent("> BIOMETRIC MATCH CONFIRMED.", "success");
-                        this.domMetricFill.style.width = `100%`;
-                        this.domMetricTxt.innerText = `100%`;
+                        if(this.domMetricFill) this.domMetricFill.style.width = `100%`;
+                        if(this.domMetricTxt) this.domMetricTxt.innerText = `100%`;
                         break;
                     case 'GIFT_OPENED':
                         this.logEvent("> CRATE SEAL BROKEN. DEPLOYING CONFETTI.", "crit");
@@ -906,7 +877,7 @@
 
         /**
          * ==========================================================================
-         * 3D MATHEMATICS LIBRARY (Vector3, Matrix4, Euler)
+         * 3D MATHEMATICS LIBRARY (Vector3, Matrix4)
          * ==========================================================================
          */
         class Vector3 {
@@ -1235,7 +1206,6 @@
         /**
          * ==========================================================================
          * HARDWARE SENSOR: MICROPHONE (WebRTC)
-         * Analyzes audio frequency bins to mathematically detect blowing wind noise.
          * ==========================================================================
          */
         class MicSensor {
@@ -1284,8 +1254,6 @@
         /**
          * ==========================================================================
          * HARDWARE SENSOR: COMPUTER VISION CAMERA (Smile Detection)
-         * Uses a lightweight client-side pixel variance algorithm to detect changes
-         * in facial structure (smiling) without external libraries.
          * ==========================================================================
          */
         class CameraCVEngine {
@@ -1380,7 +1348,6 @@
         /**
          * ==========================================================================
          * UI MANAGER (DOM Controller)
-         * Centralized control for screen transitions, custom modals, and floating fx.
          * ==========================================================================
          */
         class UIManager {
@@ -1718,7 +1685,6 @@
                 const incomingSessionId = urlParams.get('sid');
                 
                 if (encodedPayload) {
-                    // Mobile View (Client)
                     try { 
                         this.sessionConfig.secretLocation = AppUtils.decodeBase64(encodedPayload); 
                         if (incomingSessionId) {
@@ -1730,7 +1696,6 @@
                         this.ambient.isTV = false; this.ambient.init();
                     } catch(e) { this.ui.showModal("Decryption Error", "The QR link appears corrupted. Please rescan the TV display."); }
                 } else {
-                    // TV View (Host)
                     this.ui.showScreen('screen-setup');
                 }
             }
@@ -1784,12 +1749,10 @@
 
             executeWinProtocol() {
                 if (AppUtils.isDesktopView()) {
-                    // Connect Network as Host
                     this.network.connect(this.sessionConfig.sessionId, true);
                     
                     const cleanUrl = window.location.href.split('?')[0];
                     const encodedPayload = AppUtils.encodeBase64(this.sessionConfig.secretLocation);
-                    // Embed session ID in QR URL for the mobile client to sync to
                     const magicUrl = `${cleanUrl}?reveal=${encodedPayload}&sid=${this.sessionConfig.sessionId}`;
                     const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=350x350&margin=15&color=000000&bgcolor=ffffff&data=${encodeURIComponent(magicUrl)}`;
                     
